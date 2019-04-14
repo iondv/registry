@@ -1,0 +1,8 @@
+<div class="form-group <%= field.required?"required":"" %> <%=cssFromTags(field)%>"
+     style="<%=styleFromTags(field)%>">
+    <label for="obj-<%= prop.getName() %>" class="col-md-2 col-sm-3 control-label"><%= field.caption %><% include help-sign %></label>
+    <div class="col-md-10 col-sm-9">
+      <input type="text" class="form-control" id="obj-<%= prop.getName() %>" name="obj-<%= prop.getName() %>" placeholder="<%= field.caption %>" value="<%= prop.getDisplayValue() %>">
+        <p class="error-block"></p>
+    </div>
+</div>

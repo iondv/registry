@@ -1,0 +1,10 @@
+<!-- _file-frame -->
+<div class="form-group <%=cssFromTags(field)%>" data-attr="<%= prop.getName() %>" style="display:none;<%=styleFromTags(field)%>" data-type="file-frame">
+  <label for="<%= id %>" class="col-md-2 col-sm-3 control-label"><%= field.caption %><% include help-sign %></label>
+  <div class="file-frame col-md-10 col-sm-9">
+    <p class="form-control-static">
+      <a href="/download/" target="_blank" class="file-frame-title">File uploaded</a>
+      <span class="remove-file-tool glyphicon glyphicon-remove text-danger ml10" title="Delete"></span>
+    </p>
+  </div>
+</div>

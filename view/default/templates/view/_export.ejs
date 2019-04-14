@@ -1,0 +1,23 @@
+<div class="btn-group">
+  <button id="<%=`${buttonPrefix}export-toggle`%>" type="button" title="Export"
+          class="export-toggle btn btn-default dropdown-toggle" data-toggle="dropdown">
+    <span class="glyphicon glyphicon-export"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <% for (var cmd of exporters) { %>
+    <li>
+      <a id="<%=`${buttonPrefix}${cmd.name.toLowerCase()}`%>"
+         class="export <%- cmd.name %>"
+         data-format="<%-cmd.name%>"
+         data-has-params="<%- cmd.getParams() ? 'true' : 'false' %>"
+         data-is-background="<%=cmd.isBackground() ? 'true' : 'false'%>">
+        <%-cmd.caption%>
+        <% if (cmd.isBackground()) { %>
+          <i class="loader fa fa-spin fa-spinner"></i>
+          <i class="download fa fa-file-o"></i>
+        <% } %>
+      </a>
+    </li>
+    <% } %>
+  </ul>
+</div>

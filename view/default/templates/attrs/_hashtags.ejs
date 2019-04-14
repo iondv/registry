@@ -1,0 +1,43 @@
+<%
+
+var collValue = prop.evaluate() || [];
+var vals = [];
+for (let i = 0; i < collValue.length; i++) {
+    vals.push(collValue[i].getItemId());
+}
+
+var options = {
+  _url: `/${module}/api/${item.getClassName()}/${prop.getName()}/selection`,
+  _length: 25,
+  _filter: field.selConditions,
+  _sorting: field.selSorting,
+  _value: vals,
+  createUrl: `/${module}/api/${item.getClassName()}/${prop.getName()}/createHashtag`,
+  updateUrl: item.getItemId() ?
+    `/${module}/${node}/view/${item.getClassName()}.${item.getItemId()}/${prop.getName()}/${prop.meta.itemsClass}` :
+    `/${module}/${node}/view/${item.getClassName()}/${prop.getName()}/${prop.meta.itemsClass}`,
+  globalReadonly,
+  condensedView
+};
+%>
+
+<div class="form-group <%=cssFromTags(field)%>"
+     style="<%=styleFromTags(field)%>"
+     data-type="hashtags"
+     data-options="<%=JSON.stringify(options)%>"
+     data-attr="<%= prop.getName() %>">
+
+  <label for="<%= id %>" class="col-sm-3 col-md-2 control-label"><%= field.caption %><% include help-sign %></label>
+  <div class="col-sm-9 col-md-10">
+    <div class="form-control-box">
+      <select class="form-control attr-value" id="<%= id %>" multiple>
+        <% for (let i = 0; i < collValue.length; i++) { %>
+          <option value="<%=collValue[i].getItemId()%>">
+            <%= collValue[i].toString(prop.meta.semanticGetter, utils.dateCallback) %>
+          </option>
+        <% } %>
+      </select>
+    </div>
+    <p class="error-block"></p>
+  </div>
+</div>

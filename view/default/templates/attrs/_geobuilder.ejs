@@ -1,0 +1,80 @@
+<!-- geobuilder -->
+
+<div class="form-group <%= field.required ? "required" : "" %> <%=cssFromTags(field)%>"
+     style="<%=styleFromTags(field)%>" data-type="geobuilder">
+  <label for="<%= id %>" class="col-md-2 col-sm-3 control-label"><%= field.caption %>
+    <% include help-sign %>
+  </label>
+  <div class="col-md-10 col-sm-9">
+    <div class="geobuilder">
+      <input type="hidden" id="<%= id %>" name="<%= prop.getName() %>" class="coords" value="<%= JSON.stringify(prop.getValue()) %>">
+      <button type="button" class="geobuilder-loader btn btn-default" disabled>
+        <span class="fa fa-refresh fa-spin"></span>
+      </button>
+      <% if (!prop.readonly) { %>
+      <div class="list-tools">
+        <button type="button" class="create-btn btn btn-primary">
+          <span class="glyphicon glyphicon-map-marker"></span>
+          Create geo objects
+        </button>
+        <button type="button" class="update-btn btn btn-info">
+          <span class="glyphicon glyphicon-map-marker"></span>
+          Edit geo objects
+        </button>
+      </div>
+      <% } %>
+      <div class="field-map"></div>
+      <p class="error-block"></p>
+      <div class="modal">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Geo-object constructor</h4>
+            </div>
+            <div class="modal-body">
+              <div>
+                <button type="button" class="save-btn btn btn-success">Complete</button>
+              </div>
+              <div class="modal-map"></div>
+              <div class="color-picker clearfix">
+                <div class="color-picker-item" style="background:#ffd21e" data-color="#ffd21e"></div>
+                <div class="color-picker-item" style="background:#ff931e" data-color="#ff931e"></div>
+                <div class="color-picker-item" style="background:#e6761b" data-color="#e6761b"></div>
+                <div class="color-picker-item" style="background:#ed4543" data-color="#ed4543"></div>
+                <div class="color-picker-item" style="background:#b3b3b3" data-color="#b3b3b3"></div>
+                <div class="color-picker-item" style="background:#f371d1" data-color="#f371d1"></div>
+                <div class="color-picker-item" style="background:#b51eff" data-color="#b51eff"></div>
+                <div class="color-picker-item" style="background:#793d0e" data-color="#793d0e"></div>
+                <div class="color-picker-item" style="background:#56db40" data-color="#56db40"></div>
+                <div class="color-picker-item" style="background:#1bad03" data-color="#1bad03"></div>
+                <div class="color-picker-item" style="background:#97a100" data-color="#97a100"></div>
+                <div class="color-picker-item" style="background:#595959" data-color="#595959"></div>
+                <div class="color-picker-item" style="background:#82cdff" data-color="#82cdff"></div>
+                <div class="color-picker-item" style="background:#1e98ff" data-color="#1e98ff"></div>
+                <div class="color-picker-item" style="background:#177bc9" data-color="#177bc9"></div>
+                <div class="color-picker-item" style="background:#0e4779" data-color="#0e4779"></div>
+              </div>
+              <div class="geojson geobuilder-geojson mt20">
+                <div class="row mb0">
+                  <div class="col-md-2 col-sm-3">
+                    <button type="button" class="btn btn-primary export-btn mb10 full-width" title="From map to text">
+                      Export
+                    </button>
+                    <button type="button" class="btn btn-default import-btn full-width" title="From text to map">
+                      Import
+                    </button>
+                  </div>
+                  <div class="col-md-10 col-sm-9">
+                    <textarea class="export-data form-control" rows="5" placeholder="Data in GEO-JSON format"></textarea>
+                    <div class="invalid-json text-danger mt10">Data contains an error ...</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

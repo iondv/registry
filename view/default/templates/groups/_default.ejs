@@ -1,0 +1,8 @@
+
+<% fields.sort((a, b)=> a.orderNumber - b.orderNumber); %>
+
+<div id='tabs-<%= numb %>' class="tab-pane <%- numb === 0 ? 'active' : '' %>">
+  <% fields.forEach((prop, i) => { %>
+    <%- partial('./_default_prop', {prop, item, tabIndex: numb, fieldIndex: i}) %>
+  <% }); %>
+</div>

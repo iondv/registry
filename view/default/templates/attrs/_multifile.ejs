@@ -1,0 +1,78 @@
+<!-- multifile -->
+
+<%
+
+var opts = Object.assign(
+  {},
+  field.options,
+  {
+    maxFiles: prop.meta.maxFileCount || 10,
+    extensions: prop.meta.allowedFileTypes && prop.meta.allowedFileTypes.length
+      ? prop.meta.allowedFileTypes
+      : undefined
+  },
+);
+
+%>
+
+<div class="form-group <%= field.required?"required":"" %>" data-attr="<%= prop.getName() %> <%=cssFromTags(field)%>"
+     style="<%=styleFromTags(field)%>" data-type="multifile" data-prop="<%= JSON.stringify(field) %>">
+    <label for="<%= id %>" class="col-md-2 col-sm-3 control-label"><%= field.caption %><% include help-sign %></label>
+    <div class="col-md-10 col-sm-9">
+      <%
+      var files = prop.getValue();
+      var fileIds = [];
+      %>
+      <% if (files && Array.isArray(files)) { %>
+      <%
+        for (var i = 0; i < files.length; i++) {
+          fileIds.push(files[i].id);
+      %>
+      <p  data-fileid="<%=files[i].id%>" class="form-control-static file-frame">
+        <a href="<%= files[i].link %>" target="_blank" class="file-frame-title"><%=files[i].name%></a>
+        <span class="remove-file-btn glyphicon glyphicon-remove text-danger ml10" title="Delete file"></span>
+      </p>
+      <% } %>
+      <% } %>
+        <input type="hidden" id="<%= id %>" name="<%= prop.getName() %>"
+               class="attr-value" value="<%=JSON.stringify(fileIds)%>">
+        <ul class="uploaded-list"></ul>
+      <%
+        
+      %>
+        <div class="uploader" data-attr="<%= prop.getName() %>" 
+            <% if (item.getItemId()) { %>
+              data-url="<%=module%>/api/upload/<%= item.getClassName() %>/<%= item.getItemId() %>" 
+            <% } else { %>
+              data-url="<%=module%>/api/upload/<%= item.getClassName() %>"
+            <% } %>
+            data-options="<%=JSON.stringify(opts)%>">
+            <div class="uploader-input">
+                <input type="file" class="uploader-input-file">
+                <div class="uploader-dropzone">
+                    <div class="uploader-dropzone-h1">Перетащите файлы сюда</div>
+                    <div class="uploader-dropzone-h2">or select from folder</div>
+                </div>
+                <div class="uploader-overflow">Too many files</div>
+            </div>
+            <div class="uploader-list clearfix">
+                <div class="uploader-item pending sample">
+                    <div class="uploader-thumb"><div></div></div>
+                    <div class="uploader-signs">
+                        <div class="uploader-sign-pending fa fa-refresh fa-spin"></div>
+                        <div class="uploader-sign-processing fa fa-refresh fa-spin"></div>
+                        <div class="uploader-sign-done glyphicon glyphicon-ok"></div>
+                        <div class="uploader-sign-failed glyphicon glyphicon-ban-circle"></div>
+                    </div>
+                    <div class="uploader-remove" title="Delete"><span class="glyphicon glyphicon-remove"></span></div>
+                    <div class="uploader-info">
+                        <div class="uploader-filename">File</div>
+                        <div class="progress progress-xxs"><div class="progress-bar"></div></div>
+                        <div class="uploader-message">Waiting for review ...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="error-block"></p>
+    </div>
+</div>

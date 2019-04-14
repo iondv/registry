@@ -1,0 +1,15 @@
+<%
+var controlType = "specify";
+var controllerPath = '/' + module + '/api/' + item.getClassName() + '/' + prop.getName() + '/clarifyingSearch';
+var subfields = [];
+
+for (var i = 0; i < field.fields.length; i++) {
+  subfields.push({
+    caption: field.fields[i].caption,
+    id: `${id}_`+ i,
+    property: field.fields[i].property
+  });
+}
+%>
+
+<%- include _select_group.ejs %>

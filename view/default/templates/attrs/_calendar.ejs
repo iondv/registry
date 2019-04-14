@@ -1,0 +1,35 @@
+<div class="form-group <%=cssFromTags(field)%>" style="<%=styleFromTags(field)%>" data-type="calendar" data-value="<%= JSON.stringify(prop.getValue())%>">
+  <label for="<%= id %>" class="col-md-2 col-sm-3 control-label"><%= field.caption %><% include help-sign %></label>
+  <div class="col-md-10 col-sm-9">
+
+    <select class="month-select">
+      <option value="0">January</option>
+      <option value="1">February</option>
+      <option value="2">March</option>
+      <option value="3">April</option>
+      <option value="4">May</option>
+      <option value="5">June</option>
+      <option value="6">July</option>
+      <option value="7">August</option>
+      <option value="8">September</option>
+      <option value="9">October</option>
+      <option value="10">November</option>
+      <option value="11">December</option>
+    </select>
+    <button class="year-calendar-opener btn btn-default">Year</button>
+    <div class="month-calendar"></div>
+
+    <div class="imodal-frame year-calendar-frame">
+      <div class="imodal-box">
+        <div class="imodal-box-header">
+          <button type="button" class="year-calendar-frame-close close"><span>×</span></button>
+        </div>
+
+        <div class="imodal-box-body">
+          <div class="year-calendar"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

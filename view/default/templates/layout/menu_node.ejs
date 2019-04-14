@@ -1,0 +1,36 @@
+<%
+var id = `n_${menuNode.id.replace('.', '_')}`;
+var opened = isMenuOpened(menuNode, currPath[0]);
+var subPath = opened ? ((menuNode.itemType === 'section') ? currPath : currPath.slice(1)) : null;
+%>
+<% if (menuNode.nodes.length) { %>
+<li class="treeview<%= (opened) ? ' menu-open' : '' %>">
+  <a id="<%= id %>" href="#" title="<%= menuNode.hint || menuNode.caption %>" class="treeview-link">
+    <i class="fa fa-menu-arrow pull-right toggler"></i>
+    <i class="main-icon fa fa-institution" title="<%= menuNode.hint ? menuNode.hint : menuNode.caption %>"></i>
+    <span><%= menuNode.caption %></span>
+  </a>
+  <% if(menuTypes && menuNode.type === menuTypes.COMBO) { %>
+  <ul class="combo-menu">
+    <%- partial("./menu_node_select.ejs", {menuNode, subPath}) %>
+  </ul>
+  <% } else { %>
+  <ul class="treeview-menu">
+    <% for (let childNode of menuNode.nodes){ %>
+    <%- partial("./menu_node.ejs", {
+      menuNode: childNode,
+      currPath: subPath}) %>
+    <% } %>
+  </ul>
+  <% } %>
+</li>
+<% } else if(menuNode.url) { %>
+<li class="<%= (opened) ? ' active' : '' %>">
+  <a id="<%= id %>" class="menu-link" href="<%= menuNode.url %>" title="<%= menuNode.hint || menuNode.caption %>"
+    <% if (menuNode.external) { %>
+     target="_blank"
+    <% } %>
+  ><%= menuNode.caption %></a>
+</li>
+<% } %>
+

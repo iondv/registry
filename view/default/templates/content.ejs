@@ -1,0 +1,20 @@
+<% layout('./layout') -%>
+
+<section id="middle">
+  <div class="middle-header">
+    <% if (typeof windowLink !== 'undefined' && windowLink) { %>
+    <h3 class="middle-title">
+      <a href="<%=windowLink%>" target="_blank" class="browser-title"><%= title %></a>
+    </h3>
+    <% } else { %>
+    <h3 class="middle-title browser-title"><%= title %></h3>
+    <% } %>
+  </div>
+  <div id="content" class="">
+    <div id="message-callout" class="message-callout alert">
+      <h4 class="message-callout-title"></h4>
+      <p class="message-callout-content"></p>
+    </div>
+    <%- body %>
+  </div>
+</section>

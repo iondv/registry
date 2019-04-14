@@ -1,0 +1,22 @@
+<!-- period -->
+<div class="form-group <%= field.required?"required":"" %> <%=cssFromTags(field)%>"
+     style="<%=styleFromTags(field)%>" data-type="period">
+    <label for="<%= id %>" class="col-md-2 col-sm-3 control-label"><%= field.caption %><% include help-sign %></label>
+    <div class="col-md-10 col-sm-9">
+        <div class="input-group">
+          <%
+          var v = prop.getValue();
+          if (Array.isArray(v) && v.length === 2) {
+            v = JSON.stringify([locale.formatDateTime(v[0]), locale.formatDateTime(v[1])]);
+          }
+          %>
+          <input type="hidden" class="attr-value" id="<%= id %>"
+                 name="<%= prop.getName() %>" value="<%=v %>">
+          <input type="text" class="form-control form-datepicker start" placeholder="Date">
+          <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+          <input type="text" class="form-control form-datepicker end" placeholder="Date">
+          <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+        </div>
+        <p class="error-block"></p>
+    </div>
+</div>

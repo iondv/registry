@@ -1,0 +1,25 @@
+<!-- dropdown-object -->
+<% if (!attrPermissions || attrPermissions.read) { %>
+<% var referenceValue, displayValue, controlType = "reference"; %>
+
+<%- include _reference_header.ejs %>
+
+<input type="hidden"
+  id="<%= id %>"
+  name="<%= prop.getName() %>"
+  data-ref-class="<%= prop.meta.refClass %>"
+  value="<%=referenceValue ? referenceValue : '' %>"
+  class="attr-value" />
+
+<%if (attrPermissions.write) { %>
+  <div class="form-control form-control-static display-value display-link"><%= displayValue %></div>
+<% } else if (referenceValue) { %>
+<div class="form-control-static">
+  <a href="<%= `${options.updateUrl}/${referenceValue}` %>" class="modal-link hidden-link">
+      <%= displayValue %>
+  </a>
+</div>
+<% } %>
+
+<%- include _reference_footer.ejs %>
+<% } %>

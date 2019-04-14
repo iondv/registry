@@ -1,0 +1,46 @@
+<div class="history-page imodal-frame">
+  <div class="imodal-box">
+    <div class="imodal-box-header">
+      <button type="button" class="history-page-close close"><span>×</span></button>
+      <h3 class="imodal-box-title browser-title">
+        Object change log <%= title %>
+      </h3>
+    </div>
+
+    <div class="imodal-box-body">
+
+      <div class="history-page-error alert alert-danger" style="display:none;">
+        <h4 class="history-page-title"></h4>
+        <p class="history-page-content"></p>
+      </div>
+
+      <div class="panel-default">
+        <div class="panel-heading">
+          <button type="button" class="history-page-close btn btn-default">Close</button>
+          <button type="button" class="history-page-reload btn btn-default" title="Update"><span class="fa fa-refresh"></span></button>
+
+          <div class="history-page-interval-controls">
+            <button type="button" id="prevInterval" class="btn btn-default"><span class="fa fa-angle-double-left"></span></button>
+            <div class="input-group">
+              <input type="text" id="since" class="form-control">
+              <input type="text" id="till" class="form-control">
+            </div>
+            <button type="button" id="nextInterval" class="btn btn-default"><span class="fa fa-angle-double-right"></span></button>
+          </div>
+
+          <div class="history-page-pagination-controls">
+            <button type="button" id="prevPage" class="btn btn-default"><span class="fa fa-angle-left"></span></button>
+            <div class="input-group">
+              <input type="text" id="firstIndex" class="form-control">
+              <input type="text" id="lastIndex" class="form-control">
+            </div>
+            <button type="button" id="nextPage" class="btn btn-default"><span class="fa fa-angle-right"></span></button>
+          </div>
+        </div>
+        <div class="history-page-list panel-body">
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.2.2 (9983) - http://www.bohemiancoding.com/sketch -->
+    <title>point</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="zpt-3" sketch:type="MSLayerGroup" transform="translate(3.000000, 1.000000)">
+            <path d="M5.05065357,9.92639069 L4.40145807,13.4247414 C4.09477201,15.0773951 4.64842754,15.3125433 5.62205091,13.9293355 C5.62205091,13.9293355 8.5277366,10.1208767 9.59354318,7.22616113 C9.68168699,6.98676377 9.80090196,6.57885539 9.87464087,6.07265247 C9.95667371,5.71597741 10,5.34467132 10,4.96332006 C10,2.22215395 7.76142389,0 5,0 C2.23857611,0 0,2.22215395 0,4.96332006 C0,7.70448617 2.23857611,9.92664012 5,9.92664012 C5.01690425,9.92664012 5.0337889,9.92655685 5.05065357,9.92639069 Z" id="Path-192" fill="#333333" sketch:type="MSShapeGroup"></path>
+            <ellipse id="Oval-64" fill="#FFFFFF" sketch:type="MSShapeGroup" cx="5" cy="4.92307692" rx="1.875" ry="1.84615385"></ellipse>
+        </g>
+    </g>
+</svg>

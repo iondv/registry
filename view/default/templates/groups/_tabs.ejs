@@ -1,0 +1,14 @@
+
+<% if (tabs.length > 1 || (tabs.length > 0 && tabs[0].caption !== '')) { %>
+<% maxTabWidth = maxTabWidth || 'none'; %>
+<ul class="nav nav-tabs object-form-tablist">
+  <% for (let i = 0; i < tabs.length; ++i) { %>
+    <li class="<%- i === 0 ? 'active' : '' %>">
+      <a href='#tabs-<%= i %>' data-toggle="tab" title="<%= tabs[i].caption %>"
+         style="max-width: <%- maxTabWidth%>">
+          <%= tabs[i].caption %>
+      </a>
+    </li>
+  <% } %>
+</ul>
+<% } %>

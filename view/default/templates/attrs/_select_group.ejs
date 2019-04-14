@@ -1,0 +1,78 @@
+<%
+var options = {
+  _url: encodeURI(controllerPath),
+  _filter: field.selConditions,
+  _sorting: field.selSorting
+};
+
+var referenceValue, displayValue, masterCss;
+%>
+
+<%- include _reference_header.ejs %>
+
+<input type="hidden"
+       id="<%= id %>"
+       name="<%= prop.getName() %>"
+       data-ref-class="<%= prop.meta.refClass %>"
+       value="<%= referenceValue ? referenceValue : '' %>" class="attr-value" />
+<input type="text" name="<%= prop.getName() %>_str" class="form-control display-value" value="<%= displayValue %>" readonly/>
+
+<div class="imodal-frame select-group">
+  <div class="imodal-box">
+    <div class="imodal-box-header">
+      <button type="button" class="select-group-close close"><span>×</span></button>
+      <h3 class="imodal-box-title browser-title">
+        <%= field.caption %>
+      </h3>
+    </div>
+
+    <div class="imodal-box-body">
+      <div class="select-group-error message-callout alert alert-danger">
+        <h4 class="select-group-title message-callout-title"></h4>
+        <p class="select-group-content message-callout-content"></p>
+      </div>
+
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <button disabled="true" type="button" class="select-group-confirm btn CREATE">
+            Accept
+          </button>
+          <button type="button" class="select-group-close btn btn-default">
+            Close
+          </button>
+        </div>
+
+        <div class="panel-body">
+          <% for (var i = 0; i < subfields.length; i++) { %>
+          <div class="form-group">
+            <label for="<%= subfields[i].id %>" class="col-sm-2 control-label"><%= subfields[i].caption %></label>
+            <div class="col-sm-10">
+              <div class="form-control-box">
+                <select class="form-control"
+                        id="<%= subfields[i].id %>"
+                        data-props="<%= JSON.stringify(subfields[i]) %>">
+                  <% if (subfields[i].value) { %><option selected value="<%= subfields[i].value %>"><%= subfields[i].displayValue %></option><% } %>
+                </select>
+              </div>
+            </div>
+          </div>
+          <% } %>
+          <div class="form-group">
+            <label for="<%= id %>" class="col-sm-2 control-label"><%= field.caption %></label>
+            <div class="col-sm-10">
+              <div class="form-control-box">
+                <select class="form-control main-select"
+                        id="<%= id %>"
+                        value="<%= referenceValue?referenceValue:'' %>">
+                  <% if (referenceValue) { %><option value="<%= referenceValue?referenceValue:''%>"><%= displayValue %></option><% } %>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include _reference_footer.ejs %>

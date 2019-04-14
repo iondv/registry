@@ -1,0 +1,42 @@
+<div class="form-group <%= field.required?"required":"" %> <%=cssFromTags(field)%>" style="<%=styleFromTags(field)%>"
+     data-type="date" data-prop="<%= JSON.stringify(field) %>">
+    <label for="<%= id %>" class="col-md-2 col-sm-3 control-label"><%= field.caption %><% include help-sign %></label>
+    <div class="col-md-10 col-sm-9">
+        <div class="input-group input-group-datepicker" style="display: none;">
+            <input type="text" id="<%= id %>"
+                   name="<%= prop.getName() %>"
+                   value="<%=prop.getValue() ? utils.dateCallback(prop.getValue(), true, true) : ''%>"
+                   parse-tz="<%=(prop.meta.mode !== 0) ? 'true' : 'false'%>"
+                   class="form-control form-datepicker attr-value"
+                   placeholder="Date"
+                    <% if (field.options) { %>
+              <%if (field.options.center) {
+                let v = (field.options.center[0] === '$') ?
+                  (item.get(field.options.center.substring(1)) ? utils.dateCallback(item.get(field.options.center.substring(1)), true, true) : null) :
+                  field.options.center;
+              if (v) {
+              %>
+                   data-center="<%=v%>"
+              <%}}%>
+              <%if (field.options.min) {
+                let v = (field.options.min[0] === '$') ?
+                  (item.get(field.options.min.substring(1)) ? utils.dateCallback(item.get(field.options.min.substring(1)), true, true) : null) :
+                  field.options.min;
+              if (v) {
+              %>
+                   data-min="<%=v%>"
+              <%}}%>
+              <%if (field.options.max) {
+                let v = (field.options.max[0] === '$') ?
+                  (item.get(field.options.max.substring(1)) ? utils.dateCallback(item.get(field.options.max.substring(1)), true, true) : null) :
+                  field.options.max;
+              if (v) {
+              %>
+                   data-max="<%=v%>"
+              <%}}%>
+                    <% } %>/>
+            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+        </div>
+        <p class="error-block"></p>
+    </div>
+</div>

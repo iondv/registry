@@ -1,0 +1,19 @@
+
+<div class="form-struct <%= field._column ? 'form-struct-column' : '' %> <%=cssFromTags(field)%>"
+     style="<%=styleFromTags(field)%>">
+    <div class="form-struct-border"><div class="form-struct-tale"></div><div class="form-struct-cap"></div></div>
+    <legend><%= field.caption %></legend>
+    <% if (field.mode === FieldModes.GROUP_HORIZONTAL) { %>
+    <div class="row">
+        <% field.fields.forEach((prop, i) => { %>
+        <% prop._column = true; %>
+        <div class="col-lg-<%= prop.size %>">
+            <%- partial('./_default_prop', {prop, item, tabIndex, groupIndex: fieldIndex, fieldIndex: i}) %>
+        </div>
+        <% }); %>
+    </div>
+    <% } else { %>
+    <% field.fields.forEach((prop, i) => { %>
+    <%- partial('./_default_prop', {prop, item, tabIndex, groupIndex: groupIndex ? groupIndex + '|' + fieldIndex : fieldIndex, fieldIndex: i}) %>
+    <% });} %>
+</div>

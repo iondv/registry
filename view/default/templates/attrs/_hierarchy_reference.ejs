@@ -1,0 +1,14 @@
+<%
+  var controlType = "herarchy";
+  var controllerPath = '/' + module + '/api/' + item.getClassName() + '/' + prop.getName() + '/hierarchySearch';
+  var subfields = [];
+  for (var i = field.fields.length - 1; i >= 0; i--) {
+    subfields.push({
+      caption: field.fields[i].caption,
+      id: `${id}_`+ i,
+      filter: field.fields[i].selConditions
+    });
+  }
+%>
+
+<%- include _select_group.ejs %>

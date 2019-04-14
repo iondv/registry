@@ -1,0 +1,73 @@
+<!-- geocoord -->
+<%
+  var searchVal = [];
+  if (item && typeof utils.geoFieldSearchVal === 'function') {
+    searchVal = JSON.stringify(utils.geoFieldSearchVal(field, item));
+  }
+%>
+<div class="form-group <%= field.required ? "required" : "" %> <%=cssFromTags(field)%>" style="<%=styleFromTags(field)%>"
+     data-type="geocoord"
+     data-prop="<%= JSON.stringify(field) %>">
+  <label for="<%= id %>" class="col-md-2 col-sm-3 control-label"><%= field.caption %>
+    <% include help-sign %>
+  </label>
+  <div class="col-md-10 col-sm-9">
+    <div class="geocoord" data-try-search="<%=searchVal%>">
+      <input type="hidden" id="<%= id %>" name="<%= prop.getName() %>" class="coords" value="<%= JSON.stringify(prop.getValue()) %>">
+      <button type="button" class="geocoord-loader btn btn-default" disabled>
+        <span class="fa fa-refresh fa-spin"></span>
+      </button>
+      <% if (!field.readonly) { %>
+      <div class="list-tools">
+        <button type="button" class="create-btn btn btn-primary">
+          <span class="glyphicon glyphicon-map-marker"></span>
+          Set coordinates
+        </button>
+        <button type="button" class="update-btn btn btn-info">
+          <span class="glyphicon glyphicon-map-marker"></span>
+          Change coordinates
+        </button>
+      </div>
+      <% } %>
+      <div class="geocoord-field-map mt10"></div>
+      <div class="modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">Set coordinates</h4>
+            </div>
+            <div class="modal-body">
+              <div>
+                <button type="button" class="save-btn btn btn-success">Save</button>
+              </div>
+              <div class="form-group mt10 mb10 search-group">
+                <div class="overlay"><span class="fa fa-refresh fa-spin"></span></div>
+                <div class="input-group">
+                  <input type="text" class="form-control search-address" placeholder="Enter the address ...">
+                  <span class="input-group-btn">
+                    <button type="button" class="search-btn btn btn-primary">
+                      <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                  </span>
+                </div>
+                <p class="error-block">Coordinates not found</p>
+              </div>
+              <div class="geocoord-modal-map"></div>
+              <div class="geojson">
+                <div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>
+                <div class="mt10 mb10">
+                  <textarea class="form-control" rows="4" placeholder="Enter data in GEO-JSON format"></textarea>
+                </div>
+                <button type="button" class="btn btn-default verify-json">
+                  Check and display GEO-JSON
+                </button>
+                <span class="invalid-json text-danger ml10">Data contains an error ...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

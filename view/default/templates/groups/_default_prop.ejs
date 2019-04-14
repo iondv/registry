@@ -1,0 +1,103 @@
+<%
+var itemProperty;
+var FieldId;
+if (prop.property) {
+    itemProperty = item.property(prop.property);
+    if (itemProperty) {
+        FieldId = `${form.ids.attr}_${itemProperty.getName()}`;
+    }
+}
+var groupIndex = groupIndex || null;
+var tpl = customTpl(prop);
+let attrPerms = getAttrPermissions(item, prop.property);
+if (tpl) {
+%>
+<%-partial(resolveTpl(tpl), {
+  id: FieldId,
+  prop: itemProperty,
+  field: prop,
+  item,
+  attrPermissions: attrPerms,
+  tabIndex,
+  fieldIndex,
+  groupIndex
+})%> <%
+} else {
+if (prop.type === FieldTypes.GROUP){ %>
+<%- partial('_default_struct', {item, field: prop, attrPermissions: attrPerms, groupIndex}) %>
+<% } else if (itemProperty) {
+if ((prop.readonly || globalReadonly) && (prop.type !== FieldTypes.GEO)) {%>
+<% if(prop.type === FieldTypes.COLLECTION && prop.mode !== FieldModes.COLLECTION_LINK) { %>
+<%- partial('../attrs/_dt-object-list', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms, tabIndex, fieldIndex, groupIndex}) %>
+<%} else if (prop.type === FieldTypes.REFERENCE || itemProperty.getType() === PropertyTypes.REFERENCE) {%>
+<%- partial('../attrs/_dropdown-object', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else { %>
+<%- partial('../attrs/_static', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% }} else {
+if (itemProperty.getSelection() !== null && prop.type !== FieldTypes.COMBO) { %>
+<%- partial('../attrs/_select', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else if (prop.type === FieldTypes.TEXT && prop.mode === FieldModes.TEXT_AUTOCOMPLETE) { %>
+<%- partial('../attrs/_autocomplete', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else if (prop.type === FieldTypes.TEXT) { %>
+<%- partial('../attrs/_input', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else if (prop.type === FieldTypes.COMBO) { %>
+<% if (itemProperty.getType() === PropertyTypes.REFERENCE) { %>
+<%- partial('../attrs/_combo', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else { %>
+<%- partial('../attrs/_select', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } %>
+<% } else if (prop.type === FieldTypes.DATE_PICKER) { %>
+<%- partial('../attrs/_date', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else if (prop.type === FieldTypes.DATETIME_PICKER) { %>
+<%- partial('../attrs/_datetime', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else if (prop.type === FieldTypes.CHECKBOX ) { %>
+<%- partial('../attrs/_checkbox', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else if (prop.type === FieldTypes.NUMBER_PICKER) { %>
+<%- partial('../attrs/_number', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else if (prop.type === FieldTypes.DECIMAL_EDITOR ) { %>
+<%- partial('../attrs/_decimal', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else if (prop.type === FieldTypes.IMAGE ) { %>
+<%- partial('../attrs/_image-uploader', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else if (prop.type === FieldTypes.IMAGE_SCAN) { %>
+<%- partial('../attrs/_image-scan', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else if (prop.type === FieldTypes.FILE ) { %>
+<%- partial('../attrs/_file-uploader', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else if (prop.type === FieldTypes.MULTILINE  ) { %>
+<%- partial('../attrs/_text', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else if ( prop.type === FieldTypes.WYSIWYG ) { %>
+<%- partial('../attrs/_wysihtml5', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else if (prop.type === FieldTypes.REFERENCE && prop.mode === FieldModes.REF_HIERARCHY) { %>
+<%- partial('../attrs/_hierarchy_reference', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else if (prop.type === FieldTypes.REFERENCE && prop.mode === FieldModes.REF_SPECIFY) { %>
+<%- partial('../attrs/_specify_reference', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else if (prop.type === FieldTypes.REFERENCE ) { %>
+<%- partial('../attrs/_dropdown-object', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% }  else if(prop.type === FieldTypes.COLLECTION && prop.mode === FieldModes.COLLECTION_HASHTAGS) { %>
+<%- partial('../attrs/_hashtags', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% }  else if(prop.type === FieldTypes.COLLECTION && prop.mode !== FieldModes.COLLECTION_LINK) { %>
+<%- partial('../attrs/_dt-object-list', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms, tabIndex, fieldIndex, groupIndex}) %>
+<% }  else if(prop.type === FieldTypes.COLLECTION && prop.mode === FieldModes.COLLECTION_LINK) { %>
+<%- partial('../attrs/_dt-object-list-link', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else if(prop.type === FieldTypes.GEO) { %>
+<% if (prop.mode == FieldModes.GEO_CANVAS) { %>
+<%- partial('../attrs/_geobuilder', {id: FieldId, prop: itemProperty, field: prop, item: item, attrPermissions: attrPerms}) %>
+<% } else { %>
+<%- partial('../attrs/_geocoord', {id: FieldId, prop: itemProperty, field: prop, item: item, attrPermissions: attrPerms}) %>
+<% } %>
+<% } else if(prop.type === FieldTypes.PERIOD_PICKER) { %>
+<%- partial('../attrs/_period', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else if (prop.type === FieldTypes.ATTACHMENTS) { %>
+<%- partial('../attrs/_multifile', {id: FieldId, prop: itemProperty, field: prop, url: "/upload", attrPermissions: attrPerms}) %>
+<% } else if (prop.type === FieldTypes.URL) { %>
+<%- partial('../attrs/_url', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else if (prop.type === FieldTypes.SCHEDULE) { %>
+<%- partial('../attrs/_schedule', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else if (prop.type === FieldTypes.CALENDAR) { %>
+<%- partial('../attrs/_calendar', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% } else { %>
+<%- partial('../attrs/_input', {id: FieldId, prop: itemProperty, field: prop, attrPermissions: attrPerms}) %>
+<% }
+}
+}
+}
+%>

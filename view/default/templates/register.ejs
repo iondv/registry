@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= pageTitle %>: Create an account</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+  <base id="baseUrl" href="<%= baseUrl %>">
+  <link href="<%=module%>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="<%=module%>/vendor/bootstrap3-datepicker/css/datepicker.css" rel="stylesheet" type="text/css">
+  <link href="<%=module%>/vendor/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css">
+  <link href="<%=module%>/vendor/datatables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="<%=module%>/vendor/bootstrap3-wysihtml5-bower/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css">
+  <link href="<%=module%>/vendor/icheck/skins/flat/grey.css" rel="stylesheet" type="text/css">
+  <link href="<%=module%>/js/plugins/styleswitcher/styleswitcher.css" rel="stylesheet" type="text/css">
+  <link href="<%=module%>/css/essentials.css" rel="stylesheet" type="text/css">
+  <link href="<%=module%>/css/layout.css" rel="stylesheet" type="text/css">
+  <link href="<%=module%>/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme">
+  <link href="<%=module%>/css/common.css" rel="stylesheet" type="text/css">
+  <link href="<%-module%>/fonts/fontawesome-webfont.woff2?v=4.4.0" rel="preload" as="font" type="font/woff2" crossorigin>
+  <link href="<%-module%>/vendor/bootstrap/fonts/glyphicons-halflings-regular.woff2" rel="preload" as="font" type="font/woff2" crossorigin>
+</head>
+<body>
+
+<div class="padding-15">
+  <div class="login-box">
+    <% if(errors.length) { %>
+    <div id="error" class="alert alert-danger">
+      <% errors.forEach(function(error){ %>
+      <p><%= error %></p>
+      <% }); %>
+    </div>
+    <% } %>
+    <!-- login form -->
+    <form action="<%=module%>/register" method="post" class="profile-form boxed">
+      <header><i class="fa fa-users"></i> Create an account</header>
+      <fieldset>
+        <section>
+          <label class="label">Login</label>
+          <label class="input">
+            <i class="icon-append fa fa-user"></i>
+            <input id="username" type="login" name="username">
+          </label>
+        </section>
+
+        <section>
+          <label class="label">Password</label>
+          <label class="input">
+            <i class="icon-append fa fa-lock"></i>
+            <input id="password" type="password" name="password">
+          </label>
+        </section>
+
+        <section>
+          <label class="label">Confirm password</label>
+          <label class="input">
+            <i class="icon-append fa fa-lock"></i>
+            <input id="password2" type="password" name="password2">
+          </label>
+        </section>
+
+        <% Object.keys(fields).forEach(function(fieldName){ %>
+        <section>
+          <label class="label">
+            <%= fields[fieldName].caption ? fields[fieldName].caption : fieldName %>
+            <%= fields[fieldName].required ? '*' : '' %>
+          </label>
+          <label class="input">
+            <% if (Array.isArray(fields[fieldName])) { %>
+            <select name="<%= fieldName %>">
+              <% for (let option of fields[fieldName]){ %>
+              <option value="<%= option.value %>"><%= option.key %></option>
+              <% } %>
+            </select>
+            <% } else if (fields[fieldName]){ %>
+            <input type="text" name="<%= fieldName %>" class="input" <% if (fields[fieldName].required) { %>required<% } %> />
+            <% } %>
+          </label>
+        </section>
+        <% }) %>
+      </fieldset>
+
+      <footer>
+        <button id="authbutton" type="submit" class="btn btn-primary pull-right">Create an account</button>
+        <div class="forgot-password pull-left">
+          <a href="<%=module%>/auth"><b>Log in</b></a>
+        </div>
+      </footer>
+    </form>
+  </div>
+</div>
+
+<script src="<%=module%>/vendor/jquery/jquery.min.js"></script>
+<script src="<%=module%>/vendor/jquery-ui/jquery-ui.min.js"></script>
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<script src="<%=module%>/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="<%=module%>/vendor/icheck/icheck.min.js"></script>
+<script>
+  var plugin_path = '<%=baseUrl%><%=module%>/js/plugins/';
+</script>
+<script src="<%=module%>/js/common.js"></script>
+<%- pageEndContent %>
+</body>
+</html>

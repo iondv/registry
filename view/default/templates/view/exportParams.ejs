@@ -1,0 +1,111 @@
+<%
+form.ids = {
+  attr: 'a_' + form.namespace + '_' + form.className,
+  formBtn: 'fa_' + form.namespace + '_' + form.className + '_',
+  listBtn: 'la_' + form.namespace + '_' + form.className + '_',
+  refBtn: 'ra_' + form.namespace + '_' + form.className + '_',
+  colBtn: 'ca_' + form.namespace + '_' + form.className + '_'
+};
+
+var options = {
+  locale,
+  log,
+  id: item.getItemId(),
+  title: item.toString(null, utils.dateCallback),
+  itemClass: item.getClassName(),
+  selectionListTriggers,
+  url: {
+    node: `${module}/${node}/`,
+    item: '',
+    signData: '',
+    sign: '',
+    history: '',
+    selectionLists: '',
+    workflowState: '',
+    concurencyState: '',
+    share: ''
+  },
+  globalReadonly,
+  shortView,
+  condensedView,
+  concurencyState,
+  refShortViewDelay,
+  warnLeave: false
+};
+%>
+
+<% layout('../imodal/content') %>
+
+<% stylesheet(module + '/vendor/bootstrap3-wysihtml5-bower/bootstrap3-wysihtml5.min.css') -%>
+<% stylesheet(module + '/vendor/jquery-ui/themes/base/tabs.css') -%>
+
+<% script(module + '/js/ajax-uploader-new.js') -%>
+<% script(module + '/vendor/bootstrap3-wysihtml5-bower/bootstrap3-wysihtml5.all.min.js') -%>
+<% script(module + '/vendor/bootstrap3-wysihtml5-bower/locales/bootstrap-wysihtml5.ru-RU.js') -%>
+
+<script>
+  var DATE_FORMAT = '<%=locale.dateFormat%>';
+  var DATETIME_FORMAT = '<%=locale.dateTimeFormat%>';
+</script>
+
+<div class="panel panel-default">
+
+  <div class="object-loader overlay" style="display: none;"><i class="fa fa-refresh fa-spin"></i></div>
+
+  <div class="panel-heading">
+    <button id="<%=`${form.ids.formBtn}EXPORT`%>" type="button"
+            class="btn btn-default object-control" data-id="EXPORT"
+    >
+      Export
+    </button>
+    <button id="<%=`${form.ids.formBtn}close`%>" type="button" class="closer btn btn-default object-control" data-id="CLOSE">
+      Close
+    </button>
+  </div>
+
+  <form id="params" class="object-manager form form-horizontal" method="get"
+        action="<%=exportUrl%>"
+        target="_blank"
+        autocomplete="off"
+        enctype="multipart/form-data" data-options="<%= JSON.stringify(options) %>">
+    <div class="panel-body">
+      <input type="hidden" name="$action" value=""/>
+      <input type="hidden" name="filter" value="<%=filter%>"/>
+      <div class="tabs">
+        <%- partial('../groups/_tabs', {
+          tabs: form.tabs
+        }) %>
+        <div class="tab-content">
+          <% for (var i = 0; i < form.tabs.length; ++i) { %>
+          <%- partial('../groups/_default', {
+            item,
+            fields: form.tabs[i][shortView ? 'shortFields' : 'fullFields'],
+            title: form.tabs[i].caption,
+            numb: i
+          }) %>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </form>
+  <script type="text/javascript">
+    $(function () {
+      $('button#<%=`${form.ids.formBtn}EXPORT`%>').click(function () {
+        if (parent.imodal.getParams('isBackground')) {
+          $.post({url: document.forms.params.action, data: $(document.forms.params).serialize()})
+            .done(function (data) {
+              parent.imodal.setParams('exportStarted', true);
+              parent.imodal.close();
+            })
+            .fail(function (xhr) {
+              console.error(xhr);
+              messageCallout.error('Could not start export!');
+            });
+        } else {
+          document.forms.params.submit();
+          parent.imodal.close();
+        }
+      });
+    });
+  </script>
+</div>

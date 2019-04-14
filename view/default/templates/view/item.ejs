@@ -1,0 +1,276 @@
+<%
+  form.ids = {
+    attr: 'a_' + item.getMetaClass().getNamespace() + '_' + item.getMetaClass().getName(),
+    formBtn: 'fa_' + item.getMetaClass().getNamespace() + '_' + item.getMetaClass().getName(),
+    listBtn: 'la_' + item.getMetaClass().getNamespace() + '_' + item.getMetaClass().getName(),
+    refBtn: 'ra_' + item.getMetaClass().getNamespace() + '_' + item.getMetaClass().getName(),
+    colBtn: 'ca_' + item.getMetaClass().getNamespace() + '_' + item.getMetaClass().getName()
+  };
+
+  var options = {
+    locale,
+    log,
+    id: item.getItemId(),
+    title: item.toString(null, utils.dateCallback),
+    itemClass: item.getClassName(),
+    selectionListTriggers,
+    node,
+    url: {
+      node: `${module}/${node}/`,
+      item: `${module}/${node}/view/${item.getClassName()}`,
+      signData: `${module}/digisign/${item.getClassName()}/:id/data`,
+      sign: `${module}/digisign/${item.getClassName()}/:id/sign`,
+      history: `${module}/api/${item.getClassName()}/${encodeURIComponent(item.getItemId())}/history`,
+      selectionLists: `${module}/api/${item.getClassName()}/${item.getItemId() ? encodeURIComponent(item.getItemId()) + '/' : ''}selection-lists`,
+      workflowState: item.getItemId() ? `${module}/api/${item.getClassName()}/${item.getItemId() ? encodeURIComponent(item.getItemId()) + '/' : ''}workflow-state`: '',
+      concurencyState: item.getItemId() ? `${module}/api/${item.getClassName()}/${item.getItemId() ? encodeURIComponent(item.getItemId()) + '/' : ''}concurency-state`: '',
+      signStatus: checkSignState && item.getItemId() ? `${module}/digisign/${item.getClassName()}/${item.getItemId()}/status` : '',
+      share: `${module}/api/share/:fileId`
+    },
+    globalReadonly,
+    shortView,
+    condensedView,
+    concurencyState,
+    checkSignState,
+    refShortViewDelay,
+    master: { updates: master ? master.updates : null }
+  };
+
+  if (master.item) {
+    if (!options.id) {
+      options.master.id = master.id;
+      options.master.backRef = master.backRef;
+      options.master.class = master.class;
+      options.master.masterProperty = master.masterProperty;
+      if (typeof containerProperty !== 'undefined' && containerProperty) {
+        if (containerProperty.type === PropertyTypes.REFERENCE) {
+          locals.preTitle = `Creating an object by reference "${containerProperty.caption}"
+        of object "${master.item.toString(null, utils.dateCallback())}"`;
+        } else if (containerProperty.type === PropertyTypes.COLLECTION) {
+          locals.preTitle = `Creating an object in the collection "${containerProperty.caption}"
+        of object "${master.item.toString(null, utils.dateCallback())}"`;
+        }
+      }
+    }
+  }
+%>
+
+<% if(typeof validateBy !== 'undefined' && validateBy !== null) {
+    options.validateBy = validateBy;
+} %>
+
+<% layout('../imodal/content') %>
+
+<% stylesheet(module + '/vendor/bootstrap3-wysihtml5-bower/bootstrap3-wysihtml5.min.css') -%>
+<% stylesheet(module + '/vendor/jquery-ui/themes/base/tabs.css') -%>
+
+<% script(module + '/js/ajax-uploader-new.js') -%>
+<% script(module + '/vendor/bootstrap3-wysihtml5-bower/bootstrap3-wysihtml5.all.min.js') -%>
+<% script(module + '/vendor/bootstrap3-wysihtml5-bower/locales/bootstrap-wysihtml5.ru-RU.js') -%>
+
+<% block('scripts', `<script>
+  userActionHistory.addObject({
+    url: location.pathname +'?'+ location.search,
+    title: ${JSON.stringify(options.title)}
+  });
+</script>`) -%>
+<script src="<%= module %>/js/cryptopro.js"></script>
+<script>
+  var DATE_FORMAT = '<%=locale.dateFormat%>';
+  var DATETIME_FORMAT = '<%=locale.dateTimeFormat%>';
+  $(function () {
+    moment.locale('<%=locale.lang%>');
+  });
+</script>
+
+<% if (!condensedView) { %>
+<div id="cert-dlg" class="cert-dlg" style="display:none;">
+  <div class="form-group">
+    <label class="control-label bold mb10">Select the certificate to sign:</label>
+    <select class="no-select2 form-control" name="cert"></select>
+  </div>
+  <div class="text-right">
+    <a href="#" id="cert_info_view" style="display:none">View certificate information</a>&nbsp;
+    <button id="cert_select_cancel" class="btn btn-primary">Cancel</button>
+    <button id="cert_select_confirm" class="btn btn-primary">Select</button>
+  </div>
+</div>
+<div id="cert-info" class="cert-dlg panel form-horizontal" style="display:none;">
+  <div class="panel-body">
+    <div class="form-group">
+      <label class="col-md-3 col-sm-3 control-label" for="cert_subject">Subject</label>
+      <div class="col-md-9 col-sm-9">
+        <input id="cert_subject" type="text" class="form-control attr-value" readonly="true" value="">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-3 col-sm-3 control-label" for="cert_provider">Provider</label>
+      <div class="col-md-9 col-sm-9">
+        <input id="cert_provider" type="text" class="form-control attr-value" readonly="true" value="">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-3 col-sm-3 control-label" for="cert_valid_since">Valid from</label>
+      <div class="col-md-6 col-sm-6">
+        <input id="cert_valid_since" type="text" class="form-control attr-value" readonly="true" value="">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-3 col-sm-3 control-label" for="cert_valid_till">Valid to</label>
+      <div class="col-md-6 col-sm-6">
+        <input id="cert_valid_till" type="text" class="form-control attr-value" readonly="true" value="">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-3 col-sm-3 control-label" for="cert_serial">Serial number</label>
+      <div class="col-md-7 col-sm-7">
+        <input id="cert_serial" type="text" class="form-control attr-value" readonly="true" value="">
+      </div>
+    </div>
+  </div>
+  <div class="text-right">
+    <button class="btn btn-primary">Close</button>
+  </div>
+</div>
+<% for (var cmd of form.commands) {
+    if (cmd.signBefore || cmd.signAfter) { %>
+<% script(module + '/js/cades/cadesplugin_api.js') -%>
+<% break;
+  }}} %>
+
+<div class="panel panel-default <%- globalReadonly ? 'global-readonly' : ''%> <%- condensedView ? 'condensed-view' : ''%>">
+
+  <div class="object-loader overlay" style="display: none;"><i class="fa fa-refresh fa-spin"></i></div>
+
+  <% if (!condensedView) { %>
+  <% if (options.id) { %>
+  <%- partial('./_history') %>
+  <% } %>
+
+  <div class="panel-heading">
+    <div class="workflow panel-workflow"></div>
+    <%if (!item.getItemId() && typeof createByCopy !== "undefined" && createByCopy) {%>
+      <div class="float-right"><input type="checkbox" id="create-another"/> Create another</div>
+    <%}%>
+    <% if (!globalReadonly) { %>
+    <% for (var cmd of form.commands) { %>
+      <% if ((cmd.id === 'SAVE' || cmd.id === 'SAVEANDCLOSE') && !permissions.write) continue; %>
+      <% if (cmd.id === 'DELETE' && !permissions.delete) continue; %>
+      <button id="<%=`${form.ids.formBtn}${cmd.id.toLowerCase()}`%>" type="button"
+              data-id="<%- cmd.id %>"
+              data-sign-before="<%- cmd.signBefore %>"
+              data-sign-after="<%- cmd.signAfter %>"
+              class="btn command btn-default object-control <%- cmd.id %>">
+        <%- cmd.caption %>
+      </button>
+    <% }} %>
+    <button id="<%=`${form.ids.formBtn}close`%>" type="button" class="closer btn btn-default object-control" data-id="CLOSE">
+      Close
+    </button>
+    <button id="<%=`${form.ids.formBtn}reload`%>" type="button" class="reload btn btn-default object-control" data-id="RELOAD" title="Update">
+      <span class="fa fa-refresh"></span>
+    </button>
+    <% if (options.id && item.getMetaClass().isJournaling()) { %>
+      <button id="<%=`${form.ids.formBtn}history`%>" type="button" class="history btn btn-default object-control" data-id="HISTORY" title="Change log">
+        <span class="fa fa-history"></span>
+      </button>
+    <% } %>
+        <% if (checkSignState && item.getItemId()) { %>
+      <button id="sign-status" type="button" class="history btn btn-default" title=""
+       data-toggle="modal" data-target="#sign-status-modal" style="display: none;">
+        <span class="fa fa-bookmark"></span>
+      </button>
+      <div class="modal fade" tabindex="-1" role="dialog" id="sign-status-modal">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title">ES status</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% } %>
+<%
+if (item.getItemId() && !item.permissions.write) {
+  globalReadonly = true;
+  options.globalReadonly = true;
+}
+%>
+    <% if (typeof exporters !== 'undefined' && Array.isArray(exporters) && exporters.length) {%>
+    <%- partial('./_export', {buttonPrefix: form.ids.formBtn}) %>
+    <%}%>
+
+  </div>
+
+  <div class="float-tools object-float-tools">
+    <% for (var cmd of form.commands) { %>
+      <button id="<%=`f${form.ids.formBtn}${cmd.id.toLowerCase()}`%>"
+              data-cmd="<%- cmd.id %>"
+              style="display:none;" type="button" class="btn <%- cmd.id %>" title="<%- cmd.caption %>">
+        <span class="glyphicon glyphicon-new-window"></span>
+        <span class="glyphicon glyphicon-save"></span>
+        <span class="glyphicon glyphicon-trash"></span>
+      </button>
+    <% } %>
+    <button id="<%=`f${form.ids.formBtn}close`%>" type="button" class="btn btn-default CLOSE" title="Close" data-cmd="CLOSE">
+      <span class="glyphicon glyphicon-remove"></span>
+    </button>
+    <button id="<%=`f${form.ids.formBtn}reload`%>" type="button" class="btn btn-default" title="Update" data-cmd="RELOAD">
+      <span class="fa fa-refresh"></span>
+    </button>
+  </div>
+
+  <% } %>
+
+  <form class="object-manager form form-horizontal" method="post" autocomplete="off"
+        onsubmit="return false;"
+        enctype="multipart/form-data" data-options="<%= JSON.stringify(options) %>">
+    <div class="panel-body">
+      <input type="hidden" name="$action" value="">
+      <div class="tabs">
+        <%- partial('../groups/_tabs', {
+          tabs: form.tabs
+        }) %>
+        <div class="tab-content">
+        <% for (var i = 0; i < form.tabs.length; ++i) { %>
+        <%- partial('../groups/_default', {
+          item,
+          fields: form.tabs[i][shortView ? 'shortFields' : 'fullFields'],
+          title: form.tabs[i].caption,
+          numb: i
+        }) %>
+        <% } %>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div id="workflow-confirmation" class="modal fade">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Confirm your actions</h4>
+      </div>
+      <div class="modal-body">
+        <div class="confirm-message"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="confirm btn btn-success">Continue</button>
+        <button type="button" class="cancel btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% var itemFooter = resolveTpl('item_footer', null, true);
+  if (itemFooter) { %>
+<%-partial(itemFooter, {item})%>
+<% } %>

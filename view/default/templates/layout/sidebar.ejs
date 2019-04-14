@@ -1,0 +1,30 @@
+<%
+let currPath = '/';
+if (typeof node === 'string') {
+  let tmp = node;
+  if (node.indexOf('@') >= 0) {
+    tmp = node.split('@')[1];
+  }
+  currPath = tmp.split('.');
+}
+%>
+<aside id="aside">
+  <nav id="sideBarNav">
+
+      <% for (let menuNode of topMenu) { %>
+      <%- partial("./layout/top-menu-node.ejs", {menuNode, currPath}) %>
+      <% } %>
+
+      <% if (leftMenu.length) { %>
+      <ul class="nav nav-list left-nav-list">
+        <% for (var menuNode of leftMenu) { %>
+          <%- partial("./layout/menu_node.ejs", {menuNode, currPath}) %>
+        <% } %>
+      </ul>
+      <% } %>
+  </nav>
+  <button id="moreMenuBtn">
+    <span class="glyphicon"></span><span class="glyphicon"></span>
+  </button>
+  <div id="aside-splitter" class="aside-splitter"></div>
+</aside>

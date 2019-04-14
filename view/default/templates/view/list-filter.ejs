@@ -1,0 +1,77 @@
+<%
+  var options = userFilters || {};
+  options.locale = locale;
+  options.url = {
+    list: `${module}/api/${className}/filter/list`,
+    add: `${module}/api/${className}/filter/add`,
+    edit: `${module}/api/${className}/filter/edit`,
+    remove: `${module}/api/${className}/filter/remove`,
+    selection: `${module}/api/${className}/:propName/selection`
+  };
+%>
+
+<div class="modal" style="display: none">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">List filter</h4>
+      </div>
+      <div class="modal-body">
+        <div class="list-filter" data-table="ion_filter" data-options="<%=JSON.stringify(options)%>">
+          <input type="hidden" id="cls_filter" value="">
+          <div class="filter-tools">
+            <select class="select-filter form-control">
+              <option value>Select filter...</option>
+            </select>
+            <div class="filter-tool-btns">
+              <button class="create-filter btn btn-success" title="Create filter">
+                <span class="glyphicon glyphicon-plus"></span>
+              </button>
+              <button class="update-filter btn btn-info" title="Edit filter">
+                <span class="glyphicon glyphicon-edit"></span>
+              </button>
+              <button class="reset-filter btn btn-warning" title="Reset filter">
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
+            </div>
+          </div>
+          <form id="filter-editor" class="filter-editor">
+            <div class="input-group query-container">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-terminal" aria-hidden="true"></i>
+                </button>
+                <ul class="dropdown-menu scrollable-menu"></ul>
+              </div>
+              <input type="text" name="query" class="form-control filter-query" />
+              <i class="fa fa-question-circle helper-addon" data-toggle="tooltip" data-placement="top" title="Query syntax"></i>
+            </div>
+            <div class="filter-controls">
+              <label class="filter-global control-label"><input class="filter-global-checkbox" type="checkbox"> For all classes</label>
+              <input type="text" class="form-control filter-name" name="filterName" placeholder="Enter filter name ...">
+              <button class="save-filter btn btn-info" title="Save filter" type="button">Save</button>
+              <button class="remove-filter btn btn-link text-danger ml10" title="Delete filter" type="button">Delete filter</button>
+              <i class="filter-loader fa fa-refresh fa-spin"></i>
+              <button class="assign-filter btn btn-primary" type="button">Apply filter</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="helper-modal" tabindex="-1" role="dialog" aria-labelledby="helper-title" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h4 class="modal-title" id="helper-title">Query syntax</h4>
+        </div>
+        <div class="modal-body">
+          <% include list-filter-helper %>
+        </div>
+      </div>
+    </div>
+</div>

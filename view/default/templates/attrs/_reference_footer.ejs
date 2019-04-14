@@ -1,0 +1,52 @@
+<% if (
+  !(field.readonly || globalReadonly) &&
+  (!attrPermissions || attrPermissions.write)
+) { %>
+<div class="dropdown-tools list-tools clearfix">
+  <%
+    var commands = getFieldCommands(field);
+  commands.forEach(function (command) {
+    var code = command.id.toLowerCase();
+    var title = command.caption;
+    var icon = '';
+    var colorClass = 'btn-primary';
+    switch (command.id) {
+      case 'SELECT':
+        icon = 'option-horizontal';
+        break;
+      case 'CREATE':
+        colorClass = 'btn-success';
+        icon = 'plus-sign';
+        if ((field.readonly || globalReadonly) || (attrPermissions && !attrPermissions.c_create)) {
+          return;
+        }
+        break;
+      case 'EDIT':
+        icon = 'edit';
+        colorClass = 'btn-info';
+        if ((attrPermissions && !attrPermissions.c_edit)) {
+          title = 'View';
+        }
+
+        if ((attrPermissions && !attrPermissions.c_view)) {
+          return;
+        }
+        break;
+      case 'REMOVE':
+        colorClass = 'btn-warning';
+        icon = 'remove';
+        break;
+    }
+  %>
+  <button type="button" class="<%=code%>-btn btn <%=colorClass%>" title="<%=title%>"
+          id="<%=`${form.ids.refBtn}${prop.getName()}_${code}`%>"
+          data-ref-property="<%=prop.getName()%>" data-id="<%=command.id%>">
+    <span class="glyphicon glyphicon-<%=icon%>"></span>
+  </button>
+  <%});%>
+</div>
+<% } %>
+</div>
+<p class="error-block"></p>
+</div>
+</div>

@@ -1,0 +1,13 @@
+<% layout('./layout') -%>
+
+<div class="imodal-box attr-update" data-attr="<%= updatedAttr.name %>">
+    <div class="imodal-box-header">
+        <button id="imodal-close" type="button" class="imodal-close close"><span>×</span></button>
+        <h3 class="imodal-box-title browser-title">
+          <%= updatedAttr.caption %>
+        </h3>
+    </div>
+    <div id="imodal-body" class="imodal-box-body">
+        <%- body -%>
+    </div>
+</div>

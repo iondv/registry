@@ -1,0 +1,55 @@
+<!-- attrs/_reference_header -->
+<%
+referenceValue = prop.getValue();
+displayValue = prop.getDisplayValue(utils.dateCallback);
+if (!displayValue) {
+  var ri = prop.evaluate();
+  if (ri && ri.permissions && !ri.permissions.read) {
+    displayValue = 'Value not available';
+  }
+}
+if(typeof options !== 'object') {
+  options = {};
+}
+Object.assign(options , {
+  createUrl: item.getItemId()
+    ? `${module}/${node}/new/${item.getClassName()}.${item.getItemId()}/${prop.getName()}/${prop.meta.refClass}`
+    : `${module}/${node}/new/${item.getClassName()}/${prop.getName()}/${prop.meta.refClass}`,
+  selectUrl: item.getItemId()
+    ? `${module}/${node}/${item.getClassName()}/${item.getItemId()}/${prop.getName()}/select`
+    : `${module}/${node}/${item.getClassName()}/${prop.getName()}/select`,
+  updateUrl: item.getItemId()
+    ? `${module}/${node}/view/${item.getClassName()}.${item.getItemId()}/${prop.getName()}/${prop.meta.refClass}`
+    : `${module}/${node}/view/${item.getClassName()}/${prop.getName()}/${prop.meta.refClass}`,
+  refClass: prop.meta.refClass,
+  backRef: prop.meta.backRef,
+  useMaster: !referenceValue && !item.getItemId() && master.item && master.shortClass === prop.meta.refClass && master.backRef === prop.getName(),
+  selConditions: field.selConditions,
+  selSorting: field.selSorting,
+  globalReadonly,
+  shortView
+});
+var masterCss = '';
+if (options.useMaster) {
+  referenceValue = master.id;
+  if (master.item) {
+    displayValue = master.item.toString(prop.meta.semanticGetter, utils.dateCallback);
+  } else {
+    masterCss = 'assigned-master';
+  }
+  if (!displayValue) {
+    displayValue = 'Object will be linked automatically';
+  }
+}
+%>
+
+<div class="form-group <%= field.required?"required":"" %> <%= masterCss %> <%=cssFromTags(field)%>"
+     style="<%=styleFromTags(field)%>"
+     data-type="<%= controlType %>"
+     data-options="<%=JSON.stringify(options)%>"
+     data-prop="<%= JSON.stringify(field) %>"
+     data-ref-short-view="<%- refShortViewFields.includes(prop.getName()) %>">
+  <label for="<%= id %>" class="col-sm-3 col-md-2 control-label"><%= field.caption %><% include help-sign %></label>
+  <div class="col-sm-9 col-md-10">
+    <div
+      class="form-control-box dropdown <%if (!attrPermissions || attrPermissions.write) {%> dropdown-with-tools<%}%>">

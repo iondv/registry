@@ -1,0 +1,176 @@
+<!-- dt-object-list -->
+<% if (!attrPermissions || attrPermissions.read) { %>
+<%
+  var options = {
+    dt: utils.collectionTableOptions(prop, field),
+    fieldTypes: FieldTypes,
+    inlineForm: typeof inlineForm === 'undefined' ? false : inlineForm,
+    locale,
+    url: {
+      node: `${module}/${node}/`,
+      create: item.getItemId()
+              ? `${module}/${node}/new/${item.getClassName()}.${item.getItemId()}/${prop.getName()}/${prop.meta._refClass.getCanonicalName()}`
+              : `${module}/${node}/new/${item.getClassName()}/${prop.getName()}/${prop.meta._refClass.getCanonicalName()}`,
+      select: item.getItemId()
+              ? `${module}/${node}/${item.getClassName()}/${item.getItemId()}/${prop.getName()}/select`
+              : `${module}/${node}/${item.getClassName()}/${prop.getName()}/select`,
+      update: item.getItemId()
+              ? `${module}/${node}/view/${item.getClassName()}.${item.getItemId()}/${prop.getName()}/${prop.meta._refClass.getCanonicalName()}`
+              : `${module}/${node}/view/${item.getClassName()}/${prop.getName()}/${prop.meta._refClass.getCanonicalName()}`,
+      do: `${module}/api/${item.getClassName()}/${item.getItemId()}/${prop.getName()}/do`,
+      reorder: item.getItemId()
+        ? `${module}/api/${item.getClassName()}/${item.getItemId()}/${prop.getName()}/reorder`
+              : null,
+      remove: item.getItemId()
+        ? `${module}/api/${item.getClassName()}/${item.getItemId()}/${prop.getName()}/remove`
+              : null
+    },
+    deffered: true,
+    multiSelect: true,
+    selConditions: field.selConditions,
+    condensedView,
+    options: field.options
+  };
+
+  var collData = prop.evaluate();
+  var ajax = false;
+  if (Array.isArray(collData) || !item.getItemId()) {
+    if (typeof utils.addCollectionSyles === 'function') {
+      utils.addCollectionSyles(collData, prop.getName(), tabIndex, fieldIndex, groupIndex);
+    }
+    options.dt.data = utils.toJSON(collData || []);
+    if (Array.isArray(options.dt.dsorting) && options.dt.dsorting.length) {
+      options.url.list = `${module}/api/${item.getClassName()}/${item.getItemId()}/${prop.getName()}`;
+    }
+  } else if (item.getItemId()) {
+    ajax = true;
+    options.url.list = `${module}/api/${item.getClassName()}/${item.getItemId()}/${prop.getName()}`;
+  }
+%>
+<div id="<%=id%>" class="form-group loading list-container <%= field.required?"required":"" %> <%=cssFromTags(field)%>"
+     style="<%=styleFromTags(field)%>"
+     data-backref="<%= prop.meta.backRef %>"
+     data-attr="<%= prop.getName() %>"
+     data-type="collection"
+     data-is-ajax="<%=ajax%>"
+     data-prop="<%=htmlEntities(JSON.stringify(field))%>"
+     data-ref-short-view="<%- refShortViewFields.includes(prop.getName()) %>"
+     length = "0">
+    <input type="hidden" name="<%= prop.getName() %>" class="attr-value" disabled>
+    <label class="col-md-2 col-sm-3 control-label"><%= field.caption %><% include help-sign %></label>
+    <div class="col-md-10 col-sm-9">
+      <div class="list-tools">
+        <%
+          var commands = getFieldCommands(field);
+        commands.forEach(function (command) {
+          var code = command.id.toLowerCase();
+          var colorcode = 'info';
+          var icon = '';
+          var title = command.caption;
+          switch (command.id) {
+        case 'CREATE':
+          icon = 'plus-sign';
+          colorcode = 'success';
+          if ((field.readonly || globalReadonly) || (attrPermissions && !attrPermissions.c_create)) {
+            return;
+          }
+        if (field.options && field.options.inplaceInsertion) {
+        %>
+        <button type="button" class="create-inline command btn btn-success" data-id="CREATE-INLINE"
+                style="display:none;" title="Create in-place">
+          <span class="glyphicon glyphicon-console"></span>
+        </button>
+        <%
+        }
+          break;
+          case 'SELECT':
+          case 'ADD':
+            icon = 'option-horizontal';
+            colorcode = 'primary';
+            if ((field.readonly || globalReadonly) || (attrPermissions && !attrPermissions.write)) {
+              return;
+            }
+            break;
+          case 'EDIT':
+            icon = 'edit';
+            if (attrPermissions && !attrPermissions.c_edit) {
+              title = 'View';
+            }
+            if ((attrPermissions && !attrPermissions.c_view)) {
+              return;
+            }
+            break;
+          case 'REMOVE':
+            colorcode = 'warning';
+            icon = 'remove';
+            if ((field.readonly || globalReadonly) || (attrPermissions && !attrPermissions.write)) {
+              return;
+            }
+            break;
+          case 'DELETE':
+            colorcode = 'danger';
+            icon = 'remove';
+            if ((field.readonly || globalReadonly) || (attrPermissions && (!attrPermissions.c_delete || !attrPermissions.write))) {
+              return;
+            }
+            break;
+        }
+        %>
+        <button type="button" class="<%=code%> command btn btn-<%=colorcode%>" data-id="<%=command.id%>"
+                style="display:none;"
+                title="<%=title%>">
+          <span class="glyphicon glyphicon-<%=icon%>"></span>
+        </button>
+        <%});%>
+        <button type="button" class="reload btn btn-default" title="Update"><span class="fa fa-refresh"></span></button>
+        <%if (options.dt.reorderable) {%>
+        <%if (attrPermissions && attrPermissions.write && !(field.readonly || globalReadonly)) {%>
+        <button type="button" class="sorting-up sorting btn btn-default" title="Up" style="display: none;">
+          <span class="fa fa-arrow-up"></span>
+        </button>
+        <button type="button" class="sorting-down sorting btn btn-default" title="Down" style="display: none;">
+          <span class="fa fa-arrow-down"></span>
+        </button>
+        <%}%>
+        <% } %>
+      </div>
+      <div class="table-responsive table-loading-container">
+        <table class="table table-striped table-bordered table-hover multi-selectable"
+               data-options="<%=htmlEntities(JSON.stringify(options))%>">
+        </table>
+        <div class="table-loading">
+          <div class="fa fa-refresh fa-spin table-loader"></div>
+        </div>
+      </div>
+      <p class="error-block"></p>
+      <div class="form-group-loader"><span class="fa fa-refresh fa-spin"></span></div>
+
+      <div class="inline-form-control update" title="Edit" style="display: none;">
+        <span class="glyphicon glyphicon-edit"></span>
+      </div>
+      <div class="inline-form-control save" title="Save" style="display: none;">
+        <span class="glyphicon glyphicon-save"></span>
+      </div>
+      <div class="inline-form-control cancel" title="Cancel" style="display: none;">
+        <span class="glyphicon glyphicon-remove"></span>
+      </div>
+
+      <div class="inline-form-control remove" title="Remove" style="display: none;">
+        <span class="glyphicon glyphicon-remove"></span>
+      </div>
+      <!--<div class="inline-form-control delete" title="Delete" style="display: none;">
+        <span class="glyphicon glyphicon-trash"></span>
+      </div>-->
+      <div class="inline-form-control workflow" style="display: none;">
+      </div>
+      <%if (options.dt.reorderable) {%>
+        <div class="inline-form-control sorting-up sorting" title="Up">
+          <span class="fa fa-arrow-up"></span>
+        </div>
+        <div class="inline-form-control sorting-down sorting" title="Down">
+          <span class="fa fa-arrow-down"></span>
+        </div>
+      <% } %>
+    </div>
+</div>
+<% } %>

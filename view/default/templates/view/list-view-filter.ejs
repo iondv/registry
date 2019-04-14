@@ -1,0 +1,46 @@
+<div class="list-view-filters list-tools clearfix">
+    <% filters.forEach((f) => { %>
+        <div class="col-md-2">
+        <% if (f.selectList) { %>
+            <select class="form-control list-view-filter" name="<%= f.property %>"
+                    placeholder="<%= f.label %>"
+                    data-operation="<%= f.operation %>">
+                    <option value="" selected></option>
+                <% f.selectList.forEach((o) => { %>
+                <option value="<%= o.key %>"><%= o.value %></option>
+                <% }); %>
+            </select>
+        <% } else { %>
+            <% switch (f.type) {
+                case 'datetime': { %>
+                    <div class="input-group">
+                        <input class="form-control list-view-filter"
+                            type="datetime" 
+                            name="<%= f.property %>"
+                            autocomplete="off"
+                            placeholder="<%= f.label %>"
+                            data-operation="<%= f.operation %>"/>
+                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                    </div>
+                <% } break;
+                case 'reference': { %>
+                    <select class="form-control list-view-filter" name="<%= f.property %>"
+                            data-url="<%= `/${module}/api/${className}/${f.property}/selection` %>"
+                            data-length="<%= f.length %>"
+                            placeholder="<%= f.label %>"
+                            data-operation="<%= f.operation %>">
+                    </select>
+                <% } break;
+                default: { %>
+                    <input class="form-control list-view-filter" 
+                        type="text"
+                        name="<%= f.property %>"
+                        placeholder="<%= f.label %>"
+                        autocomplete="off"
+                        data-operation="<%= f.operation %>"/>
+                <% };
+            } %>
+        <% } %>
+        </div>
+    <% }); %>
+</div>

@@ -1,0 +1,182 @@
+<!-- schedule -->
+<%
+  var value = prop.getValue();
+  value = value ? JSON.stringify(value) : '';
+%>
+<div class="form-group <%= field.required?"required":"" %> <%=cssFromTags(field)%>"
+     style="<%=styleFromTags(field)%>"
+     data-type="schedule"
+     data-prop="<%= JSON.stringify(field) %>">
+    <label for="<%= id %>" class="col-md-2 col-sm-3 control-label"><%= field.caption %><% include help-sign %></label>
+    <div class="col-md-10 col-sm-9">
+        <div class="worktime">
+            <input type="hidden" id="<%= id %>" name="<%= prop.getName() %>"
+                   class="attr-value" value="<%= value %>">
+            <div class="worktime-loader form-control-static">
+              <span class="fa fa-refresh fa-spin"></span>
+            </div>
+            <div class="worktime-list">
+                <div class="worktime-item master clearfix">
+                    <div class="worktime-week">
+                        <button class="btn-day btn btn-default" data-id="1" type="button">Mo</button>
+                        <button class="btn-day btn btn-default" data-id="2" type="button">Tu</button>
+                        <button class="btn-day btn btn-default" data-id="3" type="button">We</button>
+                        <button class="btn-day btn btn-default" data-id="4" type="button">Th</button>
+                        <button class="btn-day btn btn-default" data-id="5" type="button">Fr</button>
+                        <button class="btn-day btn-weekend btn btn-default" data-id="6" type="button">Sa</button>
+                        <button class="btn-day btn-weekend btn btn-default" data-id="7" type="button">Su</button>
+                        <div class="worktime-filters">
+                            <span class="worktime-filter fivedays">	five-day week</span>
+                            <span class="worktime-filter daily">Daily''</span>
+                        </div>
+                    </div>
+                    <div class="worktime-time">
+                        <span class="glyphicon glyphicon-time" title="Working time"></span>
+                        <select class="form-control">
+                            <option value="00">00</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                        </select>
+                        <b>:</b>
+                        <select class="form-control">
+                            <option value="00">00</option>
+                            <option value="15">15</option>
+                            <option value="30">30</option>
+                            <option value="45">45</option>
+                        </select>
+                        —
+                        <select class="form-control">
+                            <option value="00">00</option>
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                        </select>
+                        <b>:</b>
+                        <select class="form-control">
+                            <option value="00">00</option>
+                            <option value="15">15</option>
+                            <option value="30">30</option>
+                            <option value="45">45</option>
+                        </select>
+                        <div class="worktime-break mt10">
+                            <span class="glyphicon glyphicon-cutlery" title="Break"></span>
+                            <select class="form-control">
+                                <option value="00">00</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                            </select>
+                            <b>:</b>
+                            <select class="form-control">
+                                <option value="00">00</option>
+                                <option value="15">15</option>
+                                <option value="30">30</option>
+                                <option value="45">45</option>
+                            </select>
+                            —
+                            <select class="form-control">
+                                <option value="00">00</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                                <option value="21">21</option>
+                                <option value="22">22</option>
+                                <option value="23">23</option>
+                            </select>
+                            <b>:</b>
+                            <select class="form-control">
+                                <option value="00">00</option>
+                                <option value="15">15</option>
+                                <option value="30">30</option>
+                                <option value="45">45</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="worktime-controls">
+                        <button class="worktime-control create btn btn-success" type="button"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                        <button class="worktime-control remove btn btn-danger hidden" type="button"><span class="glyphicon glyphicon-remove"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="error-block"></p>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<!-- dropdown-object -->
+<% if (attrPermissions && attrPermissions.read) { %>
+<% var referenceValue, displayValue, controlType = "reference"; %>
+
+<%- include _reference_header.ejs %>
+
+<input type="hidden"
+  id="<%= id %>"
+  name="<%= prop.getName() %>"
+  data-ref-class="<%= prop.meta.refClass %>"
+  value="<%=referenceValue ? referenceValue : '' %>" class="attr-value" />
+
+<textarea name="<%= prop.getName() %>_str" class="form-control display-value" readonly rows="6"><%= displayValue %></textarea>
+
+<%- include _reference_footer.ejs %>
+<% } %>

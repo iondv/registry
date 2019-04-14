@@ -1,0 +1,10 @@
+<!-- _text -->
+<div class="form-group <%= field.required?"required":"" %> <%=cssFromTags(field)%>"
+     style="<%=styleFromTags(field)%>" data-type="text" data-prop="<%= JSON.stringify(field) %>">
+    <label for="<%= id %>" class="col-md-2 col-sm-3 control-label"><%= field.caption %><% include help-sign %></label>
+    <div class="col-md-10 col-sm-9">
+        <textarea class="form-control attr-value" id="<%= id %>" name="<%= prop.getName() %>"
+            rows="4" placeholder="<%= field.caption %>"><%= prop.getDisplayValue() %></textarea>
+        <p class="error-block"></p>
+    </div>
+</div>

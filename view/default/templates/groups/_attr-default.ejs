@@ -1,0 +1,4 @@
+<% for (let prop of properties) { %>
+<% let hidden = updatedAttr && updatedAttr.name !== prop.name ? 'hidden' : ''; %>
+<%- partial('./_default_prop', {prop, hidden}) %>
+<%}%>

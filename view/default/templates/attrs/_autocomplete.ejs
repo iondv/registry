@@ -1,0 +1,16 @@
+<%
+var options = {
+  _url: '/' + module + '/api/' + item.getClassName() + '/' + prop.getName() + '/autoComplete',
+  _length: 5
+};
+%>
+<div class="form-group <%= field.required?"required":"" %> <%=cssFromTags(field)%>" style="<%=styleFromTags(field)%>"
+     data-type="autocomplete"
+     data-options="<%=JSON.stringify(options)%>"
+     data-prop="<%= JSON.stringify(field) %>">
+  <label for="<%= id %>" class="col-sm-3 col-md-2 control-label"><%= field.caption %><% include help-sign %></label>
+  <div class="col-sm-9 col-md-10">
+    <input id="<%= id %>" type="text" class="form-control attr-value" name="<%= prop.getName() %>"
+           placeholder="<%= field.caption %>" value="<%=prop.getDisplayValue()%>">
+  </div>
+</div>

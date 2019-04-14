@@ -1,0 +1,123 @@
+<header id="header">
+
+	<span class="logo pull-left">
+	  <a href="/"><img src="<%=module%>/<%- typeof logo === 'string' ? logo : 'img/logo_light.png'%>" alt="admin panel" height="40"/></a>
+	</span>
+
+  <nav>
+    <% include top-menu %>
+
+    <ul class="nav pull-right">
+      <!-- USER OPTIONS -->
+      <% if (typeof user !== 'undefined' && user && user.id() !== 'anonymous') { %>
+      <li class="dropdown pull-left">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+          <% let avatar = user.properties().avatar; %>
+          <% if (avatar) { %>
+          <img class="user-avatar" src="<%= avatar.link %>" height="34" alt="User avatar" />
+          <% } %>
+          <span class="user-name">
+            <span class="hidden-xs"><%= user.name() %> <i class="fa fa-angle-down"></i></span>
+            <span id="notifications_marker" style="display:none;"><i class="fa fa-bell"></i></span>
+          </span>
+        </a>
+        <ul class="dropdown-menu hold-on-click">
+          <li>
+            <a href="<%=module%>/profile"><i class="fa fa-user"></i> User account</a>
+          </li>
+          <li>
+            <a href="<%=module%>/chpwd"><i class="fa fa-lock"></i> Change password</a>
+          </li>
+          <li>
+            <a href="<%=module%>/sign-out"><i class="fa fa-power-off"></i> Sign out</a>
+          </li>
+        </ul>
+      </li>
+      <% } %>
+    </ul>
+
+    <button class="filter btn btn-default ml10" title="Folters"><span class="glyphicon glyphicon-filter"></span></button>
+
+    <div id="top-search" class="top-search dropdown">
+      <input type="text" class="form-control" placeholder="Search ...">
+      <span class="clear" title="Clear search">&times;</span>
+      <ul class="dropdown-menu"></ul>
+    </div>
+  </nav>
+
+</header>
+<%let headerInjection = resolveTpl('header-injection', null, true);
+if (headerInjection) {%>
+<%-partial(headerInjection, {})%>
+<%}%>
+<div id="notifications" style="display:none;"></div>
+<script>
+  $(function () {
+    function adjust() {
+      $('#notifications div').slice(10).remove();
+      var c = $('#notifications div').length;
+      if (c) {
+        $("#notifications_marker").show();
+      } else {
+        $("#notifications_marker").hide();
+      }
+    }
+
+    var concTimer = setInterval(
+      function () {
+        $.ajax({
+          url: '<%=module%>/api/notifications',
+          type: 'GET',
+          dataType: 'json',
+          success: function (notifications) {
+            var html = '';
+            var dn = $('#notifications');
+            for (var i = 0; i < notifications.length; i++) {
+              if (notifications[i].message) {
+                if (dn.find('#notification_' + notifications[i].id).length == 0) {
+                  html = html + '<div id="notification_' + notifications[i].id +
+                    '" data-nid="' + notifications[i].id +
+                    '" class="notification"><h5>' + notifications[i].subject + '</h5>' +
+                    notifications[i].message + '</div>';
+                }
+              }
+            }
+            dn.prepend(html);
+            adjust();
+          },
+          error: function (xhreq, status, error) {
+            console.log(status, error);
+          }
+        });
+      },
+      <%=notificationCheckInterval%>
+    );
+    $('#notifications_marker').click(function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      $('#notifications').show();
+      $(document).one('click', function (e) {
+        $('#notifications').hide();
+      });
+    });
+    $('#notifications').on('click', 'div.notification', function (e) {
+      var _this = $(this);
+      var id = _this.data('nid');
+      if (id) {
+        $.ajax({
+          url: '<%=module%>/api/notifications/viewed/' + id,
+          type: 'GET',
+          success: function (notifications) {
+            $(_this).remove();
+            adjust();
+          },
+          error: function (xhreq, status, error) {
+            console.log(status, error);
+          }
+        });
+      }
+      e.stopPropagation();
+      e.preventDefault();
+    });
+  })
+</script>

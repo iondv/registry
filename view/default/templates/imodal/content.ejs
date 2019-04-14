@@ -1,0 +1,26 @@
+<% layout('./layout') -%>
+
+<div class="imodal-box <%- hideModalHeader ? 'hide-header' : '' %> inline-form-relative">
+    <div class="imodal-box-header">
+        <button type="button" class="imodal-close close modal-close"><span>×</span></button>
+        <% if (typeof preTitle !== 'undefined' && preTitle) { %>
+          <span class="imodal-box-pre-title"><%= preTitle %></span>
+        <% } %>
+        <% if (typeof windowLink !== 'undefined' && windowLink) { %>
+          <h3 class="imodal-box-title">
+            <a href="<%=windowLink%>" class="browser-title" target="_blank">
+              <%= title %>
+            </a>
+          </h3>
+        <% } else { %>
+          <h3 class="imodal-box-title browser-title"><%= title %></h3>
+        <% } %>
+    </div>
+    <div id="imodal-body" class="imodal-box-body">
+        <div id="message-callout" class="message-callout alert">
+          <h4 class="message-callout-title"></h4>
+          <p class="message-callout-content"></p>
+        </div>
+        <%- body -%>
+    </div>
+</div>

@@ -1,0 +1,84 @@
+{
+  "parametrised": true,
+  "sysTitle": "Registy",
+  "di" : {
+    "changelogFactory": {
+      "module": "core/impl/changelogger/DsChangelogFactory",
+      "options": {
+        "dataSource": "ion://Db"
+      }
+    },
+    "signManager": {
+      "module": "core/impl/DigitalSignManager",
+      "options": {
+        "dataSource": "ion://Db",
+        "defaultResult": "[[sign.defaultResult]]"
+      }
+    },
+    "saveActionHandler": {
+      "module": "./actions/SaveHandler"
+    },
+    "actions": {
+      "module": "./backend/ActionProvider",
+      "options": {
+        "actions": [
+          {
+            "code": "CREATE",
+            "handler": {
+              "name": "createActionHandler",
+              "module": "./actions/CreateHandler"
+            }
+          },
+          {
+            "code": "SAVE",
+            "handler": "ion://saveActionHandler"
+          },
+          {
+            "code": "UPDATE",
+            "handler": "ion://saveActionHandler"
+          },
+          {
+            "code": "DELETE",
+            "handler": {
+              "name": "deleteActionHandler",
+              "module": "./actions/DeleteHandler"
+            }
+          }
+        ]
+      }
+    },
+    "userFilters": {
+      "module": "./backend/UserFilters",
+      "initMethod": "init",
+      "options": {
+        "ds":"ion://Db"
+      }
+    },
+    "concurencyChecker": {
+      "module": "./backend/ConcurencyChecker",
+      "options": {
+        "ds":"ion://Db"
+      }
+    },
+    "logRecorder": {
+      "module": "core/impl/log/LogRecorder",
+      "options": {
+        "target": "ion://sysLog",
+        "messageTypes": ["info", "warn"]
+      }
+    },
+    "export": {
+      "module": "./backend/ExportManager",
+      "initMethod": "init",
+      "initLevel": 2,
+      "options": {
+        "auth": "ion://auth",
+        "dataRepo": "ion://securedDataRepo",
+        "metaRepo": "ion://metaRepo",
+        "bg": "ion://background",
+        "configName": "export",
+        "exportPath": "[[registry.exportPath]]"
+      }
+    }
+  }
+}

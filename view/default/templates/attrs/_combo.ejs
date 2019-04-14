@@ -1,0 +1,29 @@
+<!-- _combo -->
+<% if (prop.getType() !== PropertyTypes.REFERENCE ||
+  (prop.getType() === PropertyTypes.REFERENCE && (!attrPermissions || attrPermissions.read))) {
+%>
+<%
+  var options = {
+    _url: '/' + module + '/api/' + item.getClassName() + '/' + prop.getName() + '/selection',
+    _itemId: item.getItemId(),
+    _itemClass: item.getClassName(),
+    _length: 25,
+    _filter: field.selConditions,
+    _sorting: field.selSorting
+  };
+  var referenceValue, displayValue;
+  var controlType = "combo";
+%>
+
+<%- include _reference_header.ejs %>
+
+<select class="form-control attr-value"
+        id="<%= id %>"
+        name="<%= prop.getName() %>"
+        data-ref-class="<%= prop.meta.refClass %>"
+        value="<%=referenceValue?referenceValue:''%>" >
+  <option value="<%=referenceValue?referenceValue:''%>"><%= displayValue %></option>
+</select>
+
+<%- include _reference_footer.ejs %>
+<% } %>

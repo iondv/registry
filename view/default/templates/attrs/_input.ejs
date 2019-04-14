@@ -1,0 +1,15 @@
+<!-- input -->
+<%
+  var mask = field.mask || '';
+%>
+<div class="form-group <%= field.required?"required":"" %> <%=cssFromTags(field)%>"
+     style="<%=styleFromTags(field)%>" data-type="input" data-name="<%= prop.getName() %>"
+     data-prop="<%= JSON.stringify(field) %>">
+    <label for="<%= id %>" class="col-md-2 col-sm-3 control-label"><%= field.caption %><% include help-sign %></label>
+    <div class="col-md-10 col-sm-9">
+        <input id="<%= id %>" type="text" class="form-control attr-value" name="<%= prop.getName() %>"
+               data-mask="<%= typeof mask === 'object' ? JSON.stringify(mask) : mask %>"
+               placeholder="<%= field.caption %>" value="<%=prop.getDisplayValue()%>">
+        <p class="error-block"></p>
+    </div>
+</div>

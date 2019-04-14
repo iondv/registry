@@ -1,0 +1,168 @@
+<% layout('./layout') -%>
+
+<section id="middle">
+
+  <header id="page-header">
+    <h1>User account <%= user.name() %></h1>
+    <ol class="breadcrumb">
+      <li><a href="/<%=module%>"><i class="fa fa-dashboard"></i> Home</a></li>
+      <%- blocks.breadcrumbs %>
+    </ol>
+  </header>
+  <div class="padding-15">
+  <div class="login-box" style="max-width: 60%;margin: 10px auto auto;">
+    <% if(errors.length) { %>
+    <div id="error" class="alert alert-danger">
+      <% errors.forEach(function(error){ %>
+      <p><%= error %></p>
+      <% }); %>
+    </div>
+    <% } %>
+
+    <form action="/<%=module%>/profile" method="post" class="profile-form boxed">
+      <fieldset>
+        <% let props = user.properties();
+        let showSubmit = false;
+        Object.keys(fields).forEach(function(fieldName){
+          let v = props[fieldName];
+          let f = fields[fieldName];
+          if (!f.readonly) {
+            showSubmit = true;
+          } %>
+          <section>
+            <label class="label" for="<%= fieldName %>" style="display:inline-block;width:30%">
+              <%= f.caption ? f.caption : fieldName %>
+              <%= f.required ? '*' : '' %>
+            </label>
+            <div class="field-control" style="display:inline-block;width:69%">
+              <%if (f.selection && Array.isArray(f.selection)) {%>
+              <select <%if (!f.readonly) {%>name="<%=fieldName%>"
+                <%}%>
+                      <%if (f.type == FieldTypes.MULTISELECT) {%>multiple="multiple"
+                <%}%>
+                      <%if (f.required) {%>required
+                <%}%>
+                      <%if (f.readonly) {%>disabled
+                <%}%>
+              >
+                  <% for (let option of f.selection){ %>
+                <option
+                  value="<%=option.value%>" <%=(Array.isArray(v) ? (v.indexOf(option.value) >= 0) : (option.value == v)) ? 'selected="true"' : ''%>><%=option.key%></option>
+                  <% } %>
+                </select>
+              <% } else { %>
+                <% switch (f.type) {
+                  case FieldTypes.IMAGE: %>
+              <%-partial('./utils/_image-uploader', {
+                id: fieldName, name: fieldName, uploadUrl: module + "/api/upload-image", options:
+                      {value: v, readonly: f.readonly}}) %>
+                  <% break;
+                  case FieldTypes.CHECKBOX: %>
+                    <input type="checkbox"
+                      <%if (!f.readonly) {%>
+                      name="<%= fieldName %>"
+                      id="<%= fieldName %>"
+                      <%}%>
+                      <% if (f.required) { %>required<% } %>
+                      <% if (f.readonly) { %>disabled<% } %>
+                      class="form-control form-checkbox"
+                      <%= (v === null) ? 'indeterminate=true' : ((v) ? 'checked' : '')%>/>
+                  <% break;
+                  case FieldTypes.DATE_PICKER:%>
+                    <input type="text"
+                      <%if (!f.readonly) {%>
+                      id="<%= fieldName %>"
+                      name="<%= fieldName %>"
+                      <%}%>
+                      value="<%= v ? utils.dateCallback(v, true, false) : '' %>"
+                      class="form-control form-datepicker"
+                      <% if (f.required) { %>required<% } %>
+                      <% if (f.readonly) { %>readonly<% } %>
+                      placeholder="<%= f.caption %>"/>
+                  <% break;
+                  case FieldTypes.DATETIME_PICKER: %>
+                    <input type="text"
+                      <%if (!f.readonly) {%>
+                      id="<%= fieldName %>"
+                      name="<%= fieldName %>"
+                      <%}%>
+                      value="<%= v ? utils.dateCallback(v, false, false) : '' %>"
+                      class="form-control form-datetimepicker"
+                      <% if (f.required) { %>required<% } %>
+                      <% if (f.readonly) { %>readonly<% } %>
+                      placeholder="<%= f.caption %>"/>
+                  <% break;
+                  default: %>
+                    <input type="text"
+                      <%if (!f.readonly) {%>
+                      id="<%= fieldName %>"
+                      name="<%= fieldName %>"
+                      <%}%>
+                      class="form-control"
+                      <% if (f.required) { %>required<% } %>
+                      <% if (f.readonly) { %>readonly<% } %>
+                      value="<%= v || '' %>"/>
+                <% } %>
+              </div>
+            <% } %>
+          </section>
+        <% }) %>
+      </fieldset>
+
+      <footer>
+        <% if (showSubmit) { %><button id="authbutton" type="submit" class="btn btn-primary pull-right">Save</button><% } %>
+      </footer>
+    </form>
+  </div>
+</div>
+  <script>
+    $(document).ready(function () {
+      $('.form-datepicker').datetimepicker({
+          locale: "<%= locale.lang %>",
+          format: "<%= locale.dateFormat %>"
+        });
+      $('.form-datetimepicker').datetimepicker({
+          locale: "<%= locale.lang %>",
+          format: "<%= locale.dateTimeFormat %>"
+        });
+      $('.form-checkbox').iCheck({
+        checkboxClass: 'icheckbox_flat',
+        radioClass: 'iradio_flat',
+        indeterminateClass: 'indeterminate-checkbox'
+      });
+    });
+    jQuery(function(){
+      var options = <%- JSON.stringify(options || {})%>;
+      var fields = <%- JSON.stringify(fields || {})%>;
+      var $msgContainer = $('div#error');
+      var $submit = $('button#authbutton');
+      var $regForm = $('form#reg-form');
+      $submit.click(function(){
+        $msgContainer.empty();
+        var valid = true;
+        var messages = [];
+        var field;
+        for (fieldName in fields) {
+          if (fields.hasOwnProperty(fieldName)) {
+            if (fields[fieldName] && fields[fieldName].required) {
+              field = $regForm.find('[name='+fieldName+']');
+              if (!field.val()) {
+                valid = false;
+                messages.push('field ' + (fields[fieldName].caption ? fields[fieldName].caption : fieldName )
+                  + ' Required');
+              }
+            }
+          }
+        }
+        if (valid) {
+          $regForm.submit();
+          $msgContainer.empty();
+        } else if (messages.length) {
+          for (var i = 0; i < messages.length; i++) {
+            $('<p/>').html(messages[i]).appendTo($msgContainer);
+          }
+        }
+      });
+    });
+  </script>
+</section>

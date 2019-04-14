@@ -1,0 +1,20 @@
+<!-- _checkbox -->
+<div class="form-group <%=cssFromTags(field)%>" style="<%=styleFromTags(field)%>"
+     data-type="checkbox"
+     data-prop="<%= JSON.stringify(field) %>">
+  <div class="col-sm-offset-2 col-md-10 col-sm-9">
+    <div class="checkbox">
+      <label>
+        <% var checkbox_value = (prop.getValue() !== null)
+          ? prop.getValue() : (prop.meta.nullable ? null : false);%>
+        <input type="hidden" name="<%= prop.getName() %>" value="<%= checkbox_value %>" class="attr-value">
+        <input type="checkbox" id="<%= id %>" class="form-control"
+          nullable=<%= prop.meta.nullable %>
+        <%= (checkbox_value === null) ? 'indeterminate=true' : ((checkbox_value) ? 'checked' : '')%>
+        />
+        <%= field.caption %><% include help-sign %>
+      </label>
+    </div>
+    <p class="error-block"></p>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<!-- dt-object-list-link -->
+<div class="form-group <%= field.required?"required":"" %> <%=cssFromTags(field)%>" style="<%=styleFromTags(field)%>">
+  <label class="col-md-2 col-sm-3 control-label"><%= field.caption %><% include help-sign %></label>
+  <div class="col-md-10 col-sm-9">
+    <%= field.caption %> <button class="open-col-btn btn-success" type="button" title="Open" col_property="<%= prop.getName() %>">Open</button>
+  </div>
+</div>

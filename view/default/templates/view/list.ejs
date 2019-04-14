@@ -1,0 +1,142 @@
+<%
+  var ids = {
+    listBtn: 'la_' + node.replace('@', '_') + '_'
+  };
+  var createUrl = `${module}/${node}/${createPath}`;
+  if (master.class && master.backRef) {
+    createUrl += `?masterId=${master.id}&masterClass=${master.class}&masterBackRef=${master.backRef}`;
+    master.backRefUrlPattern = module + master.backRefUrlPattern;
+  }
+  if (typeof containerItem !== 'undefined'
+    && typeof containerProperty !== 'undefined') {
+    locals.preTitle = `Attribute value selection "${containerProperty.caption}" of object "${containerItem.toString(null, dateCallback)}"`;
+  }
+  var options = {
+    dt: TableOptions,
+    fieldTypes: FieldTypes,
+    fieldModes: FieldModes,
+    locale,
+    multiSelect: true,
+    inlineForm: typeof inlineForm === 'undefined' ? false : inlineForm,
+    url: {
+      node: `${module}/${node}/`,
+      list: `${module}/api/${fetchPath}`,
+      create: createUrl,
+      update: `${module}/${node}/${updatePath}`,
+      do: `${module}/api/do`,
+      export: `${module}/export/${node}/${className}`,
+      autoOpen
+    },
+    commands,
+    master,
+    readOnly: !permissions.write,
+    options: typeof viewOptions === 'undefined' ? {} : viewOptions
+  };
+%>
+<% if (typeof filter !== 'undefined' && filter) options.filter = filter; %>
+
+<% modal ? layout('../imodal/content') : layout('../content') -%>
+
+<% var customList = null;
+  if (viewOptions && typeof viewOptions === 'object') {
+    if (viewOptions.template) {
+      customList = resolveTpl(viewOptions.template, null, true);
+    }
+  }
+  if (nodeOptions && typeof nodeOptions === 'object') {
+    if (nodeOptions.template) {
+      customList = resolveTpl(nodeOptions.template, null, true);
+    }
+  }
+  if (customList) { %>
+<%- partial(resolveTpl(customList)) %>
+<% } else { %>
+<script>
+  var DATE_FORMAT = '<%=locale.dateFormat%>';
+  var DATETIME_FORMAT = '<%=locale.dateTimeFormat%>';
+</script>
+<div class="panel panel-default list-container">
+  <div class="panel-body">
+
+
+    <% if (viewFilters && viewFilters.length) { %>
+      <%- partial('./list-view-filter', {filters: viewFilters}) %>
+    <% } %>
+
+    <div class="list-tools clearfix">
+      <% if (selectionDialog) { %>
+      <button id="<%=`${ids.listBtn}select`%>" class="select btn btn-primary command"
+              style="display:none;"
+              data-id="SELECT" data-bulk="true">Select
+      </button>
+      <% } %>
+      <%commands.forEach(function (command) {
+        var html = command.caption;
+        switch (command.id) {
+          case 'CREATE-INLINE':
+            if (!permissions.use) return;
+            html = '<span class="glyphicon glyphicon-console"></span>';
+            break;
+          case 'CREATE':
+            if (!permissions.use) return;
+            break;
+      }
+
+        var code = command.id.toLowerCase();
+      %>
+      <button id="<%=`${ids.listBtn}${code}`%>" type="button" class="<%=code%> btn btn-success command"
+              title="<%=command.caption%>" data-id="<%=command.id%>" style="display:none;"><%-html%></button>
+      <%});%>
+      <button id="<%=`${ids.listBtn}close`%>" type="button" class="close btn btn-default modal-closer"
+              title="Close" style="display:none;">Close</button>
+      <button id="<%=`${ids.listBtn}reload`%>" type="button" class="reload btn btn-default"
+              title="Update"><span class="fa fa-refresh"></span></button>
+
+      <% if (typeof exporters !== 'undefined' && Object.keys(exporters).length) { %>
+      <%- partial('./_export', {buttonPrefix: ids.listBtn}) %>
+      <% } %>
+    </div>
+
+    <% include list-filter %>
+
+    <div class="table-responsive table-loading-container">
+      <table id="list-manager"
+             class="list-manager table table-striped table-bordered table-hover multi-selectable"
+             data-options="<%=JSON.stringify(options)%>">
+      </table>
+      <div class="table-loading">
+        <div class="fa fa-refresh fa-spin table-loader"></div>
+      </div>
+    </div>
+
+    <div class="inline-form-control update" title="Edit" style="display: none;">
+      <span class="glyphicon glyphicon-edit"></span>
+    </div>
+    <div class="inline-form-control save" title="Save" style="display: none;">
+      <span class="glyphicon glyphicon-save"></span>
+    </div>
+    <div class="inline-form-control cancel" title="Cancel" style="display: none;">
+      <span class="glyphicon glyphicon-remove"></span>
+    </div>
+    <!--<div class="inline-form-control delete" title="Delete" style="display: none;">
+      <span class="glyphicon glyphicon-trash"></span>
+    </div>-->
+    <div class="inline-form-control workflow" style="display: none;">
+    </div>
+
+    <% columns.sort(function (a, b) {
+      return a.orderNumber - b.orderNumber
+    }); %>
+    <% for (let col of columns) {
+      let tpl = customTpl(col);
+      if (tpl) {
+      %>
+      <%- partial(resolveTpl(tpl), {column: col}) %>
+      <% }
+    } %>
+
+  </div>
+  <div class="panel-footer"></div>
+</div>
+
+<% } %>

@@ -1,0 +1,28 @@
+<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+ <metadata id="metadata24">image/svg+xml</metadata>
+
+ <title>polygons</title>
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="18" width="18" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <rect fill="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="0.828734" y="14.733766" width="0.46875" height="0.532469" id="svg_25" stroke="#000" transform="rotate(-90 1.0631093978881838,15) "/>
+  <rect fill="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="0.796875" y="2.778844" width="0.46875" height="0.532469" id="svg_5" stroke="#000"/>
+  <rect fill="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="0.796875" y="6.742781" width="0.46875" height="0.532469" id="svg_7" stroke="#000"/>
+  <rect fill="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="0.796875" y="10.706718" width="0.46875" height="0.532469" id="svg_11" stroke="#000"/>
+  <rect fill="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="14.765625" y="0.796875" width="0.46875" height="0.532469" id="svg_16" stroke="#000"/>
+  <rect fill="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="14.765625" y="4.760812" width="0.46875" height="0.532469" id="svg_18" stroke="#000"/>
+  <rect fill="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="14.765625" y="8.72475" width="0.46875" height="0.532469" id="svg_19" stroke="#000"/>
+  <rect fill="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="14.765625" y="12.688687" width="0.46875" height="0.532469" id="svg_20" stroke="#000"/>
+  <rect fill="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="4.792671" y="14.733766" width="0.46875" height="0.532469" id="svg_27" stroke="#000" transform="rotate(-90 5.027046203613282,15) "/>
+  <rect fill="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="8.756609" y="14.733766" width="0.46875" height="0.532469" id="svg_28" stroke="#000" transform="rotate(-90 8.990983963012697,15) "/>
+  <rect fill="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="12.720547" y="14.733765" width="0.46875" height="0.532469" id="svg_29" stroke="#000" transform="rotate(-90 12.954921722412111,15) "/>
+  <rect fill="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="2.891234" y="0.765016" width="0.46875" height="0.532469" id="svg_33" stroke="#000" transform="rotate(-90 3.125609397888184,1.0312499999999998) "/>
+  <rect fill="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="6.855171" y="0.765016" width="0.46875" height="0.532469" id="svg_34" stroke="#000" transform="rotate(-90 7.089546203613281,1.0312499999999993) "/>
+  <rect fill="#000000" stroke-width="1.5" stroke-opacity="null" fill-opacity="null" x="10.819109" y="0.765016" width="0.46875" height="0.532469" id="svg_35" stroke="#000" transform="rotate(-90 11.053483963012697,1.0312499999999993) "/>
+  <ellipse stroke="#000" ry="1.375" rx="1.375" id="svg_6" cy="5.265625" cx="5.414062" stroke-opacity="null" stroke-width="null" fill="#000000"/>
+  <ellipse stroke="#000" ry="2.140625" rx="2.140625" id="svg_8" cy="9.875" cx="9.695312" stroke-opacity="null" stroke-width="null" fill="#000000"/>
+ </g>
+</svg>

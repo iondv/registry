@@ -1,0 +1,12 @@
+<!-- image-uploader -->
+<div class="form-group <%= field.required?"required":"" %> <%=cssFromTags(field)%>"
+     style="<%=styleFromTags(field)%>" data-type="file" data-prop="<%= JSON.stringify(field) %>">
+  <label for="<%= id %>" class="col-md-2 col-sm-3 control-label"><%= field.caption %><% include help-sign %></label>
+  <div class="col-md-10 col-sm-9">
+    
+    <% let uploadUrl = module + "/api/upload-image/" + item.getClassName() + (item.getItemId() ? "/" + item.getItemId() : ""); %>
+    <%- partial('../utils/_image-uploader', {id: id, name: prop.getName(), uploadUrl: uploadUrl, options: {
+      value: prop.getValue(), readonly: field.readonly}}) %>
+    <p class="error-block"></p>
+  </div>
+</div>

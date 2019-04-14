@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= pageTitle %>: Log in</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0">
+    <base id="baseUrl" href="<%= baseUrl %>">
+    <link href="<%=module%>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="<%=module%>/vendor/bootstrap3-datepicker/css/datepicker.css" rel="stylesheet" type="text/css">
+    <link href="<%=module%>/vendor/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css">
+    <link href="<%=module%>/vendor/datatables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="<%=module%>/vendor/bootstrap3-wysihtml5-bower/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css">
+    <link href="<%=module%>/vendor/icheck/skins/flat/grey.css" rel="stylesheet" type="text/css">
+    <link href="<%=module%>/js/plugins/styleswitcher/styleswitcher.css" rel="stylesheet" type="text/css">
+    <link href="<%=module%>/css/essentials.css" rel="stylesheet" type="text/css">
+    <link href="<%=module%>/css/layout.css" rel="stylesheet" type="text/css">
+    <link href="<%=module%>/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme">
+    <link href="<%=module%>/css/common.css" rel="stylesheet" type="text/css">
+</head>
+  <body>
+
+  <div class="padding-15">
+    <div class="login-box">
+      <% if(errors.length) { %>
+        <div id="error" class="alert alert-danger">
+        <% errors.forEach(function(error){ %>
+        <p><%= error %></p>
+        <% }); %>
+        </div>
+      <% } %>
+      <!-- login form -->
+      <form action="<%=module%>/auth" method="post" class="profile-form boxed">
+        <header><i class="fa fa-users"></i> Log in</header>
+        <input type="hidden" name="timezone" value="" />
+        <fieldset>
+          <section>
+            <label class="label">Login</label>
+            <label class="input">
+              <i class="icon-append fa fa-user"></i>
+              <input id="username" type="login" name="username">
+            </label>
+          </section>
+
+          <section>
+            <label class="label">Password</label>
+            <label class="input">
+              <i class="icon-append fa fa-lock"></i>
+              <input id="password" type="password" name="password">
+            </label>
+            <!--
+            <label class="checkbox"><input type="checkbox" name="remember" checked=""><i></i>Remember me</label>
+            -->
+          </section>
+        </fieldset>
+
+        <footer>
+          <button id="authbutton" type="submit" class="btn btn-primary pull-right">Log in</button>
+          <div class="forgot-password pull-left">
+            <% if (canRegister) { %><a href="<%=module%>/register"><b>Create account</b></a><% } %>
+          </div>
+        </footer>
+      </form>
+      <!--
+      <hr>
+      <div class="text-center">
+        Sign up with social networks.
+      </div>
+      <div class="socials margin-top-10 text-center">
+        <a href="<%=module%>/auth/fb" class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</a>
+        <a href="<%=module%>/auth/twitter" class="btn btn-twitter"><i class="fa fa-twitter"></i> Twitter</a>
+      </div>
+      -->
+    </div>
+  </div>
+
+<script src="<%=module%>/vendor/jquery/jquery.min.js"></script>
+<script src="<%=module%>/vendor/jquery-ui/jquery-ui.min.js"></script>
+<script src="<%=module%>/vendor/moment/moment.min.js"></script>
+<script src="<%=module%>/vendor/moment-timezone/builds/moment-timezone-with-data.min.js"></script>
+<script>
+    $.widget.bridge('uibutton', $.ui.button);
+</script>
+<script src="<%=module%>/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="<%=module%>/vendor/icheck/icheck.min.js" type="text/javascript"></script>
+<script>
+  var plugin_path = '<%=baseUrl%><%=module%>/js/plugins/';
+</script>
+<script src="<%=module%>/js/common.js"></script>
+<script>
+    $(function () {
+      $('input[name=timezone]').val(moment.tz.guess());
+    });
+</script>
+<%- pageEndContent %>
+</body>
+</html>

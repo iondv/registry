@@ -1,0 +1,26 @@
+<!-- input -->
+<%
+  var mask = field.mask || '';
+%>
+<div class="form-group <%= field.required?"required":"" %> <%=cssFromTags(field)%>"
+     style="<%=styleFromTags(field)%>" data-type="url" data-prop="<%= JSON.stringify(field) %>">
+    <label for="<%= id %>" class="col-md-2 col-sm-3 control-label"><%= field.caption %><% include help-sign %></label>
+    <div class="col-md-10 col-sm-9">
+      <div class="url-box">
+        <div class="url-box-control">
+          <button type="button" class="btn btn-info update"><span class="glyphicon glyphicon-edit"></span></button>
+        </div>
+        <div class="url-box-content">
+          <p class="form-control-static">
+            <a href="<%=prop.getDisplayValue()%>" target="_blank" class="break-word">
+              <%=prop.getDisplayValue()%>
+            </a>
+          </p>
+          <input id="<%= id %>" type="text" class="form-control attr-value" name="<%= prop.getName() %>"
+                 data-mask="<%= typeof mask === 'object' ? JSON.stringify(mask) : mask %>"
+                 placeholder="<%= field.caption %>" value="<%=prop.getDisplayValue()%>">
+          <p class="error-block"></p>
+        </div>
+      </div>
+    </div>
+</div>

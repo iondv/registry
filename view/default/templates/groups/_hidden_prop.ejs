@@ -1,0 +1,5 @@
+<%
+prop.name = prop.property !== null && prop.property !== undefined && prop.property !== ""
+    ? prop.property.replace('$', '___') : prop.name;
+%>
+<%- partial('../attrs/_hidden', {prop, attr: prop.name}) %>

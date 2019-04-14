@@ -1,0 +1,45 @@
+<%
+  var ids = {
+    listBtn: 'la_' + node.replace('@', '_') + '_'
+  };
+  var createUrl = `${module}/${node}/${createPath}`;
+  if (master.class && master.backRef) {
+    createUrl += `?masterId=${master.id}&masterClass=${master.class}&masterBackRef=${master.backRef}`;
+  }
+  var options = {
+    dt: TableOptions,
+    fieldTypes: FieldTypes,
+    locale,
+    multiSelect: true,
+    url: {
+      list: `${module}/api/${fetchPath}`,
+      create: createUrl,
+      update: `${module}/${node}/${updatePath}`
+    },
+    commands: null,
+    shortView: true,
+    globalReadonly: true,
+    condensedView: true
+  };
+%>
+<% if (typeof filter !== 'undefined' && filter) options.filter = filter; %>
+
+<% layout('../imodal/content') -%>
+
+<div class="panel panel-default list-container list-container-short">
+  <div class="panel-body">
+    <div class="list-tools clearfix hide">
+      <button id="<%=`${ids.listBtn}edit`%>" class="edit btn btn-info command" title="View" data-id="EDIT" style="display:none;">View</button>
+      <button id="<%=`${ids.listBtn}close`%>" class="close btn btn-default modal-closer" title="Close" style="display:none;">Close</button>
+      <button id="<%=`${ids.listBtn}reload`%>" class="reload btn btn-default" title="Update"><span class="fa fa-refresh"></span></button>
+    </div>
+    <div class="table-responsive table-loading-container">
+      <table class="list-manager table table-condensed table-striped table-bordered table-hover" data-options="<%=JSON.stringify(options)%>">
+      </table>
+      <div class="table-loading">
+        <div class="fa fa-refresh fa-spin table-loader"></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer"></div>
+</div>
