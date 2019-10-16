@@ -66,6 +66,7 @@
   window.ListCommandManager = function (options, $btns, $table) {
     CommandManager.apply(this, arguments);
     this.$table = $table;
+    this.dt = this.$table.dataTable().api();
     $table.on('list-manager:select', function (event, data) {
       this.changeSelect(data);
     }.bind(this));
@@ -106,8 +107,29 @@
 
     changeSelect: function () {
       var $rows = this.getSelectedRows();
+      var _this = this;
+      var permissions = {
+        write: 1,
+        delete: 1
+      };
+      $rows.each(function() {
+        var row = _this.dt.row(this);
+        if (!row) {
+          return false;
+        }
+        var data = row.data();
+        if (!data || !data.__permissions) {
+          return false;
+        }
+        permissions.write = permissions.write & (data.__permissions.write ? 1 : 0);
+        permissions.delete = permissions.delete & (data.__permissions.delete ? 1 : 0);
+      });
       this.processBtns(this.handleButtonVisibility, {
-        counter: $rows.length
+        counter: $rows.length,
+        permissions: {
+          write: !!(permissions.write),
+          delete: !!(permissions.delete)
+        }
       });
     },
 
@@ -117,13 +139,21 @@
     },
 
     handleButtonVisibility: function ($btn, params) {
+      params = params || {};
       var options = $btn.data('options');
       var visible = options && options.hasOwnProperty('id');
+      var permissions = params.permissions || {};
       if (options && options.needSelectedItem && params.counter !== 1) {
         visible = false;
       }
       if (options && options.isBulk && params.counter === 0) {
         visible = false;
+      }
+      if (options && options.id === 'EDIT') {
+        visible = visible && !!(permissions.write);
+      }
+      if (options && options.id === 'DELETE') {
+        visible = visible && !!(permissions.delete);
       }
       $btn.toggle(visible);
     }
@@ -143,32 +173,32 @@
       if (this.listManager.prop.readonly) {
         return [
           {
-            "id": "EDIT",
-            "needSelectedItem": true
+            id: "EDIT",
+            needSelectedItem: true
           }
         ];
       }
       return [
         {
-          "id": "ADD"
+          id: 'ADD'
         },
         {
-          "id": "CREATE"
+          id: 'CREATE'
         },
         {
-          "id": "CREATE-INLINE"
+          id: 'CREATE-INLINE'
         },
         {
-          "id": "EDIT",
-          "needSelectedItem": true
+          id: 'EDIT',
+          needSelectedItem: true
         },
         {
-          "id": "REMOVE",
-          "isBulk": true
+          id: 'REMOVE',
+          isBulk: true
         },
         {
-          "id": "DELETE",
-          "isBulk": true
+          id: 'DELETE',
+          isBulk: true
         }
       ];
     }
@@ -199,25 +229,25 @@
       if (this.attrProp.readonly) {
         return [
           {
-            "id": "EDIT",
-            "needSelectedItem": true
+            id: 'EDIT',
+            needSelectedItem: true
           }
         ];
       }
       return [
         {
-          "id": "SELECT"
+          id: 'SELECT'
         },
         {
-          "id": "CREATE"
+          id: 'CREATE'
         },
         {
-          "id": "EDIT",
-          "needSelectedItem": true
+          id: 'EDIT',
+          needSelectedItem: true
         },
         {
-          "id": "REMOVE",
-          "needSelectedItem": true
+          id: 'REMOVE',
+          needSelectedItem: true
         }
       ];
     },
@@ -267,9 +297,9 @@
 
     getDefaultOptions: function () {
       return [{
-        "id" : "SAVEANDCLOSE"
+        id: 'SAVEANDCLOSE'
       },{
-        "id" : "SAVE"
+        id: 'SAVE'
       }];
     }
   });
@@ -285,11 +315,11 @@
 
     getDefaultOptions: function () {
       return [{
-        "id" : "SAVEANDCLOSE"
+        id: 'SAVEANDCLOSE'
       },{
-        "id" : "SAVE"
+        id: 'SAVE'
       },{
-        "id" : "DELETE"
+        id: 'DELETE'
       }];
     }
   });
@@ -347,5 +377,4 @@
       this.active && this.$bar.toggle(visible);
     }
   };
-
 })();

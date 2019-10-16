@@ -125,6 +125,6 @@
 <script src="<%=module%>/js/list/inline-form<%=staticsSuffix%>.js"></script>
 <script src="<%=module%>/js/list/inline-form-cell<%=staticsSuffix%>.js"></script>
 <script src="<%=module%>/js/list/manager<%=staticsSuffix%>.js"></script>
-<%- pageEndContent %>
+<%- typeof pageEndContent !== 'undefined' ? pageEndContent : "" %>
 </body>
 </html>

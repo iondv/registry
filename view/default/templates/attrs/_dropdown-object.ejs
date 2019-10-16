@@ -13,9 +13,11 @@
 
 <%if (attrPermissions.write) { %>
   <div class="form-control form-control-static display-value display-link"><%= displayValue %></div>
-<% } else if (referenceValue) { %>
+<%} else {%>
 <div class="form-control-static">
-  <a href="<%= `${options.updateUrl}/${referenceValue}` %>" class="modal-link hidden-link">
+  <a <%if (referenceValue) {%>href="<%=`${options.updateUrl}/${referenceValue}`%>"
+    <%}%>
+     class="modal-link hidden-link display-value">
       <%= displayValue %>
   </a>
 </div>

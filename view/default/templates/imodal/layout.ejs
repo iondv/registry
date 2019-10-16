@@ -111,6 +111,6 @@
     <script src="<%=module%>/js/object/history<%=staticsSuffix%>.js"></script>
     <script src="<%=module%>/js/object/ref-short-view<%=staticsSuffix%>.js"></script>
     <script src="<%=module%>/js/object/manager<%=staticsSuffix%>.js"></script>
-  <%- pageEndContent %>
+  <%- typeof pageEndContent !== 'undefined' ? pageEndContent : "" %>
 </body>
 </html>

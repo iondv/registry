@@ -1,32 +1,179 @@
-<div class="form-group <%=cssFromTags(field)%>" style="<%=styleFromTags(field)%>" data-type="calendar" data-value="<%= JSON.stringify(prop.getValue())%>">
+<!-- calendar -->
+<%
+  var value = prop.getValue();
+  value = value ? JSON.stringify(value) : '';
+%>
+<style type="text/css">
+  .event-item {
+    padding: 2px;
+  }
+
+  .event-item button {
+    margin-left: 5px;
+  }
+</style>
+<div class="form-group <%=cssFromTags(field)%>" style="<%=styleFromTags(field)%>" data-type="calendar">
   <label for="<%= id %>" class="col-md-2 col-sm-3 control-label"><%= field.caption %><% include help-sign %></label>
   <div class="col-md-10 col-sm-9">
-
+    <input type="hidden" id="<%= id %>" name="<%= prop.getName() %>" class="attr-value" value="<%= value %>" />
     <select class="month-select">
-      <option value="0">January</option>
-      <option value="1">February</option>
-      <option value="2">March</option>
-      <option value="3">April</option>
-      <option value="4">May</option>
-      <option value="5">June</option>
-      <option value="6">July</option>
-      <option value="7">August</option>
-      <option value="8">September</option>
-      <option value="9">October</option>
-      <option value="10">November</option>
-      <option value="11">December</option>
+      <option value="0">Январь</option>
+      <option value="1">Февраль</option>
+      <option value="2">Март</option>
+      <option value="3">Апрель</option>
+      <option value="4">Май</option>
+      <option value="5">Июнь</option>
+      <option value="6">Июль</option>
+      <option value="7">Август</option>
+      <option value="8">Сентябрь</option>
+      <option value="9">Октябрь</option>
+      <option value="10">Ноябрь</option>
+      <option value="11">Декабрь</option>
     </select>
-    <button class="year-calendar-opener btn btn-default">Year</button>
+    <button class="year-calendar-opener btn btn-default">Год</button>
     <div class="month-calendar"></div>
 
     <div class="imodal-frame year-calendar-frame">
       <div class="imodal-box">
         <div class="imodal-box-header">
-          <button type="button" class="year-calendar-frame-close close"><span>×</span></button>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Закрыть">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h3 class="imodal-box-title">
+            <span>Расписание</span>
+          </h3>
         </div>
 
         <div class="imodal-box-body">
           <div class="year-calendar"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="imodal-frame event-frame">
+      <div class="imodal-box">
+        <div class="imodal-box-header">
+          <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+          <h3 class="imodal-box-title">
+            <span>Расписание</span>
+          </h3>  
+        </div>
+        <div class="imodal-box-body">
+
+          <input type="hidden" name="event-index" value="">
+          <form class="form-horizontal">
+            <div class="form-group">
+              <label class="col-sm-4 control-label">Описание</label>
+              <div class="col-sm-7">
+                <input name="sch-description" type="text" class="form-control">
+              </div>
+            </div>
+
+            <div class="well form-struct event-form">
+              <label>Событие</label>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Тип</label>
+                <div class="col-sm-7">
+                  <select class="form-control" name="event-type">
+                    <option selected value="occurs">Событие</option>
+                    <option value="skipped">Исключение</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Продолжительность</label>
+                <div class="col-sm-7">
+                  <input name="event-duration" type="number" class="form-control event-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Год</label>
+                <div class="col-sm-7">
+                  <input name="event-year" type="number" class="form-control event-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Месяц</label>
+                <div class="col-sm-7">
+                  <input name="event-month" type="number" class="form-control event-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">День недели</label>
+                <div class="col-sm-7">
+                  <input name="event-weekday" type="number" class="form-control event-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">День</label>
+                <div class="col-sm-7">
+                  <input name="event-day" type="number" class="form-control event-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Час</label>
+                <div class="col-sm-7">
+                  <input name="event-hour" type="number" class="form-control event-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Минута</label>
+                <div class="col-sm-7">
+                  <input name="event-minute" type="number" class="form-control event-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Секунда</label>
+                <div class="col-sm-7">
+                  <input name="event-second" type="number" class="form-control event-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-7">
+                  <button type="button" class="btn btn-primary event-save">
+                    Сохранить событие
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#sch-occurs" aria-controls="home" role="tab" data-toggle="tab">События</a></li>
+                <li role="presentation"><a href="#sch-skipped" aria-controls="profile" role="tab" data-toggle="tab">Исключения</a></li>
+              </ul>
+
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="sch-occurs">
+                  <div>
+                    <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Добавить</button>
+                  </div>
+                  <div class="sch-occurs-container"></div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="sch-skipped">
+                  <div>
+                    <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Добавить</button>
+                  </div>
+                  <div class="sch-skipped-container"></div>
+                </div>
+              </div>
+            </div>
+
+
+          </form>
+
+        </div>
+        <div class="imodal-box-footer">
+
+            <div class="form-group pull-right" style="padding: 20px">
+
+            <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+            <button type="button" class="btn btn-primary sch-save">
+              Сохранить расписание
+            </button>
+            </div>
+
         </div>
       </div>
     </div>

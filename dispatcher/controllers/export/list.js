@@ -4,15 +4,14 @@
 'use strict';
 const locale = require('locale');
 const pnf = require('../404.js');
-const canonicNode = require('../../../backend/menu').canonicNode;
-const nodeAclId = require('../../../backend/menu').nodeAclId;
+const forbidden = require('../403.js');
 const formListOptions = require('../../../backend/items').formListOptions;
 const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
-const Permissions = require('core/Permissions');
 const overrideEagerLoading = require('../../../backend/items').overrideEagerLoading;
 const moduleName = require('../../../module-name');
 const moment = require('moment');
+const processNavigation = require('../../../backend/menu').processNavigation;
 
 // jshint maxstatements: 50, maxcomplexity: 30
 module.exports = function (req, res) {
@@ -24,21 +23,14 @@ module.exports = function (req, res) {
      */
     function (scope) {
       try {
-        let n = canonicNode(req.params.node);
-        let node = scope.metaRepo.getNode(n.code, n.ns);
-        if (!node) {
-          return pnf(req, res);
-        }
         let user = scope.auth.getUser(req);
-        let lang, cm, exporter;
-        scope.aclProvider.checkAccess(user, nodeAclId(node), Permissions.READ)
+        let lang, cm, exporter, node;
+        processNavigation(scope, req)
           .then(
-            function (accessible) {
-              if (!accessible) {
-                return onError(scope, new Error('Доступ запрещен!'), res, false);
-              }
-              cm = scope.metaRepo.getMeta(req.params.class ? req.params.class : node.classname, null, n.ns);
-              if (cm && node.type === 1) {
+            (info) => {
+              cm = info.classMeta;
+              node = info.node;
+              if (cm && (!node || node.type === 1)) {
                 exporter = scope.export.exporter(req.params.format, {class: cm});
                 if (exporter) {
                   let locales = new locale.Locales(req.headers['accept-language']);

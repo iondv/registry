@@ -3,7 +3,6 @@
  */
 'use strict';
 
-const canonicNode = require('../../../backend/menu').canonicNode;
 const prepareJSON = require('../../../backend/items').prepareJSON;
 const formListOptions = require('../../../backend/items').formListOptions;
 const locale = require('locale');
@@ -29,8 +28,7 @@ module.exports = function (req, res) {
         let user = scope.auth.getUser(req);
         let node;
         if (req.body.node) {
-          let n = canonicNode(req.body.node);
-          node = scope.metaRepo.getNode(n.code, n.ns);
+          node = scope.metaRepo.getNode(req.body.node);
         }
         let vm;
         let cm = scope.metaRepo.getMeta(req.params.class);

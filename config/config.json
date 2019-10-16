@@ -1,6 +1,6 @@
 {
   "parametrised": true,
-  "sysTitle": "Registy",
+  "sysTitle": "Типовой модуль ION",
   "di" : {
     "changelogFactory": {
       "module": "core/impl/changelogger/DsChangelogFactory",

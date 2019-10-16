@@ -56,10 +56,10 @@ var options = {
     <button id="<%=`${form.ids.formBtn}EXPORT`%>" type="button"
             class="btn btn-default object-control" data-id="EXPORT"
     >
-      Export
+      Экспорт
     </button>
     <button id="<%=`${form.ids.formBtn}close`%>" type="button" class="closer btn btn-default object-control" data-id="CLOSE">
-      Close
+      Закрыть
     </button>
   </div>
 
@@ -99,7 +99,7 @@ var options = {
             })
             .fail(function (xhr) {
               console.error(xhr);
-              messageCallout.error('Could not start export!');
+              messageCallout.error('Не удалось запустить экспорт!');
             });
         } else {
           document.forms.params.submit();

@@ -5,8 +5,14 @@
   <div class="col-sm-offset-2 col-md-10 col-sm-9">
     <div class="checkbox">
       <label>
-        <% var checkbox_value = (prop.getValue() !== null)
-          ? prop.getValue() : (prop.meta.nullable ? null : false);%>
+        <% var checkbox_value, pVal = prop.getValue();
+          if (pVal === null) {
+            checkbox_value = prop.meta.nullable ? null : false;
+          } else if (typeof pVal === 'string') {
+            checkbox_value = pVal === 'true';
+          } else {
+            checkbox_value = pVal;
+          } %>
         <input type="hidden" name="<%= prop.getName() %>" value="<%= checkbox_value %>" class="attr-value">
         <input type="checkbox" id="<%= id %>" class="form-control"
           nullable=<%= prop.meta.nullable %>

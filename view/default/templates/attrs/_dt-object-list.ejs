@@ -77,7 +77,7 @@
         if (field.options && field.options.inplaceInsertion) {
         %>
         <button type="button" class="create-inline command btn btn-success" data-id="CREATE-INLINE"
-                style="display:none;" title="Create in-place">
+                style="display:none;" title="Создать на месте">
           <span class="glyphicon glyphicon-console"></span>
         </button>
         <%
@@ -94,7 +94,7 @@
           case 'EDIT':
             icon = 'edit';
             if (attrPermissions && !attrPermissions.c_edit) {
-              title = 'View';
+              title = 'Просмотр';
             }
             if ((attrPermissions && !attrPermissions.c_view)) {
               return;
@@ -122,13 +122,13 @@
           <span class="glyphicon glyphicon-<%=icon%>"></span>
         </button>
         <%});%>
-        <button type="button" class="reload btn btn-default" title="Update"><span class="fa fa-refresh"></span></button>
+        <button type="button" class="reload btn btn-default" title="Обновить"><span class="fa fa-refresh"></span></button>
         <%if (options.dt.reorderable) {%>
         <%if (attrPermissions && attrPermissions.write && !(field.readonly || globalReadonly)) {%>
-        <button type="button" class="sorting-up sorting btn btn-default" title="Up" style="display: none;">
+        <button type="button" class="sorting-up sorting btn btn-default" title="Вверх" style="display: none;">
           <span class="fa fa-arrow-up"></span>
         </button>
-        <button type="button" class="sorting-down sorting btn btn-default" title="Down" style="display: none;">
+        <button type="button" class="sorting-down sorting btn btn-default" title="Вниз" style="display: none;">
           <span class="fa fa-arrow-down"></span>
         </button>
         <%}%>
@@ -145,29 +145,29 @@
       <p class="error-block"></p>
       <div class="form-group-loader"><span class="fa fa-refresh fa-spin"></span></div>
 
-      <div class="inline-form-control update" title="Edit" style="display: none;">
+      <div class="inline-form-control update" title="Редактировать" style="display: none;">
         <span class="glyphicon glyphicon-edit"></span>
       </div>
-      <div class="inline-form-control save" title="Save" style="display: none;">
+      <div class="inline-form-control save" title="Сохранить" style="display: none;">
         <span class="glyphicon glyphicon-save"></span>
       </div>
-      <div class="inline-form-control cancel" title="Cancel" style="display: none;">
+      <div class="inline-form-control cancel" title="Отменить" style="display: none;">
         <span class="glyphicon glyphicon-remove"></span>
       </div>
 
-      <div class="inline-form-control remove" title="Remove" style="display: none;">
+      <div class="inline-form-control remove" title="Убрать" style="display: none;">
         <span class="glyphicon glyphicon-remove"></span>
       </div>
-      <!--<div class="inline-form-control delete" title="Delete" style="display: none;">
+      <!--<div class="inline-form-control delete" title="Удалить" style="display: none;">
         <span class="glyphicon glyphicon-trash"></span>
       </div>-->
       <div class="inline-form-control workflow" style="display: none;">
       </div>
       <%if (options.dt.reorderable) {%>
-        <div class="inline-form-control sorting-up sorting" title="Up">
+        <div class="inline-form-control sorting-up sorting" title="Вверх">
           <span class="fa fa-arrow-up"></span>
         </div>
-        <div class="inline-form-control sorting-down sorting" title="Down">
+        <div class="inline-form-control sorting-down sorting" title="Вниз">
           <span class="fa fa-arrow-down"></span>
         </div>
       <% } %>

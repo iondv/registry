@@ -29,16 +29,16 @@ module.exports = function (req, res) {
         let pm = cm.getPropertyMeta(req.params.property);
         (
           req.body.itemId ?
-            scope.securedDataRepo.getItem(cm.getCanonicalName(), req.body.itemId, {user: user}) :
+            scope.securedDataRepo.getItem(cm.getCanonicalName(), req.body.itemId, {user, lang}) :
             scope.dataRepo.getItem(
               scope.securedDataRepo.wrap(
                 cm.getCanonicalName(),
                 prepareSaveData(req.body.updates || {}, cm, lang),
                 null,
-                {autoassign: true, user: user}
+                {autoassign: true, user, lang}
               ),
               null,
-              {user: user}
+              {user, lang}
             )
         )
           .then((context) => {

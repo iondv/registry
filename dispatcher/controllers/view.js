@@ -20,11 +20,9 @@ const itemTplData = require('../../backend/items').itemTplData;
 const prepareJSON = require('../../backend/items').prepareJSON;
 const prepareDate = require('../../backend/items').prepareDate;
 const moduleName = require('../../module-name');
-const canonicNode = require('../../backend/menu').canonicNode;
 const onError = require('../../backend/error');
 const respond = require('../../backend/respond');
 const geoFieldSearchVal = require('../../backend/viewmodels').geoFieldSearchVal;
-const nodeAclId = require('../../backend/menu').nodeAclId;
 const Permissions = require('core/Permissions');
 const formFilter = require('../../backend/items').formFilter;
 const merge = require('merge');
@@ -35,6 +33,7 @@ const slTriggers = require('../../backend/items').selectionListTriggers;
 const concurencyState = require('../../backend/items').concurencyState;
 const checkSignState = require('../../backend/items').checkSignState;
 const PropertyTypes = require('core/PropertyTypes');
+const processNavigation = require('../../backend/menu').processNavigation;
 
 // jshint maxstatements: 30, maxcomplexity: 20
 module.exports = function (req, res) {
@@ -54,23 +53,17 @@ module.exports = function (req, res) {
      */
     function (scope) {
       try {
-        let n = canonicNode(req.params.node);
-        let node = scope.metaRepo.getNode(n.code, n.ns);
-        if (!node) {
-          return pnf(req, res);
-        }
         let locales = new locale.Locales(req.headers['accept-language']);
         let lang = locales[0] ? locales[0].language : 'ru';
         let user = scope.auth.getUser(req);
         let dateCallback = (date, trimTime, iso) => prepareDate(date, iso ? null : lang, user.timeZone(), trimTime);
         let toJSON = data => prepareJSON(data, lang, user.timeZone());
         let opts = {user: user, lang: lang};
-        let cm, vm, log, state, exporters, addCollectionSyles;
-        scope.aclProvider.checkAccess(user, nodeAclId(node), Permissions.READ)
-          .then((accessible) => {
-            if (!accessible) {
-              throw new IonError(Errors.ACCESS_DENIED);
-            }
+        let cm, node, vm, log, state, exporters, addCollectionSyles;
+        processNavigation(scope, req)
+          .then((info) => {
+            cm = info.classMeta;
+            node = info.node;
             return concurencyState(
               `${req.params.class}@${req.params.id}`,
               user,
@@ -81,8 +74,7 @@ module.exports = function (req, res) {
           })
           .then((concurencyState) => {
             state = concurencyState;
-            cm = scope.metaRepo.getMeta(req.params.class, null, n.ns);
-            let dopts = merge(false, true, opts, {nestingDepth: 0, linksByRef: true});
+            let dopts = merge(false, true, opts, {nestingDepth: 0, linksByRef: true, lang});
             dopts.filter = formFilter(moduleName, scope, req, cm);
             let eagerLoading = [];
             if (node && node.eagerLoading) {
@@ -90,7 +82,7 @@ module.exports = function (req, res) {
                 eagerLoading = node.eagerLoading.item[cm.getName()];
               }
             }
-            dopts.forceEnrichment = itemEagerLoading(cm, node.namespace + '@' + node.code, scope, eagerLoading);
+            dopts.forceEnrichment = itemEagerLoading(cm, node ? node.namespace + '@' + node.code : null, scope, eagerLoading);
             scope.logRecorder.start();
             return scope.securedDataRepo.getItem(
               cm.getCanonicalName(),
@@ -140,6 +132,7 @@ module.exports = function (req, res) {
                 if (!vm/* || (vm.overrideMode === 1)*/) {
                   vm = buildEditFormVm(found.getMetaClass(), vm);
                 }
+                merge({tabs: [], commands: []}, vm);
                 adjustFields(found.getMetaClass(), vm, scope.metaRepo);
                 let vmel = vmEagerLoading(vm, found.getMetaClass());
                 if (vmel.length) {
@@ -147,7 +140,8 @@ module.exports = function (req, res) {
                     linksByRef: true,
                     forceEnrichment: vmel,
                     skipAutoAssign: true,
-                    user
+                    user,
+                    lang
                   });
                 }
                 return found;
@@ -241,7 +235,7 @@ module.exports = function (req, res) {
           })
           .catch((err) => {
             scope.logRecorder.stop();
-            if (err instanceof IonError && err.code === Errors.ACCESS_DENIED) {
+            if (err instanceof IonError && err.code === Errors.ACCESS_DENIED || err === 403) {
               return forbidden(req, res);
             }
             if (err === 404) {

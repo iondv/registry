@@ -41,9 +41,9 @@ module.exports = function (req, res) {
             .then((options)=> {
               options.filter = {[F.LIKE]: ['$' + pm.name, '^' + req.body.search]};
               options.fields = {};
-              options.fields[pm.name] = "$" + pm.name;
+              options.fields[pm.name] = '$' + pm.name;
               options.countTotal = false;
-              options.aggregates = {_count: {$count: "count"}};
+              options.aggregates = {_count: {$count: 'count'}};
               options.sort = {_count: -1};
               options.count = parseInt(req.body.length);
 

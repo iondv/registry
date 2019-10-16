@@ -155,7 +155,7 @@
         this.modalMark = new ymaps.Placemark(coords);
         this.modalMap.geoObjects.add(this.modalMark);
       }
-      this.modalMark.properties.set('balloonContentHeader', 'Coordinates&nbsp;&nbsp;');
+      this.modalMark.properties.set('balloonContentHeader', 'Координаты&nbsp;&nbsp;');
       //this.modalMark.properties.set('balloonContentBody', this.coords[0].toPrecision(6) +'<br>'+ this.coords[1].toPrecision(6));
     },
 
@@ -163,10 +163,10 @@
       this.newCoords = coords;
       this.modalMap.balloon.isOpen() && this.modalMap.balloon.close();
       this.modalMap.balloon.open(coords, {
-        contentHeader: 'Coordinates&nbsp&nbsp',
+        contentHeader: 'Координаты&nbsp&nbsp',
         contentBody: '<div class="mt10">' + coords[0].toPrecision(8) + '</div>'
         + '<div class="mb10">' + coords[1].toPrecision(8) + '</div>'
-        + '<button class="set-coords-btn btn btn-primary btn-sm" type="button">Set</button>'
+        + '<button class="set-coords-btn btn btn-primary btn-sm" type="button">Задать</button>'
       }).then(function () {
         //this.modalMap.getZoom() > MAX_INIT_ZOOM && this.modalMap.setZoom(MAX_INIT_ZOOM);
       }.bind(this));

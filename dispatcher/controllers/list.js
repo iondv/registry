@@ -7,8 +7,7 @@
 const pnf = require('./404.js');
 const forbidden = require('./403.js');
 const buildMenus = require('../../backend/menu').buildMenus;
-const canonicNode = require('../../backend/menu').canonicNode;
-const nodeAclId = require('../../backend/menu').nodeAclId;
+const processNavigation = require('../../backend/menu').processNavigation;
 const buildListVm = require('../../backend/viewmodels').buildListVm;
 const tableOptions = require('../../backend/viewmodels').tableOptions;
 const userFiltersOptions = require('../../backend/viewmodels').userFiltersOptions;
@@ -20,10 +19,26 @@ const overrideSearchOptions = require('../../backend/items').overrideSearchOptio
 const overrideSearchMinLength = require('../../backend/items').overrideSearchMinLength;
 const onError = require('../../backend/error');
 const respond = require('../../backend/respond');
-const Permissions = require('core/Permissions');
 const locale = require('locale');
 const PropertyTypes = require('core/PropertyTypes');
 const F = require('core/FunctionCodes');
+
+const defaultCommands = [
+  {
+    id: 'CREATE',
+    caption: 'Создать'
+  },
+  {
+    id: 'EDIT',
+    needSelectedItem: true,
+    caption: 'Изменить'
+  },
+  {
+    id: 'DELETE',
+    isBulk: true,
+    caption: 'Удалить'
+  }
+];
 
 /* jshint maxstatements: 50, maxcomplexity: 30 */
 module.exports = function (req, res) {
@@ -36,44 +51,33 @@ module.exports = function (req, res) {
     function (scope) {
       try {
         let user = scope.auth.getUser(req);
-        let n = canonicNode(req.params.node);
-        let node = scope.metaRepo.getNode(n.code, n.ns);
-        if (!node) {
-          return pnf(req, res);
-        }
-        let cm, createPath, lang, tableOps, collectionParams, vm, template, fetchPath, userFilters,
-          classAclId, permissions;
+        let createPath, lang, tableOps, collectionParams, vm, template, fetchPath, userFilters, permissions;
+        let node, classMeta, basicCm;
         let shortView = !!req.query.short;
-        scope.aclProvider.checkAccess(user, nodeAclId(node), Permissions.READ)
+        processNavigation(scope, req)
           .then(
-            function (accessible) {
-              if (!accessible) {
-                return Promise.reject(403);
-              }
-              cm = scope.metaRepo.getMeta(req.params.class ? req.params.class : node.classname, null, n.ns);
-              classAclId = `c:::${cm.getCanonicalName()}`;
-              return scope.aclProvider.getPermissions(user, classAclId);
-            })
-          .then(
-            function (access) {
-              permissions = access ? access[classAclId] : {};
+            (info) => {
+              classMeta = info.classMeta;
+              basicCm = classMeta;
+              node = info.node;
+              permissions = info.permissions;
               tableOps = {};
               template = shortView ? 'list-short' : 'list';
               fetchPath = '';
-              createPath = 'new/' + cm.getCanonicalName();
+              createPath = 'new/' + classMeta.getCanonicalName();
               let locales = new locale.Locales(req.headers['accept-language']);
               lang = locales[0] ? locales[0].language : 'ru';
               if (req.params.class && req.params.id && req.params.collection) {
                 template = 'collection';
-                let colProperty = cm.getPropertyMeta(req.params.collection);
+                let colProperty = classMeta.getPropertyMeta(req.params.collection);
                 if (colProperty) {
                   let ccm = colProperty._refClass;
                   if (ccm) {
-                    fetchPath = cm.getCanonicalName() + '/' + req.params.id + '/' + req.params.collection;
+                    fetchPath = classMeta.getCanonicalName() + '/' + req.params.id + '/' + req.params.collection;
                     vm = scope.metaRepo.getCollectionViewModel(
-                      cm.getCanonicalName(),
+                      classMeta.getCanonicalName(),
                       req.params.collection,
-                      `${node.namespace}@${node.code}`);
+                      node ? `${node.namespace}@${node.code}` : null);
                     if (!vm) {
                       vm = buildListVm(ccm, vm);
                     }
@@ -83,29 +87,29 @@ module.exports = function (req, res) {
                       id: req.params.id,
                       collectionClassname: ccm.getName()
                     };
-                    cm = ccm;
+                    classMeta = ccm;
                   }
                 }
               } else {
                 if (!node) {
-                  fetchPath = cm.getCanonicalName();
-                  vm = scope.metaRepo.getListViewModel(cm.getCanonicalName());
+                  fetchPath = classMeta.getCanonicalName();
+                  vm = scope.metaRepo.getListViewModel(classMeta.getCanonicalName());
                 } else if (node.type === 2) {
                   if (node.classname && node.id && node.collection) {
-                    fetchPath = cm.getCanonicalName() + '/' + node.id + '/' + node.collection;
+                    fetchPath = classMeta.getCanonicalName() + '/' + node.id + '/' + node.collection;
                   }
                   vm = scope.metaRepo.getCollectionViewModel(
-                    cm.getCanonicalName(),
+                    classMeta.getCanonicalName(),
                     node.collection,
                     `${node.namespace}@${node.code}`
                   );
                   template = 'collection';
-                } if (node.type !== 0) {
-                  fetchPath = cm.getCanonicalName();
-                  vm = scope.metaRepo.getListViewModel(cm.getCanonicalName(), `${node.namespace}@${node.code}`);
+                } else if (node.type !== 0) {
+                  fetchPath = classMeta.getCanonicalName();
+                  vm = scope.metaRepo.getListViewModel(classMeta.getCanonicalName(), `${node.namespace}@${node.code}`);
                 }
                 if (!vm/* || (vm.overrideMode === 1)*/) {
-                  vm = buildListVm(cm, vm);
+                  vm = buildListVm(classMeta, vm);
                 }
               }
               if (!fetchPath) {
@@ -114,41 +118,41 @@ module.exports = function (req, res) {
 
               let eagerLoading = [];
               if (node && node.eagerLoading) {
-                if (node.eagerLoading.list && Array.isArray(node.eagerLoading.list[cm.getName()])) {
-                  eagerLoading = node.eagerLoading.list[cm.getName()];
+                if (node.eagerLoading.list && Array.isArray(node.eagerLoading.list[classMeta.getName()])) {
+                  eagerLoading = node.eagerLoading.list[classMeta.getName()];
                 }
               }
 
               let searchOptions = null;
-              if (node && node.searchOptions && node.searchOptions[cm.getName()]) {
-                searchOptions = node.searchOptions[cm.getName()];
+              if (node && node.searchOptions && node.searchOptions[classMeta.getName()]) {
+                searchOptions = node.searchOptions[classMeta.getName()];
               }
 
               searchOptions = overrideSearchOptions(
                 moduleName,
                 searchOptions,
-                node.namespace + '@' + node.code,
-                cm.getCanonicalName(),
+                node && `${node.namespace}@${node.code}`,
+                classMeta.getCanonicalName(),
                 scope.settings);
 
-              tableOps = tableOptions(cm, vm, scope.metaRepo, searchOptions, node && node.sorting || []);
+              tableOps = tableOptions(classMeta, vm, scope.metaRepo, searchOptions, node && node.sorting || []);
 
               tableOps.eagerLoading = overrideEagerLoading(
                 moduleName,
                 eagerLoading,
-                node.namespace + '@' + node.code,
-                cm.getCanonicalName(),
+                node && `${node.namespace}@${node.code}`,
+                classMeta.getCanonicalName(),
                 'list',
                 scope.settings);
 
               tableOps.searchMinLength = overrideSearchMinLength(moduleName, scope.settings, searchOptions);
 
-              userFilters = userFiltersOptions(vm, cm, scope.metaRepo);
+              userFilters = userFiltersOptions(vm, classMeta, scope.metaRepo);
 
-              return scope.export.listExporters(cm, {});
+              return scope.export.listExporters(classMeta, {});
             })
           .then(
-            function (exporters) {
+            (exporters) => {
               let searchDelay = scope.settings.get(moduleName + '.listSearchDelay');
               if (searchDelay !== null) {
                 tableOps.searchDelay = searchDelay;
@@ -157,10 +161,9 @@ module.exports = function (req, res) {
               let tplData = {
                 baseUrl: req.app.locals.baseUrl,
                 module: moduleName,
-                className: cm.getCanonicalName(),
-                title: node
-                  ? node.title || node.caption + (cm.getName() !== node.classname ?  ': ' + cm.getCaption() : '')
-                  : cm.getCaption(),
+                className: classMeta.getCanonicalName(),
+                title: (node && (node.title || node.caption) || classMeta.getCaption()) +
+                (classMeta !== basicCm ? ': ' + classMeta.getCaption() : ''),
                 pageCode: node && node.code,
                 autoOpen: req.query.open,
                 master: {
@@ -171,7 +174,7 @@ module.exports = function (req, res) {
                 node: req.params.node,
                 fetchPath: fetchPath,
                 createPath: createPath,
-                updatePath: 'view/' + cm.getCanonicalName(),
+                updatePath: 'view/' + classMeta.getCanonicalName(),
                 modal: req.query.modal,
                 selectionDialog: req.query.selection,
                 TableOptions: tableOps,
@@ -182,29 +185,17 @@ module.exports = function (req, res) {
                 userFilters: userFilters,
                 inlineForm: scope.settings.get(moduleName + '.inlineForm'),
                 logo: scope.settings.get(moduleName + '.logo'),
-                commands: Array.isArray(vm.commands) ? vm.commands : [
-                  {
-                    id: 'CREATE'
-                  },
-                  {
-                    id: 'EDIT',
-                    needSelectedItem: true
-                  },
-                  {
-                    id: 'DELETE',
-                    isBulk: true
-                  }
-                ],
+                commands: Array.isArray(vm.commands) ? vm.commands : defaultCommands,
                 columns: vm.columns,
                 condensedView: !!req.query.condensed,
-                nodeOptions: node.options,
+                nodeOptions: node && node.options,
                 permissions,
                 viewOptions: vm.options
               };
               tplData.viewFilters = [];
               if (vm.options && vm.options.filters && vm.options.filters.length) {
                 vm.options.filters.forEach((f) => {
-                  let pm = cm.getPropertyMeta(f.property);
+                  let pm = classMeta.getPropertyMeta(f.property);
                   if (pm) {
                     let filter = {
                       operation: f.operation || F.EQUAL,
@@ -221,6 +212,7 @@ module.exports = function (req, res) {
                           break;
                         case PropertyTypes.DATETIME:
                           filter.type = 'datetime';
+                          filter.mode = pm.mode;
                           break;
                         default:
                           break;
@@ -236,7 +228,7 @@ module.exports = function (req, res) {
               );
             })
           .then(
-            function (tplData) {
+            (tplData) => {
               if (!tplData) {
                 return pnf(req, res);
               }
@@ -247,13 +239,14 @@ module.exports = function (req, res) {
                   'view/' + template,
                   template,
                   req.params.node,
-                  cm.getCanonicalName(),
-                  scope.settings),
+                  classMeta.getCanonicalName(),
+                  scope.settings
+                ),
                 itemTplData(tplData, lang));
             }
           )
           .catch(
-            function (err) {
+            (err) => {
               if (err === 404) {
                 return pnf(req, res);
               }

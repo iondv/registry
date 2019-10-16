@@ -22,25 +22,25 @@ module.exports = function (req, res) {
         let user = scope.auth.getUser(req);
         (
           req.body.itemId ?
-            scope.securedDataRepo.getItem(cm.getCanonicalName(), req.body.itemId, {user: user}) :
+            scope.securedDataRepo.getItem(cm.getCanonicalName(), req.body.itemId, {user, lang}) :
             scope.dataRepo.getItem(
               scope.securedDataRepo.wrap(
                 cm.getCanonicalName(),
                 prepareSaveData(req.body.updates || {}, cm, lang),
                 null,
-                {autoassign: true, user: user}
+                {autoassign: true, user, lang}
               ),
               null,
-              {user: user}
+              {user, lang}
             )
         ).then((item) => {
           if (req.body.updates) {
             let updates = prepareSaveData(req.body.updates, item.getMetaClass(), lang);
             Object.keys(updates)
-              .forEach(property => {
+              .forEach((property) => {
                 item.set(property, updates[property]);
               });
-            return scope.cachedDataRepo.getItem(item, null, {user});
+            return scope.cachedDataRepo.getItem(item, null, {user, lang});
           } else {
             return item;
           }
@@ -58,7 +58,7 @@ module.exports = function (req, res) {
             }
           }
           res.send(result);
-        }).catch((err)=>{
+        }).catch((err) => {
           onError(scope, err, res, true);
         });
       } catch (err) {

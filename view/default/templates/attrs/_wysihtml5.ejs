@@ -5,6 +5,7 @@ var options = {
   inserted_image_thumbnail_type: 'small',
   inserted_image_container_classes: ''
 };
+let rows = field.options && field.options.wysihtml5 && field.options.wysihtml5.rows || 8;
 %>
 <div class="form-group <%= field.required?"required":"" %> <%=cssFromTags(field)%>"
      style="<%=styleFromTags(field)%>"
@@ -14,7 +15,7 @@ var options = {
   <label for="<%= id %>" class="col-md-2 col-sm-3 control-label"><%= field.caption %><% include help-sign %></label>
     <div class="col-md-10 col-sm-9">
         <textarea id="<%= id %>" name="<%= prop.getName() %>" class="form-control attr-value wysihtml5"
-                  rows="8" placeholder="<%= field.caption %>"><%= prop.getDisplayValue() %></textarea>
+        rows="<%- rows %>" placeholder="<%= field.caption %>"><%= prop.getDisplayValue() %></textarea>
         <p class="error-block"></p>
     </div>
 </div>

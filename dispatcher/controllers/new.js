@@ -9,8 +9,8 @@ const forbidden = require('./403.js');
 const locale = require('locale');
 const buildCreateFormVm = require('../../backend/viewmodels').buildCreateFormVm;
 const itemTplData = require('../../backend/items').itemTplData;
+const processNavigation = require('../../backend/menu').processNavigation;
 const moduleName = require('../../module-name');
-const canonicNode = require('../../backend/menu').canonicNode;
 const collectionTableOptions = require('../../backend/viewmodels').collectionTableOptions;
 const adjustFields = require('../../backend/viewmodels').adjustFields;
 const adjustSignOptions = require('../../backend/viewmodels').adjustSignOptions;
@@ -20,8 +20,6 @@ const onError = require('../../backend/error');
 const respond = require('../../backend/respond');
 const ActionProvider = require('../../backend/ActionProvider');
 const geoFieldSearchVal = require('../../backend/viewmodels').geoFieldSearchVal;
-const nodeAclId = require('../../backend/menu').nodeAclId;
-const Permissions = require('core/Permissions');
 const itemEagerLoading = require('../../backend/items').itemEagerLoading;
 const vmEagerLoading = require('../../backend/items').vmEagerLoading;
 const FieldTypes = require('core/FieldTypes');
@@ -35,7 +33,6 @@ const overrideTpl = require('../../backend/viewmodels').overrideTpl;
 const Errors = require('core/errors/front-end');
 const IonError = require('core/IonError');
 
-
 // jshint maxstatements: 40, maxcomplexity: 20
 
 module.exports = function (req, res) {
@@ -46,15 +43,10 @@ module.exports = function (req, res) {
      */
     function (scope) {
       try {
-        let n = canonicNode(req.params.node);
-        let node = scope.metaRepo.getNode(n.code, n.ns);
-        if (!node) {
-          return pnf(req, res);
-        }
         let user = scope.auth.getUser(req);
         let locales = new locale.Locales(req.headers['accept-language']);
         let lang = locales[0] ? locales[0].language : 'ru';
-        let cm = scope.metaRepo.getMeta(req.params.class ? req.params.class : node.classname, null, n.ns);
+        let cm, node;
         let container = {};
         if (req.params.container && req.params.property) {
           let parts = req.params.container.split('.');
@@ -63,41 +55,38 @@ module.exports = function (req, res) {
           container.property = req.params.property;
         }
 
-        let mcm, mpm;
-        if (req.query.masterClass || container.class) {
-          mcm = scope.metaRepo.getMeta(req.query.masterClass || container.class, null, cm.getNamespace());
-          let mpn = req.query.masterProperty || container.property;
-          mpm = mcm.getPropertyMeta(mpn);
-          if (!mpm) {
-            throw new Error(`Атрибут ${mpn} не найден в классе "${mcm.getCaption()}".`);
-          }
-        }
-        let master = {
-          id: req.query.masterId || container.id,
-          class: req.query.masterClass || container.class,
-          masterProperty: req.query.masterProperty || container.property,
-          backRef: req.query.masterBackRef || (mpm && mpm.backRef),
-          updates: req.body ? req.body.masterUpdates : null
-        };
-        let vm = scope.metaRepo.getCreationViewModel(cm.getCanonicalName(), `${node.namespace}@${node.code}`);
+        processNavigation(scope, req)
+          .then((info) => {
+            cm = info.classMeta;
+            node = info.node;
 
-        if (!vm/* || (vm.overrideMode === 1)*/) {
-          vm = buildCreateFormVm(cm, vm);
-        }
-        adjustFields(cm, vm, scope.metaRepo);
-        if (scope.actions instanceof ActionProvider) {
-          adjustSignOptions(vm, scope.actions);
-        }
-
-        scope.aclProvider.checkAccess(user, nodeAclId(node), Permissions.READ)
-          .then(
-            (accessible) => {
-              if (!accessible) {
-                throw new IonError(Errors.ACCESS_DENIED);
+            let mcm, mpm;
+            if (req.query.masterClass || container.class) {
+              mcm = scope.metaRepo.getMeta(req.query.masterClass || container.class, null, cm.getNamespace());
+              let mpn = req.query.masterProperty || container.property;
+              mpm = mcm.getPropertyMeta(mpn);
+              if (!mpm) {
+                throw new Error(`Атрибут ${mpn} не найден в классе "${mcm.getCaption()}".`);
               }
             }
-          )
-          .then(() => {
+            let master = {
+              id: req.query.masterId || container.id,
+              class: req.query.masterClass || container.class,
+              masterProperty: req.query.masterProperty || container.property,
+              backRef: req.query.masterBackRef || (mpm && mpm.backRef),
+              updates: req.body ? req.body.masterUpdates : null
+            };
+            let vm = scope.metaRepo.getCreationViewModel(cm.getCanonicalName(), `${node.namespace}@${node.code}`);
+
+            if (!vm/* || (vm.overrideMode === 1)*/) {
+              vm = buildCreateFormVm(cm, vm);
+            }
+            merge({tabs: [], commands: []}, vm);
+            adjustFields(cm, vm, scope.metaRepo);
+            if (scope.actions instanceof ActionProvider) {
+              adjustSignOptions(vm, scope.actions);
+            }
+
             if (master.id) {
               if (mpm.type === PropertyTypes.COLLECTION || mpm.type === PropertyTypes.REFERENCE) {
                 if (Array.isArray(mpm.allowedSubclasses) && mpm.allowedSubclasses.length === 1) {
@@ -128,12 +117,13 @@ module.exports = function (req, res) {
                 }
               }
               let opts = {
-                user: user,
+                user,
+                lang,
                 forceEnrichment: itemEagerLoading(scope.metaRepo.getMeta(master.class), node.namespace + '@' + node.code, scope, eagerLoading)
               };
               p = scope.dataRepo.getItem(master.class, master.id, opts);
             } else if (master.class) {
-              p = scope.dataRepo.getItem(scope.dataRepo.wrap(master.class, {}, null), null, {});
+              p = scope.dataRepo.getItem(scope.dataRepo.wrap(master.class, {}, null), null, {user, lang});
             } else {
               p = Promise.resolve(null);
             }
@@ -145,7 +135,7 @@ module.exports = function (req, res) {
                 );
               }
               master.item = mItem;
-              return getDummy(scope, req, cm, vm, node, user, mItem);
+              return getDummy(scope, req, cm, vm, node, user, mItem, lang);
             }).then((dummy) => {
               if (!dummy) {
                 return pnf(req, res);
@@ -201,6 +191,12 @@ module.exports = function (req, res) {
             });
           })
           .catch((err) => {
+            if (err === 404) {
+              return pnf(req, res);
+            }
+            if (err === 403) {
+              return forbidden(req, res);
+            }
             if (err instanceof IonError && err.code === Errors.ACCESS_DENIED) {
               return forbidden(req, res);
             }
@@ -380,7 +376,7 @@ function enrichValidRefItems(metaRepo, dataRepo, found, cm, vm) {
   return promises.then(() => found);
 }
 
-function getDummy(scope, req, cm, vm, node, user, context) {
+function getDummy(scope, req, cm, vm, node, user, context, lang) {
   let eagerLoading = [];
   if (node && node.eagerLoading) {
     if (node.eagerLoading.item && Array.isArray(node.eagerLoading.item[cm.getCanonicalName()])) {
@@ -389,12 +385,12 @@ function getDummy(scope, req, cm, vm, node, user, context) {
   }
 
   let opts = {
-    user: user,
+    user, lang,
     forceEnrichment: itemEagerLoading(cm, node.namespace + '@' + node.code, scope, eagerLoading)
   };
   opts.forceEnrichment.push(...vmEagerLoading(vm, cm));
   return scope.dataRepo.getItem(
-    scope.securedDataRepo.wrap(cm.getCanonicalName(), {}, null),
+    scope.securedDataRepo.wrap(cm.getCanonicalName(), {}, null, {user, lang}),
     null,
     opts)
     .then(found => enrichValidValues(scope.metaRepo, scope.dataRepo, found, req, cm, node, context))

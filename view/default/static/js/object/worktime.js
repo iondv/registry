@@ -208,13 +208,13 @@
         }
       });
       var error = null;
-      if (emptyDay || emptyTime) error = 'Work schedule is not filled';
+      if (emptyDay || emptyTime) error = 'Не запонено расписание работы';
       return error;
     }
   };
 
-  var FULL_DAYS = [ '', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday','sunday' ];
-  var SHORT_DAYS = [ '', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa','Su' ];
+  var FULL_DAYS = [ '', 'понедельник', 'вторник', 'среда', 'четверг', 'пятница', 'суббота','воскресенье' ];
+  var SHORT_DAYS = [ '', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб','Вс' ];
 
   function formatItem (item) {
     return formatDays(item.days) + formatWork(item.workTime) + formatBreak(item.breakTime);
@@ -244,18 +244,18 @@
   }
 
   function formatBreak (time) {
-    return time ? ' (break' + formatTime(time) +')' : '';
+    return time ? ' (перерыв' + formatTime(time) +')' : '';
   }
 
   function formatTime (time) {
-    return time instanceof Array ? ' from '+ time[0] +':'+ time[1] +' to '+ time[2] +':'+ time[3] : '';
+    return time instanceof Array ? ' с '+ time[0] +':'+ time[1] +' до '+ time[2] +':'+ time[3] : '';
   }
 
   // CONVERTER
 
   function convertToSchedule (items) {
     var dest = {
-      description: 'Weekly schedule',
+      description: 'Недельное расписание',
       item: '',
       occurs: [],
       skipped: []

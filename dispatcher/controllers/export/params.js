@@ -40,8 +40,7 @@ module.exports = function (req, res) {
 
         let node;
         if (req.params.node) {
-          let n = canonicNode(req.params.node);
-          node = scope.metaRepo.getNode(n.code, n.ns);
+          node = scope.metaRepo.getNode(req.params.node);
         }
 
         let exporter = scope.export.exporter(req.params.format, {class: cm, item: req.params.id});

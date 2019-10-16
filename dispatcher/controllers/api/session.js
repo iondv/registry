@@ -21,5 +21,7 @@ module.exports = function (req, res) {
     }
   }
   req.session = Object.assign(req.session, d);
-  res.sendStatus(200);
+  req.session.save(err => {
+    err ? res.status(500).send(err.toString()) : res.sendStatus(200);
+  });
 };

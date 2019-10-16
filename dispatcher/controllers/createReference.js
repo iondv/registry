@@ -6,7 +6,6 @@
 
 const pnf = require('./404.js');
 const PropertyTypes = require('core/PropertyTypes');
-const canonicNode = require('../../backend/menu').canonicNode;
 const moduleName = require('../../module-name');
 const onError = require('../../backend/error');
 const respond = require('../../backend/respond');
@@ -19,8 +18,7 @@ module.exports = function (req, res) {
      */
     function (scope) {
       try {
-        var n = canonicNode(req.params.node);
-        var cm = scope.metaRepo.getMeta(req.params.class, null, n.ns);
+        var cm = scope.metaRepo.getMeta(req.params.class);
         var pm = cm.getPropertyMeta(req.params.property);
         if (pm) {
           if (pm.type === PropertyTypes.REFERENCE && pm.refClass) {

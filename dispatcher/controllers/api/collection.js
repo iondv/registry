@@ -25,7 +25,7 @@ module.exports.list = function (req, res) {
         let lang = locales[0] ? locales[0].language : 'ru';
         scope.logRecorder.start();
         let user = scope.auth.getUser(req);
-        scope.securedDataRepo.getItem(req.params.class, req.params.id, {user: user})
+        scope.securedDataRepo.getItem(req.params.class, req.params.id, {user, lang})
           .then((found) => {
             if (!found) {
               return Promise.reject(new Error('Не найден контейнер коллекции.'));

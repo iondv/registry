@@ -4,7 +4,7 @@
 
   function filterSelection(filters, $container, selection) {
     $container.empty();
-    $('<option/>').text('Select the filter').val(null).appendTo($container);
+    $('<option/>').text('Выберите фильтр...').val(null).appendTo($container);
     if (filters) {
       for (var filterId in filters) {
         if (filters.hasOwnProperty(filterId)) {
@@ -133,7 +133,7 @@
       var $selectAttr = $('<select/>').addClass('select-column form-control').attr({
         name: 'row-' + this.condCounter + '-property'
       }).appendTo($selectAttrContainer);
-      $('<option/>').text('Select the field').val(null).appendTo($selectAttr);
+      $('<option/>').text('Выберите поле...').val(null).appendTo($selectAttr);
       if (attrs && attrs.length) {
         for (var i = 0; i < attrs.length; ++i) {
           $('<option/>').val(attrs[i].name).attr({
@@ -385,7 +385,7 @@
         $input = this.createInput(options),
         selectionLength = _this.filter.options.selectionLength || 5;
       if ($input) {
-        $cell.append('<span class="dt-head-filter-toggle glyphicon glyphicon-filter" title="Fiter"></span>');
+        $cell.append('<span class="dt-head-filter-toggle glyphicon glyphicon-filter" title="Фильтр"></span>');
         $cell.parent().addClass('dt-head-filter').append('<div class="dt-head-filter-container"></div>');
         $cell.parent().find('.dt-head-filter-container').append($input);
         $cell.parent().find('select.selection-filter').select2({
@@ -395,7 +395,6 @@
         $cell.parent().find('select.selection-autocomplete').select2({
           width: '100%',
           dropdownAutoWidth : true,
-          minimumInputLength: 3,
           allowClear: true,
           placeholder: '...',
           ajax: {
@@ -437,11 +436,11 @@
           case NUMBER_TYPE:
           {
             var opers = {
-              "=": '= equal',
-              "&lt;": '&lt; ' + (type === DATE_TYPE ? 'earlier' : 'less'),
-              "&gt;": '&gt; ' + (type === DATE_TYPE ? 'later' : 'more'),
-              "&lt;=": '&#x2264 ' + (type === DATE_TYPE ? 'earlier' : 'less') + ' or equal',
-              "&gt;=": '&#x2265 ' + (type === DATE_TYPE ? 'later' : 'more') + ' or equal'
+              "=": '= равно',
+              "&lt;": '&lt; ' + (type === DATE_TYPE ? 'ранее' : 'меньше'),
+              "&gt;": '&gt; ' + (type === DATE_TYPE ? 'позднее' : 'больше'),
+              "&lt;=": '&#x2264 ' + (type === DATE_TYPE ? 'ранее' : 'меньше') + ' или равно',
+              "&gt;=": '&#x2265 ' + (type === DATE_TYPE ? 'позднее' : 'больше') + ' или равно'
             };
             var content = '';
             for (var oper in opers) {
@@ -476,17 +475,43 @@
       }
     },
 
-    createDateInput: function () {
-      var $div = $('<div class="dt-head-date-filter-input"></div>'),
-        $datepicker = $('<input type="text" class="form-control select-value">').datepicker({
-          language: this.filter.options.locale.lang,
-          dateFormat: this.filter.options.locale.dateFormat
-        }),
-        $cancel = $('<span>x</span>').on('click', function() {
-          $datepicker.val('').datepicker('update').trigger('change');
-        });
+    getColumn: function (name) {
+      var columns = this.list.options.dt.columns;
+      for (var i = 0; i < columns.length; i++) {
+        if (columns[i].name === name) {
+          return columns[i];
+        }
+      }
+    },
+
+    createDateInput: function (param, columns) {
+      var self = this;
+      var col = self.getColumn(param.name);
+      var format = col.className === 'type_120' ? 
+        self.filter.options.locale.dateFormat : 
+        self.filter.options.locale.dateTimeFormat;
+      var $div = $('<div class="dt-head-date-filter-input" style="position:relative"></div>');
+      var $datepicker = $('<input type="text" class="form-control select-value">');
+      var $cancel = $('<span>x</span>');
       $div.append($datepicker);
       $div.append($cancel);
+      $datepicker.datetimepicker({
+        locale: self.filter.options.locale.lang,
+        format: format,
+        useCurrent: false,
+        widgetParent: self.list.$container
+      }).on('dp.show', function (e) {
+        var inp = $(this);
+        var widget = $('.bootstrap-datetimepicker-widget', inp.data("DateTimePicker").widgetParent());
+        var offset = inp.offset();
+        offset.top = offset.top + inp.outerHeight() + 7;
+        widget.offset(offset);
+      }).on('dp.change', function (e) {
+        self.update(e);
+      });
+      $cancel.on('click', function() {
+        $datepicker.data("DateTimePicker").clear();
+      });
       return $div;
     },
 
@@ -621,8 +646,12 @@
       if (!value) {
         return null;
       }
+      var col = this.getColumn(name);
+      var format = col.className === 'type_120' ? 
+        this.filter.options.locale.dateFormat : 
+        this.filter.options.locale.dateTimeFormat;
       var oper = $.trim($($input.get(0)).val());
-      var dv = (opts.mode === 2) ? moment.utc(value, DATE_FORMAT) : moment(value, DATE_FORMAT);
+      var dv = (opts.mode === 2) ? moment.utc(value, format) : moment(value, format);
       return value.length ? (name + ' ' + oper + ' `' + dv.format() + '`') : null;
     },
 

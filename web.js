@@ -197,7 +197,7 @@ app._init = function () {
         app.use('/' + moduleName, statics);
       }
       app.use('/' + moduleName, compression(scope.settings.get(moduleName + '.compression') || {level: 9}));
-      // Module level authentication //
+      // Аутентификация уровня модуля //
 
       scope.auth.bindAuth(app, moduleName);
       app.post('/' + moduleName + '/chpwd', scope.auth.changePwdHandler(moduleName));

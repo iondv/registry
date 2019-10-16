@@ -40,7 +40,7 @@
     "moment-timezone": "^0.5.23",
     "pdfmake": "^0.1.51",
     "raphael": "^2.2.7",
-    "select2": "^4.0.6-rc.1",
+    "select2": "4.0.5",
     "sparklines": "^1.2.0"
   }
 }

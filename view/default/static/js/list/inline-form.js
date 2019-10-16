@@ -315,7 +315,7 @@
 
     remove: function () {
       var data = this.dt.row(this.row).data() || {},
-        message = 'Remove object from collection',
+        message = 'Убрать объект из коллекции?',
         _list = this.owner.list,
         _this = this;
       if (data.__class && data._id && confirm(message)) {
@@ -330,7 +330,7 @@
               _this.dt.draw();
             })
             .fail(function (xhr) {
-              messageCallout.error(xhr.$message || 'Error during retrieval of objects');
+              messageCallout.error(xhr.$message || 'Ошибка при извлечении объектов');
               console.error(xhr);
             })
             .fail(processAjaxError);
@@ -342,7 +342,7 @@
     },
 
     delete: function () {
-      this.owner.list.del('Delete obkect?', this.owner.list.toDelete('.'+ SELECTED_CLASS));
+      this.owner.list.del('Удалить объект?', this.owner.list.toDelete('.'+ SELECTED_CLASS));
     },
 
     cancel: function (resize) {
@@ -433,7 +433,7 @@
           result += this.createWorkflowButton(items[i]);
         }
         result += '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">'
-          + 'Workflow <span class="caret"></span></button><ul class="dropdown-menu pull-right">';
+          + 'Бизнес-процесс <span class="caret"></span></button><ul class="dropdown-menu pull-right">';
         for (i = 1; i < items.length; ++i) {
           result += this.createWorkflowMenu(items[i]);
         }
@@ -464,7 +464,7 @@
         + 'data-sign-before="' + d.data.signBefore + '" '
         + 'data-sign-after="' + d.data.signAfter + '" '
         + (d.data.confirmMessage || d.data.confirm
-          ? 'data-confirm-message="' + (d.data.confirmMessage ? d.data.confirmMessage : 'Are you sure?') + '" '
+          ? 'data-confirm-message="' + (d.data.confirmMessage ? d.data.confirmMessage : 'Вы уверены?') + '" '
           : '');
     },
 

@@ -5,7 +5,7 @@ displayValue = prop.getDisplayValue(utils.dateCallback);
 if (!displayValue) {
   var ri = prop.evaluate();
   if (ri && ri.permissions && !ri.permissions.read) {
-    displayValue = 'Value not available';
+    displayValue = 'Значение недоступно';
   }
 }
 if(typeof options !== 'object') {
@@ -38,7 +38,7 @@ if (options.useMaster) {
     masterCss = 'assigned-master';
   }
   if (!displayValue) {
-    displayValue = 'Object will be linked automatically';
+    displayValue = 'Объект будет привязан автоматически';
   }
 }
 %>

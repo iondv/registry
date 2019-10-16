@@ -4,7 +4,7 @@ const respond = require('../../../backend/respond');
 const concurencyState = require('../../../backend/items').concurencyState;
 
 module.exports = function (req, res) {
-  respond(['auth', 'settings', 'concurencyChecker'], scope => {
+  respond(['auth', 'settings', 'concurencyChecker'], (scope) => {
     let user = scope.auth.getUser(req);
     if (!user) {
       res.status(401).send({error: 'not authenticated'});

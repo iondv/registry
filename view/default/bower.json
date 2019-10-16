@@ -36,7 +36,7 @@
     "moment-timezone": "latest",
     "pdfmake": "*",
     "raphael": "~2.1.0",
-    "select2": "~4.0.0",
+    "select2": "4.0.5",
     "sparklines": "*"
   },
   "dependencies": {

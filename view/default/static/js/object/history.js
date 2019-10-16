@@ -28,7 +28,7 @@ function historyPage (panel, url, locale) {
       self.refresh();
     });
 
-    //Behavior of period navigation controllers
+    //Поведение контроллов навигации по периоду
     self.since.add(self.till).datetimepicker({
       locale: locale.lang,
       format: locale.dateTimeFormat
@@ -46,7 +46,7 @@ function historyPage (panel, url, locale) {
       showByInteval(ns, nt);
     });
 
-    //Behavior of number navigation controllers
+    //Поведение контроллов навигации по количеству
     self.firstIndex.add(self.lastIndex).on('change', function () {
       var start = parseInt(self.firstIndex.val());
       var end = parseInt(self.lastIndex.val());
@@ -197,20 +197,20 @@ function historyPage (panel, url, locale) {
       ? change.time.format('L LT')
       : change.time;
     var type = change.type === 'CREATE'
-      ? 'created'
+      ? 'создан'
       : change.type === 'UPDATE'
-        ? 'changed'
+        ? 'изменён'
         : change.type;
     var authorName = typeof change.author === 'object'
       ? change.author.name
       : change.author;
 
-    var changes = '<div class="changelog-updates-header"><span class="parameter">Attribute</span><span class="value">New value</span></div>';
+    var changes = '<div class="changelog-updates-header"><span class="parameter">Атрибут</span><span class="value">Новое значение</span></div>';
     for (var param in change.updates) {
       changes = changes + '<div><span class="parameter">' + param + '</span><span class="value">' + change.updates[param] + '</span></div>';
     }
     return '<div class="changelog">' +
-        '<div class="changelog-header"><span>' + time + '</span> <span >' + type + '</span> by user <span>' + authorName + '</span></div>' +
+        '<div class="changelog-header"><span>' + time + '</span> <span >' + type + '</span> пользователем <span>' + authorName + '</span></div>' +
         '<div class="changelog-updates">' + changes + '</div>' +
       '</div>';
   };

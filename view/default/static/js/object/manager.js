@@ -64,8 +64,8 @@
 
   function getBareFormAlert () {
     return '<div class="bare-form-alert alert alert-info">'
-      + 'Object was opened directly, no source list of objects. '
-      + 'Go to <a href="/"><b>default page</b></a>.</div>';
+      + 'Объект был открыт напрямую, нет исходного списка объектов. '
+      + 'Перейдите к <a href="/"><b>странице по умолчанию</b></a>.</div>';
   }
 
   function signStatusModal() {
@@ -97,6 +97,7 @@
     this.selProviders = {};
     this.changed = false;
     this.trackedValues = {};
+    this.deps = [];
     this.init();
 
     this.historyPage = new historyPage(
@@ -110,7 +111,7 @@
     this.$controls.filter('.closer').click(function () { self.close(); });
     this.$controls.filter('.history').click(function () { self.historyPage.open(); });
     this.$controls.filter('.reload').click(function () {
-      if (!self.warnLeave || !self.changed || confirm('Unsaved changes will be lost. Update?')) {
+      if (!self.warnLeave || !self.changed || confirm('Несохраненные изменения будут потеряны. Обновить?')) {
         window.location.reload();
       }
     });
@@ -255,8 +256,8 @@
     }
 
     function getCertTitle (cert) {
-      return cert.Subject + ', issued ' + cert.Issuer + ', valid from '
-        + moment(cert.ValidSince).format(DATE_FORMAT) + ' to '
+      return cert.Subject + ', выдан ' + cert.Issuer + ', действителен с '
+        + moment(cert.ValidSince).format(DATE_FORMAT) + ' по '
         + moment(cert.ValidTill).format(DATE_FORMAT);
     }
 
@@ -271,7 +272,7 @@
     if (window.onCadesLoaded) {
       initCades(function (err) {
         if (err) {
-          messageCallout.error('Failed to load the ES plugin.');
+          messageCallout.error('Не удалось загрузить плагин ЭП.');
         }
         $('.object-manager').each(function () {
           ObjectManager.managers.push(new ObjectManager($(this)));
@@ -435,7 +436,7 @@
             }
             p.resolve();
           }).fail(function (xhr, textStatus, errorThrown) {
-            //messageCallout.error('<b>Error</b><p>'+ xhr.responseText +'</p>');
+            //messageCallout.error('<b>Ошибка:</b><p>'+ xhr.responseText +'</p>');
             console.error(xhr);
             self.$loader.hide();
             p.resolve();
@@ -470,7 +471,7 @@
           result += this.createWfButtonCommand(cmds[i]);
         }
         result += '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">' +
-          'Workflow <span class="caret"></span></button><ul class="dropdown-menu pull-right">';
+          'Бизнес-процесс <span class="caret"></span></button><ul class="dropdown-menu pull-right">';
         for (var i = 2; i < cmds.length; ++i) {
           result += this.createWfMenuCommand(cmds[i]);
         }
@@ -488,7 +489,7 @@
         'data-sign-before="' + cmd.d.signBefore + '" ' +
         'data-sign-after="' + cmd.d.signAfter + '" ' +
         (cmd.d.confirmMessage || cmd.d.confirm
-          ? 'data-confirm-message="' + (cmd.d.confirmMessage ? cmd.d.confirmMessage : 'Are you sure?') + '" '
+          ? 'data-confirm-message="' + (cmd.d.confirmMessage ? cmd.d.confirmMessage : 'Вы уверены?') + '" '
           : '') +
         'class="btn command btn-default object-control ' + cmd.t + '">' + cmd.d.caption + '</button>';
     },
@@ -498,7 +499,7 @@
         'data-sign-before="' + cmd.d.signBefore + '" ' +
         'data-sign-after="' + cmd.d.signAfter + '" ' +
         (cmd.d.confirmMessage || cmd.d.confirm
-          ? 'data-confirm-message="' + (cmd.d.confirmMessage ? cmd.d.confirmMessage : 'Are you sure?') + '" '
+          ? 'data-confirm-message="' + (cmd.d.confirmMessage ? cmd.d.confirmMessage : 'Вы уверены?') + '" '
           : '') +
         'class="command object-control ' + cmd.t + '">' + cmd.d.caption + '</a></li>';
     },
@@ -603,7 +604,7 @@
 
     close: function () {
       this.$form.trigger('formClosed');
-      if (parent.imodal && (!this.warnLeave || !this.changed || confirm('Close without saving?'))) {
+      if (parent.imodal && (!this.warnLeave || !this.changed || confirm('Закрыть без сохранения?'))) {
         parent.imodal.close();
       }
     },
@@ -612,7 +613,7 @@
       var self = this;
       var id = $command.data('id');
       var action = id.replace(/ANDCLOSE$/, '');
-      if (action === 'DELETE' && !confirm('Delete object?')) {
+      if (action === 'DELETE' && !confirm('Удалить объект?')) {
         return;
       }
       if (!this.validate()) {
@@ -670,7 +671,7 @@
           try {
             $crypto.open(function (err) {
               if (err) {
-                messageCallout.error('<b>Signature error</b><br>' + (err.message || err));
+                messageCallout.error('<b>Ошибка подписи</b><br>' + (err.message || err));
                 console.error(err);
                 return;
               }
@@ -682,13 +683,13 @@
                 },
                 function (err) {
                   $crypto.close(function (err2) {
-                    messageCallout.error('<b>Signature error</b><br>' + (err.message || err));
+                    messageCallout.error('<b>Ошибка подписи</b><br>' + (err.message || err));
                     console.error(err);
                   });
                 },
                 function () {
                   $crypto.close(function (err) {
-                    messageCallout.success('Action signed');
+                    messageCallout.success('Действие подписано!');
                     if (typeof cb === 'function') {
                       cb(finalizer);
                     } else {
@@ -705,7 +706,7 @@
               );
             });
           } catch (err) {
-            messageCallout.error('Crypto Pro can not sign data. Check the license.');
+            messageCallout.error('Crypto Pro не может выполнить подпись данных. Проверьте лицензию.');
             console.error(err);
           }
         } else {
@@ -731,7 +732,7 @@
           msg = xhr.responseJSON.msg;
         }
       }
-      messageCallout.error('<b>Error</b><p>'+ msg +'</p>');
+      messageCallout.error('<b>Ошибка:</b><p>'+ msg +'</p>');
       console.error(xhr);
       if (xhr.responseJSON && xhr.responseJSON.code &&
         (xhr.responseJSON.code === "web.iem" || xhr.responseJSON.code === "web.exists") &&
@@ -783,7 +784,7 @@
         } else {
           parent.imodal && parent.imodal.setParams('log', null);
         }
-        parent.imodal && parent.imodal.setParams('message', data.$message ? data.$message : 'Done!');
+        parent.imodal && parent.imodal.setParams('message', data.$message ? data.$message : 'Выполнено!');
         if (data.$message) {
           delete data.$message;
         }
@@ -795,7 +796,7 @@
             parent.imodal &&
             parent.imodal.setParams(
               'message',
-              'Created object <a href="' +
+              'Создан обьект <a href="' +
               self.options.url.item + '/' + encodeURIComponent(parent.imodal.getParams('redirect')) +
               '">' + data.__string + '</a>'
             );
@@ -840,7 +841,7 @@
         var $attr = $group.find('.attr-value');
         var value = $attr.val();
         if ($group.hasClass('required') && isEmptyValue(value, $group)) {
-          error = 'Required field';
+          error = 'Поле обязательно для заполнения';
         }
         if (error) {
           this.addError($group, error);
@@ -849,7 +850,7 @@
           this.clearError($group);
         }
       }.bind(this));
-      hasError && messageCallout.error('Correct errors on the form');
+      hasError && messageCallout.error('Исправьте ошибки на форме');
       return !hasError;
     },
 
@@ -859,7 +860,7 @@
       var self = this;
       var state = this.options.concurencyState;
       if (state && this.options.globalReadonly && state.isBlocked) {
-        messageCallout.info('<b>Object is used by the user <i>'+ state.userName +'</i>. Read-only form</b><br>');
+        messageCallout.info('<b>Объект используется пользователем <i>'+ state.userName +'</i>. Форма доступна только для чтения</b><br>');
       }
       if (state && state.timeout) {
         var concTimer = setInterval(function(){
@@ -911,19 +912,19 @@
           template = '';
           if (data.status === 'inactual') {
             template += '<div class="bare-form-alert alert alert-info">'
-            + 'Signed data has been changed.</div>';
+            + 'Подписанные данные были изменены.</div>';
           } else if (data.status === 'actual') {
-            template += '<button class="btn btn-success">Check signature</button>';
+            template += '<button class="btn btn-success">Проверить подпись</button>';
           }
           if (certs && certs.length) {
             for (i = 0; i < certs.length; i++) {
               template += '<div class="panel form-horizontal">'+
                 '<div class="panel-body">';
-              template += certFormGroup('Subject', certs[i].SubjectName);
-              template += certFormGroup('Provider', certs[i].IssuerName);
-              template += certFormGroup('Valid from', moment(certs[i].ValidSince).format(DATETIME_FORMAT));
-              template += certFormGroup('Valid to', moment(certs[i].ValidTill).format(DATETIME_FORMAT));
-              template += certFormGroup('Serial number', certs[i].Serial);
+              template += certFormGroup('Субьект', certs[i].SubjectName);
+              template += certFormGroup('Постащик', certs[i].IssuerName);
+              template += certFormGroup('Действителен с', moment(certs[i].ValidSince).format(DATETIME_FORMAT));
+              template += certFormGroup('Действителен по', moment(certs[i].ValidTill).format(DATETIME_FORMAT));
+              template += certFormGroup('Серийный номер', certs[i].Serial);
               template += '</div></div>';
             }
           }
@@ -931,7 +932,7 @@
           if (data.status === 'actual') {
             modalBody.find('button.btn-success').on('click', function(){
               $crypto.verifySign(data.signature, function(isValid) {
-                alert(isValid ? 'Signature is valid' : 'Signature is not valid!');
+                alert(isValid ? 'Подпись валидна' : 'Подпись не валидна!');
               });
             })
           }
@@ -1003,6 +1004,7 @@
       this.$form.find('.form-group').each(function () {
         var $group = $(this);
         switch ($group.data('type')) {
+          case 'number': self.initNumber($group); break;
           case 'date': self.initDateField($group); break;
           case 'datetime': self.initDateTimeField($group); break;
           case 'image':
@@ -1036,7 +1038,7 @@
       }
       var value = $input.val();
       if (value.length && !Inputmask.isValid(value, mask)) {
-        this.addError($input, 'Invalid value (does not match the mask)');
+        this.addError($input, 'Некорректное значение (не соответствует маске)');
         $input.one('focus', function (event) {
           this.clearError($input);
           this.setMask($input, mask);
@@ -1068,6 +1070,13 @@
       }
     },
 
+    initNumber: function ($group) {
+      $group.find('.attr-value').on('input', function (e) {
+        var validValue = Math.max(e.target.min || (-1 * Infinity), Math.min(e.target.max || Infinity, e.target.value));
+        $(this).val(validValue);
+      });
+    },
+
     initDateField: function ($group) {
       var ctrl = $group.find('.form-datepicker');
       var fm = $group.data('prop');
@@ -1089,6 +1098,7 @@
         if (moment().isAfter(opts.maxDate)) {
           ds = opts.maxDate;
         }
+        opts.maxDate.add({h: 23, m: 59, s: 59, ms: 999});
       }
       this.formatDateCtrl(ctrl, this.options.locale.dateFormat);
       ctrl.closest('.input-group').show();
@@ -1116,16 +1126,17 @@
         useCurrent: false
       };
       if (ctrl.data('min')) {
-        opts.minDate = prepareLimit(ctrl.data('min'), ctrl.data('center'), this.options.locale.dateTimeFormat);
+        opts.minDate = prepareLimit(ctrl, ctrl.data('min'), ctrl.data('center'), this.options.locale.dateTimeFormat);
         if (moment().isBefore(opts.minDate)) {
           ds = opts.minDate;
         }
       }
       if (ctrl.data('max')) {
-        opts.maxDate = prepareLimit(ctrl.data('max'), ctrl.data('center'), this.options.locale.dateTimeFormat);
+        opts.maxDate = prepareLimit(ctrl, ctrl.data('max'), ctrl.data('center'), this.options.locale.dateTimeFormat);
         if (moment().isAfter(opts.maxDate)) {
           ds = opts.maxDate;
         }
+        opts.maxDate.add({s: 59, ms: 999});
       }
       this.formatDateCtrl(ctrl, this.options.locale.dateTimeFormat);
       ctrl.closest('.input-group').show();
@@ -1237,14 +1248,14 @@
         })
         .on('uploader.file.started', function (event, data) {
           data.$item.removeClass('pending').addClass('processing');
-          data.$item.find(messageSelector).text('Uploading to server ...');
+          data.$item.find(messageSelector).text('Загрузка на сервер...');
         })
         .on('uploader.file.progress', function (event, data) {
           data.$item.find('.progress-bar').css('width', data.percent + '%');
         })
         .on('uploader.file.uploaded', function (event, data) {
           data.$item.removeClass('processing').addClass('done');
-          data.$item.find(messageSelector).text('Uploaded');
+          data.$item.find(messageSelector).text('Загружен');
           try {
             data = JSON.parse(data.response)[$uploader.data('attr')];
           } catch (err) {
@@ -1254,10 +1265,10 @@
         })
         .on('uploader.file.error', function (event, data) {
           data.$item.removeClass('pending processing').addClass('failed');
-          data.$item.find(messageSelector).text('Error loading file');
+          data.$item.find(messageSelector).text('Ошибка при загрузке файла');
         })
         .on('uploader.file.confirmRemove', function (event, data) {
-          if (confirm('Delete downloaded file?')) {
+          if (confirm('Удалить загруженный файл?')) {
             applier.apply($field, [data.response, false]);
             data.remove();
           }
@@ -1421,6 +1432,7 @@
           } else {
             $group.find('.attr-value').val(result._id);
             $group.find('.display-value').text(result.__string).val(result.__string);
+            $group.find('.modal-link.display-value').attr('href', opts.updateUrl + '/' + result._id);
             $group.find('.attr-value').trigger('change');
           }
         }
@@ -1453,6 +1465,7 @@
               } else {
                 $group.find('.attr-value').val(result[0]._id);
                 $group.find('.display-value').val(result[0].__string).text(result[0].__string);
+                $group.find('.modal-link.display-value').attr('href', opts.updateUrl + '/' + result[0]._id);
                 $group.find('.attr-value').trigger('change');
               }
             }
@@ -1486,7 +1499,7 @@
       $group.find('.display-link').click(_openSubForm);
 
       $group.find('.remove-btn').click(function () {
-        if (confirm('Remove selected object from link?')) {
+        if (confirm('Убрать выбранный объект из ссылки?')) {
           $group.find('.attr-value').val('');
           $group.find('.display-value').val('').text('');
           $group.find('.attr-value').trigger('change');
@@ -1513,6 +1526,7 @@
           list.requestParams = $.param(requestParams);
           $group.find('.table').on('change', function (e) {
             me.trackedValues[$group.data('attr')] = e.changes;
+            me.refreshDependency();
           });
           return p.promise();
         });
@@ -1525,6 +1539,7 @@
         list.requestParams = $.param(requestParams);
         $group.find('.table').on('change', function (e) {
           me.trackedValues[$group.data('attr')] = e.changes;
+          me.refreshDependency();
         });
       }
     },
@@ -1681,7 +1696,7 @@
 
             alertBlock.hide();
             if (!data.data.length) {
-              onError("No data", "No results found for current refinement conditions");
+              onError("Нет данных", "Для текущих условий уточнения не найдено результатов");
             } else {
               variants = data.data;
             }
@@ -1697,7 +1712,7 @@
         });
       };
 
-      //We sort for fidelity an array of selectors according to the order in DOM
+      //Сортируем для верности массив селекторов в соответствии с порядком в DOM
       selects = selects.sort(function (a, b) {
         return selects.index(a) - selects.index(b);
       });
@@ -1729,7 +1744,7 @@
           disableSelect($(e));
         });
 
-      //Determine the behavior of the close and write buttons
+      //Определяем поведение кнопок закрытия и записи
       selectGroup.find('button.select-group-close').on('click', function (e) {
         closeSelectGroup(selectGroup, selects);
       });
@@ -1822,13 +1837,15 @@
       var self = this;
       var calendar = new Calendar($group);
       calendar.init();
+      $group.on('change', function (e) {
+        self.trackChange(calendar.$field, calendar.getValue());
+      });
     },
 
     // DEPENDENCY
 
     initDependency: function () {
       var self = this;
-      this.deps = [];
       this.$form.find('.form-group').each(function () {
         var $group = $(this);
         var prop = $group.data('prop');
@@ -1990,13 +2007,15 @@
         var $struct = $(element);
         $struct.toggleClass('hidden', this.isHiddenAll($struct.find('.form-group')));
       }.bind(this));
-      this.$tabList.find('.hidden').removeClass('hidden');
-      $('.tab-pane').each(function (index, element) {
-        var $pane = $(element);
-        if (this.isHiddenAll($pane.find('.form-group'))) {
-          this.$tabList.find('[href="#'+ element.id +'"]').parent().addClass('hidden');
-        }
-      }.bind(this));
+      if (this.$tabList) {
+        this.$tabList.find('.hidden').removeClass('hidden');
+        $('.tab-pane').each(function (index, element) {
+          var $pane = $(element);
+          if (this.isHiddenAll($pane.find('.form-group'))) {
+            this.$tabList.find('[href="#' + element.id + '"]').parent().addClass('hidden');
+          }
+        }.bind(this));
+      }
     },
 
     isHiddenAll: function ($items) {

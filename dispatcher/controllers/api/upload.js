@@ -83,14 +83,14 @@ module.exports = function (req, res) {
           let cpm = cm.getPropertyMeta(collectionProperty);
           if (!cpm) {
             bus.destroy();
-            return onError(scope, new Error('ClassMeta not found'), res, 'Failed to accept file.');
+            return onError(scope, new Error('ClassMeta not found'), res, 'Не удалось принять файл.');
           }
           className = cpm.itemsClass;
           cm = scope.metaRepo.getMeta(cpm.itemsClass);
         }
         if (!cm) {
           bus.destroy();
-          return onError(scope, new Error('ClassMeta not found'), res, 'Failed to accept file.');
+          return onError(scope, new Error('ClassMeta not found'), res, 'Не удалось принять файл.');
         }
       }
       const itemCn = containerCm && containerCm.getCanonicalName();
@@ -162,7 +162,7 @@ module.exports = function (req, res) {
         filePromises
           .then(() => {
             if (filesCount && filesCount === errorsCount) {
-              return onError(scope, new Error('Failed to accept fileы'), res);
+              return onError(scope, new Error('Не удалось принять файлы'), res);
             }
             if (cm && req.params.class && req.params.id) {
               let updates = {};
@@ -202,10 +202,10 @@ module.exports = function (req, res) {
             }
             res.send(result);
           })
-          .catch(err => onError(scope, err, res, 'Failed to accept fileы.'));
+          .catch(err => onError(scope, err, res, 'Не удалось принять файлы.'));
       });
 
-      bus.on('error', err => onError(scope, err, res, 'Failed to accept fileы.'));
+      bus.on('error', err => onError(scope, err, res, 'Не удалось принять файлы.'));
       req.pipe(bus);
     },
     res

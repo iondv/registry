@@ -15,12 +15,19 @@
                parse-tz="<%=(prop.meta.mode !== 0) ? 'true' : 'false'%>" style="display: none;"/>
       <%} else if (field.type == FieldTypes.CHECKBOX ) {%>
         <p class="form-control-static">
-          <% var checkbox_value = (prop.getValue() !== null)
-            ? prop.getValue() :(!(prop.meta.nullable) ? false : null); %>
+          <% var checkbox_value, pVal = prop.getValue();
+            if (pVal === null) {
+              checkbox_value = prop.meta.nullable ? null : false;
+            } else if (typeof pVal === 'string') {
+              checkbox_value = pVal === 'true';
+            } else {
+              checkbox_value = pVal;
+            }
+          %>
           <input id="<%= id %>" type="checkbox" name="<%= prop.getName() %>" class="default-icheck form-control"
                  nullable=<%= prop.meta.nullable %>
-                 <%= (checkbox_value === null) ?'indeterminate=true':((checkbox_value)?'checked':'') %>
-                 disabled <% if (prop.getValue()) { %>checked<% } %> />
+                 <%= (checkbox_value === null) ? 'indeterminate=true' : ((checkbox_value) ? 'checked' : '') %>
+                 disabled />
         </p>
       <%} else if (field.type == FieldTypes.URL ) {%>
         <input type="hidden"  name="<%= prop.getName() %>" id="<%= id %>"

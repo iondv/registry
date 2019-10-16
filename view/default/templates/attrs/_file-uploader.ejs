@@ -17,7 +17,7 @@ var opts = Object.assign({}, field.options, {maxFiles: 1});
     <p data-fileid="<%=file.id%>" class="form-control-static file-frame">
 
       <a href="<%=file.link%>" target="_blank" class="file-frame-title"><%=file.name%></a>
-      <span class="remove-file-btn glyphicon glyphicon-remove text-danger ml10" title="Delete file"></span>
+      <span class="remove-file-btn glyphicon glyphicon-remove text-danger ml10" title="Удалить файл"></span>
 
       <% if (Array.isArray(field.tags) && field.tags.indexOf('share') >= 0) { %>
       <button type="button" class="btn btn-primary btn-lg share-dlg-btn" data-toggle="modal" data-target="#share_<%= escapedId %>">
@@ -32,18 +32,18 @@ var opts = Object.assign({}, field.options, {maxFiles: 1});
             </div>
             <div class="modal-body" data-fileid="<%=file.id%>">
               <div class="form-group">
-                <label>Link</label>
+                <label>Ссылка</label>
                 <div class="input-block">
                   <input type="text" class="link form-control attr-value" id="share_<%= escapedId %>_link" value="" readonly />
                   <span class="copy-clip glyphicon glyphicon-copy" data-copytarget="#share_<%= escapedId %>_link" title="copy"></span>
                 </div>
               </div>
               <div class="form-group">
-                <label>External link</label>
+                <label>Внешняя ссылка</label>
                 <br/>
                 <div class="share-file-menu-btn-wrap">
                   <input class="share-file-menu-btn" id="share_<%= escapedId %>_sharebtn" type="checkbox" />
-                  <label for="share_<%= escapedId %>_sharebtn">Share link</label>
+                  <label for="share_<%= escapedId %>_sharebtn">Поделиться ссылкой</label>
                 </div>
                 <div class="share-block">
                   <div class="input-block">
@@ -76,11 +76,11 @@ var opts = Object.assign({}, field.options, {maxFiles: 1});
       <div class="uploader-input">
         <input type="file" class="uploader-input-file">
         <div class="uploader-dropzone">
-          <div class="uploader-dropzone-h1">Drag file here</div>
-          <div class="uploader-dropzone-h2">or select from folder</div>
+          <div class="uploader-dropzone-h1">Перетащите файл сюда</div>
+          <div class="uploader-dropzone-h2">или выберите из папки</div>
         </div>
       </div>
-      <div class="uploader-overflow">Too many files</div>
+      <div class="uploader-overflow">Слишком много файлов</div>
       <div class="uploader-list clearfix">
         <div class="uploader-item pending sample">
           <div class="uploader-thumb"><div></div></div>
@@ -90,11 +90,11 @@ var opts = Object.assign({}, field.options, {maxFiles: 1});
             <div class="uploader-sign-done glyphicon glyphicon-ok"></div>
             <div class="uploader-sign-failed glyphicon glyphicon-ban-circle"></div>
           </div>
-          <div class="uploader-remove" title="Delete"><span class="glyphicon glyphicon-remove"></span></div>
+          <div class="uploader-remove" title="Удалить"><span class="glyphicon glyphicon-remove"></span></div>
           <div class="uploader-info">
             <div class="uploader-filename">File</div>
             <div class="progress progress-xxs"><div class="progress-bar"></div></div>
-            <div class="uploader-message">Waiting for review ...</div>
+            <div class="uploader-message">Ожидает проверки...</div>
           </div>
         </div>
       </div>

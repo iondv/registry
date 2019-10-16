@@ -32,7 +32,7 @@
 
       getRadiusFormatted: function () {
         var radius = this.geometry.getRadius();
-        return (radius > 1000) ? (Math.round(radius / 10) / 100 + ' km') : Math.round(radius) + ' m';
+        return (radius > 1000) ? (Math.round(radius / 10) / 100 + ' км') : Math.round(radius) + ' м';
       },
 
       remove: function () {

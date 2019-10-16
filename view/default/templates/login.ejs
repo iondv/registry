@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><%= pageTitle %>: Log in</title>
+    <title><%= pageTitle %>: Вход</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0">
     <base id="baseUrl" href="<%= baseUrl %>">
@@ -30,11 +30,11 @@
       <% } %>
       <!-- login form -->
       <form action="<%=module%>/auth" method="post" class="profile-form boxed">
-        <header><i class="fa fa-users"></i> Log in</header>
+        <header><i class="fa fa-users"></i> Вход в систему</header>
         <input type="hidden" name="timezone" value="" />
         <fieldset>
           <section>
-            <label class="label">Login</label>
+            <label class="label">Логин</label>
             <label class="input">
               <i class="icon-append fa fa-user"></i>
               <input id="username" type="login" name="username">
@@ -42,28 +42,28 @@
           </section>
 
           <section>
-            <label class="label">Password</label>
+            <label class="label">Пароль</label>
             <label class="input">
               <i class="icon-append fa fa-lock"></i>
               <input id="password" type="password" name="password">
             </label>
             <!--
-            <label class="checkbox"><input type="checkbox" name="remember" checked=""><i></i>Remember me</label>
+            <label class="checkbox"><input type="checkbox" name="remember" checked=""><i></i>Запомнить меня</label>
             -->
           </section>
         </fieldset>
 
         <footer>
-          <button id="authbutton" type="submit" class="btn btn-primary pull-right">Log in</button>
+          <button id="authbutton" type="submit" class="btn btn-primary pull-right">Войти</button>
           <div class="forgot-password pull-left">
-            <% if (canRegister) { %><a href="<%=module%>/register"><b>Create account</b></a><% } %>
+            <% if (canRegister) { %><a href="<%=module%>/register"><b>Зарегистрироваться</b></a><% } %>
           </div>
         </footer>
       </form>
       <!--
       <hr>
       <div class="text-center">
-        Sign up with social networks.
+        Войти через социальные сети:
       </div>
       <div class="socials margin-top-10 text-center">
         <a href="<%=module%>/auth/fb" class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</a>
@@ -91,6 +91,6 @@
       $('input[name=timezone]').val(moment.tz.guess());
     });
 </script>
-<%- pageEndContent %>
+  <%- typeof pageEndContent !== 'undefined' ? pageEndContent : "" %>
 </body>
 </html>

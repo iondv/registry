@@ -87,45 +87,45 @@ module.exports = function (app) {
         [
           {
             id: 'SELECT',
-            caption: 'Select'
+            caption: 'Выбрать'
           },
           {
             id: 'CREATE',
-            caption: 'Create'
+            caption: 'Создать'
           },
           {
             id: 'EDIT',
-            caption: 'Edit',
+            caption: 'Изменить',
             needSelectedItem: true
           },
           {
             id: 'REMOVE',
-            caption: 'Remove',
+            caption: 'Очистить',
             needSelectedItem: true
           }
         ] :
         [
           {
             id: 'ADD',
-            caption: 'Add'
+            caption: 'Добавить'
           },
           {
             id: 'CREATE',
-            caption: 'Create'
+            caption: 'Создать'
           },
           {
             id: 'EDIT',
-            caption: 'Edit',
+            caption: 'Править',
             needSelectedItem: true
           },
           {
             id: 'REMOVE',
-            caption: 'Remove',
+            caption: 'Убрать',
             isBulk: true
           },
           {
             id: 'DELETE',
-            caption: 'Delete',
+            caption: 'Удалить',
             isBulk: true
           }
         ]

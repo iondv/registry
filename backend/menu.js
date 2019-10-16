@@ -70,8 +70,16 @@ module.exports.canonicNode = function (code) {
   return {code: parts[0]};
 };
 
-var buildMenu = function (moduleName, namespaces, menu, types, repo, aclResources) {
-
+/**
+ * @param {String} moduleName
+ * @param {String[]} namespaces
+ * @param {{}} menu
+ * @param {{}} types
+ * @param {MetaRepository} repo
+ * @param {[]} aclResources
+ * @returns {Array}
+ */
+var buildMenu = function (moduleName, namespaces, menu, types, repo, aclResources, defaultToClassMeta) {
   let defaultNs = '';
   if (namespaces) {
     for (defaultNs in namespaces) {
@@ -91,6 +99,7 @@ var buildMenu = function (moduleName, namespaces, menu, types, repo, aclResource
   } else {
     sections = Object.values(repo.getNavigationSections(defaultNs));
   }
+
   for (let i = 0; i < sections.length; i++) {
     let sect = sections[i];
     if (sect) {
@@ -114,6 +123,28 @@ var buildMenu = function (moduleName, namespaces, menu, types, repo, aclResource
       }
     }
   }
+
+  if (subnodes.length == 0 && defaultToClassMeta) {
+    const classMetas = repo.listMeta();
+    classMetas.forEach((cm, orderNum) => {
+      if (!cm.ancestor) {
+        const aclId = 'c:::' + cm.getCanonicalName();
+        aclResources.push(aclId);
+        subnodes.push({
+          id: cm.getCanonicalName(),
+          nodes: [],
+          hint: cm.getCaption(),
+          caption: cm.getCaption(),
+          url: `${moduleName}/${cm.getCanonicalName()}`,
+          external: null,
+          orderNumber: orderNum,
+          type: menuTypes.TREE,
+          aclId
+        });
+      }
+    });
+  }
+
   return subnodes;
 };
 
@@ -184,7 +215,7 @@ module.exports.buildMenus = function (tplData, modal, settings, metaRepo, acl, u
       tplData.topMenu = buildMenu(moduleName, n.namespaces, menus.top || [], menus.types && menus.types.top || null, metaRepo, resources);
       tplData.bottomMenu = buildMenu(moduleName, n.namespaces, menus.bottom || [], menus.types && menus.types.bottom || null, metaRepo, resources);
     } else {
-      tplData.leftMenu = buildMenu(moduleName, n.namespaces, null, null, metaRepo, resources);
+      tplData.leftMenu = buildMenu(moduleName, n.namespaces, null, null, metaRepo, resources, true);
       tplData.topMenu = [];
       tplData.rightMenu = [];
       tplData.bottomMenu = [];
@@ -248,3 +279,35 @@ function isMenuOpened (mn, level) {
   }
   return false;
 }
+
+module.exports.processNavigation = function (scope, req) {
+  let user = scope.auth.getUser(req);
+  let node = scope.metaRepo.getNode(req.params.node);
+  if (node) {
+    return scope.aclProvider
+      .checkAccess(user, nodeAclId(node), Permissions.READ)
+      .then((accessible) => {
+        if (!accessible) {
+          return Promise.reject(403);
+        }
+        const cm = scope.metaRepo.getMeta(req.params.class ? req.params.class : node.classname, null, node.namespace);
+        return scope.aclProvider
+          .getPermissions(user, `c:::${cm.getCanonicalName()}`)
+          .then((permissions) => {
+            return {classMeta: cm, permissions: permissions[`c:::${cm.getCanonicalName()}`], node};
+          });
+      });
+  }
+  node = scope.metaRepo.getMeta(req.params.node);
+  if (node) {
+    return scope.aclProvider
+      .getPermissions(user, `c:::${node.getCanonicalName()}`)
+      .then((permissions) => {
+        if (!permissions[`c:::${node.getCanonicalName()}`].read) {
+          return Promise.reject(403);
+        }
+        return {classMeta: node, permissions: permissions[`c:::${node.getCanonicalName()}`]};
+      });
+  }
+  return Promise.reject(404);
+};

@@ -4,12 +4,13 @@
  */
 'use strict';
 
-var pnf = require('./404.js');
-var PropertyTypes = require('core/PropertyTypes');
-var moduleName = require('../../module-name');
-var canonicNode = require('../../backend/menu').canonicNode;
-var onError = require('../../backend/error');
+const pnf = require('./404.js');
+const forbidden = require('./403.js');
+const PropertyTypes = require('core/PropertyTypes');
+const moduleName = require('../../module-name');
+const onError = require('../../backend/error');
 const respond = require('../../backend/respond');
+const processNavigation = require('../../backend/menu').processNavigation;
 
 // jshint maxstatements: 30
 module.exports = function (req, res) {
@@ -19,22 +20,29 @@ module.exports = function (req, res) {
      */
     function (scope) {
       try {
-        var n = canonicNode(req.params.node);
-        var node = scope.metaRepo.getNode(n.code, n.ns);
-        if (node) {
-          var cm = scope.metaRepo.getMeta(req.params.class, null, n.ns);
-          var pm = cm.getPropertyMeta(req.params.property);
-          if (pm) {
-            if (pm.type === PropertyTypes.REFERENCE && pm.refClass) {
-              var rcm = scope.metaRepo.getMeta(pm.refClass, null, cm.getNamespace());
-              if (rcm) {
-                res.redirect('/' + moduleName + '/' + req.params.node + '/' + rcm.getCanonicalName() + '?modal=1');
-                return;
+        processNavigation(scope, req)
+          .then((info) => {
+            let cm = info.classMeta;
+            var pm = cm.getPropertyMeta(req.params.property);
+            if (pm) {
+              if (pm.type === PropertyTypes.REFERENCE && pm.refClass) {
+                var rcm = scope.metaRepo.getMeta(pm.refClass, null, cm.getNamespace());
+                if (rcm) {
+                  res.redirect('/' + moduleName + '/' + req.params.node + '/' + rcm.getCanonicalName() + '?modal=1');
+                  return;
+                }
               }
             }
-          }
-        }
-        pnf(req, res);
+          })
+          .catch((err) => {
+            if (err === 404) {
+              return pnf(req, res);
+            }
+            if (err === 403) {
+              return forbidden(req, res);
+            }
+            onError(scope, err, res, true);
+          });
       } catch (err) {
         onError(scope, err, res, true);
       }

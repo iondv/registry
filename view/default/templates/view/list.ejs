@@ -9,7 +9,7 @@
   }
   if (typeof containerItem !== 'undefined'
     && typeof containerProperty !== 'undefined') {
-    locals.preTitle = `Attribute value selection "${containerProperty.caption}" of object "${containerItem.toString(null, dateCallback)}"`;
+    locals.preTitle = `Выбор значения атрибута "${containerProperty.caption}" объекта "${containerItem.toString(null, dateCallback)}"`;
   }
   var options = {
     dt: TableOptions,
@@ -58,8 +58,7 @@
 <div class="panel panel-default list-container">
   <div class="panel-body">
 
-
-    <% if (viewFilters && viewFilters.length) { %>
+    <%if (typeof viewFilters !== 'undefined' && viewFilters && viewFilters.length) {%>
       <%- partial('./list-view-filter', {filters: viewFilters}) %>
     <% } %>
 
@@ -67,7 +66,7 @@
       <% if (selectionDialog) { %>
       <button id="<%=`${ids.listBtn}select`%>" class="select btn btn-primary command"
               style="display:none;"
-              data-id="SELECT" data-bulk="true">Select
+              data-id="SELECT" data-bulk="true">Выбрать
       </button>
       <% } %>
       <%commands.forEach(function (command) {
@@ -84,13 +83,13 @@
 
         var code = command.id.toLowerCase();
       %>
-      <button id="<%=`${ids.listBtn}${code}`%>" type="button" class="<%=code%> btn btn-success command"
+      <button id="<%=`${ids.listBtn}${code}`%>" type="button" class="<%=code%> <%=command.id.toUpperCase()%> btn btn-success command"
               title="<%=command.caption%>" data-id="<%=command.id%>" style="display:none;"><%-html%></button>
       <%});%>
-      <button id="<%=`${ids.listBtn}close`%>" type="button" class="close btn btn-default modal-closer"
-              title="Close" style="display:none;">Close</button>
+      <button id="<%=`${ids.listBtn}close`%>" type="button" class="CLOSE btn btn-default modal-closer"
+              title="Закрыть" style="display:none;">Закрыть</button>
       <button id="<%=`${ids.listBtn}reload`%>" type="button" class="reload btn btn-default"
-              title="Update"><span class="fa fa-refresh"></span></button>
+              title="Обновить"><span class="fa fa-refresh"></span></button>
 
       <% if (typeof exporters !== 'undefined' && Object.keys(exporters).length) { %>
       <%- partial('./_export', {buttonPrefix: ids.listBtn}) %>
@@ -109,16 +108,16 @@
       </div>
     </div>
 
-    <div class="inline-form-control update" title="Edit" style="display: none;">
+    <div class="inline-form-control update" title="Редактировать" style="display: none;">
       <span class="glyphicon glyphicon-edit"></span>
     </div>
-    <div class="inline-form-control save" title="Save" style="display: none;">
+    <div class="inline-form-control save" title="Сохранить" style="display: none;">
       <span class="glyphicon glyphicon-save"></span>
     </div>
-    <div class="inline-form-control cancel" title="Cancel" style="display: none;">
+    <div class="inline-form-control cancel" title="Отменить" style="display: none;">
       <span class="glyphicon glyphicon-remove"></span>
     </div>
-    <!--<div class="inline-form-control delete" title="Delete" style="display: none;">
+    <!--<div class="inline-form-control delete" title="Удалить" style="display: none;">
       <span class="glyphicon glyphicon-trash"></span>
     </div>-->
     <div class="inline-form-control workflow" style="display: none;">

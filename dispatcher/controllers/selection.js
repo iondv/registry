@@ -1,4 +1,4 @@
-// jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+/* eslint-disable quotes */
 /**
  * Created by kras on 24.05.16.
  */
@@ -8,16 +8,14 @@
 
 const locale = require('locale');
 const pnf = require('./404.js');
+const forbidden = require('./403.js');
 const onError = require('../../backend/error');
 const respond = require('../../backend/respond');
-const canonicNode = require('../../backend/menu').canonicNode;
-const nodeAclId = require('../../backend/menu').nodeAclId;
 const itemTplData = require('../../backend/items').itemTplData;
 const moduleName = require('../../module-name');
 const buildMenus = require('../../backend/menu').buildMenus;
 const tableOptions = require('../../backend/viewmodels').tableOptions;
 const buildListVm = require('../../backend/viewmodels').buildListVm;
-const Permissions = require('core/Permissions');
 const mergeConditions = require('../../backend/items').mergeConditions;
 const overrideEagerLoading = require('../../backend/items').overrideEagerLoading;
 const userFiltersOptions = require('../../backend/viewmodels').userFiltersOptions;
@@ -25,6 +23,7 @@ const overrideSearchOptions = require('../../backend/items').overrideSearchOptio
 const overrideTpl = require('../../backend/viewmodels').overrideTpl;
 const prepareSaveData = require('../../backend/items').prepareSaveData;
 const prepareDate = require('../../backend/items').prepareDate;
+const processNavigation = require('../../backend/menu').processNavigation;
 
 // jshint maxcomplexity: 20
 
@@ -58,7 +57,7 @@ function returnSelection(node, pm, rcm, vm, scope, req, lang, user) {
         id: req.query.masterId,
         class: req.query.masterClass,
         backRef: req.query.masterBackRef,
-        backRefUrlPattern: '/' + node.namespace + '@' + node.code + '/view/' + cm.getCanonicalName() + '/:id',
+        backRefUrlPattern: `/${node ? node.namespace + '@' + node.code : cm.getCanonicalName()}/view/${cm.getCanonicalName()}/:id`,
         backRefCaption: brpm ? brpm.caption : req.query.masterBackRef
       };
     }
@@ -70,7 +69,7 @@ function returnSelection(node, pm, rcm, vm, scope, req, lang, user) {
     searchOptions = overrideSearchOptions(
       moduleName,
       searchOptions,
-      node.namespace + '@' + node.code,
+      node ? node.namespace + '@' + node.code : null,
       rcm.getCanonicalName(),
       scope.settings
     );
@@ -85,23 +84,21 @@ function returnSelection(node, pm, rcm, vm, scope, req, lang, user) {
     tableOps.eagerLoading = overrideEagerLoading(
       moduleName,
       eagerLoading,
-      node.namespace + '@' + node.code,
+      node ? node.namespace + '@' + node.code : null,
       rcm.getCanonicalName(),
       'list',
       scope.settings);
 
     return scope.securedDataRepo.getItem(item, null, {user: user})
-      .then(item => {
+      .then((item) => {
         let tplData = {
           module: moduleName,
           className: rcm.getCanonicalName(),
           title: rcm.getCaption(),
           containerItem: item,
           containerProperty: pm,
-          dateCallback: function (date) {
-            return prepareDate(date, lang);
-          },
-          pageCode: node.code,
+          dateCallback: date => prepareDate(date, lang),
+          pageCode: node ? node.code : cm.getName(),
           autoOpen: false,
           node: req.params.node,
           master: master,
@@ -128,7 +125,7 @@ function returnSelection(node, pm, rcm, vm, scope, req, lang, user) {
               isBulk: true
             }
           ],
-          nodeOptions: node.options,
+          nodeOptions: node && node.options,
           viewOptions: vm.options
         };
 
@@ -150,21 +147,12 @@ module.exports = function (req, res) {
      */
     function (scope) {
       try {
-        let n = canonicNode(req.params.node);
-        let node = scope.metaRepo.getNode(n.code, n.ns);
-        if (!node) {
-          return pnf(req, res);
-        }
         let user = scope.auth.getUser(req);
-
         let lang;
-        scope.aclProvider.checkAccess(user, nodeAclId(node), Permissions.READ).then(
-          function (accessible) {
-            if (!accessible) {
-              return onError(scope, new Error('Доступ запрещен!'), res, false);
-            }
-
-            let cm = scope.metaRepo.getMeta(req.params.class, null, n.ns);
+        processNavigation(scope, req)
+          .then((info) => {
+            let cm = info.classMeta;
+            let node = info.node;
             let locales = new locale.Locales(req.headers['accept-language']);
             lang = locales[0] ? locales[0].language : 'ru';
 
@@ -173,7 +161,7 @@ module.exports = function (req, res) {
             if (pm && pm._refClass) {
               rcm = pm._refClass;
               vm = null;
-              vm = scope.metaRepo.getListViewModel(rcm.getCanonicalName(), `${node.namespace}@${node.code}`);
+              vm = scope.metaRepo.getListViewModel(rcm.getCanonicalName(), node ? `${node.namespace}@${node.code}` : null);
               if (!vm) {
                 vm = buildListVm(rcm, vm);
               }
@@ -198,11 +186,18 @@ module.exports = function (req, res) {
                     'selection',
                     req.params.node,
                     cm.getCanonicalName(),
-                    scope.settings),
+                    scope.settings
+                  ),
                   itemTplData(tplData, lang));
               });
           })
-          .catch(function (err) {
+          .catch((err) => {
+            if (err === 404) {
+              return pnf(req, res);
+            }
+            if (err === 403) {
+              return forbidden(req, res);
+            }
             onError(scope, err, res, true);
           });
       } catch (err) {

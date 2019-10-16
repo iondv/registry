@@ -889,7 +889,7 @@ a:focus, button:focus { outline: 0; }
 }
 
 .year-calendar-frame {
-  z-index: 1000;
+  z-index: 1041;
 }
 
 .year-calendar-frame .year-calendar {
@@ -1111,7 +1111,8 @@ div.modal div.share-file-menu-btn-wrap > label {
 .btn-info.active,
 .open>.dropdown-toggle.btn-info,
 .inline-form-control.update,
-.btn.SAVE{
+.btn.SAVE,
+.btn.EDIT {
   color: #008;
   background-color: #deebff;
   border-color: #deebff;
@@ -1131,7 +1132,10 @@ div.modal div.share-file-menu-btn-wrap > label {
 .inline-form-control.update:active,
 .btn.SAVE:hover,
 .btn.SAVE:active,
-.btn.SAVE:focus {
+.btn.SAVE:focus,
+.btn.EDIT:hover,
+.btn.EDIT:active,
+.btn.EDIT:focus {
   color: #004;
   background-color: #c8deff;
   border-color: #deebff;

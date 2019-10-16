@@ -7,22 +7,22 @@
     maxSize: 10485760,
     extensions: null,
     mimeTypes: null,
-    tooSmall: "Minimum file size {limit}",
-    tooBig: "Maximun file size {limit}",
-    wrongExtension: "Allowed only: {extensions}",
-    wrongMimeType: "Allowed only: {mimeTypes}",
+    tooSmall: "Минимальный размер файла - {limit}",
+    tooBig: "Максимальный размер файла - {limit}",
+    wrongExtension: "Разрешены только: {extensions}",
+    wrongMimeType: "Разрешены только: {mimeTypes}",
     onlyImage: false,
     maxHeight: null,
     maxWidth: null,
     minHeight: 1,
     minWidth: 1,
-    notImage: "File is not an image.",
-    overHeight: "Maximun height - {limit} pix.",
-    overWidth: "Maximun width {limit} pix.",
-    underHeight: "Minimum height {limit} pix.",
-    underWidth: "Minimum width {limit} pix.",
-    tooMany: "Too many files.",
-    alreadyExists: "File is already selected",
+    notImage: "Файл не является изображением.",
+    overHeight: "Высота максимум - {limit} пикс.",
+    overWidth: "Ширина максимум - {limit} пикс.",
+    underHeight: "Высота минимум - {limit} пикс.",
+    underWidth: "Ширина минимум - {limit} пикс.",
+    tooMany: "Слишком много файлов.",
+    alreadyExists: "Такой файл уже выбран",
     confirmRemoveStatus: ['done', 'uploading']
   };
 
@@ -251,8 +251,8 @@
 
   UFile.prototype.validate = function () {
     var self = this;
-    // trying to upload file as an image, and the result, start validating
-    // loading of the image happens at the events, and not consistently
+    // пытаемся загрузить файл как изображение, и по результату начинаем валидацию
+    // загрузка изображения происходит по событиям, а не последовательно
     this.image = new Image;
     this.image.onload = function () {
       self.startValidate();
@@ -306,7 +306,7 @@
     var files = this.uploader.files;
     for (var i = 0; i < files.length; ++i) {
       if (files[i].removed) continue;
-      // check for a match only with the previous files
+      // проверять на совпадение только с предыдущими файлами
       if (files[i] === this) return false;
       if (files[i].file.size == this.file.size && files[i].file.name == this.file.name) return true;
     }
@@ -344,7 +344,7 @@
     this.xhr.onreadystatechange = function (event) {
       self.changeReadyState(event);
     };
-    // create these forms to upload to the server
+    // создать данные формы для выгрузки на сервер
     var data = new FormData;
     var attr = this.uploader.fileAttrName || 'file';
     data.append(attr, this.file.name);

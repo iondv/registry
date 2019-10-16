@@ -23,14 +23,14 @@ module.exports = function (req, res) {
         let locales = new locale.Locales(req.headers['accept-language']);
         let lang = locales[0] ? locales[0].language : 'ru';
 
-        let opts = {user: user};
+        let opts = {user, lang};
         opts.forceEnrichment = itemEagerLoading(req.params.class, null, scope);
 
         scope.securedDataRepo.getItem(req.params.class, req.params.id, opts).
         then(function (found) {
           if (found) {
             item = found;
-            return scope.workflows.getStatus(found,  {user: user, lang: lang});
+            return scope.workflows.getStatus(found, {user, lang});
           } else {
             throw new Error('Объект не найден');
           }

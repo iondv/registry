@@ -5,15 +5,14 @@
 const respond = require('../../backend/respond');
 const onError = require('../../backend/error');
 const pnf = require('./404.js');
-const canonicNode = require('../../backend/menu').canonicNode;
-const nodeAclId = require('../../backend/menu').nodeAclId;
-const Permissions = require('core/Permissions');
+const forbidden = require('./403.js');
 const moduleName = require('../../module-name');
 const itemTplData = require('../../backend/items').itemTplData;
 const prepareJSON = require('../../backend/items').prepareJSON;
 const prepareDate = require('../../backend/items').prepareDate;
 const overrideTpl = require('../../backend/viewmodels').overrideTpl;
 const PropertyTypes = require('core/PropertyTypes');
+const processNavigation = require('../../backend/menu').processNavigation;
 
 // jshint maxstatements: 30
 
@@ -43,20 +42,16 @@ module.exports = function (req, res) {
      */
     function (scope) {
       try {
-        var n = canonicNode(req.params.node);
-        var node = scope.metaRepo.getNode(n.code, n.ns);
-        if (!node) {
-          return pnf(req, res);
-        }
         var lang, master, vm;
         var user = scope.auth.getUser(req);
-        scope.aclProvider.checkAccess(user, nodeAclId(node), Permissions.READ)
-          .then((accessible) => {
-            if (!accessible) {
-              throw new Error('Доступ запрещен!');
-            }
+        processNavigation(scope, req)
+          .then((info) => {
+            let cm = info.classMeta;
+            let basicCm = cm;
+            let node = info.node;
+
             if (req.query.choice) {
-              let cm = scope.metaRepo.getMeta(req.query.choice, null, n.ns);
+              cm = scope.metaRepo.getMeta(req.query.choice, null, cm.getNamespace());
               let q = '';
               for (let pn in req.query) {
                 if (req.query.hasOwnProperty(pn)) {
@@ -70,12 +65,10 @@ module.exports = function (req, res) {
               return null;
             }
 
-            let cm = scope.metaRepo.getMeta(req.params.class ? req.params.class : node.classname, null, n.ns);
-
             let list = [];
             if (req.params.container && req.params.property) {
               let parts = req.params.container.split('.');
-              let ccm = scope.metaRepo.getMeta(parts[0], null, n.ns);
+              let ccm = scope.metaRepo.getMeta(parts[0], null, cm.getNamespace());
               let cpm = ccm.getPropertyMeta(req.params.property);
               if (cpm.type === PropertyTypes.COLLECTION || cpm.type === PropertyTypes.REFERENCE) {
                 if (Array.isArray(cpm.allowedSubclasses) && cpm.allowedSubclasses.length) {
@@ -109,26 +102,23 @@ module.exports = function (req, res) {
                 'selectClass',
                 req.params.node,
                 cm.getCanonicalName(),
-                scope.settings),
+                scope.settings
+              ),
               itemTplData(
                 {
                   baseUrl: req.app.locals.baseUrl,
                   module: moduleName,
                   classId: cm.getCanonicalName(),
                   master: master,
-                  title: node.caption + (cm.getName() !== node.classname ? ': ' + cm.getCaption() : ''),
-                  pageCode: node.code,
+                  title: (node ? node.caption : cm.getCaption()) + (cm !== basicCm ? ': ' + cm.getCaption() : ''),
+                  pageCode: node && node.code || cm.getClassName(),
                   node: req.params.node,
                   form: vm,
                   subclasses: list,
                   user: user,
                   utils: {
-                    dateCallback: function (date) {
-                      return prepareDate(date, lang, user.timeZone());
-                    },
-                    toJSON: function (data) {
-                      return prepareJSON(data, lang, user.timeZone());
-                    }
+                    dateCallback: date => prepareDate(date, lang, user.timeZone()),
+                    toJSON: data => prepareJSON(data, lang, user.timeZone())
                   },
                   validateBy: req.params.container && req.params.property
                     ? req.params.container + '.' + req.params.property
@@ -138,7 +128,13 @@ module.exports = function (req, res) {
               )
             );
           })
-          .catch(function (err) {
+          .catch((err) => {
+            if (err === 404) {
+              return pnf(req, res);
+            }
+            if (err === 403) {
+              return forbidden(req, res);
+            }
             onError(scope, err, res, true);
           });
       } catch (err) {

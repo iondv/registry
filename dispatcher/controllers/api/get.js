@@ -28,7 +28,8 @@ module.exports = function (req, res) {
           {
             user: user,
             filter: formFilter(moduleName, scope, req),
-            forceEnrichment: itemEagerLoading(scope.metaRepo.getMeta(req.params.class), null, scope, [])
+            forceEnrichment: itemEagerLoading(scope.metaRepo.getMeta(req.params.class), null, scope, []),
+            lang: lang
           }
         )
           .then(

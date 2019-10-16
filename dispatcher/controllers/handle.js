@@ -7,11 +7,9 @@
 'use strict';
 const moduleName = require('../../module-name');
 const multipart = require('../../backend/items').parseMultipart;
-const canonicNode = require('../../backend/menu').canonicNode;
+const processNavigation = require('../../backend/menu').processNavigation;
 const onError = require('../../backend/error');
 const respond = require('../../backend/respond');
-const nodeAclId = require('../../backend/menu').nodeAclId;
-const Permissions = require('core/Permissions');
 const edit = require('../../backend/items').saveItem;
 
 /* jshint maxstatements: 40, maxcomplexity: 20, maxdepth: 15 */
@@ -27,31 +25,22 @@ module.exports = function (req, res) {
      * @param {AclProvider} scope.aclProvider
      * @param {ChangelogFactory} scope.changelogFactory
      */
-    function (scope) {
+    (scope) => {
       multipart(req,
-        function (err, form) {
+        (err, form) => {
           if (err) {
             return onError(scope, err, res, true);
           }
-          let n = canonicNode(req.params.node);
-          let node = scope.metaRepo.getNode(n.code, n.ns);
-          if (!node) {
-            return res.status(404).send('Не найден узел навигации');
-          }
           let user = scope.auth.getUser(req);
           try {
-            scope.aclProvider.checkAccess(user, nodeAclId(node), Permissions.READ)
+            processNavigation(scope, req)
               .then(
-                function (accessible) {
-                  if (!accessible) {
-                    return onError(scope, new Error('Доступ запрещен!'), res, false);
-                  }
-
+                (info) => {
                   if (!form.$action) {
                     return res.status(400).send('Не указано действие ');
                   }
 
-                  var cm = scope.metaRepo.getMeta(req.params.class ? req.params.class : node.classname, null, n.ns);
+                  let cm = info.classMeta;
                   req.params.class = cm.getCanonicalName();
                   var handler = scope.actions.getAction(form.$action);
                   var p;
@@ -91,7 +80,13 @@ module.exports = function (req, res) {
                   res.status(404).send('Не найден обработчик действия ' + req.body.$action);
                 })
               .catch(
-                function (err) {
+                (err) => {
+                  if (err === 404) {
+                    return res.status(400).send('Ресурс не найден');
+                  }
+                  if (err === 403) {
+                    return res.status(403).send('Доступ запрещен');
+                  }
                   onError(scope, err, res);
                 }
               );

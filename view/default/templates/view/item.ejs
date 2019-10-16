@@ -44,11 +44,11 @@
       options.master.masterProperty = master.masterProperty;
       if (typeof containerProperty !== 'undefined' && containerProperty) {
         if (containerProperty.type === PropertyTypes.REFERENCE) {
-          locals.preTitle = `Creating an object by reference "${containerProperty.caption}"
-        of object "${master.item.toString(null, utils.dateCallback())}"`;
+          locals.preTitle = `Создание объекта по ссылке "${containerProperty.caption}"
+        объекта "${master.item.toString(null, utils.dateCallback())}"`;
         } else if (containerProperty.type === PropertyTypes.COLLECTION) {
-          locals.preTitle = `Creating an object in the collection "${containerProperty.caption}"
-        of object "${master.item.toString(null, utils.dateCallback())}"`;
+          locals.preTitle = `Создание объекта в коллекции "${containerProperty.caption}"
+        объекта "${master.item.toString(null, utils.dateCallback())}"`;
         }
       }
     }
@@ -86,50 +86,50 @@
 <% if (!condensedView) { %>
 <div id="cert-dlg" class="cert-dlg" style="display:none;">
   <div class="form-group">
-    <label class="control-label bold mb10">Select the certificate to sign:</label>
+    <label class="control-label bold mb10">Выберите сертификат для подписи:</label>
     <select class="no-select2 form-control" name="cert"></select>
   </div>
   <div class="text-right">
-    <a href="#" id="cert_info_view" style="display:none">View certificate information</a>&nbsp;
-    <button id="cert_select_cancel" class="btn btn-primary">Cancel</button>
-    <button id="cert_select_confirm" class="btn btn-primary">Select</button>
+    <a href="#" id="cert_info_view" style="display:none">Просмотреть информацию о сертификате</a>&nbsp;
+    <button id="cert_select_cancel" class="btn btn-primary">Отменить</button>
+    <button id="cert_select_confirm" class="btn btn-primary">Выбрать</button>
   </div>
 </div>
 <div id="cert-info" class="cert-dlg panel form-horizontal" style="display:none;">
   <div class="panel-body">
     <div class="form-group">
-      <label class="col-md-3 col-sm-3 control-label" for="cert_subject">Subject</label>
+      <label class="col-md-3 col-sm-3 control-label" for="cert_subject">Субьект</label>
       <div class="col-md-9 col-sm-9">
         <input id="cert_subject" type="text" class="form-control attr-value" readonly="true" value="">
       </div>
     </div>
     <div class="form-group">
-      <label class="col-md-3 col-sm-3 control-label" for="cert_provider">Provider</label>
+      <label class="col-md-3 col-sm-3 control-label" for="cert_provider">Постащик</label>
       <div class="col-md-9 col-sm-9">
         <input id="cert_provider" type="text" class="form-control attr-value" readonly="true" value="">
       </div>
     </div>
     <div class="form-group">
-      <label class="col-md-3 col-sm-3 control-label" for="cert_valid_since">Valid from</label>
+      <label class="col-md-3 col-sm-3 control-label" for="cert_valid_since">Действителен с</label>
       <div class="col-md-6 col-sm-6">
         <input id="cert_valid_since" type="text" class="form-control attr-value" readonly="true" value="">
       </div>
     </div>
     <div class="form-group">
-      <label class="col-md-3 col-sm-3 control-label" for="cert_valid_till">Valid to</label>
+      <label class="col-md-3 col-sm-3 control-label" for="cert_valid_till">Действителен по</label>
       <div class="col-md-6 col-sm-6">
         <input id="cert_valid_till" type="text" class="form-control attr-value" readonly="true" value="">
       </div>
     </div>
     <div class="form-group">
-      <label class="col-md-3 col-sm-3 control-label" for="cert_serial">Serial number</label>
+      <label class="col-md-3 col-sm-3 control-label" for="cert_serial">Серийный номер</label>
       <div class="col-md-7 col-sm-7">
         <input id="cert_serial" type="text" class="form-control attr-value" readonly="true" value="">
       </div>
     </div>
   </div>
   <div class="text-right">
-    <button class="btn btn-primary">Close</button>
+    <button class="btn btn-primary">Закрыть</button>
   </div>
 </div>
 <% for (var cmd of form.commands) {
@@ -150,7 +150,7 @@
   <div class="panel-heading">
     <div class="workflow panel-workflow"></div>
     <%if (!item.getItemId() && typeof createByCopy !== "undefined" && createByCopy) {%>
-      <div class="float-right"><input type="checkbox" id="create-another"/> Create another</div>
+      <div class="float-right"><input type="checkbox" id="create-another"/> Cоздать еще</div>
     <%}%>
     <% if (!globalReadonly) { %>
     <% for (var cmd of form.commands) { %>
@@ -165,13 +165,13 @@
       </button>
     <% }} %>
     <button id="<%=`${form.ids.formBtn}close`%>" type="button" class="closer btn btn-default object-control" data-id="CLOSE">
-      Close
+      Закрыть
     </button>
-    <button id="<%=`${form.ids.formBtn}reload`%>" type="button" class="reload btn btn-default object-control" data-id="RELOAD" title="Update">
+    <button id="<%=`${form.ids.formBtn}reload`%>" type="button" class="reload btn btn-default object-control" data-id="RELOAD" title="Обновить">
       <span class="fa fa-refresh"></span>
     </button>
     <% if (options.id && item.getMetaClass().isJournaling()) { %>
-      <button id="<%=`${form.ids.formBtn}history`%>" type="button" class="history btn btn-default object-control" data-id="HISTORY" title="Change log">
+      <button id="<%=`${form.ids.formBtn}history`%>" type="button" class="history btn btn-default object-control" data-id="HISTORY" title="Журнал изменений">
         <span class="fa fa-history"></span>
       </button>
     <% } %>
@@ -185,12 +185,12 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">ES status</h4>
+              <h4 class="modal-title">Статус ЭП</h4>
             </div>
             <div class="modal-body">
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
             </div>
           </div>
         </div>
@@ -218,10 +218,10 @@ if (item.getItemId() && !item.permissions.write) {
         <span class="glyphicon glyphicon-trash"></span>
       </button>
     <% } %>
-    <button id="<%=`f${form.ids.formBtn}close`%>" type="button" class="btn btn-default CLOSE" title="Close" data-cmd="CLOSE">
+    <button id="<%=`f${form.ids.formBtn}close`%>" type="button" class="btn btn-default CLOSE" title="Закрыть" data-cmd="CLOSE">
       <span class="glyphicon glyphicon-remove"></span>
     </button>
-    <button id="<%=`f${form.ids.formBtn}reload`%>" type="button" class="btn btn-default" title="Update" data-cmd="RELOAD">
+    <button id="<%=`f${form.ids.formBtn}reload`%>" type="button" class="btn btn-default" title="Обновить" data-cmd="RELOAD">
       <span class="fa fa-refresh"></span>
     </button>
   </div>
@@ -257,14 +257,14 @@ if (item.getItemId() && !item.permissions.write) {
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Confirm your actions</h4>
+        <h4 class="modal-title">Подтвердите ваши действия</h4>
       </div>
       <div class="modal-body">
         <div class="confirm-message"></div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="confirm btn btn-success">Continue</button>
-        <button type="button" class="cancel btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="confirm btn btn-success">Продолжить</button>
+        <button type="button" class="cancel btn btn-default" data-dismiss="modal">Отменить</button>
       </div>
     </div>
   </div>

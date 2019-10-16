@@ -21,11 +21,11 @@
       <div class="list-tools">
         <button type="button" class="create-btn btn btn-primary">
           <span class="glyphicon glyphicon-map-marker"></span>
-          Set coordinates
+          Задать координаты
         </button>
         <button type="button" class="update-btn btn btn-info">
           <span class="glyphicon glyphicon-map-marker"></span>
-          Change coordinates
+          Изменить координаты
         </button>
       </div>
       <% } %>
@@ -35,34 +35,34 @@
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title">Set coordinates</h4>
+              <h4 class="modal-title">Задать координаты</h4>
             </div>
             <div class="modal-body">
               <div>
-                <button type="button" class="save-btn btn btn-success">Save</button>
+                <button type="button" class="save-btn btn btn-success">Сохранить</button>
               </div>
               <div class="form-group mt10 mb10 search-group">
                 <div class="overlay"><span class="fa fa-refresh fa-spin"></span></div>
                 <div class="input-group">
-                  <input type="text" class="form-control search-address" placeholder="Enter the address ...">
+                  <input type="text" class="form-control search-address" placeholder="Введите адрес...">
                   <span class="input-group-btn">
                     <button type="button" class="search-btn btn btn-primary">
                       <span class="glyphicon glyphicon-search"></span>
                     </button>
                   </span>
                 </div>
-                <p class="error-block">Coordinates not found</p>
+                <p class="error-block">Координаты не найдены</p>
               </div>
               <div class="geocoord-modal-map"></div>
               <div class="geojson">
                 <div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>
                 <div class="mt10 mb10">
-                  <textarea class="form-control" rows="4" placeholder="Enter data in GEO-JSON format"></textarea>
+                  <textarea class="form-control" rows="4" placeholder="Введите данные в GEO-JSON формате"></textarea>
                 </div>
                 <button type="button" class="btn btn-default verify-json">
-                  Check and display GEO-JSON
+                  Проверить и отобразить GEO-JSON
                 </button>
-                <span class="invalid-json text-danger ml10">Data contains an error ...</span>
+                <span class="invalid-json text-danger ml10">Данные содержат ошибку...</span>
               </div>
             </div>
           </div>

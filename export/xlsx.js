@@ -32,7 +32,7 @@ module.exports = (function () {
   };
 
   function getVal(obj, key) {
-    var parts = key.split('.');
+    var parts = key ? key.split('.') : [];
     var result = obj;
     for (var i = 0; i < parts.length; i++) {
       if (typeof result === 'object' && result && parts[i]) {
@@ -232,7 +232,7 @@ module.exports = (function () {
                 self.pushRight(self.workbook, sheet.root, cell.attrib.r, newCellsInserted);
               }
             } else {
-              string = self.substituteScalar(cell, string, placeholder, substitution);
+              string = self.substituteScalar(cell, string, placeholder, getVal(substitution, placeholder.key));
             }
           });
         }

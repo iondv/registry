@@ -2,33 +2,18 @@
 
 const respond = require('../../../backend/respond');
 const onError = require('../../../backend/error');
-const nodeAclId = require('../../../backend/menu').nodeAclId;
-const Permissions = require('core/Permissions');
-const overrideEagerLoading = require('../../../backend/items').overrideEagerLoading;
-const moment = require('moment');
-const formListOptions = require('../../../backend/items').formListOptions;
-const moduleName = require('../../../module-name');
-const canonicNode = require('../../../backend/menu').canonicNode;
-const locale = require('locale');
+const pnf = require('../404.js');
+const forbidden = require('../403.js');
+const processNavigation = require('../../../backend/menu').processNavigation;
 
 module.exports = function (req, res) {
   respond(['aclProvider', 'export', 'auth'],
     function (scope) {
       try {
-        let n = canonicNode(req.params.node);
-        let node = scope.metaRepo.getNode(n.code, n.ns);
-        if (!node) {
-          return onError(scope, new Error('Страница не найдена'), res, false);
-        }
         let user = scope.auth.getUser(req);
-
-        scope.aclProvider.checkAccess(user, nodeAclId(node), Permissions.READ)
-        .then((accessible) => {
-          if (!accessible) {
-            throw new Error('Доступ запрещен!');
-          }
-
-          let cm = scope.metaRepo.getMeta(req.params.class ? req.params.class : node.classname, null, n.ns);
+        processNavigation(scope, req)
+          .then((info) => {
+            let cm = info.classMeta;
           if (!cm) {
             throw new Error('Не удалось определить класс');
           }
@@ -66,6 +51,12 @@ module.exports = function (req, res) {
             throw new Error('File not found!');
           }
         }).catch((err) => {
+          if (err === 403) {
+            return forbidden(req, res);
+          }
+          if (err === 404) {
+            return pnf(req, res);
+          }
           onError(scope, err, res, true);
         });
       } catch (err) {

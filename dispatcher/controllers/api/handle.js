@@ -30,8 +30,8 @@ module.exports = function (req, res) {
           if (handler) {
             scope.logRecorder.start();
             handler.exec(scope, req).then(
-              function (result) {
-                var log = scope.logRecorder.stop();
+              (result) => {
+                const log = scope.logRecorder.stop();
                 if (log.length && typeof result === 'object') {
                   if (!result) {
                     result = {};
@@ -40,7 +40,7 @@ module.exports = function (req, res) {
                 }
                 res.status(200).send(result || 'done');
               }
-            ).catch(function (err) {
+            ).catch((err) => {
               scope.logRecorder.stop();
               onApiError(scope, wrapError(err), res);
             });
@@ -55,30 +55,26 @@ module.exports = function (req, res) {
               }
               edit(scope, req, null, logger, true)
                 .then(
-                  function (item) {
+                  (item) => {
                     let user = scope.auth.getUser(req);
                     return scope.workflows.performTransition(
                       item,
                       parts[0],
                       parts[1],
-                      {user: user, changeLogger: logger}
+                      {user, lang, changeLogger: logger}
                     );
                   }
                 )
                 .then(
-                  function (result) {
-                    var log = scope.logRecorder.stop();
-                    try {
-                      result = result instanceof Item ? prepareJSON(result, lang, user.timeZone()) : {};
-                      result.__log = log;
-                      res.status(200).send(result || 'done');
-                    } catch (err) {
-                      return Promise.reject(err);
-                    }
+                  (result) => {
+                    const log = scope.logRecorder.stop();
+                    result = result instanceof Item ? prepareJSON(result, lang, user.timeZone()) : {};
+                    result.__log = log;
+                    res.status(200).send(result || 'done');
                   }
                 )
                 .catch(
-                  function (err) {
+                  (err) => {
                     scope.logRecorder.stop();
                     onApiError(scope, wrapError(err), res);
                   }

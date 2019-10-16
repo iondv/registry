@@ -10,7 +10,7 @@ const edit = require('../backend/items').saveItem;
  * @param {{}} options
  * @constructor
  */
-function SaveHandler(options) {
+function SaveHandler() {
   /**
    * @param {{metaRepo: MetaRepository, securedDataRepo: SecuredDataRepository}} scope
    * @param {ChangelogFactory} scope.changelogFactory
@@ -24,7 +24,7 @@ function SaveHandler(options) {
     }
     return edit(scope, req, null, logger).then((data) => {
       data.$message = 'Объект сохранен.';
-      return Promise.resolve(data);
+      return data;
     });
   };
 }

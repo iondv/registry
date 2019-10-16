@@ -74,7 +74,7 @@ module.exports.buildListVm = function buildListVm(cm, origin) {
   if (!origin) {
     result.commands.push({
       id: 'CREATE',
-      caption: 'Create',
+      caption: 'Создать',
       needSelectedItem: false,
       isBulk: false,
       enableCondition: '',
@@ -86,7 +86,7 @@ module.exports.buildListVm = function buildListVm(cm, origin) {
   if (!origin) {
     result.commands.push({
       id: 'EDIT',
-      caption: 'Edit',
+      caption: 'Редактировать',
       needSelectedItem: true,
       isBulk: false,
       enableCondition: '',
@@ -98,7 +98,7 @@ module.exports.buildListVm = function buildListVm(cm, origin) {
   if (!origin) {
     result.commands.push({
       id: 'DELETE',
-      caption: 'Delete',
+      caption: 'Удалить',
       needSelectedItem: true,
       isBulk: true,
       enableCondition: '',
@@ -133,7 +133,7 @@ function fieldFromProperty(property) {
     commands: property.type === PropertyTypes.COLLECTION || property.type === PropertyTypes.REFERENCE ? [
       {
         id: property.type === PropertyTypes.COLLECTION ? 'ADD' : 'SELECT',
-        caption: property.type === PropertyTypes.COLLECTION ? 'Add' : 'Select',
+        caption: property.type === PropertyTypes.COLLECTION ? 'Добавить' : 'Выбрать',
         needSelectedItem: false,
         isBulk: false,
         enableCondition: '',
@@ -143,7 +143,7 @@ function fieldFromProperty(property) {
       },
       {
         id: 'EDIT',
-        caption: 'Edit',
+        caption: 'Изменить',
         needSelectedItem: false,
         isBulk: false,
         enableCondition: '',
@@ -195,7 +195,7 @@ module.exports.buildEditFormVm = function (cm, origin) {
   if (!origin) {
     result.commands.push({
       id: 'SAVE',
-      caption: 'Save',
+      caption: 'Сохранить',
       needSelectedItem: false,
       isBulk: false,
       enableCondition: '',
@@ -206,7 +206,7 @@ module.exports.buildEditFormVm = function (cm, origin) {
     /*
     Result.commands.push({
       id: "CANCEL",
-      caption: "Cancel",
+      caption: "Отменить",
       needSelectedItem: false,
       isBulk: false,
       enableCondition: "",
@@ -243,7 +243,7 @@ module.exports.buildCreateFormVm = function (cm, origin) {
   if (!origin) {
     result.commands.push({
       id: 'CREATE',
-      caption: 'Create',
+      caption: 'Создать',
       needSelectedItem: false,
       isBulk: false,
       enableCondition: '',
@@ -254,7 +254,7 @@ module.exports.buildCreateFormVm = function (cm, origin) {
     /*
     Result.commands.push({
       id: "CANCEL",
-      caption: "Cancel",
+      caption: "Отменить",
       needSelectedItem: false,
       isBulk: false,
       enableCondition: "",
@@ -481,7 +481,7 @@ module.exports.collectionTableOptions = function (scope, node) {
     }
 
     eagerLoading = overrideEagerLoading(
-      moduleName, eagerLoading, node.namespace + '@' + node.code, rcm.getCanonicalName(), 'list', scope.settings
+      moduleName, eagerLoading, node ? node.namespace + '@' + node.code : null, rcm.getCanonicalName(), 'list', scope.settings
     );
 
     if (eagerLoading) {
