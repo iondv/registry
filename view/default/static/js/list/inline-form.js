@@ -315,7 +315,7 @@
 
     remove: function () {
       var data = this.dt.row(this.row).data() || {},
-        message = 'Убрать объект из коллекции?',
+        message = __('js.inlineForm.deleteFromCol'),
         _list = this.owner.list,
         _this = this;
       if (data.__class && data._id && confirm(message)) {
@@ -330,7 +330,7 @@
               _this.dt.draw();
             })
             .fail(function (xhr) {
-              messageCallout.error(xhr.$message || 'Ошибка при извлечении объектов');
+              messageCallout.error(xhr.$message || __('js.inlineForm.removeError'));
               console.error(xhr);
             })
             .fail(processAjaxError);
@@ -342,7 +342,7 @@
     },
 
     delete: function () {
-      this.owner.list.del('Удалить объект?', this.owner.list.toDelete('.'+ SELECTED_CLASS));
+      this.owner.list.del(__('js.inlineForm.confirmDelete'), this.owner.list.toDelete('.'+ SELECTED_CLASS));
     },
 
     cancel: function (resize) {
@@ -464,7 +464,7 @@
         + 'data-sign-before="' + d.data.signBefore + '" '
         + 'data-sign-after="' + d.data.signAfter + '" '
         + (d.data.confirmMessage || d.data.confirm
-          ? 'data-confirm-message="' + (d.data.confirmMessage ? d.data.confirmMessage : 'Вы уверены?') + '" '
+          ? 'data-confirm-message="' + (d.data.confirmMessage ? d.data.confirmMessage : __('js.inlineForm.confirm')) + '" '
           : '');
     },
 

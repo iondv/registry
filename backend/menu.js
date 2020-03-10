@@ -4,6 +4,8 @@
 'use strict';
 const moduleName = require('../module-name');
 const Permissions = require('core/Permissions');
+const IonError = require('core/IonError');
+const Errors = require('core/errors/front-end');
 
 const menuTypes = {
   TREE: 'tree',
@@ -281,33 +283,27 @@ function isMenuOpened (mn, level) {
 }
 
 module.exports.processNavigation = function (scope, req) {
-  let user = scope.auth.getUser(req);
-  let node = scope.metaRepo.getNode(req.params.node);
+  const user = scope.auth.getUser(req);
+  const node = scope.metaRepo.getNode(req.params.node);
+  let cm;
   if (node) {
-    return scope.aclProvider
-      .checkAccess(user, nodeAclId(node), Permissions.READ)
-      .then((accessible) => {
-        if (!accessible) {
-          return Promise.reject(403);
-        }
-        const cm = scope.metaRepo.getMeta(req.params.class ? req.params.class : node.classname, null, node.namespace);
-        return scope.aclProvider
-          .getPermissions(user, `c:::${cm.getCanonicalName()}`)
-          .then((permissions) => {
-            return {classMeta: cm, permissions: permissions[`c:::${cm.getCanonicalName()}`], node};
-          });
-      });
+    cm = scope.metaRepo.getMeta(req.params.class || node.classname, null, node.namespace);
+  } else {
+    const nodeCm = scope.metaRepo.getMeta(req.params.node);
+    cm = req.params.class
+      ? scope.metaRepo.getMeta(req.params.class, null, nodeCm.getNamespace())
+      : nodeCm;
   }
-  node = scope.metaRepo.getMeta(req.params.node);
-  if (node) {
-    return scope.aclProvider
-      .getPermissions(user, `c:::${node.getCanonicalName()}`)
-      .then((permissions) => {
-        if (!permissions[`c:::${node.getCanonicalName()}`].read) {
-          return Promise.reject(403);
-        }
-        return {classMeta: node, permissions: permissions[`c:::${node.getCanonicalName()}`]};
-      });
-  }
-  return Promise.reject(404);
+  const cmAccessId = `c:::${cm.getCanonicalName()}`;
+  return scope.aclProvider
+    .checkAccess(user, node ? nodeAclId(node) : cmAccessId, Permissions.READ)
+    .then((accessible) => {
+      if (!accessible) {
+        throw new IonError(Errors.ACCESS_DENIED);
+      }
+      return scope.aclProvider.getPermissions(user, cmAccessId);
+    })
+    .then((permissions) => {
+      return {classMeta: cm, permissions: permissions[cmAccessId], node};
+    });
 };

@@ -20,12 +20,8 @@ module.exports = function (req, res) {
         let lang = locales[0] ? locales[0].language : 'ru';
         let logger = null;
         let user = scope.auth.getUser(req);
-        let userId = user.id();
-        if (scope.changelogFactory) {
-          logger = scope.changelogFactory.logger(function () {
-            return userId;
-          });
-        }
+        if (scope.changelogFactory)
+          logger = scope.changelogFactory.logger(() => user);
         scope.logRecorder.start();
 
         let cm = scope.metaRepo.getMeta(req.params.class);
@@ -35,7 +31,7 @@ module.exports = function (req, res) {
           ic.getCanonicalName(),
           {[ic.getSemanticAttrs()[0]]: req.body.term},
           ic.getVersion(),
-          logger, {uid: userId}
+          logger, {uid: user.id()}
         ).then(function (result) {
           var log = scope.logRecorder.stop();
           if (result) {

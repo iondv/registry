@@ -2,6 +2,6 @@
 <div class="form-group <%= field.required?"required":"" %> <%=cssFromTags(field)%>" style="<%=styleFromTags(field)%>">
   <label class="col-md-2 col-sm-3 control-label"><%= field.caption %><% include help-sign %></label>
   <div class="col-md-10 col-sm-9">
-    <%= field.caption %> <button class="open-col-btn btn-success" type="button" title="Открыть" col_property="<%= prop.getName() %>">Открыть</button>
+    <%= field.caption %> <button class="open-col-btn btn-success" type="button" title="<%=__('templates.default.attrs.objectListLink.open')%>" col_property="<%= prop.getName() %>"><%=__('templates.default.attrs.objectListLink.open')%></button>
   </div>
 </div>

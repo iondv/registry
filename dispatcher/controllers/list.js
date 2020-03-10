@@ -135,7 +135,7 @@ module.exports = function (req, res) {
                 classMeta.getCanonicalName(),
                 scope.settings);
 
-              tableOps = tableOptions(classMeta, vm, scope.metaRepo, searchOptions, node && node.sorting || []);
+              tableOps = tableOptions(classMeta, vm, scope.metaRepo, searchOptions, node && node.sorting);
 
               tableOps.eagerLoading = overrideEagerLoading(
                 moduleName,

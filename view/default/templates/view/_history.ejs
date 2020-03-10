@@ -3,7 +3,7 @@
     <div class="imodal-box-header">
       <button type="button" class="history-page-close close"><span>×</span></button>
       <h3 class="imodal-box-title browser-title">
-        Журнал изменений объекта <%= title %>
+        <%=__('templates.default.view.history.title')%> <%= title %>
       </h3>
     </div>
 
@@ -16,8 +16,12 @@
 
       <div class="panel-default">
         <div class="panel-heading">
-          <button type="button" class="history-page-close btn btn-default">Закрыть</button>
-          <button type="button" class="history-page-reload btn btn-default" title="Обновить"><span class="fa fa-refresh"></span></button>
+          <button type="button" class="history-page-close btn btn-default">
+            <%=__('templates.default.view.history.close')%>
+          </button>
+          <button type="button" class="history-page-reload btn btn-default" title="<%=__('templates.default.view.history.refresh')%>">
+            <span class="fa fa-refresh"></span>
+          </button>
 
           <div class="history-page-interval-controls">
             <button type="button" id="prevInterval" class="btn btn-default"><span class="fa fa-angle-double-left"></span></button>

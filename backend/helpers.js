@@ -6,9 +6,9 @@ const HtmlEntities = require('html-entities').AllHtmlEntities;
 const html_entities = new HtmlEntities();
 const viewPathResolver = require('lib/util/viewResolver');
 const Item = require('core/interfaces/DataRepository').Item;
+const {getDefaultFieldCommands} = require('./viewmodels');
 
-
-module.exports = function (app) {
+module.exports = function (app, config) {
   app.locals.htmlEntities = function (str) {
     return html_entities.encode(str);
   };
@@ -82,53 +82,8 @@ module.exports = function (app) {
   };
 
   app.locals.getFieldCommands = function (field) {
-    return Array.isArray(field.commands) ? field.commands : (
-      (field.type === 2) ?
-        [
-          {
-            id: 'SELECT',
-            caption: 'Выбрать'
-          },
-          {
-            id: 'CREATE',
-            caption: 'Создать'
-          },
-          {
-            id: 'EDIT',
-            caption: 'Изменить',
-            needSelectedItem: true
-          },
-          {
-            id: 'REMOVE',
-            caption: 'Очистить',
-            needSelectedItem: true
-          }
-        ] :
-        [
-          {
-            id: 'ADD',
-            caption: 'Добавить'
-          },
-          {
-            id: 'CREATE',
-            caption: 'Создать'
-          },
-          {
-            id: 'EDIT',
-            caption: 'Править',
-            needSelectedItem: true
-          },
-          {
-            id: 'REMOVE',
-            caption: 'Убрать',
-            isBulk: true
-          },
-          {
-            id: 'DELETE',
-            caption: 'Удалить',
-            isBulk: true
-          }
-        ]
-    );
+    return Array.isArray(field.commands) ? field.commands : getDefaultFieldCommands(field.type);
   };
+  
+  app.locals.yandexGeoApiKey = config && config.yandexGeoApiKey;
 };

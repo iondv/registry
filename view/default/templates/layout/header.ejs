@@ -7,6 +7,11 @@
   <nav>
     <% include top-menu %>
 
+    <div id="notification-marker" class="notify-marker" title="Уведомления">
+      <i class="fa fa-bell"></i>
+      <span class="badge">4</span>
+    </div>
+
     <ul class="nav pull-right">
       <!-- USER OPTIONS -->
       <% if (typeof user !== 'undefined' && user && user.id() !== 'anonymous') { %>
@@ -14,59 +19,44 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
           <% let avatar = user.properties().avatar; %>
           <% if (avatar) { %>
-          <img class="user-avatar" src="<%= avatar.link %>" height="34" alt="User avatar" />
+          <img class="user-avatar" src="<%= avatar.link %>" height="34" alt="<%=__('templates.default.layout.header.userAvatar')%>" />
           <% } %>
           <span class="user-name">
             <span class="hidden-xs"><%= user.name() %> <i class="fa fa-angle-down"></i></span>
-            <span id="notifications_marker" style="display:none;"><i class="fa fa-bell"></i></span>
           </span>
         </a>
         <ul class="dropdown-menu hold-on-click">
           <li>
-            <a href="<%=module%>/profile"><i class="fa fa-user"></i> Профиль пользователя</a>
+            <a href="<%=module%>/profile"><i class="fa fa-user"></i> <%=__('templates.default.layout.header.profile')%></a>
           </li>
           <li>
-            <a href="<%=module%>/chpwd"><i class="fa fa-lock"></i> Сменить пароль</a>
+            <a href="<%=module%>/chpwd"><i class="fa fa-lock"></i> <%=__('templates.default.layout.header.chpwd')%></a>
           </li>
           <li>
-            <a href="<%=module%>/sign-out"><i class="fa fa-power-off"></i> Выйти</a>
+            <a href="<%=module%>/sign-out"><i class="fa fa-power-off"></i> <%=__('templates.default.layout.header.signOut')%></a>
           </li>
         </ul>
       </li>
       <% } %>
     </ul>
 
-    <button class="filter btn btn-default ml10" title="Фильтры"><span class="glyphicon glyphicon-filter"></span></button>
+    <button class="filter btn btn-default ml10" title="<%=__('templates.default.layout.header.filters')%>">
+      <span class="glyphicon glyphicon-filter"></span>
+    </button>
 
     <div id="top-search" class="top-search dropdown">
-      <input type="text" class="form-control" placeholder="Искать...">
-      <span class="clear" title="Очистить поиск">&times;</span>
+      <input type="text" class="form-control" placeholder="<%=__('templates.default.layout.header.search')%>">
+      <span class="clear" title="<%=__('templates.default.layout.header.clearSearch')%>">&times;</span>
       <ul class="dropdown-menu"></ul>
     </div>
   </nav>
 
 </header>
-<%let headerInjection = resolveTpl('header-injection', null, true);
-if (headerInjection) {%>
-<%-partial(headerInjection, {})%>
-<%}%>
-<div id="notifications" style="display:none;"></div>
-<script>
-  $(function () {
-    function adjust() {
-      $('#notifications div').slice(10).remove();
-      var c = $('#notifications div').length;
-      if (c) {
-        $("#notifications_marker").show();
-      } else {
-        $("#notifications_marker").hide();
-      }
-    }
-
+<script type="text/javascript">
     var concTimer = setInterval(
       function () {
         $.ajax({
-          url: '<%=module%>/api/notifications',
+          url: 'api/notifications',
           type: 'GET',
           dataType: 'json',
           success: function (notifications) {
@@ -76,14 +66,14 @@ if (headerInjection) {%>
               if (notifications[i].message) {
                 if (dn.find('#notification_' + notifications[i].id).length == 0) {
                   html = html + '<div id="notification_' + notifications[i].id +
-                    '" data-nid="' + notifications[i].id +
-                    '" class="notification"><h5>' + notifications[i].subject + '</h5>' +
+                    '" data-nid="' + notifications[i].id + '" class="notification">' +
+                    (notifications[i].subject ? '<h5>' + notifications[i].subject + '</h5>': '') +
                     notifications[i].message + '</div>';
                 }
               }
             }
             dn.prepend(html);
-            adjust();
+            // adjust();
           },
           error: function (xhreq, status, error) {
             console.log(status, error);
@@ -119,5 +109,10 @@ if (headerInjection) {%>
       e.stopPropagation();
       e.preventDefault();
     });
-  })
 </script>
+<%
+let headerInjection = resolveTpl('header-injection', null, true);
+if (headerInjection) {
+%>
+<%-partial(headerInjection, {})%>
+<% } %>

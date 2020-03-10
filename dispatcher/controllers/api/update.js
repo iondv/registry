@@ -22,11 +22,8 @@ module.exports = function (req, res) {
         let updates = prepareSaveData(req.body, cm, lang);
         let logger = null;
         let user = scope.auth.getUser(req);
-        if (scope.changelogFactory) {
-          logger = scope.changelogFactory.logger(function () {
-            return user.id();
-          });
-        }
+        if (scope.changelogFactory)
+          logger = scope.changelogFactory.logger(() => user);
         scope.logRecorder.start();
         scope.securedDataRepo.editItem(req.params.class, req.params.id, updates, logger, {user: user}).
         then(function (result) {

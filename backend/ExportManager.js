@@ -544,7 +544,14 @@ function ExportManager(cOptions) {
   }
 
   function fromBase64String (str) {
-    return str ? JSON.parse(Buffer.from(base64.toByteArray(str)).toString()) : null;
+    return str ? JSON.parse(Buffer.from(base64.toByteArray(str)).toString(), (key, value) => {
+      if (typeof value === 'string') {
+        var a = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}(?:\.\d*))(?:Z|(\+|-)([\d|:]*))?$/.exec(value);
+        if (a)
+            return new Date(value);
+      }
+      return value;
+    }) : null;
   }
 
   function getHash(exporterName, classname, itemId) {

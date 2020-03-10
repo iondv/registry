@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title><%= pageTitle %>: Вход</title>
+    <title><%= pageTitle %>: <%=__('templates.default.login.title')%></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0">
     <base id="baseUrl" href="<%= baseUrl %>">
     <link href="<%=module%>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="<%=module%>/vendor/bootstrap3-datepicker/css/datepicker.css" rel="stylesheet" type="text/css">
+    <link href="<%=module%>/vendor/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" type="text/css">
     <link href="<%=module%>/vendor/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css">
     <link href="<%=module%>/vendor/datatables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="<%=module%>/vendor/bootstrap3-wysihtml5-bower/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css">
@@ -30,11 +30,11 @@
       <% } %>
       <!-- login form -->
       <form action="<%=module%>/auth" method="post" class="profile-form boxed">
-        <header><i class="fa fa-users"></i> Вход в систему</header>
+        <header><i class="fa fa-users"></i> <%=__('templates.default.login.title')%></header>
         <input type="hidden" name="timezone" value="" />
         <fieldset>
           <section>
-            <label class="label">Логин</label>
+            <label class="label"><%=__('templates.default.login')%></label>
             <label class="input">
               <i class="icon-append fa fa-user"></i>
               <input id="username" type="login" name="username">
@@ -42,7 +42,7 @@
           </section>
 
           <section>
-            <label class="label">Пароль</label>
+            <label class="label"><%=__('templates.default.password')%></label>
             <label class="input">
               <i class="icon-append fa fa-lock"></i>
               <input id="password" type="password" name="password">
@@ -54,9 +54,9 @@
         </fieldset>
 
         <footer>
-          <button id="authbutton" type="submit" class="btn btn-primary pull-right">Войти</button>
+          <button id="authbutton" type="submit" class="btn btn-primary pull-right"><%=__('templates.default.login.signin')%></button>
           <div class="forgot-password pull-left">
-            <% if (canRegister) { %><a href="<%=module%>/register"><b>Зарегистрироваться</b></a><% } %>
+            <% if (canRegister) { %><a href="<%=module%>/register"><b><%=__('templates.default.login.register')%></b></a><% } %>
           </div>
         </footer>
       </form>

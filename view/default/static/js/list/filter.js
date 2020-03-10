@@ -4,7 +4,7 @@
 
   function filterSelection(filters, $container, selection) {
     $container.empty();
-    $('<option/>').text('Выберите фильтр...').val(null).appendTo($container);
+    $('<option/>').text(__('js.filter.select')).val(null).appendTo($container);
     if (filters) {
       for (var filterId in filters) {
         if (filters.hasOwnProperty(filterId)) {
@@ -133,7 +133,7 @@
       var $selectAttr = $('<select/>').addClass('select-column form-control').attr({
         name: 'row-' + this.condCounter + '-property'
       }).appendTo($selectAttrContainer);
-      $('<option/>').text('Выберите поле...').val(null).appendTo($selectAttr);
+      $('<option/>').text(__('js.filter.select')).val(null).appendTo($selectAttr);
       if (attrs && attrs.length) {
         for (var i = 0; i < attrs.length; ++i) {
           $('<option/>').val(attrs[i].name).attr({
@@ -385,7 +385,7 @@
         $input = this.createInput(options),
         selectionLength = _this.filter.options.selectionLength || 5;
       if ($input) {
-        $cell.append('<span class="dt-head-filter-toggle glyphicon glyphicon-filter" title="Фильтр"></span>');
+        $cell.append('<span class="dt-head-filter-toggle glyphicon glyphicon-filter" title="' + __('js.filter.filter') + '"></span>');
         $cell.parent().addClass('dt-head-filter').append('<div class="dt-head-filter-container"></div>');
         $cell.parent().find('.dt-head-filter-container').append($input);
         $cell.parent().find('select.selection-filter').select2({
@@ -436,11 +436,11 @@
           case NUMBER_TYPE:
           {
             var opers = {
-              "=": '= равно',
-              "&lt;": '&lt; ' + (type === DATE_TYPE ? 'ранее' : 'меньше'),
-              "&gt;": '&gt; ' + (type === DATE_TYPE ? 'позднее' : 'больше'),
-              "&lt;=": '&#x2264 ' + (type === DATE_TYPE ? 'ранее' : 'меньше') + ' или равно',
-              "&gt;=": '&#x2265 ' + (type === DATE_TYPE ? 'позднее' : 'больше') + ' или равно'
+              "=": __('js.filter.eq'),
+              "&lt;": '&lt; ' + (type === DATE_TYPE ? __('js.filter.earlier') : __('js.filter.less')),
+              "&gt;": '&gt; ' + (type === DATE_TYPE ? __('js.filter.later') : __('js.filter.more')),
+              "&lt;=": '&#x2264 ' + (type === DATE_TYPE ? __('js.filter.earlier') : __('js.filter.less')) + __('js.filter.oreq'),
+              "&gt;=": '&#x2265 ' + (type === DATE_TYPE ? __('js.filter.later') : __('js.filter.more')) + __('js.filter.oreq')
             };
             var content = '';
             for (var oper in opers) {

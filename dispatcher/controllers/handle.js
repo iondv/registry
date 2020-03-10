@@ -51,9 +51,8 @@ module.exports = function (req, res) {
                     var parts = form.$action.split('.');
                     if (parts.length > 1) {
                       let logger;
-                      if (scope.changelogFactory) {
-                        logger = scope.changelogFactory.logger(() => user.id());
-                      }
+                      if (scope.changelogFactory)
+                        logger = scope.changelogFactory.logger(() => user);
                       p = edit(scope, req, null, logger, true)
                         .then(
                           function (item) {

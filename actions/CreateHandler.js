@@ -30,11 +30,8 @@ function CreateHandler() {
       let cm = scope.metaRepo.getMeta(req.params.class);
       let updates = prepareSaveData(req.body, cm, locales[0] ? locales[0].language : 'ru');
       let logger = null;
-      if (scope.changelogFactory) {
-        logger = scope.changelogFactory.logger(function () {
-          return user.id();
-        });
-      }
+      if (scope.changelogFactory)
+        logger = scope.changelogFactory.logger(() => user);
       return scope.securedDataRepo.createItem(
         cm.getCanonicalName(),
         updates,

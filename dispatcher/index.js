@@ -36,10 +36,9 @@ module.exports.api.createHashtag = require('./controllers/api/createHashtag');
 module.exports.api.share = require('./controllers/api/share');
 module.exports.api.concurencyState = require('./controllers/api/concurencyState');
 module.exports.api.session = require('./controllers/api/session');
-module.exports.api.notifications = require('./controllers/api/notifications');
-module.exports.api.markAsViewed = require('./controllers/api/markAsViewed');
 
 /*** ERRORS ***/
+module.exports.error403 = require('./controllers/403');
 module.exports.error404 = require('./controllers/404');
 
 /*** DIGITAL SIGNATURE ***/

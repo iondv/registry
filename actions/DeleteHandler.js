@@ -23,11 +23,8 @@ function DeleteHandler() {
       let user = scope.auth.getUser(req);
       let results = {deleted: [], errors: []};
 
-      if (scope.changelogFactory) {
-        logger = scope.changelogFactory.logger(function () {
-          return user.id();
-        });
-      }
+      if (scope.changelogFactory)
+        logger = scope.changelogFactory.logger(() => user);
 
       if (req.body.items) {
         if (req.body.items.length) {

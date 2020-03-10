@@ -3,9 +3,9 @@
 <section id="middle">
 
   <header id="page-header">
-    <h1>Профиль пользователя <%= user.name() %></h1>
+    <h1><%=__('templates.default.profile.title', {name: user.name()})%></h1>
     <ol class="breadcrumb">
-      <li><a href="/<%=module%>"><i class="fa fa-dashboard"></i> Главная</a></li>
+      <li><a href="/<%=module%>"><i class="fa fa-dashboard"></i> <%=__('templates.default.main')%></a></li>
       <%- blocks.breadcrumbs %>
     </ol>
   </header>
@@ -110,7 +110,9 @@
       </fieldset>
 
       <footer>
-        <% if (showSubmit) { %><button id="authbutton" type="submit" class="btn btn-primary pull-right">Сохранить</button><% } %>
+        <% if (showSubmit) { %>
+          <button id="authbutton" type="submit" class="btn btn-primary pull-right"><%=__('templates.default.profile.save')%></button>
+        <% } %>
       </footer>
     </form>
   </div>

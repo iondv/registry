@@ -9,7 +9,13 @@
   }
   if (typeof containerItem !== 'undefined'
     && typeof containerProperty !== 'undefined') {
-    locals.preTitle = `Выбор значения атрибута "${containerProperty.caption}" объекта "${containerItem.toString(null, dateCallback)}"`;
+    locals.preTitle = __(
+      'templates.default.view.list.preTitle',
+      {
+        prop: containerProperty.caption,
+        item: containerItem.toString(null, dateCallback)
+      }
+    );
   }
   var options = {
     dt: TableOptions,
@@ -66,7 +72,8 @@
       <% if (selectionDialog) { %>
       <button id="<%=`${ids.listBtn}select`%>" class="select btn btn-primary command"
               style="display:none;"
-              data-id="SELECT" data-bulk="true">Выбрать
+              data-id="SELECT" data-bulk="true">
+        <%=__('templates.default.view.list.select')%>
       </button>
       <% } %>
       <%commands.forEach(function (command) {
@@ -87,7 +94,7 @@
               title="<%=command.caption%>" data-id="<%=command.id%>" style="display:none;"><%-html%></button>
       <%});%>
       <button id="<%=`${ids.listBtn}close`%>" type="button" class="CLOSE btn btn-default modal-closer"
-              title="Закрыть" style="display:none;">Закрыть</button>
+              title="Закрыть" style="display:none;"><%=__('templates.default.view.list.close')%></button>
       <button id="<%=`${ids.listBtn}reload`%>" type="button" class="reload btn btn-default"
               title="Обновить"><span class="fa fa-refresh"></span></button>
 
@@ -108,13 +115,13 @@
       </div>
     </div>
 
-    <div class="inline-form-control update" title="Редактировать" style="display: none;">
+    <div class="inline-form-control update" title="<%=__('templates.default.view.list.edit')%>" style="display: none;">
       <span class="glyphicon glyphicon-edit"></span>
     </div>
-    <div class="inline-form-control save" title="Сохранить" style="display: none;">
+    <div class="inline-form-control save" title="<%=__('templates.default.view.list.save')%>" style="display: none;">
       <span class="glyphicon glyphicon-save"></span>
     </div>
-    <div class="inline-form-control cancel" title="Отменить" style="display: none;">
+    <div class="inline-form-control cancel" title="<%=__('templates.default.view.list.cancel')%>" style="display: none;">
       <span class="glyphicon glyphicon-remove"></span>
     </div>
     <!--<div class="inline-form-control delete" title="Удалить" style="display: none;">

@@ -107,7 +107,7 @@
       if (!this.prop.required || !this.isEmptyValue()) {
         return true;
       }
-      this.addError('Обязательное поле');
+      this.addError(__('js.inlineFormCell.required'));
     },
 
     isEmptyValue: function () {
@@ -133,7 +133,7 @@
       }
       var value = this.$value.val();
       if (value.length && !Inputmask.isValid(value, mask)) {
-        this.addError('Значение не соответствует маске');
+        this.addError(__('js.inlineFormCell.notValidMask'));
         this.$value.one('focus', function (event) {
           this.clearError($input);
           this.setMask(mask);
@@ -283,7 +283,7 @@
     },
 
     remove: function () {
-      if (confirm('Убрать выбранный объект из ссылки?')) {
+      if (confirm(__('js.inlineFormCell.deleteFromRef'))) {
         this.$displayValue.html('');
         this.$value.val('').change();
       }

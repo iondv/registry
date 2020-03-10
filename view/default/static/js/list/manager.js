@@ -229,7 +229,7 @@
           if (filter.attr('type') === 'datetime') {
             filter.datetimepicker({
               locale: _this.options.locale.lang,
-              format: _this.options.locale.dateTimeFormat,
+              format: _this.options.locale.dateFormat,
               useCurrent: false
             }).on('dp.change', function (e) {
               _this.reload(true);
@@ -279,7 +279,7 @@
         });
 
       } catch (err) {
-        messageCallout.error('Ошибка инициализации списка');
+        messageCallout.error(__('js.listManager.initError'));
         console.error(err);
       }
     },
@@ -430,7 +430,13 @@
                   if (v) {
                     var f = {};
                     if (filter.attr('type') === 'datetime') {
-                      var m = (filter.data('mode') === 2) ? moment.utc(v, me.options.locale.dateTimeFormat) : moment(v, me.options.locale.dateTimeFormat);
+                      var m = moment(v, me.options.locale.dateFormat);
+                      if (filter.data('operation') === 'lt' || filter.data('operation') === 'lte') {
+                        m.add({hours:23, minutes:59, seconds: 59, milliseconds: 999});
+                      }
+                      if (filter.data('mode') === 2) {
+                        m.utc();
+                      }
                       v = m.format();
                     }
                     f[filter.data('operation')] = ['$' + p, v];
@@ -593,7 +599,7 @@
       if (json && json.permissions) {
         if (!json.permissions.read) {
           this.$controls.remove();
-          messageCallout.error('Доступ запрещен!');
+          messageCallout.error(__('js.listManager.accessDenied'));
         }
         if (!json.permissions.use) {
           this.$controls.find('.create').remove();
@@ -606,7 +612,7 @@
     },
 
     errorDataTable: function (event, settings, techNote, message) {
-      messageCallout.error('Ошибка получения данных');
+      messageCallout.error(__('js.listManager.errData'));
       console.error(message);
       processAjaxError({status: 401});
     },
@@ -635,20 +641,18 @@
       for (var i = 0; i < selected.length; ++i) {
         var data = selected[i];
         if (data[self.options.master.backRef]) {
-          var msg = '<p>Выбранный объект по ссылке "'
-            + self.options.master.backRefCaption
-            + '" связан с <a href="'
-            + self.options.master.backRefUrlPattern.replace(':id', data[self.options.master.backRef])
-            + '">другим объектом</a>.</p><p>Вы уверены, что хотите разорвать эту связь?</p>';
+          var msg = __('js.listManager.breakRef', {
+            cap: self.options.master.backRefCaption,
+            href: self.options.master.backRefUrlPattern.replace(':id', data[self.options.master.backRef])
+          });
           if (data[self.options.master.backRef + '_ref']) {
-            msg = '<p>Выбранный объект по ссылке "'
-              + self.options.master.backRefCaption
-              + '" связан с <a href="'
-              + self.options.master.backRefUrlPattern.replace(':id', data[self.options.master.backRef])
-              + '">' + data[self.options.master.backRef + '_ref'].__string
-              + '</a>.</p><p>Вы уверены, что хотите разорвать эту связь?</p>';
+            msg = __('js.listManager.breakRefRef', {
+              cap: self.options.master.backRefCaption,
+              href: self.options.master.backRefUrlPattern.replace(':id', data[self.options.master.backRef]),
+              name: data[self.options.master.backRef + '_ref'].__string
+            });
           }
-          confirmations.push('<div title="Внимание!">' + msg + '</div>');
+          confirmations.push('<div title="' + __('js.listManager.warn') + '">' + msg + '</div>');
         }
       }
       this.createSelectConfirmation(confirmations, selected);
@@ -666,14 +670,14 @@
         resizable: false,
         width: 400,
         buttons: {
-          "Да": function() {
+          [__('js.listManager.yes')]: function() {
             setTimeout(function () {
               this.createSelectConfirmation(confirmations, selected);
             }.bind(this, 1000));
             $dlg.dialog("close");
             $dlg.remove();
           }.bind(this),
-          "Нет": function() {
+          [__('js.listManager.no')]: function() {
             $dlg.dialog("close");
             $dlg.remove();
           }
@@ -684,23 +688,28 @@
     createEvent: function () {
       var id;
       var changes = [];
+      var rowDelta = 0;
       for (id in this.inserted) {
         if (this.inserted.hasOwnProperty(id)) {
           changes.push({action: 'put', id: id});
+          rowDelta++;
         }
       }
       for (id in this.removed) {
         if (this.removed.hasOwnProperty(id)) {
           changes.push({action: 'eject', id: id});
+          rowDelta--;
         }
       }
       for (id in this.deleted) {
         if (this.deleted.hasOwnProperty(id)) {
           changes.push({action: 'delete', id: id});
+          rowDelta--;
         }
       }
       return jQuery.Event("change", {
-        changes: changes
+        changes: changes,
+        rowDelta: rowDelta
       });
     },
 
@@ -710,7 +719,7 @@
           $.post(this.options.url.put, {class: result.__class, id: result._id})
             .done(this.reload.bind(this))
             .fail(function (xhr) {
-              messageCallout.error(xhr.responseText || 'Ошибка при извлечении объектов');
+              messageCallout.error(xhr.responseText || __('js.listManager.itemErr'));
               console.error(xhr);
             })
             .fail(processAjaxError);
@@ -809,7 +818,7 @@
           _this.reload();
         })
         .fail(function (xhr) {
-          messageCallout.error(xhr.$message || 'Ошибка при сортировке объектов');
+          messageCallout.error(xhr.$message || __('js.listManager.sortErr'));
           console.error(xhr);
         })
         .fail(processAjaxError);
@@ -884,7 +893,7 @@
     },
 
     remove: function (message, items) {
-      message = message === undefined ? "Убрать выбранные объекты из коллекции?" : message;
+      message = message === undefined ? __('js.listManager.confirmDelItemsCol') : message;
       if (!message || confirm(message)) {
         if (this.options.url && this.options.url.remove) {
           var items = typeof toDelete !== 'undefined' ? toDelete : this.toDelete();
@@ -900,7 +909,7 @@
                 this.reload();
               }.bind(this))
               .fail(function (xhr) {
-                messageCallout.error(xhr.$message || 'Ошибка при извлечении объектов');
+                messageCallout.error(xhr.$message || __('js.listManager.itemEr'));
                 console.error(xhr);
               })
               .fail(processAjaxError);
@@ -912,7 +921,7 @@
     },
 
     del: function (message, items) {
-      message = message === undefined ? "Удалить выбранные объекты?" : message;
+      message = message === undefined ? __('js.listManager.confirmDelItems') : message;
       if (!message || confirm(message)) {
         if (this.options.url && this.options.url.do) {
           items = items || this.toDelete();
@@ -937,7 +946,7 @@
           this.reload();
         }.bind(this))
         .fail(function (xhr) {
-          messageCallout.error(xhr.$message || 'Ошибка при удалении объектов');
+          messageCallout.error(xhr.$message || __('js.listManager.delErr'));
           console.error(xhr);
         })
         .fail(processAjaxError);
@@ -1291,7 +1300,7 @@
     ListManager.call(this, $group.find('.table'));
     if (this.$table) {
       this.$table.on('change', function (event) {
-        this.$group.attr('length', this.dt.rows().count() + event.rowDelta);
+        this.$group.attr('length', parseInt(this.$group.attr('length')) + event.rowDelta);
         this.$attr.val(JSON.stringify(event.changes)).change();
       }.bind(this));
     }
@@ -1327,6 +1336,9 @@
             this.$group.hide();
           }
           this.onLoad(e, settings, json, xhr);
+          if(json) {
+            this.$group.attr('length', json.recordsTotal);
+          }
           if (typeof this.onLoadCallback === "function") {
             this.onLoadCallback.call(this, e, settings, json, xhr);
           }
@@ -1368,7 +1380,7 @@
         this.$group.removeClass('loading');
         this.initHiddenLinks();
       } catch (err) {
-        messageCallout.error('Ошибка инициализации коллекции: ' + this.prop.caption);
+        messageCallout.error(__('js.listManager.initColErr', {cap: this.prop.caption}));
         console.error(err);
         nextCallback && nextCallback();
       }

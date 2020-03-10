@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= pageTitle %>: Регистрация</title>
+  <title><%= pageTitle %>: <%=__('templates.default.register.title')%></title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
   <base id="baseUrl" href="<%= baseUrl %>">
   <link href="<%=module%>/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-  <link href="<%=module%>/vendor/bootstrap3-datepicker/css/datepicker.css" rel="stylesheet" type="text/css">
+  <link href="<%=module%>/vendor/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" type="text/css">
   <link href="<%=module%>/vendor/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css">
   <link href="<%=module%>/vendor/datatables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="<%=module%>/vendor/bootstrap3-wysihtml5-bower/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css">
@@ -41,10 +41,10 @@
     <% } %>
     <!-- login form -->
     <form action="<%=module%>/register" method="post" class="profile-form boxed">
-      <header><i class="fa fa-users"></i> Регистрация</header>
+      <header><i class="fa fa-users"></i> <%=__('templates.default.register.title')%></header>
       <fieldset>
         <section>
-          <label class="label">Логин</label>
+          <label class="label"><%=__('templates.default.login')%></label>
           <label class="input">
             <i class="icon-append fa fa-user"></i>
             <input id="username" type="login" name="username">
@@ -52,7 +52,7 @@
         </section>
 
         <section>
-          <label class="label">Пароль</label>
+          <label class="label"><%=__('templates.default.password')%></label>
           <label class="input">
             <i class="icon-append fa fa-lock"></i>
             <input id="password" type="password" name="password">
@@ -61,7 +61,7 @@
         </section>
 
         <section>
-          <label class="label">Повторите пароль</label>
+          <label class="label"><%=__('templates.default.repeatPwd')%></label>
           <label class="input">
             <i class="icon-append fa fa-lock"></i>
             <input id="password2" type="password" name="password2">
@@ -91,9 +91,9 @@
       </fieldset>
 
       <footer>
-        <button id="authbutton" type="submit" class="btn btn-primary pull-right">Регистрация</button>
+        <button id="authbutton" type="submit" class="btn btn-primary pull-right"><%=__('templates.default.register.register')%></button>
         <div class="forgot-password pull-left">
-          <a href="<%=module%>/auth"><b>Войти</b></a>
+          <a href="<%=module%>/auth"><b><%=__('templates.default.enter')%></b></a>
         </div>
       </footer>
     </form>

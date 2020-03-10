@@ -23,13 +23,8 @@ module.exports = function (req, res) {
 
       try {
         var logger = null;
-        if (scope.changelogFactory) {
-          logger = scope.changelogFactory.logger(
-            function () {
-              return user.id();
-            }
-          );
-        }
+        if (scope.changelogFactory)
+          logger = scope.changelogFactory.logger(() => user);
 
         for (var i = 0; i < req.body.items.length; i++) {
           deletePromises.push(pc(req.body.items[i], logger));

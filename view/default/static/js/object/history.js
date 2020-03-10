@@ -197,20 +197,22 @@ function historyPage (panel, url, locale) {
       ? change.time.format('L LT')
       : change.time;
     var type = change.type === 'CREATE'
-      ? 'создан'
+      ? __('js.geocoord.created')
       : change.type === 'UPDATE'
-        ? 'изменён'
+        ? __('js.geocoord.changed')
         : change.type;
     var authorName = typeof change.author === 'object'
       ? change.author.name
       : change.author;
 
-    var changes = '<div class="changelog-updates-header"><span class="parameter">Атрибут</span><span class="value">Новое значение</span></div>';
+    var changes = '<div class="changelog-updates-header"><span class="parameter">' + __('js.geocoord.attr') +
+      '</span><span class="value">' + __('js.geocoord.newattr') + '</span></div>';
     for (var param in change.updates) {
       changes = changes + '<div><span class="parameter">' + param + '</span><span class="value">' + change.updates[param] + '</span></div>';
     }
     return '<div class="changelog">' +
-        '<div class="changelog-header"><span>' + time + '</span> <span >' + type + '</span> пользователем <span>' + authorName + '</span></div>' +
+        '<div class="changelog-header"><span>' + time + '</span> <span >' + type + '</span> ' +
+        __('js.geocoord.byUser') + ' <span>' + authorName + '</span></div>' +
         '<div class="changelog-updates">' + changes + '</div>' +
       '</div>';
   };

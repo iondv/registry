@@ -29,7 +29,7 @@
             new ReferenceAttr(this, $attr);
             break;
           default:
-            console.log('RefShortView: Unknown attribute type: '+ type);
+            console.log(__('js.refShortView.unknownType'));
         }
       }.bind(this));
 

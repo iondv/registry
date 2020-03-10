@@ -63,9 +63,7 @@
   }
 
   function getBareFormAlert () {
-    return '<div class="bare-form-alert alert alert-info">'
-      + 'Объект был открыт напрямую, нет исходного списка объектов. '
-      + 'Перейдите к <a href="/"><b>странице по умолчанию</b></a>.</div>';
+    return '<div class="bare-form-alert alert alert-info">' + __('js.manager.formAlert') + '</div>';
   }
 
   function signStatusModal() {
@@ -111,7 +109,7 @@
     this.$controls.filter('.closer').click(function () { self.close(); });
     this.$controls.filter('.history').click(function () { self.historyPage.open(); });
     this.$controls.filter('.reload').click(function () {
-      if (!self.warnLeave || !self.changed || confirm('Несохраненные изменения будут потеряны. Обновить?')) {
+      if (!self.warnLeave || !self.changed || confirm(__('js.manager.reloadConfirm'))) {
         window.location.reload();
       }
     });
@@ -256,13 +254,16 @@
     }
 
     function getCertTitle (cert) {
-      return cert.Subject + ', выдан ' + cert.Issuer + ', действителен с '
-        + moment(cert.ValidSince).format(DATE_FORMAT) + ' по '
-        + moment(cert.ValidTill).format(DATE_FORMAT);
+      return __('js.manager.certTitle', {
+        sub: cert.Subject,
+        issue: cert.Issuer,
+        d1: moment(cert.ValidSince).format(DATE_FORMAT),
+        d2: moment(cert.ValidTill).format(DATE_FORMAT)
+      });
     }
 
     function getFullNameCertTitle (cert) {
-      return cert.lastName +' '+ cert.firstName;
+      return cert.lastName + ' ' + cert.firstName;
     }
   };
 
@@ -272,7 +273,7 @@
     if (window.onCadesLoaded) {
       initCades(function (err) {
         if (err) {
-          messageCallout.error('Не удалось загрузить плагин ЭП.');
+          messageCallout.error(__('js.manager.cadesFail'));
         }
         $('.object-manager').each(function () {
           ObjectManager.managers.push(new ObjectManager($(this)));
@@ -471,7 +472,7 @@
           result += this.createWfButtonCommand(cmds[i]);
         }
         result += '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">' +
-          'Бизнес-процесс <span class="caret"></span></button><ul class="dropdown-menu pull-right">';
+          __('js.manager.wf') + ' <span class="caret"></span></button><ul class="dropdown-menu pull-right">';
         for (var i = 2; i < cmds.length; ++i) {
           result += this.createWfMenuCommand(cmds[i]);
         }
@@ -489,7 +490,7 @@
         'data-sign-before="' + cmd.d.signBefore + '" ' +
         'data-sign-after="' + cmd.d.signAfter + '" ' +
         (cmd.d.confirmMessage || cmd.d.confirm
-          ? 'data-confirm-message="' + (cmd.d.confirmMessage ? cmd.d.confirmMessage : 'Вы уверены?') + '" '
+          ? 'data-confirm-message="' + (cmd.d.confirmMessage ? cmd.d.confirmMessage : __('js.manager.confirm')) + '" '
           : '') +
         'class="btn command btn-default object-control ' + cmd.t + '">' + cmd.d.caption + '</button>';
     },
@@ -499,7 +500,7 @@
         'data-sign-before="' + cmd.d.signBefore + '" ' +
         'data-sign-after="' + cmd.d.signAfter + '" ' +
         (cmd.d.confirmMessage || cmd.d.confirm
-          ? 'data-confirm-message="' + (cmd.d.confirmMessage ? cmd.d.confirmMessage : 'Вы уверены?') + '" '
+          ? 'data-confirm-message="' + (cmd.d.confirmMessage ? cmd.d.confirmMessage : __('js.manager.confirm')) + '" '
           : '') +
         'class="command object-control ' + cmd.t + '">' + cmd.d.caption + '</a></li>';
     },
@@ -571,12 +572,7 @@
 
       if (self.isNew()) {
         values.each(function(){
-          var $attr = $(this);
-          var name = $attr.attr('name');
-          var value = $attr.is(':checkbox') ? $attr.prop('checked') : $attr.val();
-          if (name && value && value.length) {
-            self.trackedValues[name] = value;
-          }
+          self.trackChange($(this));
         });
       }
     },
@@ -613,7 +609,7 @@
       var self = this;
       var id = $command.data('id');
       var action = id.replace(/ANDCLOSE$/, '');
-      if (action === 'DELETE' && !confirm('Удалить объект?')) {
+      if (action === 'DELETE' && !confirm(__('js.manager.confirmClose'))) {
         return;
       }
       if (!this.validate()) {
@@ -671,7 +667,7 @@
           try {
             $crypto.open(function (err) {
               if (err) {
-                messageCallout.error('<b>Ошибка подписи</b><br>' + (err.message || err));
+                messageCallout.error('<b>' + __('js.manager.signFail') + '</b><br>' + (err.message || err));
                 console.error(err);
                 return;
               }
@@ -683,13 +679,13 @@
                 },
                 function (err) {
                   $crypto.close(function (err2) {
-                    messageCallout.error('<b>Ошибка подписи</b><br>' + (err.message || err));
+                    messageCallout.error('<b>' + __('js.manager.signFail') + '</b><br>' + (err.message || err));
                     console.error(err);
                   });
                 },
                 function () {
                   $crypto.close(function (err) {
-                    messageCallout.success('Действие подписано!');
+                    messageCallout.success(__('js.manager.signSuccess'));
                     if (typeof cb === 'function') {
                       cb(finalizer);
                     } else {
@@ -706,7 +702,7 @@
               );
             });
           } catch (err) {
-            messageCallout.error('Crypto Pro не может выполнить подпись данных. Проверьте лицензию.');
+            messageCallout.error(__('js.manager.cryptoFail'));
             console.error(err);
           }
         } else {
@@ -732,7 +728,7 @@
           msg = xhr.responseJSON.msg;
         }
       }
-      messageCallout.error('<b>Ошибка:</b><p>'+ msg +'</p>');
+      messageCallout.error('<b>' + __('js.manager.error') + ':</b><p>'+ msg +'</p>');
       console.error(xhr);
       if (xhr.responseJSON && xhr.responseJSON.code &&
         (xhr.responseJSON.code === "web.iem" || xhr.responseJSON.code === "web.exists") &&
@@ -784,7 +780,7 @@
         } else {
           parent.imodal && parent.imodal.setParams('log', null);
         }
-        parent.imodal && parent.imodal.setParams('message', data.$message ? data.$message : 'Выполнено!');
+        parent.imodal && parent.imodal.setParams('message', data.$message ? data.$message : __('js.manager.done'));
         if (data.$message) {
           delete data.$message;
         }
@@ -796,7 +792,7 @@
             parent.imodal &&
             parent.imodal.setParams(
               'message',
-              'Создан обьект <a href="' +
+              __('js.manager.objectCreated') + ' <a href="' +
               self.options.url.item + '/' + encodeURIComponent(parent.imodal.getParams('redirect')) +
               '">' + data.__string + '</a>'
             );
@@ -841,7 +837,7 @@
         var $attr = $group.find('.attr-value');
         var value = $attr.val();
         if ($group.hasClass('required') && isEmptyValue(value, $group)) {
-          error = 'Поле обязательно для заполнения';
+          error = __('js.manager.requiredField');
         }
         if (error) {
           this.addError($group, error);
@@ -850,7 +846,7 @@
           this.clearError($group);
         }
       }.bind(this));
-      hasError && messageCallout.error('Исправьте ошибки на форме');
+      hasError && messageCallout.error(__('js.manager.formErrors'));
       return !hasError;
     },
 
@@ -860,7 +856,7 @@
       var self = this;
       var state = this.options.concurencyState;
       if (state && this.options.globalReadonly && state.isBlocked) {
-        messageCallout.info('<b>Объект используется пользователем <i>'+ state.userName +'</i>. Форма доступна только для чтения</b><br>');
+        messageCallout.info(__('js.manager.objectLock', {name: state.userName}));
       }
       if (state && state.timeout) {
         var concTimer = setInterval(function(){
@@ -912,19 +908,19 @@
           template = '';
           if (data.status === 'inactual') {
             template += '<div class="bare-form-alert alert alert-info">'
-            + 'Подписанные данные были изменены.</div>';
+            + __('js.manager.signChange') + '</div>';
           } else if (data.status === 'actual') {
-            template += '<button class="btn btn-success">Проверить подпись</button>';
+            template += '<button class="btn btn-success">' + __('js.manager.signCheck') + '</button>';
           }
           if (certs && certs.length) {
             for (i = 0; i < certs.length; i++) {
               template += '<div class="panel form-horizontal">'+
                 '<div class="panel-body">';
-              template += certFormGroup('Субьект', certs[i].SubjectName);
-              template += certFormGroup('Постащик', certs[i].IssuerName);
-              template += certFormGroup('Действителен с', moment(certs[i].ValidSince).format(DATETIME_FORMAT));
-              template += certFormGroup('Действителен по', moment(certs[i].ValidTill).format(DATETIME_FORMAT));
-              template += certFormGroup('Серийный номер', certs[i].Serial);
+              template += certFormGroup(__('js.manager.subject'), certs[i].SubjectName);
+              template += certFormGroup(__('js.manager.issuer'), certs[i].IssuerName);
+              template += certFormGroup(__('js.manager.validSince'), moment(certs[i].ValidSince).format(DATETIME_FORMAT));
+              template += certFormGroup(__('js.manager.validTill'), moment(certs[i].ValidTill).format(DATETIME_FORMAT));
+              template += certFormGroup(__('js.manager.serial'), certs[i].Serial);
               template += '</div></div>';
             }
           }
@@ -932,7 +928,7 @@
           if (data.status === 'actual') {
             modalBody.find('button.btn-success').on('click', function(){
               $crypto.verifySign(data.signature, function(isValid) {
-                alert(isValid ? 'Подпись валидна' : 'Подпись не валидна!');
+                alert(isValid ? __('js.manager.signValid') : __('js.manager.signNotValid'));
               });
             })
           }
@@ -945,7 +941,7 @@
           var $crypto = new CryptoPro();
         }
         if (!$crypto) {
-          console.error('CryptoPRO plugin not installed');
+          console.error(__('js.manager.cryptoNotInstalled'));
           return;
         }
 
@@ -1038,7 +1034,7 @@
       }
       var value = $input.val();
       if (value.length && !Inputmask.isValid(value, mask)) {
-        this.addError($input, 'Некорректное значение (не соответствует маске)');
+        this.addError($input, __('js.manager.notValidMask'));
         $input.one('focus', function (event) {
           this.clearError($input);
           this.setMask($input, mask);
@@ -1248,14 +1244,14 @@
         })
         .on('uploader.file.started', function (event, data) {
           data.$item.removeClass('pending').addClass('processing');
-          data.$item.find(messageSelector).text('Загрузка на сервер...');
+          data.$item.find(messageSelector).text(__('js.manager.loading'));
         })
         .on('uploader.file.progress', function (event, data) {
           data.$item.find('.progress-bar').css('width', data.percent + '%');
         })
         .on('uploader.file.uploaded', function (event, data) {
           data.$item.removeClass('processing').addClass('done');
-          data.$item.find(messageSelector).text('Загружен');
+          data.$item.find(messageSelector).text(__('js.manager.loaded'));
           try {
             data = JSON.parse(data.response)[$uploader.data('attr')];
           } catch (err) {
@@ -1265,10 +1261,10 @@
         })
         .on('uploader.file.error', function (event, data) {
           data.$item.removeClass('pending processing').addClass('failed');
-          data.$item.find(messageSelector).text('Ошибка при загрузке файла');
+          data.$item.find(messageSelector).text(__('js.manager.loadFail'));
         })
         .on('uploader.file.confirmRemove', function (event, data) {
-          if (confirm('Удалить загруженный файл?')) {
+          if (confirm(__('js.manager.deleteLoaded'))) {
             applier.apply($field, [data.response, false]);
             data.remove();
           }
@@ -1499,7 +1495,7 @@
       $group.find('.display-link').click(_openSubForm);
 
       $group.find('.remove-btn').click(function () {
-        if (confirm('Убрать выбранный объект из ссылки?')) {
+        if (confirm(__('js.manager.deleteRef'))) {
           $group.find('.attr-value').val('');
           $group.find('.display-value').val('').text('');
           $group.find('.attr-value').trigger('change');
@@ -1518,7 +1514,6 @@
         chain(function () {
           var p = $.Deferred();
           var list = new AttrListManager($group, function (e, settings, json, xhr) {
-            json && $group.attr('length', json.recordsTotal);
             me.refreshDependency();
             p.resolve();
           });
@@ -1532,7 +1527,6 @@
         });
       } else {
         var list = new AttrListManager($group, function (e, settings, json, xhr) {
-          json && $group.attr('length', json.recordsTotal);
           me.refreshDependency();
         });
         list.om = this;
@@ -1696,7 +1690,7 @@
 
             alertBlock.hide();
             if (!data.data.length) {
-              onError("Нет данных", "Для текущих условий уточнения не найдено результатов");
+              onError(__('js.manager.noData'), __('js.manager.noDataMessage'));
             } else {
               variants = data.data;
             }

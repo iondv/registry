@@ -17,20 +17,20 @@
   <div class="col-md-10 col-sm-9">
     <input type="hidden" id="<%= id %>" name="<%= prop.getName() %>" class="attr-value" value="<%= value %>" />
     <select class="month-select">
-      <option value="0">Январь</option>
-      <option value="1">Февраль</option>
-      <option value="2">Март</option>
-      <option value="3">Апрель</option>
-      <option value="4">Май</option>
-      <option value="5">Июнь</option>
-      <option value="6">Июль</option>
-      <option value="7">Август</option>
-      <option value="8">Сентябрь</option>
-      <option value="9">Октябрь</option>
-      <option value="10">Ноябрь</option>
-      <option value="11">Декабрь</option>
+      <option value="0"><%=__('templates.default.attrs.calendar.jan')%></option>
+      <option value="1"><%=__('templates.default.attrs.calendar.feb')%></option>
+      <option value="2"><%=__('templates.default.attrs.calendar.mar')%></option>
+      <option value="3"><%=__('templates.default.attrs.calendar.apr')%></option>
+      <option value="4"><%=__('templates.default.attrs.calendar.may')%></option>
+      <option value="5"><%=__('templates.default.attrs.calendar.jun')%></option>
+      <option value="6"><%=__('templates.default.attrs.calendar.jul')%></option>
+      <option value="7"><%=__('templates.default.attrs.calendar.aug')%></option>
+      <option value="8"><%=__('templates.default.attrs.calendar.sep')%></option>
+      <option value="9"><%=__('templates.default.attrs.calendar.oct')%></option>
+      <option value="10"><%=__('templates.default.attrs.calendar.nov')%></option>
+      <option value="11"><%=__('templates.default.attrs.calendar.dec')%></option>
     </select>
-    <button class="year-calendar-opener btn btn-default">Год</button>
+    <button class="year-calendar-opener btn btn-default"><%=__('templates.default.attrs.calendar.year')%></button>
     <div class="month-calendar"></div>
 
     <div class="imodal-frame year-calendar-frame">
@@ -40,7 +40,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
           <h3 class="imodal-box-title">
-            <span>Расписание</span>
+            <span><%=__('templates.default.attrs.calendar.schedule')%></span>
           </h3>
         </div>
 
@@ -55,7 +55,7 @@
         <div class="imodal-box-header">
           <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
           <h3 class="imodal-box-title">
-            <span>Расписание</span>
+            <span><%=__('templates.default.attrs.calendar.schedule')%></span>
           </h3>  
         </div>
         <div class="imodal-box-body">
@@ -63,68 +63,68 @@
           <input type="hidden" name="event-index" value="">
           <form class="form-horizontal">
             <div class="form-group">
-              <label class="col-sm-4 control-label">Описание</label>
+              <label class="col-sm-4 control-label"><%=__('templates.default.attrs.calendar.description')%></label>
               <div class="col-sm-7">
                 <input name="sch-description" type="text" class="form-control">
               </div>
             </div>
 
             <div class="well form-struct event-form">
-              <label>Событие</label>
+              <label><%=__('templates.default.attrs.calendar.event')%></label>
 
               <div class="form-group">
-                <label class="col-sm-4 control-label">Тип</label>
+                <label class="col-sm-4 control-label"><%=__('templates.default.attrs.calendar.type')%></label>
                 <div class="col-sm-7">
                   <select class="form-control" name="event-type">
-                    <option selected value="occurs">Событие</option>
-                    <option value="skipped">Исключение</option>
+                    <option selected value="occurs"><%=__('templates.default.attrs.calendar.event')%></option>
+                    <option value="skipped"><%=__('templates.default.attrs.calendar.skip')%></option>
                   </select>
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-4 control-label">Продолжительность</label>
+                <label class="col-sm-4 control-label"><%=__('templates.default.attrs.calendar.exception')%></label>
                 <div class="col-sm-7">
                   <input name="event-duration" type="number" class="form-control event-control">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-4 control-label">Год</label>
+                <label class="col-sm-4 control-label"><%=__('templates.default.attrs.calendar.year')%></label>
                 <div class="col-sm-7">
                   <input name="event-year" type="number" class="form-control event-control">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-4 control-label">Месяц</label>
+                <label class="col-sm-4 control-label"><%=__('templates.default.attrs.calendar.month')%></label>
                 <div class="col-sm-7">
                   <input name="event-month" type="number" class="form-control event-control">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-4 control-label">День недели</label>
+                <label class="col-sm-4 control-label"><%=__('templates.default.attrs.calendar.weekday')%></label>
                 <div class="col-sm-7">
                   <input name="event-weekday" type="number" class="form-control event-control">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-4 control-label">День</label>
+                <label class="col-sm-4 control-label"><%=__('templates.default.attrs.calendar.day')%></label>
                 <div class="col-sm-7">
                   <input name="event-day" type="number" class="form-control event-control">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-4 control-label">Час</label>
+                <label class="col-sm-4 control-label"><%=__('templates.default.attrs.calendar.hour')%></label>
                 <div class="col-sm-7">
                   <input name="event-hour" type="number" class="form-control event-control">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-4 control-label">Минута</label>
+                <label class="col-sm-4 control-label"><%=__('templates.default.attrs.calendar.min')%></label>
                 <div class="col-sm-7">
                   <input name="event-minute" type="number" class="form-control event-control">
                 </div>
               </div>
               <div class="form-group">
-                <label class="col-sm-4 control-label">Секунда</label>
+                <label class="col-sm-4 control-label"><%=__('templates.default.attrs.calendar.sec')%></label>
                 <div class="col-sm-7">
                   <input name="event-second" type="number" class="form-control event-control">
                 </div>
@@ -132,7 +132,7 @@
               <div class="form-group">
                 <div class="col-sm-7">
                   <button type="button" class="btn btn-primary event-save">
-                    Сохранить событие
+                    <%=__('templates.default.attrs.calendar.eventSave')%>
                   </button>
                 </div>
               </div>
@@ -140,40 +140,48 @@
 
             <div>
               <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#sch-occurs" aria-controls="home" role="tab" data-toggle="tab">События</a></li>
-                <li role="presentation"><a href="#sch-skipped" aria-controls="profile" role="tab" data-toggle="tab">Исключения</a></li>
+                <li role="presentation" class="active">
+                  <a href="#sch-occurs" aria-controls="home" role="tab" data-toggle="tab">
+                    <%=__('templates.default.attrs.calendar.events')%>
+                  </a>
+                </li>
+                <li role="presentation">
+                  <a href="#sch-skipped" aria-controls="profile" role="tab" data-toggle="tab">
+                    <%=__('templates.default.attrs.calendar.skips')%>
+                  </a>
+                </li>
               </ul>
 
               <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="sch-occurs">
                   <div>
-                    <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Добавить</button>
+                    <button type="button" class="btn btn-primary">
+                      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span><%=__('templates.default.attrs.calendar.add')%>
+                    </button>
                   </div>
                   <div class="sch-occurs-container"></div>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="sch-skipped">
                   <div>
-                    <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Добавить</button>
+                    <button type="button" class="btn btn-primary">
+                      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span><%=__('templates.default.attrs.calendar.add')%>
+                    </button>
                   </div>
                   <div class="sch-skipped-container"></div>
                 </div>
               </div>
             </div>
-
-
           </form>
-
         </div>
         <div class="imodal-box-footer">
-
-            <div class="form-group pull-right" style="padding: 20px">
-
-            <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-            <button type="button" class="btn btn-primary sch-save">
-              Сохранить расписание
-            </button>
-            </div>
-
+          <div class="form-group pull-right" style="padding: 20px">
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            <%=__('templates.default.attrs.calendar.cancel')%>
+          </button>
+          <button type="button" class="btn btn-primary sch-save">
+            <%=__('templates.default.attrs.calendar.schSave')%>
+          </button>
+          </div>
         </div>
       </div>
     </div>

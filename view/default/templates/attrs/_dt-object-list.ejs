@@ -55,7 +55,7 @@
      data-is-ajax="<%=ajax%>"
      data-prop="<%=htmlEntities(JSON.stringify(field))%>"
      data-ref-short-view="<%- refShortViewFields.includes(prop.getName()) %>"
-     length = "0">
+     length = "<%=(Array.isArray(collData) && collData.length || 0)%>">
     <input type="hidden" name="<%= prop.getName() %>" class="attr-value" disabled>
     <label class="col-md-2 col-sm-3 control-label"><%= field.caption %><% include help-sign %></label>
     <div class="col-md-10 col-sm-9">
@@ -125,10 +125,10 @@
         <button type="button" class="reload btn btn-default" title="Обновить"><span class="fa fa-refresh"></span></button>
         <%if (options.dt.reorderable) {%>
         <%if (attrPermissions && attrPermissions.write && !(field.readonly || globalReadonly)) {%>
-        <button type="button" class="sorting-up sorting btn btn-default" title="Вверх" style="display: none;">
+        <button type="button" class="sorting-up sorting btn btn-default" title="<%=__('templates.default.attrs.up')%>" style="display: none;">
           <span class="fa fa-arrow-up"></span>
         </button>
-        <button type="button" class="sorting-down sorting btn btn-default" title="Вниз" style="display: none;">
+        <button type="button" class="sorting-down sorting btn btn-default" title="<%=__('templates.default.attrs.down')%>" style="display: none;">
           <span class="fa fa-arrow-down"></span>
         </button>
         <%}%>
@@ -145,17 +145,17 @@
       <p class="error-block"></p>
       <div class="form-group-loader"><span class="fa fa-refresh fa-spin"></span></div>
 
-      <div class="inline-form-control update" title="Редактировать" style="display: none;">
+      <div class="inline-form-control update" title="<%=__('templates.default.attrs.update')%>" style="display: none;">
         <span class="glyphicon glyphicon-edit"></span>
       </div>
-      <div class="inline-form-control save" title="Сохранить" style="display: none;">
+      <div class="inline-form-control save" title="<%=__('templates.default.attrs.save')%>" style="display: none;">
         <span class="glyphicon glyphicon-save"></span>
       </div>
-      <div class="inline-form-control cancel" title="Отменить" style="display: none;">
+      <div class="inline-form-control cancel" title="<%=__('templates.default.attrs.cancel')%>" style="display: none;">
         <span class="glyphicon glyphicon-remove"></span>
       </div>
 
-      <div class="inline-form-control remove" title="Убрать" style="display: none;">
+      <div class="inline-form-control remove" title="<%=__('templates.default.attrs.remove')%>" style="display: none;">
         <span class="glyphicon glyphicon-remove"></span>
       </div>
       <!--<div class="inline-form-control delete" title="Удалить" style="display: none;">
@@ -164,10 +164,10 @@
       <div class="inline-form-control workflow" style="display: none;">
       </div>
       <%if (options.dt.reorderable) {%>
-        <div class="inline-form-control sorting-up sorting" title="Вверх">
+        <div class="inline-form-control sorting-up sorting" title="<%=__('templates.default.attrs.up')%>">
           <span class="fa fa-arrow-up"></span>
         </div>
-        <div class="inline-form-control sorting-down sorting" title="Вниз">
+        <div class="inline-form-control sorting-down sorting" title="<%=__('templates.default.attrs.down')%>">
           <span class="fa fa-arrow-down"></span>
         </div>
       <% } %>

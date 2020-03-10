@@ -10,7 +10,7 @@
   <a href="<%= value.link %>" target="_blank" class="file-frame-title">
     <img src="<%=lnk%>" alt="<%=value.name%>">
   </a>
-  <span class="remove-file-btn glyphicon glyphicon-remove text-danger ml10" title="Удалить файл"></span>
+  <span class="remove-file-btn glyphicon glyphicon-remove text-danger ml10" title="<%=__('templates.default.utils.imageUploader.modal.del')%>"></span>
   <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#share_<%= id %>">
     <span class="glyphicon glyphicon-cloud-download" title="sharing"></span>
   </button>
@@ -19,22 +19,30 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Sharing</h4>
+          <h4 class="modal-title" id="myModalLabel">
+            <%=__('templates.default.utils.imageUploader.modal.sharing')%>
+          </h4>
         </div>
         <div class="modal-body" data-fileid="<%=value.id%>">
           <div class="form-group">
-            <label>Ссылка</label>
+            <label>
+              <%=__('templates.default.utils.imageUploader.modal.link')%>
+            </label>
             <div class="input-block">
               <input type="text" class="link form-control" id="share_<%=id%>_link" value="" readonly/>
               <span class="copy-clip glyphicon glyphicon-copy" data-copytarget="#share_<%= id %>_link" title="copy"></span>
             </div>
           </div>
           <div class="form-group">
-            <label>Внешняя ссылка</label>
+            <label>
+              <%=__('templates.default.utils.imageUploader.modal.extLink')%>
+            </label>
             <br/>
             <div class="share-file-menu-btn-wrap">
               <input class="share-file-menu-btn" id="share_<%= id %>_sharebtn" type="checkbox" />
-              <label for="share_<%= id %>_sharebtn">Поделиться ссылкой</label>
+              <label for="share_<%= id %>_sharebtn">
+                <%=__('templates.default.utils.imageUploader.modal.shareLink')%>
+              </label>
             </div>
             <div class="share-block">
               <div class="input-block">
@@ -45,7 +53,9 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">
+            <%=__('templates.default.utils.imageUploader.modal.close')%>
+          </button>
         </div>
       </div>
     </div>
@@ -61,11 +71,11 @@
     <div class="uploader-input">
       <input type="file" class="uploader-input-file">
       <div class="uploader-dropzone">
-        <div class="uploader-dropzone-h1">Перетащите изображение сюда</div>
-        <div class="uploader-dropzone-h2">или выберите из папки</div>
+        <div class="uploader-dropzone-h1"><%=__('templates.default.utils.imageUploader.drop')%></div>
+        <div class="uploader-dropzone-h2"><%=__('templates.default.attrs.file.choose')%></div>
       </div>
     </div>
-    <div class="uploader-overflow">Слишком много файлов</div>
+    <div class="uploader-overflow"><%=__('templates.default.attrs.file.overflow')%></div>
     <div class="uploader-list clearfix">
       <div class="uploader-item pending sample">
         <div class="uploader-thumb"><div></div></div>
@@ -75,11 +85,11 @@
           <div class="uploader-sign-done glyphicon glyphicon-ok"></div>
           <div class="uploader-sign-failed glyphicon glyphicon-ban-circle"></div>
         </div>
-        <div class="uploader-remove" title="Удалить"><span class="glyphicon glyphicon-remove"></span></div>
+        <div class="uploader-remove" title="<%=__('templates.default.attrs.del')%>"><span class="glyphicon glyphicon-remove"></span></div>
         <div class="uploader-info">
-          <div class="uploader-filename">File</div>
+          <div class="uploader-filename"><%=__('templates.default.attrs.file.file')%></div>
           <div class="progress progress-xxs"><div class="progress-bar"></div></div>
-          <div class="uploader-message">Ожидает проверки...</div>
+          <div class="uploader-message"><%=__('templates.default.attrs.file.wait')%></div>
         </div>
       </div>
     </div>

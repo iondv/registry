@@ -118,6 +118,56 @@ module.exports.buildListVm = function buildListVm(cm, origin) {
   return result;
 };
 
+function getDefaultFieldCommands(fieldType) {
+  switch (fieldType) {
+    case FieldTypes.COLLECTION:
+      return [
+        {
+          id: 'ADD',
+          caption: 'Добавить'
+        },
+        {
+          id: 'CREATE',
+          caption: 'Создать'
+        },
+        {
+          id: 'EDIT',
+          caption: 'Изменить',
+          needSelectedItem: true
+        },
+        {
+          id: 'REMOVE',
+          caption: 'Убрать',
+          needSelectedItem: true
+        }
+      ];
+    case FieldTypes.REFERENCE:
+      return [
+        {
+          id: 'SELECT',
+          caption: 'Выбрать'
+        },
+        {
+          id: 'CREATE',
+          caption: 'Создать'
+        },
+        {
+          id: 'EDIT',
+          caption: 'Править',
+          needSelectedItem: true
+        },
+        {
+          id: 'REMOVE',
+          caption: 'Очистить',
+          isBulk: true
+        }
+      ];
+    default:
+      return [];
+  }
+}
+module.exports.getDefaultFieldCommands = getDefaultFieldCommands;
+
 function fieldFromProperty(property) {
   return {
     caption: property.caption,
@@ -130,28 +180,7 @@ function fieldFromProperty(property) {
     fields: [],
     hierarchyAttributes: [],
     columns: [],
-    commands: property.type === PropertyTypes.COLLECTION || property.type === PropertyTypes.REFERENCE ? [
-      {
-        id: property.type === PropertyTypes.COLLECTION ? 'ADD' : 'SELECT',
-        caption: property.type === PropertyTypes.COLLECTION ? 'Добавить' : 'Выбрать',
-        needSelectedItem: false,
-        isBulk: false,
-        enableCondition: '',
-        visibilityCondition: '',
-        signAfter: false,
-        signBefore: false
-      },
-      {
-        id: 'EDIT',
-        caption: 'Изменить',
-        needSelectedItem: false,
-        isBulk: false,
-        enableCondition: '',
-        visibilityCondition: '',
-        signAfter: false,
-        signBefore: false
-      }
-    ] : [],
+    commands: getDefaultFieldCommands(pt2ft(property.type)),
     orderNumber: property.orderNumber,
     required: property.required,
     visibility: '',
@@ -169,20 +198,31 @@ function fieldFromProperty(property) {
   };
 }
 
-function buildTab(cm, tab) {
-  var properties = cm.getPropertyMetas();
-  for (var i = 0; i < properties.length; i++) {
-    if (properties[i].name !== '__class' && properties[i].name !== '__classTitle') {
-      tab.fullFields.push(fieldFromProperty(properties[i]));
-    }
-  }
-  tab.fullFields.sort(function (a,b) {return a.orderNumber - b.orderNumber;});
+function buildFields(cm) {
+  const sysPm = ['__class', '__classTitle'];
+  return cm.getPropertyMetas()
+    .filter(pm => !sysPm.includes(pm.name))
+    .map(pm => fieldFromProperty(pm))
+    .sort((a,b) => a.orderNumber - b.orderNumber);
+}
+
+function buildTab(cm) {
+  const tab = {
+    caption: '',
+    fullFields: [],
+    shortFields: []
+  };
+  const fields = buildFields(cm);
+  tab.fullFields.push(...fields);
+  return tab;
 }
 
 module.exports.buildEditFormVm = function (cm, origin) {
   var result = {
     type: 'item',
-    tabs: [],
+    tabs: [
+      buildTab(cm)
+    ],
     commands: [],
     siblingFixBy: null,
     siblingNavigateBy: null,
@@ -216,21 +256,15 @@ module.exports.buildEditFormVm = function (cm, origin) {
     });
     */
   }
-
-  result.tabs.push({
-    caption: '',
-    fullFields: [],
-    shortFields: []
-  });
-
-  buildTab(cm, result.tabs[0]);
   return result;
 };
 
 module.exports.buildCreateFormVm = function (cm, origin) {
   var result = {
     type: 'create',
-    tabs: [],
+    tabs: [
+      buildTab(cm)
+    ],
     commands: [],
     siblingFixBy: null,
     siblingNavigateBy: null,
@@ -264,14 +298,6 @@ module.exports.buildCreateFormVm = function (cm, origin) {
     });
     */
   }
-
-  result.tabs.push({
-    caption: '',
-    fullFields: [],
-    shortFields: []
-  });
-
-  buildTab(cm, result.tabs[0]);
   return result;
 };
 
@@ -361,7 +387,7 @@ function getPM(cm, name, props) {
  * @param {MetaRepository} metaRepo
  * @returns {{columns: Array}}
  */
-module.exports.tableOptions = function (cm, vm, metaRepo, searchOptions, sorting) {
+module.exports.tableOptions = function (cm, vm, metaRepo, searchOptions, origSorting) {
   let result =  {
     columns: [],
     order: [],
@@ -371,6 +397,7 @@ module.exports.tableOptions = function (cm, vm, metaRepo, searchOptions, sorting
     searchOptions: vm.allowSearch ? searchOptions : null,
     styles: vm.styles || {}
   };
+  let sorting = origSorting.slice();
 
   if (Array.isArray(vm.groupBy) && vm.groupBy.length) {
     let pn = vm.groupBy[0];
@@ -501,6 +528,7 @@ function fillFields(fields, cm, metaRepo) {
   var pm, props, i, j, rcm;
   for (i = 0; i < fields.length; i++) {
     pm = cm.getPropertyMeta(fields[i].property);
+    fields[i].commands = Array.isArray(fields[i].commands) ? fields[i].commands : getDefaultFieldCommands(fields[i].type);
     if (fields[i].type === FieldTypes.GROUP) {
       if (pm) {
         if (fields[i].fields.length === 0) {
@@ -517,29 +545,24 @@ function fillFields(fields, cm, metaRepo) {
           } else if (pm.type === PropertyTypes.REFERENCE) {
             rcm = metaRepo.getMeta(pm.refClass, cm.getVersion(), cm.getNamespace());
             if (rcm) {
-              props = rcm.getPropertyMetas();
-              for (j = 0; j < props.length; j++) {
-                fields[i].fields.push(fieldFromProperty(props[j]));
-              }
+              fields[i].fields.push(...buildFields(rcm));
             }
           }
         }
       }
       fillFields(fields[i].fields, cm, metaRepo);
     } else if (fields[i].type === FieldTypes.COLLECTION) {
-      if (fields[i].columns.length === 0 &&
+      if ((typeof fields[i].columns == 'undefined' || fields[i].columns.length === 0) &&
         (
           fields[i].mode === null ||
           fields[i].mode === FieldModes.COLLECTION_TABLE ||
           fields[i].mode === FieldModes.COLLECTION_LIST
         )) {
+        fields[i].columns = [];
         if (pm.type === PropertyTypes.COLLECTION) {
           rcm = metaRepo.getMeta(pm.itemsClass, cm.getVersion(), cm.getNamespace());
           if (rcm) {
-            props = rcm.getPropertyMetas();
-            for (j = 0; j < props.length; j++) {
-              fields[i].columns.push(fieldFromProperty(props[j]));
-            }
+            fields[i].columns.push(...buildFields(rcm));
           }
         }
       }

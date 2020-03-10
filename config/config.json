@@ -1,6 +1,7 @@
 {
   "parametrised": true,
   "sysTitle": "Типовой модуль ION",
+  "yandexGeoApiKey": "[[registry.yandexGeoApiKey]]",
   "di" : {
     "changelogFactory": {
       "module": "core/impl/changelogger/DsChangelogFactory",

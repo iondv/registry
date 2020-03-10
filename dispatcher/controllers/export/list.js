@@ -57,7 +57,7 @@ module.exports = function (req, res) {
                       let param_meta = exporter.getParams() || {};
                       for (let pn in param_meta) {
                         if (param_meta.hasOwnProperty(pn)) {
-                          let v = req.query[pn];
+                          let v = req.body[pn] || req.query[pn];
                           if (v) {
                             if (param_meta[pn].type === 'date') {
                               v = moment(v, moment.localeData(lang).longDateFormat('L')).tz(user.timeZone()).toDate();

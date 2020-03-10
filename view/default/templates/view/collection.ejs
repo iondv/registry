@@ -120,7 +120,7 @@ layout('../imodal/content');
           $imodalFrame.addClass("active");
         }).attr("src","registry/<%- pageCode %>/view/" + data[0]._class + "/" + data[0]._id);
       } else {
-        alert('Выберите один объект для редактирования.');
+        alert('<%=__('templates.default.view.collection.chooseObject')%>');
       }
     });
 
@@ -154,12 +154,24 @@ layout('../imodal/content');
     <div id="panel-1" class="panel panel-default">
       <div class="panel-body">
         <div class="list-tools">
-          <button class="add-btn btn btn-primary">Добавить</button>
-          <button class="create-btn btn btn-success command-btn" title="Создать" data-id="CREATE" style="display:none;">Создать</button>
-          <button class="edit-btn btn btn-info command-btn" title="Редактировать" data-id="EDIT" style="display:none;">Править</button>
-          <button class="delete-btn btn btn-danger command-btn" title="Удалить" data-id="DELETE" style="display:none;">Убрать</button>
-          <button class="close-btn btn btn-default modal-closer" title="Закрыть" style="display:none;">Закрыть</button>
-          <button class="reload-btn btn btn-default" title="Обновить"><span class="fa fa-refresh"></span></button>
+          <button class="add-btn btn btn-primary">
+            <%=__('templates.default.view.collection.add')%>
+          </button>
+          <button class="create-btn btn btn-success command-btn" title="Создать" data-id="CREATE" style="display:none;">
+            <%=__('templates.default.view.collection.create')%>
+          </button>
+          <button class="edit-btn btn btn-info command-btn" title="Редактировать" data-id="EDIT" style="display:none;">
+            <%=__('templates.default.view.collection.edit')%>
+          </button>
+          <button class="delete-btn btn btn-danger command-btn" title="Удалить" data-id="DELETE" style="display:none;">
+            <%=__('templates.default.view.collection.delete')%>
+          </button>
+          <button class="close-btn btn btn-default modal-closer" title="Закрыть" style="display:none;">
+            <%=__('templates.default.view.collection.close')%>
+          </button>
+          <button class="reload-btn btn btn-default" title="<%=__('templates.default.view.collection.refresh')%>">
+            <span class="fa fa-refresh"></span>
+          </button>
         </div>
         <div id="list-filter" class="list-filter" data-table="ion_filter" style="display:none">
 
@@ -167,15 +179,17 @@ layout('../imodal/content');
 
           <div class="filter-tools">
             <select class="select-filter form-control ml10">
-              <option value>Выберите фильтр...</option>
+              <option value>
+                <%=__('templates.default.view.collection.selectFilter')%>
+              </option>
             </select>
-            <button class="create-filter btn btn-success ml5" title="Создать фильтр">
+            <button class="create-filter btn btn-success ml5" title="<%=__('templates.default.view.collection.createFilter')%>">
               <span class="glyphicon glyphicon-plus"></span>
             </button>
-            <button class="update-filter btn btn-info" title="Править фильтр">
+            <button class="update-filter btn btn-info" title="<%=__('templates.default.view.collection.updateFilter')%>">
               <span class="glyphicon glyphicon-edit"></span>
             </button>
-            <button class="reset-filter btn btn-warning" title="Сбросить фильтр">
+            <button class="reset-filter btn btn-warning" title="<%=__('templates.default.view.collection.resetFilter')%>">
               <span class="glyphicon glyphicon-remove"></span>
             </button>
           </div>
@@ -184,7 +198,9 @@ layout('../imodal/content');
 
             <div class="col-sm-5">
               <select class="select-column form-control">
-                <option value>Выберите поле...</option>
+                <option value>
+                  <%=__('templates.default.view.collection.selectColumn')%>
+                </option>
               </select>
             </div>
 
@@ -196,8 +212,8 @@ layout('../imodal/content');
                 <option value="6">></option>
                 <option value="7">=></option>
                 <option value="8"><=</option>
-                <option value="9">max</option>
-                <option value="10">min</option>
+                <option value="9"><%=__('templates.default.view.collection.operation.max')%></option>
+                <option value="10"><%=__('templates.default.view.collection.operation.min')%></option>
               </select>
               <select class="date select-operation form-control">
                 <option value="0">=</option>
@@ -206,22 +222,22 @@ layout('../imodal/content');
                 <option value="6">></option>
                 <option value="7">=></option>
                 <option value="8"><=</option>
-                <option value="9">max</option>
-                <option value="10">min</option>
+                <option value="9"><%=__('templates.default.view.collection.operation.max')%></option>
+                <option value="10"><%=__('templates.default.view.collection.operation.min')%></option>
               </select>
               <select class="string select-operation form-control">
-                <option value="0">равно</option>
-                <option value="20">содержит</option>
-                <option value="9">max</option>
-                <option value="10">min</option>
+                <option value="0"><%=__('templates.default.view.collection.operation.eq')%></option>
+                <option value="20"><%=__('templates.default.view.collection.operation.in')%></option>
+                <option value="9"><%=__('templates.default.view.collection.operation.max')%></option>
+                <option value="10"><%=__('templates.default.view.collection.operation.min')%></option>
               </select>
             </div>
 
             <div class="col-sm-4">
               <input class="checkbox select-value" type="checkbox" data-type="checkbox">
-              <input class="date select-value form-control form-datepicker" type="text" placeholder="Выберите дату..." readonly>
-              <input class="number select-value form-control" type="number" pattern="[0-9]+([\.|,][0-9]+)?" placeholder="Введите число...">
-              <input class="string select-value form-control" type="text" placeholder="Введите значение...">
+              <input class="date select-value form-control form-datepicker" type="text" placeholder="<%=__('templates.default.view.collection.selectDate')%>" readonly>
+              <input class="number select-value form-control" type="number" pattern="[0-9]+([\.|,][0-9]+)?" placeholder="<%=__('templates.default.view.collection.selectNumber')%>">
+              <input class="string select-value form-control" type="text" placeholder="<%=__('templates.default.view.collection.selectValue')%>">
             </div>
 
             <div class="col-sm-1">
@@ -232,21 +248,27 @@ layout('../imodal/content');
           <div class="filter-condition-list"></div>
 
           <div class="filter-controls">
-            <button class="add-condition btn btn-success" title="Добавить условие">
+            <button class="add-condition btn btn-success" title="<%=__('templates.default.view.collection.success')%>">
               <span class="glyphicon glyphicon-plus"></span>
             </button>
-            <button class="assign-filter btn btn-primary">Применить фильтр</button>
-            <label class="filter-global control-label"><input class="filter-global-checkbox" type="checkbox"> Для всех классов</label>
-            <input type="text" class="form-control filter-name" placeholder="Введите название фильтра...">
-            <button class="save-filter btn btn-info" title="Сохранить фильтр">Сохранить</button>
-            <button class="remove-filter btn btn-link text-danger ml10" title="Удалить фильтр">Удалить фильтр</button>
+            <button class="assign-filter btn btn-primary"><%=__('templates.default.view.collection.apply')%></button>
+            <label class="filter-global control-label"><input class="filter-global-checkbox" type="checkbox"> <%=__('templates.default.view.collection.allClasses')%></label>
+            <input type="text" class="form-control filter-name" placeholder="<%=__('templates.default.view.collection.filterName')%>">
+            <button class="save-filter btn btn-info" title="<%=__('templates.default.view.collection.saveFilterTitle')%>">
+              <%=__('templates.default.view.collection.saveFilter')%>
+            </button>
+            <button class="remove-filter btn btn-link text-danger ml10" title="<%=__('templates.default.view.collection.delFilter')%>">
+              <%=__('templates.default.view.collection.delFilter')%>
+            </button>
             <i class="filter-loader fa fa-refresh fa-spin"></i>
           </div>
 
         </div>
         <table id="object-list" class="table table-striped table-bordered table-hover multi-selectable">
         </table>
-        <div class="attr-edit-btn" title="Редактировать" style="display: none;"><span class="glyphicon glyphicon-edit text-info"></span></div>
+        <div class="attr-edit-btn" title="<%=__('templates.default.view.collection.editFilter')%>" style="display: none;">
+          <span class="glyphicon glyphicon-edit text-info"></span>
+        </div>
       </div>
       <div class="panel-footer"></div>
     </div>

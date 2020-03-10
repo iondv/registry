@@ -12,9 +12,9 @@
     }
   </style>
   <header id="page-header">
-    <h1>Установка пароля пользователя <%=user.name()%></h1>
+    <h1><%=__('templates.default.changePwd.title', {name: user.name()})%></h1>
     <ol class="breadcrumb">
-      <li><a href="/<%=module%>"><i class="fa fa-dashboard"></i> Главная</a></li>
+      <li><a href="/<%=module%>"><i class="fa fa-dashboard"></i> <%=__('templates.default.main')%></a></li>
       <%- blocks.breadcrumbs %>
     </ol>
   </header>
@@ -30,14 +30,14 @@
       <form action="/<%=module%>/chpwd" method="post" id="reg-form" class="profile-form boxed">
         <fieldset>
           <section>
-            <label class="label">Пароль</label>
+            <label class="label"><%=__('templates.default.password')%></label>
             <label class="input">
               <input id="password" type="password" name="password" placeholder="пароль" class="input password">
               <div class="pwd-error" style="display: none;"></div>
             </label>
           </section>
           <section>
-            <label class="label">Повторите пароль</label>
+            <label class="label"><%=__('templates.default.repeatPwd')%></label>
             <label class="input">
               <input id="password2" type="password" name="password2" placeholder="повторите пароль"
                      class="input password">
@@ -46,7 +46,7 @@
           </section>
         </fieldset>
         <footer>
-          <button id="submit-btn" type="submit" class="btn btn-primary pull-right">Изменить пароль</button>
+          <button id="submit-btn" type="submit" class="btn btn-primary pull-right"><%=__('templates.default.changePwd.changePwd')%></button>
         </footer>
       </form>
     </div>

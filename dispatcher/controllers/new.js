@@ -76,7 +76,7 @@ module.exports = function (req, res) {
               backRef: req.query.masterBackRef || (mpm && mpm.backRef),
               updates: req.body ? req.body.masterUpdates : null
             };
-            let vm = scope.metaRepo.getCreationViewModel(cm.getCanonicalName(), `${node.namespace}@${node.code}`);
+            let vm = scope.metaRepo.getCreationViewModel(cm.getCanonicalName(), node && `${node.namespace}@${node.code}`);
 
             if (!vm/* || (vm.overrideMode === 1)*/) {
               vm = buildCreateFormVm(cm, vm);
@@ -119,7 +119,7 @@ module.exports = function (req, res) {
               let opts = {
                 user,
                 lang,
-                forceEnrichment: itemEagerLoading(scope.metaRepo.getMeta(master.class), node.namespace + '@' + node.code, scope, eagerLoading)
+                forceEnrichment: itemEagerLoading(scope.metaRepo.getMeta(master.class), node && `${node.namespace}@${node.code}`, scope, eagerLoading)
               };
               p = scope.dataRepo.getItem(master.class, master.id, opts);
             } else if (master.class) {
@@ -160,7 +160,7 @@ module.exports = function (req, res) {
                     master.item.getMetaClass().getPropertyMeta(req.params.property || master.backRef) :
                     null,
                   title: cm.getCaption(),
-                  pageCode: node.code,
+                  pageCode: node && node.code,
                   node: req.params.node,
                   form: vm,
                   item: dummy,
@@ -386,7 +386,7 @@ function getDummy(scope, req, cm, vm, node, user, context, lang) {
 
   let opts = {
     user, lang,
-    forceEnrichment: itemEagerLoading(cm, node.namespace + '@' + node.code, scope, eagerLoading)
+    forceEnrichment: itemEagerLoading(cm, node && `${node.namespace}@${node.code}`, scope, eagerLoading)
   };
   opts.forceEnrichment.push(...vmEagerLoading(vm, cm));
   return scope.dataRepo.getItem(

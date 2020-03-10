@@ -7,7 +7,7 @@
                    value="<%=prop.getValue() ? utils.dateCallback(prop.getValue(), false, true) : ''%>"
                    parse-tz="<%=(prop.meta.mode !== 0) ? 'true' : 'false'%>"
                    class="form-control form-datetimepicker attr-value"
-                   placeholder="Дата и время"
+                   placeholder="<%=__('templates.default.attrs.datetime')%>"
               <%if (field.options) {%>
               <%if (field.options.center) {
                 let v = (field.options.center[0] === '$') ?

@@ -50,9 +50,8 @@ module.exports = function (req, res) {
             if (parts.length > 1) {
               scope.logRecorder.start();
               let logger;
-              if (scope.changelogFactory) {
-                logger = scope.changelogFactory.logger(() => user.id());
-              }
+              if (scope.changelogFactory)
+                logger = scope.changelogFactory.logger(() => user);
               edit(scope, req, null, logger, true)
                 .then(
                   (item) => {

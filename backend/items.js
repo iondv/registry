@@ -24,8 +24,8 @@ const {isSchedule} = require('core/util/schedule');
 const moduleName = require('../module-name');
 const F = require('core/FunctionCodes');
 const {canonicNode} = require('./menu');
-const path = require('path');
 const {parametrize} = require('core/util/formula');
+const {produceDirName} = require('core/util/dirName');
 
 const prepareDate = module.exports.prepareDate = (date, lang, tz, trimTime) => {
   if (date) {
@@ -171,10 +171,11 @@ const prepareSaveData = module.exports.prepareSaveData = (data, cm, lang) => {
         if (pm.type === PropertyTypes.DATETIME) {
           if (data[nm]) {
             const dt = strToDate(data[nm], lang);
-            if (dt) {result[nm] = dt;} else {throw new IonError(Errors.INCORRECT_VALUE.DATETIME, {
-              'class': cm.getCaption(), property: pm.caption
-            });
-}
+            if (dt) {
+              result[nm] = dt;
+            } else {
+              throw new IonError(Errors.INCORRECT_VALUE.DATETIME, {'class': cm.getCaption(), property: pm.caption});
+            }
           } else {
             result[nm] = null;
           }
@@ -651,7 +652,6 @@ function prepareConditions(condition) {
 
 /**
  * @param {{metaRepo: MetaRepository, securedDataRepo: SecuredDataRepository, auth: Auth, calculator: Calculator}} scope
- * @param {DsChangelogFactory} scope.changelogFactory
  * @param {Request} req
  * @param {Function} [updator]
  * @param {ChangeLogger} [logger]
@@ -755,7 +755,7 @@ function saveItem(scope, req, updator, logger, noconvert) {
         if (node.eagerLoading.item && Array.isArray(node.eagerLoading.item[cm.getName()]))
           eagerLoading = node.eagerLoading.item[cm.getName()];
       }
-      dopts.forceEnrichment = itemEagerLoading(cm, `${node.namespace}@${node.code}`, scope, eagerLoading);
+      dopts.forceEnrichment = itemEagerLoading(cm, node && `${node.namespace}@${node.code}`, scope, eagerLoading);
     }
 
     if (worker) {
@@ -1092,83 +1092,17 @@ function checkSignState(scope, className) {
 module.exports.checkSignState = checkSignState;
 
 /**
- * @param {String} str
- * @param {Function} cb
- */
-function mapDirProperties(str, cb) {
-  const regx = new RegExp('\\$\\{item\\.([^\\$\\{\\}]*)\\}', 'g');
-  let result = regx.exec(str);
-  while (result) {
-    if (result[1])
-      cb(result[1]);
-
-    result = regx.exec(str);
-  }
-}
-module.exports.mapDirProperties = mapDirProperties;
-
-/**
- * @param {String} str
- * @returns {String}
- */
-function escapeSep(str) {
-  return str ? (String(str)).replace(new RegExp(`\\${path.sep}`, 'g'), '')
-    .toString() : str;
-}
-
-/**
- * @param {String} str
  * @param {String} className
  * @param {String} id
- * @param {String} attr
- * @param {Item} item
- * @returns {String|null}
+ * @param {String} property
+ * @param {{}} scope
+ * @returns {Promise.<String|null>}
  */
-function parseDirName(str, className, id, attr, item) {
-  if (!str)
-    return null;
-
-  const m = moment();
-  let result = str.replace(/\$\{class\}/g, className || '');
-  result = result.replace(/\$\{id\}/g, id || '');
-  result = result.replace(/\$\{attr\}/g, attr || '');
-  mapDirProperties(str, (prop) => {
-    const propValue = escapeSep(item && item.get(prop) || '');
-    result = result.replace(new RegExp(`\\$\\{item\\.${prop}\\}`, 'g'), propValue);
-  });
-  const regx = new RegExp(`\\\${([^\\${path.sep}\\$\\{\\}]*)}`, 'g');
-  let moments = regx.exec(result);
-  while (Array.isArray(moments)) {
-    if (moments[1])
-      result = result.replace(new RegExp(`\\$\\{${moments[1]}\\}`, 'g'), m.format(moments[1]));
-
-    moments = regx.exec(result);
-  }
-  return path.normalize(result);
-}
-
-module.exports.parseDirName = parseDirName;
-
 function getStorageDir(className, id, property, scope) {
   const storageSettings = scope.settings.get(`${moduleName}.storage`) || {};
-  if (storageSettings[className] && storageSettings[className][property]) {
-    let itemGetter = Promise.resolve(null);
-    let cn = className.split('.')[0];
-    if (id) {
-      let eagerLoading = [];
-      mapDirProperties(storageSettings[className][property], (prop) => {
-        if (!eagerLoading.includes(prop)) {
-          eagerLoading.push(prop);
-        }
-      });
-      eagerLoading = eagerLoading.map(el => el.split('.'));
-      let opts = {forceEnrichment: eagerLoading};
-      itemGetter = scope.dataRepo.getItem(cn, id, opts);
-    }
-    return itemGetter
-      .then(item => parseDirName(storageSettings[className][property], cn, id, property, item));
-  }
-  return Promise.resolve(null);
+  const template = storageSettings[className] && storageSettings[className][property];
+  const [cn] = className.split('.');
+  return produceDirName(template, cn, id, property, scope.dataRepo);
 }
 
 exports.getStorageDir = getStorageDir;

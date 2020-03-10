@@ -24,11 +24,8 @@ module.exports = function (req, res) {
         let updates = prepareSaveData(req.body, cm, locales[0] ? locales[0].language : 'ru');
         let logger = null;
         let user = scope.auth.getUser(req);
-        if (scope.changelogFactory) {
-          logger = scope.changelogFactory.logger(function () {
-            return user.id();
-          });
-        }
+        if (scope.changelogFactory)
+          logger = scope.changelogFactory.logger(() => user);
         scope.logRecorder.start();
         scope.securedDataRepo.createItem(cm.getCanonicalName(), updates, cm.getVersion(), logger, {user: user}).
         then(function (result) {

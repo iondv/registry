@@ -1,0 +1,61 @@
+
+<div id="notifications" class="notify-panel side-slider"
+     data-url="/api/notifications"
+     data-more-url="/api/notifications/viewed-more/"
+     data-check-url="/api/notifications/viewed/"
+     data-check-all-url="/api/notifications/viewed-all"
+     data-check-interval="<%= notificationCheckInterval %>">
+  <div class="side-slider-head">
+    <div class="side-slider-close" data-close="">&times;</div>
+    <div class="side-slider-title">
+      Уведомления
+    </div>
+  </div>
+  <div class="side-slider-body">
+    <div class="top-notification-action">
+      <button type="button" class="btn-gray btn-sm btn btn-default" data-action="checkAll" style="display: none;">
+        Отметить все
+      </button>
+    </div>
+    <div class="notification-empty notification-alert">
+      Нет новых уведомлений
+    </div>
+    <div class="notification-list">
+    </div>
+    <div class="notification-action">
+      <button type="button" class="btn-gray btn-sm btn btn-default" data-action="more">
+        Загрузить прочитанные...
+      </button>
+    </div>
+  </div>
+
+  <script type="text/html" data-sample="notification">
+    <div class="notification {cssClass}" data-id="{id}">
+      <div class="notification-head">
+        <div class="notification-title">
+          {subject}
+        </div>
+        <div class="notification-check" title="Пометить как прочитанное">
+          <span class="glyphicon"></span>
+        </div>
+      </div>
+      <div class="notification-body">
+        {message}
+      </div>
+    </div>
+  </script>
+</div>
+
+<div id="notification-modal" class="modal fade" role="dialog" aria-hidden="true"
+     data-params="">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+      </div>
+    </div>
+  </div>
+</div>

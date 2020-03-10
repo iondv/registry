@@ -15,23 +15,25 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">Фильтр списка</h4>
+        <h4 class="modal-title">
+          <%=__('templates.default.view.listFilter.title')%>
+        </h4>
       </div>
       <div class="modal-body">
         <div class="list-filter" data-table="ion_filter" data-options="<%=JSON.stringify(options)%>">
           <input type="hidden" id="cls_filter" value="">
           <div class="filter-tools">
             <select class="select-filter form-control">
-              <option value>Выберите фильтр...</option>
+              <option value><%=__('templates.default.view.listFilter.defaultOption')%></option>
             </select>
             <div class="filter-tool-btns">
-              <button class="create-filter btn btn-success" title="Создать фильтр">
+              <button class="create-filter btn btn-success" title="<%=__('templates.default.view.listFilter.createFilter')%>">
                 <span class="glyphicon glyphicon-plus"></span>
               </button>
-              <button class="update-filter btn btn-info" title="Править фильтр">
+              <button class="update-filter btn btn-info" title="<%=__('templates.default.view.listFilter.editFilter')%>">
                 <span class="glyphicon glyphicon-edit"></span>
               </button>
-              <button class="reset-filter btn btn-warning" title="Сбросить фильтр">
+              <button class="reset-filter btn btn-warning" title="<%=__('templates.default.view.listFilter.resetFilter')%>">
                 <span class="glyphicon glyphicon-remove"></span>
               </button>
             </div>
@@ -45,15 +47,25 @@
                 <ul class="dropdown-menu scrollable-menu"></ul>
               </div>
               <input type="text" name="query" class="form-control filter-query" />
-              <i class="fa fa-question-circle helper-addon" data-toggle="tooltip" data-placement="top" title="Синтаксис запроса"></i>
+              <i class="fa fa-question-circle helper-addon" data-toggle="tooltip" data-placement="top" 
+                title="<%=__('templates.default.view.listFilter.helper')%>"></i>
             </div>
             <div class="filter-controls">
-              <label class="filter-global control-label"><input class="filter-global-checkbox" type="checkbox"> Для всех классов</label>
-              <input type="text" class="form-control filter-name" name="filterName" placeholder="Введите название фильтра...">
-              <button class="save-filter btn btn-info" title="Сохранить фильтр" type="button">Сохранить</button>
-              <button class="remove-filter btn btn-link text-danger ml10" title="Удалить фильтр" type="button">Удалить фильтр</button>
+              <label class="filter-global control-label">
+                <input class="filter-global-checkbox" type="checkbox"> <%=__('templates.default.view.listFilter.allClasses')%>
+              </label>
+              <input type="text" class="form-control filter-name" name="filterName"
+                placeholder="<%=__('templates.default.view.listFilter.filterName')%>">
+              <button class="save-filter btn btn-info" title="<%=__('templates.default.view.listFilter.saveFilter')%>" type="button">
+                <%=__('templates.default.view.listFilter.saveFilter')%>
+              </button>
+              <button class="remove-filter btn btn-link text-danger ml10" title="<%=__('templates.default.view.listFilter.removeFilter')%>" type="button">
+                <%=__('templates.default.view.listFilter.removeFilter')%>
+              </button>
               <i class="filter-loader fa fa-refresh fa-spin"></i>
-              <button class="assign-filter btn btn-primary" type="button">Применить фильтр</button>
+              <button class="assign-filter btn btn-primary" type="button">
+                <%=__('templates.default.view.listFilter.assignFilter')%>
+              </button>
             </div>
           </form>
         </div>
@@ -67,10 +79,12 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h4 class="modal-title" id="helper-title">Синтаксис запроса</h4>
+          <h4 class="modal-title" id="helper-title">
+            <%=__('templates.default.view.listFilter.helper')%>
+          </h4>
         </div>
         <div class="modal-body">
-          <% include list-filter-helper %>
+          <%=__('templates.default.view.listFilterHelper')%>
         </div>
       </div>
     </div>

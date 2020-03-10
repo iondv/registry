@@ -8,7 +8,7 @@
                    value="<%=prop.getValue() ? utils.dateCallback(prop.getValue(), true, true) : ''%>"
                    parse-tz="<%=(prop.meta.mode !== 0) ? 'true' : 'false'%>"
                    class="form-control form-datepicker attr-value"
-                   placeholder="Дата"
+                   placeholder="<%=__('templates.default.attrs.date')%>"
                     <% if (field.options) { %>
               <%if (field.options.center) {
                 let v = (field.options.center[0] === '$') ?

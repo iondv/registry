@@ -13,7 +13,7 @@
     <div class="panel-body">
       <div class="form-group">
         <div class="col-sm-offset-2 col-md-10 col-sm-9">
-          <h4>Создать</h4>
+          <h4><%=__('templates.default.view.selectClass.title')%></h4>
         </div>
         <% subclasses.forEach(function (c) {
         %>
@@ -25,7 +25,9 @@
         }); %>
       </div>
       <footer>
-        <button id="submit" type="button" class="btn btn-primary pull-right">Далее</button>
+        <button id="submit" type="button" class="btn btn-primary pull-right">
+          <%=__('templates.default.view.selectClass.submit')%>
+        </button>
       </footer>
     </div>
   </form>

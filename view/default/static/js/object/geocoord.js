@@ -16,7 +16,8 @@
     this.$search = this.$modal.find('.search-group');
     this.$searchBtn = this.$search.find('.search-btn');
     this.$address = this.$search.find('.search-address');
-    this.trySearch = this.$geo.data("trySearch");
+    this.trySearch = this.$geo.data('trySearch');
+    this.token = this.$geo.data('token');
     this.dataObject = dataObject;
     this.fldMeta = fldMeta;
 
@@ -155,7 +156,7 @@
         this.modalMark = new ymaps.Placemark(coords);
         this.modalMap.geoObjects.add(this.modalMark);
       }
-      this.modalMark.properties.set('balloonContentHeader', 'Координаты&nbsp;&nbsp;');
+      this.modalMark.properties.set('balloonContentHeader', __('js.geocoord.contentHeader'));
       //this.modalMark.properties.set('balloonContentBody', this.coords[0].toPrecision(6) +'<br>'+ this.coords[1].toPrecision(6));
     },
 
@@ -163,10 +164,10 @@
       this.newCoords = coords;
       this.modalMap.balloon.isOpen() && this.modalMap.balloon.close();
       this.modalMap.balloon.open(coords, {
-        contentHeader: 'Координаты&nbsp&nbsp',
+        contentHeader: __('js.geocoord.contentHeader'),
         contentBody: '<div class="mt10">' + coords[0].toPrecision(8) + '</div>'
         + '<div class="mb10">' + coords[1].toPrecision(8) + '</div>'
-        + '<button class="set-coords-btn btn btn-primary btn-sm" type="button">Задать</button>'
+        + '<button class="set-coords-btn btn btn-primary btn-sm" type="button">' + __('js.geocoord.set') + '</button>'
       }).then(function () {
         //this.modalMap.getZoom() > MAX_INIT_ZOOM && this.modalMap.setZoom(MAX_INIT_ZOOM);
       }.bind(this));
@@ -177,7 +178,7 @@
       var addr = this.$address.val().trim();
       if (addr.length < 1) return;
       this.$search.addClass('searching');
-      resolveAddress(addr, function (coords) {
+      resolveAddress(addr, this.token, function (coords) {
         this.$search.removeClass('searching');
         coords ? this.showNewCoordsBalloon(coords) : this.$search.addClass('has-error');
       }.bind(this));
@@ -223,10 +224,11 @@
     }
   }
 
-  function resolveAddress (address, cb) {
+  function resolveAddress (address, token, cb) {
     var GEOCODER_URL = 'https://geocode-maps.yandex.ru/1.x/?format=json&results=1&geocode=';
     var coords = null;
-    $.get(GEOCODER_URL + address).done(function (result) {
+    var tokenParam = token ? '&apikey=' + token : '';
+    $.get(GEOCODER_URL + address + tokenParam).done(function (result) {
       try {
         coords = result.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos.split(' ');
         coords = coords.length === 2 ? [ Number(coords[0]), Number(coords[1]) ] : null;
@@ -249,7 +251,7 @@
       });
       return true;
     } catch (err) {
-      console.log('Ymap: Invalid geo coords');
+      console.log(__('js.geocoord.invalidcoord'));
       return false;
     }
   }
@@ -350,7 +352,7 @@
           cb(data.status != 'ok');
         }.bind(this));
       } else {
-        console.log('Warning: Host protocol is secure. Geojson validation is not perfomed');
+        console.log(__('js.geocoord.warning'));
         cb();
       }
     },

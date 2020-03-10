@@ -19,9 +19,8 @@ function SaveHandler() {
    */
   this._exec = function (scope, req) {
     var logger;
-    if (scope.changelogFactory) {
-      logger = scope.changelogFactory.logger(() => scope.auth.getUser(req).id());
-    }
+    if (scope.changelogFactory)
+      logger = scope.changelogFactory.logger(() => scope.auth.getUser(req));
     return edit(scope, req, null, logger).then((data) => {
       data.$message = 'Объект сохранен.';
       return data;

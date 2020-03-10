@@ -37,8 +37,8 @@ function onCadesLoaded(cb) {
         if (event.data === "cadesplugin_loaded") {
           cb();
         } else if(event.data === "cadesplugin_load_error") {
-          console.error("Плагин CryptoPro не загружен.");
-          cb("Плагин CryptoPro не загружен.");
+          console.error(__('js.cryptopro.notloaded'));
+          cb(__('js.cryptopro.notloaded'));
         }
       },
       false);
@@ -136,7 +136,7 @@ CryptoPro.prototype.open = function (cb) {
       cb();
     });
   } else {
-    cb(new Error('Не удалось открыть хранилище сертификатов!'));
+    cb(new Error(__('js.cryptopro.failopen')));
   }
 };
 
@@ -154,7 +154,7 @@ CryptoPro.prototype.close = function (cb) {
       cb();
     });
   } else {
-    cb(new Error('Не удалось закрыть хранилище сертификатов!'));
+    cb(new Error(__('js.cryptopro.failclose')));
   }
 };
 
@@ -230,7 +230,7 @@ CryptoPro.prototype.getSignFunc = function(contentType, onFail, data){
 		signFunc = this.makeCadesBesSign;
 		data.attributes["actualSignatureType"] = this.OBJ_CADES_SIGNED_DATA;
 	} else {
-		onFail.call(this,"Для подписи получены данные неподдерживаемого типа: '" + contentType + "'");
+		onFail.call(this, __('js.cryptopro.wrongcontent', {contentType: contentType}));
 	}
 	return signFunc;
 }
@@ -241,7 +241,7 @@ CryptoPro.prototype.abort = function () {
 
 CryptoPro.prototype.makeSign = function(params, onFail, onSuccess, onNeedCertSelect) {
   if (typeof cadesplugin === 'undefined') {
-    return onFail(new Error('Не подключен плагин ЭП'));
+    return onFail(new Error(__('js.cryptopro.noplugin')));
   }
 
 	var me = this;
@@ -280,7 +280,7 @@ CryptoPro.prototype.makeSign = function(params, onFail, onSuccess, onNeedCertSel
                 me.getCertificate(certKey, function (cert, err) {
                   if (err || !cert) {
                     me.state = "ready";
-                    return onFail.call(me, err || "Не найден указанный сертификат!");
+                    return onFail.call(me, err || __('js.cryptopro.nocert'));
                   }
 
                   var signFunc = null;
@@ -312,12 +312,12 @@ CryptoPro.prototype.makeSign = function(params, onFail, onSuccess, onNeedCertSel
                   return;
                 }
                 me.state = "ready";
-                onFail.call(me, "Отсутсвуют сертификаты для подписи!");
+                onFail.call(me, __("js.cryptopro.nocerts"));
               });
 						}
 					} else {
             me.state = "ready";
-            onFail.call(me, "Не получены данные для подписи!");
+            onFail.call(me, __("js.cryptopro.nodata"));
           }
 				} else {
 					me.state = "ready";
@@ -325,7 +325,7 @@ CryptoPro.prototype.makeSign = function(params, onFail, onSuccess, onNeedCertSel
 				}
 			});
 	} else {
-		onFail.call(me,"Невозможно выполнить подпись данных. Модуль ЭП занят другой задачей.");
+		onFail.call(me, __("js.cryptopro.busy"));
 	}
 };
 
@@ -335,11 +335,11 @@ CryptoPro.prototype.sendSign = function(params, data, signatures, onFail, onSucc
 
 	data.signatures = signatures;
 
-	sd = {
-		"action":params.action,
-		"data":data.parts,
-		"attributes":data.attributes,
-		"signatures": (typeof signatures === 'string') ? [signatures] : signatures
+	var sd = {
+		action: params.action,
+		data: data.parts,
+		attributes: data.attributes,
+		signatures: (typeof signatures === 'string') ? [signatures] : signatures
 	};
 
 	$.ajax({
@@ -356,18 +356,18 @@ CryptoPro.prototype.sendSign = function(params, data, signatures, onFail, onSucc
 		var success = (textStatus === "success");
 		me.state = "ready";
 		if (!success) {
-			onFail.call(me, "Отправка ЭП не удалась, код ошибки: '" + textStatus + "'");
+			onFail.call(me, __("js.cryptopro.wrongstatus", {status: textStatus}));
 		} else {
-	    	var dt = typeof data;
-	    	if (dt !== "object") {
-	    		onFail.call(me, "Отправка ЭП не удалась: получен неверный тип ответа '" + dt + "'");
-	    	} else {
-	    		if (data.message && data.type === "ERROR") {
-	    			onFail.call(me, "Отправка ЭП не удалась: сервер вернул '" + data.message + "'");
-	    		} else if ("function" === typeof onSuccess){
-	    			onSuccess.call(me);
-	    		}
-	    	}
+      var dt = typeof data;
+      if (dt !== "object") {
+        onFail.call(me, __("js.cryptopro.wrongtype", {type: dt}));
+      } else {
+        if (data.message && data.type === "ERROR") {
+          onFail.call(me, __("js.cryptopro.servererror", {message: data.message}));
+        } else if ("function" === typeof onSuccess){
+          onSuccess.call(me);
+        }
+      }
 		}
 	});
 };
@@ -383,7 +383,7 @@ CryptoPro.prototype.getCertificate = function(thumbprint, cb) {
     try {
       var oCerts = this.store.Certificates.Find(this.CAPICOM_CERTIFICATE_FIND_SHA1_HASH, thumbprint);
       if (oCerts.Count == 0) {
-        return cb(null, new Error('Сертификат не найден!'));
+        return cb(null, new Error(__('js.cryptopro.nocert')));
       }
       var result = oCerts.Item(1);
       cb(result);
@@ -399,7 +399,7 @@ CryptoPro.prototype.getCertificate = function(thumbprint, cb) {
         var oCerts = yield certsObj.Find(me.CAPICOM_CERTIFICATE_FIND_SHA1_HASH, thumbprint);
         var Count = yield oCerts.Count;
         if (Count == 0) {
-          return arg[0](null, new Error('Сертификат не найден!'));
+          return arg[0](null, new Error(__('js.cryptopro.nocert')));
         }
         var result = yield oCerts.Item(1);
         cb(result);
@@ -408,7 +408,7 @@ CryptoPro.prototype.getCertificate = function(thumbprint, cb) {
       }
     });
   } else {
-   cb(null, new Error('Не удалось получить объект сертификата!'));
+   cb(null, new Error(__('js.cryptopro.failgetcert')));
   }
 };
 
@@ -449,7 +449,7 @@ CryptoPro.prototype.makeCadesBesSign = function(dataToSign, certObject, cb) {
       }
     });
   } else {
-    cb(null, new Error('Не удалось выполнить подпись!'));
+    cb(null, new Error(__('js.cryptopro.failmakesign')));
   }
 };
 
@@ -499,7 +499,7 @@ CryptoPro.prototype.makeXMLSign = function(dataToSign, certObject, cb) {
       }
     });
   } else {
-    cb(null, new Error('Не удалось выполнить подпись!'));
+    cb(null, new Error(__('js.cryptopro.failmakesign')));
   }
 };
 
@@ -554,7 +554,7 @@ CryptoPro.prototype.getCertFromSign = function(sign, cb) {
       }
     });
   } else {
-    cb(null, new Error('Не удалось получить сертификат!'));
+    cb(null, new Error(__('js.cryptopro.failgetcertsign')));
   }
 };
 

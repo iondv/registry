@@ -25,13 +25,18 @@ const theme = require('lib/util/theme');
 const staticRouter = require('lib/util/staticRouter');
 const extViews = require('lib/util/extViews');
 const errorSetup = require('core/error-setup');
+const i18nSetup = require('core/i18n-setup');
 const alias = require('core/scope-alias');
 const sysMenuCheck = require('lib/util/sysMenuCheck');
 const lastVisit = require('lib/last-visit');
 const helpers = require('./backend/helpers');
+const strings = require('core/strings');
 const isProduction = process.env.NODE_ENV === 'production';
 
-errorSetup(config.lang || rootConfig.lang || 'ru', path.join(__dirname, 'i18n'));
+const lang = config.lang || rootConfig.lang || 'ru';
+const i18nDir = path.join(__dirname, 'i18n');
+errorSetup(lang, i18nDir);
+i18nSetup(lang, config.i18n || i18nDir, moduleName);
 
 router.use((req, res, next) => {
   res.locals.sessVar = nm => req.session && req.session[nm];
@@ -42,14 +47,14 @@ router.get('/', dispatcher.index);
 router.get('/dashboard', lastVisit.saver, dispatcher.dashboard);
 router.get('/profile', lastVisit.saver, dispatcher.profile);
 router.get('/chpwd', dispatcher.changePassword);
+router.get('/403', dispatcher.error403);
 
 api.post('/api/upload', dispatcher.api.upload);
 api.post('/api/upload/:class', dispatcher.api.upload);
 api.post('/api/upload-image/:class', dispatcher.api.upload);
 api.post('/api/upload/:class/:id', dispatcher.api.upload);
 api.post('/api/upload-image/:class/:id', dispatcher.api.upload);
-api.get('/api/notifications', dispatcher.api.notifications);
-api.get('/api/notifications/viewed/:id', dispatcher.api.markAsViewed);
+
 api.post('/api/do', dispatcher.api.handle);
 api.get('/api/share/:fileId', dispatcher.api.share);
 api.post('/api/share/:fileId', dispatcher.api.share);
@@ -158,11 +163,13 @@ var cookieParser = require('cookie-parser');
 
 app.locals.sysTitle = config.sysTitle;
 app.locals.staticsSuffix = process.env.ION_ENV === 'production' ? '.min' : '';
+app.locals.s = strings.s;
+app.locals.__ = (str, params) => strings.s(moduleName, str, params);
 
 app.use('/' + moduleName, cookieParser());
 app.engine('ejs', ejsLocals);
 app.set('view engine', 'ejs');
-helpers(app);
+helpers(app, config);
 
 app._init = function () {
   return di(
@@ -182,12 +189,15 @@ app._init = function () {
         || scope.settings.get('pageTitle')
         || `ION ${config.sysTitle}`;
       app.locals.pageEndContent = scope.settings.get(moduleName +'.pageEndContent') || scope.settings.get('pageEndContent') || '';
+      let themePath = scope.settings.get(moduleName + '.theme') || config.theme || 'default';
+      themePath = theme.resolve(__dirname, themePath);
+      const themeI18n = path.join(themePath, 'i18n');
+      i18nSetup(lang, themeI18n, moduleName, scope.sysLog);
       theme(
         app,
         moduleName,
         __dirname,
-        scope.settings.get(moduleName + '.theme') ||
-        config.theme || 'default',
+        themePath,
         scope.sysLog,
         staticOptions
       );
@@ -200,6 +210,11 @@ app._init = function () {
       // Аутентификация уровня модуля //
 
       scope.auth.bindAuth(app, moduleName);
+      app.use((req, res, next) => {
+        const user = scope.auth.getUser(req);
+        res.locals.__ = (s, p) => strings.s(moduleName, s, p, user && user.language());
+        next();
+      });
       app.post('/' + moduleName + '/chpwd', scope.auth.changePwdHandler(moduleName));
       app.post('/' + moduleName + '/profile', scope.auth.profileHandler(moduleName));
       app.use('/' + moduleName, api);

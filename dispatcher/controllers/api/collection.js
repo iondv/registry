@@ -94,7 +94,7 @@ module.exports.add = function (req, res) {
               if (found) {
                 let logger = null;
                 if (scope.changelogFactory) {
-                  logger = scope.changelogFactory.logger(() => user.id());
+                  logger = scope.changelogFactory.logger(() => user);
                 }
                 return scope.securedDataRepo.put(container, req.params.collection, [found], logger, {user: user});
               }
@@ -155,7 +155,7 @@ module.exports.remove = function (req, res) {
               }
               let logger = null;
               if (scope.changelogFactory) {
-                logger = scope.changelogFactory.logger(() => user.id());
+                logger = scope.changelogFactory.logger(() => user);
               }
               return scope.securedDataRepo.eject(container, req.params.collection, founds, logger, {user});
             }
@@ -182,7 +182,7 @@ function reorderDiff(req, res, scope) {
     let user = scope.auth.getUser(req);
     let logger = null;
     if (scope.changelogFactory) {
-      logger = scope.changelogFactory.logger(() => user.id());
+      logger = scope.changelogFactory.logger(() => user);
     }
     scope.securedDataRepo.getItem(req.params.class, req.params.id, {user: user, needed: {}})
       .then((found) => {
@@ -317,7 +317,7 @@ function reorder(req, res, scope) {
         }
         let logger = null;
         if (scope.changelogFactory) {
-          logger = scope.changelogFactory.logger(() => user.id());
+          logger = scope.changelogFactory.logger(() => user);
         }
         let updates = [{},{}];
         sortings.forEach((srt) => {

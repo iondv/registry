@@ -17,9 +17,9 @@ function getInputValue(input) {
 window.commonHelper = {
 
   formatFileSize: function (size) {
-    if (size > 1048576) return parseInt(size / 1048576) + ' Мб';
-    if (size > 1024) return parseInt(size / 1024) + ' Кб';
-    return size + ' байт';
+    if (size > 1048576) return parseInt(size / 1048576) + ' ' + __('js.common.mb');
+    if (size > 1024) return parseInt(size / 1024) + ' ' + __('js.common.kb');
+    return size + ' ' + __('js.common.byte');
   },
 
   getUrlParams: function (url) {
@@ -49,7 +49,7 @@ window.commonHelper = {
 
   prepareDepCondition: function (cond) {
     return cond
-      ? (" " + cond)
+      ? (' ' + cond)
         .replace(/([^a-zA-Z0-9_])\.([a-zA-Z0-9_]+)\.length/gi, '$1parseInt(this.$form.find(".list-container[data-attr=\'$2\']").attr(\'length\'))')
         .replace(/([^a-zA-Z0-9_\)"])\.([a-zA-Z0-9_]+)/gi, '$1getInputValue(this.$form.find("[name=\'$2\']"))')
       : null;
@@ -172,34 +172,34 @@ if ($.fn.datetimepicker) {
 
 if ($.fn.dataTable) {
   $.extend($.fn.dataTable.defaults, {
-    "paging": true,
-    "scrollX": true,
-    "lengthChange": true,
-    "searching": true,
-    "ordering": true,
-    "info": true,
-    "autoWidth": false,
-    "sDom": "<'row'<'col-sm-6'f><'col-sm-6'l>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
-    "language": {
-      "processing": "Подождите...",
-      "search": "Поиск:",
-      "lengthMenu": "Показать по _MENU_",
-      "info": "Записи с _START_ до _END_ из _TOTAL_ записей",
-      "infoEmpty": "Записи с 0 до 0 из 0 записей",
-      "infoFiltered": "(всего _MAX_)",
-      "infoPostFix": "",
-      "loadingRecords": "Загрузка записей...",
-      "zeroRecords": "Записи отсутствуют.",
-      "emptyTable": "В таблице отсутствуют данные",
-      "paginate": {
-        "first": "<<",
-        "previous": "<",
-        "next": ">",
-        "last": ">>"
+    paging: true,
+    scrollX: true,
+    lengthChange: true,
+    searching: true,
+    ordering: true,
+    info: true,
+    autoWidth: false,
+    sDom: "<'row'<'col-sm-6'f><'col-sm-6'l>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+    language: {
+      processing: __('js.common.dt.processing'),
+      search: __('js.common.dt.search'),
+      lengthMenu: __('js.common.dt.lengthMenu'),
+      info: __('js.common.dt.info'),
+      infoEmpty: __('js.common.dt.infoEmpty'),
+      infoFiltered: __('js.common.dt.infoFiltered'),
+      infoPostFix: __('js.common.dt.infoPostFix'),
+      loadingRecords: __('js.common.dt.loadingRecords'),
+      zeroRecords: __('js.common.dt.zeroRecords'),
+      emptyTable: __('js.common.dt.emptyTable'),
+      paginate: {
+        first: __('js.common.dt.paginate.first'),
+        previous: __('js.common.dt.paginate.previous'),
+        next: __('js.common.dt.paginate.next'),
+        last: __('js.common.dt.paginate.last')
       },
-      "aria": {
-        "sortAscending": ": активировать для сортировки столбца по возрастанию",
-        "sortDescending": ": активировать для сортировки столбца по убыванию"
+      aria: {
+        sortAscending: __('js.common.dt.aria.sortAscending'),
+        sortDescending: __('js.common.dt.aria.sortDescending')
       }
     }
   });

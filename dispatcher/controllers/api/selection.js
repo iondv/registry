@@ -30,20 +30,25 @@ module.exports = function (req, res) {
         (
           req.body.itemId ?
             scope.securedDataRepo.getItem(cm.getCanonicalName(), req.body.itemId, {user, lang}) :
-            scope.dataRepo.getItem(
-              scope.securedDataRepo.wrap(
-                cm.getCanonicalName(),
-                prepareSaveData(req.body.updates || {}, cm, lang),
+            (req.body.updates ?
+              scope.dataRepo.getItem(
+                scope.securedDataRepo.wrap(
+                  cm.getCanonicalName(),
+                  prepareSaveData(req.body.updates, cm, lang),
+                  null,
+                  {autoassign: true, user, lang}
+                ),
                 null,
-                {autoassign: true, user, lang}
-              ),
-              null,
-              {user, lang}
+                {user, lang}
+              ) :
+              Promise.resolve()
             )
         )
           .then((context) => {
-            let filter = mergeConditions(req, pm, context);
-            req.body.filter = filter;
+            if (context) {
+              let filter = mergeConditions(req, pm, context);
+              req.body.filter = filter;
+            }
 
             req.body.searchOptions = overrideSearchOptions(
               moduleName,

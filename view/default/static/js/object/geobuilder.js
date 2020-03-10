@@ -46,7 +46,7 @@
 
     this.$importBtn.click(function () {
       this.$invalidJson.hide();
-      if (confirm('Импортировать geo-json на карту?')) {
+      if (confirm(__('js.geobuilder.confirmImport'))) {
         this.setGeoData(this.$exportData.val());
         if (!this.importJson(this.geodata))  {
           this.$invalidJson.show();
@@ -158,7 +158,7 @@
       this.resetBtn = new ymaps.control.Button({
         data: {
           image: '/registry/img/geobuilder/icon-reset.svg',
-          title: 'Удалить все'
+          title: __('js.geobuilder.deleteAll')
         },
         options: {
           selectOnClick: false
@@ -167,7 +167,7 @@
       this.boundBtn = new ymaps.control.Button({
         data: {
           image: '/registry/img/geobuilder/icon-bound.svg',
-          title: 'Центрирование по объектам'
+          title: __('js.geobuilder.center')
         },
         options: {
           selectOnClick: false
@@ -245,7 +245,7 @@
     },
 
     onReset: function () {
-      if (confirm('Удалить все объекты?')) {
+      if (confirm(__('js.geobuilder.confirmDeleteAll'))) {
         this.modalMap.geoObjects.removeAll();
       }
     },
@@ -274,7 +274,7 @@
       } else if (data.type && data.coordinates) {
         return this.importObject({ geometry: data, properties: {} });
       } else {
-        console.log('Invalid object JSON', data);
+        console.log(__('js.geobuilder.invalidJson'), data);
         return false;
       }
     },
@@ -283,7 +283,7 @@
       if (data && data.geometry && data.geometry.coordinates && data.properties) {
         return true;
       }
-      console.log('Invalid object JSON', data);
+      console.log(__('js.geobuilder.invalidJson'), data);
       return false;
     },
 
@@ -314,7 +314,7 @@
           circle = new CircleShape(this.tools.circle, data);
           break;
         default:
-          console.error('Unknown geometry type', data);
+          console.error(__('js.geobuilder.unknownType'), data);
           return false;
       }
       setTimeout(function () {
@@ -426,7 +426,7 @@
         });
         return true;
       } catch (err) {
-        console.log('Invalid geo json');
+        console.log(__('js.geobuilder.invalidGeoJson'));
         return false;
       }
     }
@@ -466,7 +466,7 @@
     Tool.call(this, builder, PointShape);
     this.btn = new ymaps.control.Button({
       data: {
-        content: 'Метка',
+        content: __('js.geobuilder.point'),
         image: '/registry/img/geobuilder/icon-point.svg'
       }
     });
@@ -485,7 +485,7 @@
     Tool.call(this, builder, LineShape);
     this.btn = new ymaps.control.Button({
       data: {
-        content: 'Линия',
+        content: __('js.geobuilder.line'),
         image: '/registry/img/geobuilder/icon-line.svg'
       }
     });
@@ -508,7 +508,7 @@
     Tool.call(this, builder, PolygonShape);
     this.btn = new ymaps.control.Button({
       data: {
-        content: 'Полигон',
+        content: __('js.geobuilder.polygon'),
         image: '/registry/img/geobuilder/icon-polygon.svg'
       },
       options: {
@@ -530,7 +530,7 @@
     Tool.call(this, builder, CircleShape);
     this.btn = new ymaps.control.Button({
       data: {
-        content: 'Круг',
+        content: __('js.geobuilder.circle'),
         image: '/registry/img/geobuilder/icon-circle.svg'
       }
     });

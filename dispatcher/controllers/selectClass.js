@@ -111,7 +111,7 @@ module.exports = function (req, res) {
                   classId: cm.getCanonicalName(),
                   master: master,
                   title: (node ? node.caption : cm.getCaption()) + (cm !== basicCm ? ': ' + cm.getCaption() : ''),
-                  pageCode: node && node.code || cm.getClassName(),
+                  pageCode: node && node.code || cm.getCanonicalName(),
                   node: req.params.node,
                   form: vm,
                   subclasses: list,
