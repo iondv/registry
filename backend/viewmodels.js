@@ -397,7 +397,7 @@ module.exports.tableOptions = function (cm, vm, metaRepo, searchOptions, origSor
     searchOptions: vm.allowSearch ? searchOptions : null,
     styles: vm.styles || {}
   };
-  let sorting = origSorting.slice();
+  let sorting = (origSorting || []).slice();
 
   if (Array.isArray(vm.groupBy) && vm.groupBy.length) {
     let pn = vm.groupBy[0];
