@@ -36,12 +36,12 @@ var options = {
 
 <% layout('../imodal/content') %>
 
-<% stylesheet(module + '/vendor/bootstrap3-wysihtml5-bower/bootstrap3-wysihtml5.min.css') -%>
-<% stylesheet(module + '/vendor/jquery-ui/themes/base/tabs.css') -%>
+<% stylesheet(module + '/node_modules/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css') -%>
+<% stylesheet(module + '/node_modules/jquery-ui/themes/base/tabs.css') -%>
 
 <% script(module + '/js/ajax-uploader-new.js') -%>
-<% script(module + '/vendor/bootstrap3-wysihtml5-bower/bootstrap3-wysihtml5.all.min.js') -%>
-<% script(module + '/vendor/bootstrap3-wysihtml5-bower/locales/bootstrap-wysihtml5.ru-RU.js') -%>
+<% script(module + '/node_modules/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js') -%>
+<% script(module + '/node_modules/bootstrap3-wysihtml5-bower/dist/locales/bootstrap-wysihtml5.ru-RU.js') -%>
 
 <script>
   var DATE_FORMAT = '<%=locale.dateFormat%>';
