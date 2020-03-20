@@ -7,7 +7,7 @@
     "url": "https://github.com/iondv/registry.git"
   },
   "license": "Apache-2.0",
-  "vendorDir": "./static/vendor",
+  "vendorDir": "./vendor",
   "bowerOtherVersionDependencies": {
     "bootstrap": "^3.3.5",
     "bootstrap-year-calendar": "^1.1.1",
