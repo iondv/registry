@@ -32,6 +32,7 @@ const lastVisit = require('lib/last-visit');
 const helpers = require('./backend/helpers');
 const strings = require('core/strings');
 const isProduction = process.env.NODE_ENV === 'production';
+const isDevelop = process.env.NODE_ENV === 'development';
 
 const lang = config.lang || rootConfig.lang || 'ru';
 const i18nDir = path.join(__dirname, 'i18n');
@@ -183,7 +184,7 @@ app._init = function () {
       'modules/' + moduleName)
     .then(scope => alias(scope, scope.settings.get(moduleName + '.di-alias')))
     .then((scope) => {
-      let staticOptions = isProduction ? scope.settings.get('staticOptions') : undefined;
+      let staticOptions = isDevelop ? {} : scope.settings.get('staticOptions');
       app.locals.notificationCheckInterval = scope.settings.get(moduleName + '.notificationCheckInterval') || 15000;
       app.locals.pageTitle = scope.settings.get(moduleName + '.pageTitle')
         || scope.settings.get('pageTitle')
