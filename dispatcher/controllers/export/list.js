@@ -60,7 +60,11 @@ module.exports = function (req, res) {
                           let v = req.body[pn] || req.query[pn];
                           if (v) {
                             if (param_meta[pn].type === 'date') {
-                              v = moment(v, moment.localeData(lang).longDateFormat('L')).tz(user.timeZone()).toDate();
+                              v = moment(v, moment.localeData(lang).longDateFormat('L'));
+                              if (user.timeZone()) {
+                                v = v.tz(user.timeZone());
+                              }
+                              v = v.toDate();
                             }
                             params[pn] = v;
                           }
