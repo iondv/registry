@@ -94,7 +94,7 @@
     }
     this.selProviders = {};
     this.changed = false;
-    this.trackedValues = {};
+    this.trackedValues = !this.options.id ? $form.data('base') || {} : {};
     this.deps = [];
     this.init();
 

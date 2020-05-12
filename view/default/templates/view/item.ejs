@@ -262,7 +262,9 @@ if (item.getItemId() && !item.permissions.write) {
 
   <form class="object-manager form form-horizontal" method="post" autocomplete="off"
         onsubmit="return false;"
-        enctype="multipart/form-data" data-options="<%= JSON.stringify(options) %>">
+        enctype="multipart/form-data" 
+        data-options="<%= JSON.stringify(options) %>"
+        data-base="<%= JSON.stringify(item.base) %>">
     <div class="panel-body">
       <input type="hidden" name="$action" value="">
       <div class="tabs">
