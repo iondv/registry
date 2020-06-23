@@ -39,6 +39,9 @@ function buildSubMenu(nodes, types, defaultType, aclResources) {
         case 3:
           ({url} = nodes[i]);
           external = nodes[i].external || false;
+          if (Array.isArray(aclResources))
+            if (aclResources.indexOf(aclId) < 0)
+              aclResources.push(aclId);
           break;
         default:
           url = `${moduleName}/${nodes[i].namespace ? `${nodes[i].namespace}@` : ''}${nodes[i].code}`;
