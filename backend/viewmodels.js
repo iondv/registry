@@ -182,7 +182,7 @@ function fieldFromProperty(property) {
     columns: [],
     commands: getDefaultFieldCommands(pt2ft(property.type)),
     orderNumber: property.orderNumber,
-    required: property.required,
+    required: (!property.nullable && (property.defaultValue == null)) || property.required,
     visibility: '',
     enablement: '',
     obligation: '',

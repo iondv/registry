@@ -91,19 +91,21 @@ var options = {
   <script type="text/javascript">
     $(function () {
       $('button#<%=`${form.ids.formBtn}EXPORT`%>').click(function () {
-        if (parent.imodal.getParams('isBackground')) {
-          $.post({url: document.forms.params.action, data: $(document.forms.params).serialize()})
-            .done(function (data) {
-              parent.imodal.setParams('exportStarted', true);
+        if (window.validate()) {
+          if (parent.imodal.getParams('isBackground')) {
+            $.post({url: document.forms.params.action, data: $(document.forms.params).serialize()})
+              .done(function (data) {
+                parent.imodal.setParams('exportStarted', true);
+                parent.imodal.close();
+              })
+              .fail(function (xhr) {
+                console.error(xhr);
+                messageCallout.error("<%=__('templates.default.view.collection.exportParams.error')%>");
+              });
+          } else {
+              document.forms.params.submit();
               parent.imodal.close();
-            })
-            .fail(function (xhr) {
-              console.error(xhr);
-              messageCallout.error('<%=__('templates.default.view.collection.exportParams.error')%>');
-            });
-        } else {
-          document.forms.params.submit();
-          parent.imodal.close();
+          }
         }
       });
     });

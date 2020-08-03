@@ -296,6 +296,15 @@
     ObjectManager.loadWfState();
   };
 
+  window.validate = function () {
+    for (var i = 0; i < ObjectManager.managers.length; i++) {
+      if (!ObjectManager.managers[i].validate()) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   var slTimer = null;
 
   ObjectManager.prototype = {

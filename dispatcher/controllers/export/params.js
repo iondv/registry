@@ -78,7 +78,7 @@ module.exports = function (req, res) {
               decimals: 2,
               allowedFileTypes: null,
               maxFileCount: 0,
-              nullable: true,
+              nullable: params_meta[nm].required ? false : true,
               readonly: false,
               indexed: false,
               unique: false,
@@ -139,6 +139,7 @@ module.exports = function (req, res) {
 
         let vm = buildCreateFormVm(pcm);
         adjustFields(pcm, vm, scope.metaRepo);
+        console.log(JSON.stringify(vm));
         slfetch
           .then(() => {
             let dummy = new Item(null, data, pcm);

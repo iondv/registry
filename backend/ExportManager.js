@@ -190,9 +190,7 @@ function ExportManager(cOptions) {
       }
       if (f[0] === ':') {
         let attr = f.substr(1);
-        if (params.hasOwnProperty(attr)) {
-          return params[attr];
-        }
+        return params.hasOwnProperty(attr) ? params[attr] : null;
       }
     }
 
