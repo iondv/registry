@@ -59,6 +59,12 @@ module.exports = function (req, res) {
                 if (param_meta[pn].type === 'date') {
                   v = moment(v, moment.localeData(lang).longDateFormat('L')).tz(user.timeZone()).toDate();
                 }
+                if (user.timeZone()) {
+                  v = v.tz(user.timeZone());
+                }                
+                if (param_meta[pn].margin) {
+                  v.add(param_meta[pn].margin);
+                }                
                 params[pn] = v;
               }
             }

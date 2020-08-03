@@ -64,6 +64,9 @@ module.exports = function (req, res) {
                               if (user.timeZone()) {
                                 v = v.tz(user.timeZone());
                               }
+                              if (param_meta[pn].margin) {
+                                v.add(param_meta[pn].margin);
+                              }
                               v = v.toDate();
                             }
                             params[pn] = v;

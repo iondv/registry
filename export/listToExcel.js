@@ -108,6 +108,9 @@ function ToExcel(cOptions) {
       for (let nm in options.params) {
         if (options.params.hasOwnProperty(nm)) {
           values[nm] = options.params[nm];
+          if (values[nm] instanceof Date) {
+            values[nm] = prepareDate(values[nm], options.lang, options.user.timeZone(), true)
+          }          
         }
       }
     }
