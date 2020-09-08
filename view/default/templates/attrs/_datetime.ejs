@@ -5,7 +5,7 @@
         <div class="input-group input-group-datetimepicker" style="display: none;">
             <input type="text" id="<%= id %>" name="<%= prop.getName() %>"
                    value="<%=prop.getValue() ? utils.dateCallback(prop.getValue(), false, true) : ''%>"
-                   parse-tz="<%=(prop.meta.mode === 1) ? 'true' : 'false'%>"
+                   parse-tz="<%=(prop.meta.mode !== 0) ? 'true' : 'false'%>"
                    class="form-control form-datetimepicker attr-value"
                    placeholder="<%=__('templates.default.attrs.datetime')%>"
               <%if (field.options) {%>

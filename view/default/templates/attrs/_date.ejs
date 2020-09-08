@@ -6,7 +6,7 @@
             <input type="text" id="<%= id %>"
                    name="<%= prop.getName() %>"
                    value="<%=prop.getValue() ? utils.dateCallback(prop.getValue(), true, true) : ''%>"
-                   parse-tz="<%=(prop.meta.mode === 1) ? 'true' : 'false'%>"
+                   parse-tz="<%=(prop.meta.mode !== 0) ? 'true' : 'false'%>"
                    class="form-control form-datepicker attr-value"
                    placeholder="<%=__('templates.default.attrs.date')%>"
                     <% if (field.options) { %>

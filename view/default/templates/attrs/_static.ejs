@@ -7,12 +7,12 @@
         <input id="<%= id %>" readonly name="<%= prop.getName() %>"
                class="form-control form-static-value"
                value="<%= prop.getValue() ? utils.dateCallback(prop.getValue(), true, true) : '' %>"
-               parse-tz="<%=(prop.meta.mode === 1) ? 'true' : 'false'%>" style="display: none;"/>
+               parse-tz="<%=(prop.meta.mode !== 0) ? 'true' : 'false'%>" style="display: none;"/>
       <%} else if (field.type == FieldTypes.DATETIME_PICKER ) {%>
         <input id="<%= id %>" readonly name="<%= prop.getName() %>"
                class="form-control form-static-value"
                value="<%= prop.getValue() ? utils.dateCallback(prop.getValue(), false, true) : '' %>"
-               parse-tz="<%=(prop.meta.mode === 1) ? 'true' : 'false'%>" style="display: none;"/>
+               parse-tz="<%=(prop.meta.mode !== 0) ? 'true' : 'false'%>" style="display: none;"/>
       <%} else if (field.type == FieldTypes.CHECKBOX ) {%>
         <p class="form-control-static">
           <% var checkbox_value, pVal = prop.getValue();
