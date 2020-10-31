@@ -172,7 +172,7 @@ helpers(app, config);
 app._init = function () {
   return load(path.join(__dirname, 'i18n'))
     .then(
-      di(
+      () => di(
         moduleName,
         extendDi(moduleName, config.di),
         {
@@ -191,6 +191,7 @@ app._init = function () {
         || scope.settings.get('pageTitle')
         || `ION ${config.sysTitle}`;
       app.locals.pageEndContent = scope.settings.get(moduleName +'.pageEndContent') || scope.settings.get('pageEndContent') || '';
+      const themePath = scope.settings.get(moduleName + '.theme') || config.theme || 'default'
       theme(
         app,
         moduleName,

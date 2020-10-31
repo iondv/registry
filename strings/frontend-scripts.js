@@ -106,7 +106,7 @@ module.exports = {
   'js.calendar.skipeachm': t('Excluding each'),
   'js.calendar.year': t(' year'),
   'js.calendar.years1': t(' year'),
-  'js.calendar.years2':' years',
+  'js.calendar.years2': t(' years'),
   'js.calendar.someYears': t('%s %f, %m1 %w, in %m2'),
   'js.calendar.skipped': t('Excluding %s'),
   'js.calendar.weekday': t(', if %d'),

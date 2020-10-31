@@ -45,7 +45,7 @@ function DeleteHandler() {
                   t('Failed to delete object %s: %s'),
                   `${item.class}@${item.id}`,
                   (e instanceof IonError && e.cause) ? e.cause : e
-                );
+                ));
               });
           });
 

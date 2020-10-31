@@ -3,7 +3,7 @@
  */
 'use strict';
 
-const codes = require('../../../errors/web-errors');
+const codes = require('../../errors/web-errors');
 const {w: t} = require('core/i18n');
 
 module.exports = {
