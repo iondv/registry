@@ -94,9 +94,9 @@
               title="<%=command.caption%>" data-id="<%=command.id%>" style="display:none;"><%-html%></button>
       <%});%>
       <button id="<%=`${ids.listBtn}close`%>" type="button" class="CLOSE btn btn-default modal-closer"
-              title="Закрыть" style="display:none;"><%=__('templates.default.view.list.close')%></button>
+              title="<%=t('Close')%>" style="display:none;"><%=__('templates.default.view.list.close')%></button>
       <button id="<%=`${ids.listBtn}reload`%>" type="button" class="reload btn btn-default"
-              title="Обновить"><span class="fa fa-refresh"></span></button>
+              title="<%=t('Refresh')%>"><span class="fa fa-refresh"></span></button>
 
       <% if (typeof exporters !== 'undefined' && Object.keys(exporters).length) { %>
       <%- partial('./_export', {buttonPrefix: ids.listBtn}) %>
@@ -124,9 +124,6 @@
     <div class="inline-form-control cancel" title="<%=__('templates.default.view.list.cancel')%>" style="display: none;">
       <span class="glyphicon glyphicon-remove"></span>
     </div>
-    <!--<div class="inline-form-control delete" title="Удалить" style="display: none;">
-      <span class="glyphicon glyphicon-trash"></span>
-    </div>-->
     <div class="inline-form-control workflow" style="display: none;">
     </div>
 

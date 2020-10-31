@@ -163,7 +163,7 @@ module.exports = function (req, res) {
               vm = null;
               vm = scope.metaRepo.getListViewModel(rcm.getCanonicalName(), node ? `${node.namespace}@${node.code}` : null);
               if (!vm) {
-                vm = buildListVm(rcm, vm);
+                vm = buildListVm(rcm, vm, req.locals.lang);
               }
             } else {
               return pnf(req, res);

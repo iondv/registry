@@ -24,8 +24,8 @@ const extendDi = require('core/extendModuleDi');
 const theme = require('lib/util/theme');
 const staticRouter = require('lib/util/staticRouter');
 const extViews = require('lib/util/extViews');
+const {load} = require('core/i18n');
 const errorSetup = require('core/error-setup');
-const i18nSetup = require('core/i18n-setup');
 const alias = require('core/scope-alias');
 const sysMenuCheck = require('lib/util/sysMenuCheck');
 const lastVisit = require('lib/last-visit');
@@ -34,10 +34,9 @@ const strings = require('core/strings');
 const isProduction = process.env.NODE_ENV === 'production';
 const isDevelop = process.env.NODE_ENV === 'development';
 
-const lang = config.lang || rootConfig.lang || 'ru';
-const i18nDir = path.join(__dirname, 'i18n');
-errorSetup(lang, i18nDir);
-i18nSetup(lang, config.i18n || i18nDir, moduleName);
+errorSetup(path.join(__dirname, 'strings'));
+strings.registerBase('frontend', require('./strings/frontend-scripts'));
+strings.registerBase('tpl', require('./strings/templates-default'));
 
 router.use((req, res, next) => {
   res.locals.sessVar = nm => req.session && req.session[nm];
@@ -164,8 +163,6 @@ var cookieParser = require('cookie-parser');
 
 app.locals.sysTitle = config.sysTitle;
 app.locals.staticsSuffix = process.env.ION_ENV === 'production' ? '.min' : '';
-app.locals.s = strings.s;
-app.locals.__ = (str, params) => strings.s(moduleName, str, params);
 
 app.use('/' + moduleName, cookieParser());
 app.engine('ejs', ejsLocals);
@@ -173,15 +170,19 @@ app.set('view engine', 'ejs');
 helpers(app, config);
 
 app._init = function () {
-  return di(
-      moduleName,
-      extendDi(moduleName, config.di),
-      {
-        module: app
-      },
-      'app',
-      [],
-      'modules/' + moduleName)
+  return load(path.join(__dirname, 'i18n'))
+    .then(
+      di(
+        moduleName,
+        extendDi(moduleName, config.di),
+        {
+          module: app
+        },
+        'app',
+        [],
+        'modules/' + moduleName
+      )
+    )
     .then(scope => alias(scope, scope.settings.get(moduleName + '.di-alias')))
     .then((scope) => {
       let staticOptions = isDevelop ? {} : scope.settings.get('staticOptions');
@@ -190,10 +191,6 @@ app._init = function () {
         || scope.settings.get('pageTitle')
         || `ION ${config.sysTitle}`;
       app.locals.pageEndContent = scope.settings.get(moduleName +'.pageEndContent') || scope.settings.get('pageEndContent') || '';
-      let themePath = scope.settings.get(moduleName + '.theme') || config.theme || 'default';
-      themePath = theme.resolve(__dirname, themePath);
-      const themeI18n = path.join(themePath, 'i18n');
-      i18nSetup(lang, themeI18n, moduleName, scope.sysLog);
       theme(
         app,
         moduleName,
@@ -208,14 +205,8 @@ app._init = function () {
         app.use('/' + moduleName, statics);
       }
       app.use('/' + moduleName, compression(scope.settings.get(moduleName + '.compression') || {level: 9}));
-      // Аутентификация уровня модуля //
 
       scope.auth.bindAuth(app, moduleName);
-      app.use((req, res, next) => {
-        const user = scope.auth.getUser(req);
-        res.locals.__ = (s, p) => strings.s(moduleName, s, p, user && user.language());
-        next();
-      });
       app.post('/' + moduleName + '/chpwd', scope.auth.changePwdHandler(moduleName));
       app.post('/' + moduleName + '/profile', scope.auth.profileHandler(moduleName));
       app.use('/' + moduleName, api);

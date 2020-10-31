@@ -11,6 +11,8 @@ const processNavigation = require('../../backend/menu').processNavigation;
 const onError = require('../../backend/error');
 const respond = require('../../backend/respond');
 const edit = require('../../backend/items').saveItem;
+const {t} = require('core/i18n');
+const {format} = require('util');
 
 /* jshint maxstatements: 40, maxcomplexity: 20, maxdepth: 15 */
 /**
@@ -37,7 +39,7 @@ module.exports = function (req, res) {
               .then(
                 (info) => {
                   if (!form.$action) {
-                    return res.status(400).send('Не указано действие ');
+                    return res.status(400).send(t('Action not specified.'));
                   }
 
                   let cm = info.classMeta;
@@ -76,15 +78,15 @@ module.exports = function (req, res) {
                     );
                   }
 
-                  res.status(404).send('Не найден обработчик действия ' + req.body.$action);
+                  res.status(404).send(format(t('Handler not found fot action %s', req.body.$action)));
                 })
               .catch(
                 (err) => {
                   if (err === 404) {
-                    return res.status(400).send('Ресурс не найден');
+                    return res.status(400).send(t('Resource not found'));
                   }
                   if (err === 403) {
-                    return res.status(403).send('Доступ запрещен');
+                    return res.status(403).send(t('Access denied.'));
                   }
                   onError(scope, err, res);
                 }

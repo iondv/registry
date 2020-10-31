@@ -3,6 +3,7 @@
  */
 'use strict';
 const F = require('core/FunctionCodes');
+const {t} = require('core/i18n');
 
 /**
  *
@@ -13,7 +14,7 @@ const F = require('core/FunctionCodes');
 function UserFilters(options) {
 
   if (!options.ds) {
-    throw new Error('не указан ds (DataSource)');
+    throw new Error(t('Data source not specified'));
   }
 
   /**
@@ -29,7 +30,7 @@ function UserFilters(options) {
    */
   this.list = function (userId, classNames) {
     if (!userId || !Array.isArray(classNames)) {
-      return Promise.reject(new Error('не достаточно данных'));
+      return Promise.reject(new Error(t('Not enough data')));
     }
     let conditions = {
       filter: {
@@ -75,7 +76,7 @@ function UserFilters(options) {
    */
   this.add = function (userId, className, filter) {
     if (!userId || !filter.name || !filter.query) {
-      return Promise.reject(new Error('не достаточно данных'));
+      return Promise.reject(new Error(t('Not enough data')));
     }
     if (typeof filter.global === 'string') {
       filter.global = filter.global === 'true';
@@ -111,7 +112,7 @@ function UserFilters(options) {
    */
   this.edit = function (userId, className, filterId, data) {
     if (!userId || !filterId || !data) {
-      return Promise.reject(new Error('не достаточно данных'));
+      return Promise.reject(new Error(t('Not enough data')));
     }
     let updates = {};
     if (data.name) {
@@ -161,7 +162,7 @@ function UserFilters(options) {
    */
   this.remove = function (userId, filterId) {
     if (!userId || !filterId) {
-      return Promise.reject(new Error('не достаточно данных'));
+      return Promise.reject(new Error(t('Not enough data')));
     }
     return options.ds.delete(tn, {[F.AND]: [{[F.EQUAL]: ['$_id', filterId]}, {[F.EQUAL]: ['$user', userId]}]})
       .then(result => result > 0);

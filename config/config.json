@@ -1,6 +1,6 @@
 {
   "parametrised": true,
-  "sysTitle": "Типовой модуль ION",
+  "sysTitle": "ION registry module",
   "yandexGeoApiKey": "[[registry.yandexGeoApiKey]]",
   "di" : {
     "changelogFactory": {

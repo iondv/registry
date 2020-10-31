@@ -10,6 +10,7 @@ const itemEagerLoading = require('../../../backend/items').itemEagerLoading;
 const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
 const moduleName = require('../../../module-name');
+const {t} = require('core/i18n');
 
 module.exports = function (req, res) {
   respond(['metaRepo', 'securedDataRepo', 'logRecorder', 'auth'],
@@ -46,7 +47,7 @@ module.exports = function (req, res) {
                   onError(scope, err, res);
                 }
               } else {
-                res.status(404).send('Объект не найден');
+                res.status(404).send(t('Object not found', {lang}));
               }
             }
           )

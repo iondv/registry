@@ -32,14 +32,14 @@
           <section>
             <label class="label"><%=__('templates.default.password')%></label>
             <label class="input">
-              <input id="password" type="password" name="password" placeholder="пароль" class="input password">
+              <input id="password" type="password" name="password" placeholder="<%=t('password')%>" class="input password">
               <div class="pwd-error" style="display: none;"></div>
             </label>
           </section>
           <section>
             <label class="label"><%=__('templates.default.repeatPwd')%></label>
             <label class="input">
-              <input id="password2" type="password" name="password2" placeholder="повторите пароль"
+              <input id="password2" type="password" name="password2" placeholder="<%=t('repeat password')%>"
                      class="input password">
               <div class="pwd-error" style="display: none;"></div>
             </label>
@@ -73,12 +73,12 @@
           if (options.pwdMinLength) {
             if (pwd.length < options.pwdMinLength) {
               valid = false;
-              messages.push('Минимальная длина пароля ' + options.pwdMinLength + ' символов');
+              messages.push('<%=t('Min password length ')%>' + options.pwdMinLength + ' <%=t('symbols')%>');
             }
           }
         } else {
           valid = false;
-          messages.push('Неверный повтор пароля');
+          messages.push('<%=t('Invalid password repeat')%>');
         }
         if (valid) {
           $regForm.submit();

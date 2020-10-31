@@ -26,6 +26,8 @@ const F = require('core/FunctionCodes');
 const {canonicNode} = require('./menu');
 const {parametrize} = require('core/util/formula');
 const {produceDirName} = require('core/util/dirName');
+const {t} = require('core/i18n');
+const {format} = require('util');
 
 const prepareDate = module.exports.prepareDate = (date, lang, tz, trimTime) => {
   if (date) {
@@ -213,7 +215,7 @@ const prepareSaveData = module.exports.prepareSaveData = (data, cm, lang) => {
             valid = isSchedule(dt);
           }
           if (!valid)
-            throw new Error(`Некорректное значение расписания передано в атрибут ${cm.getCaption()}.${pm.caption}`);
+            throw new Error(format(t('Invalid schedule value assigned to attribute %s'), `${cm.getCaption()}.${pm.caption}`));
           else
             result[nm] = dt;
         } else if (pm.type !== PropertyTypes.COLLECTION) {
@@ -572,7 +574,7 @@ function applyDetails(metaRepo, dataRepo, master, collection, details, changeLog
   return function() {
     const p = master.property(collection);
     if (!p || p.getType() !== PropertyTypes.COLLECTION)
-      throw new Error(`Не найден атрибут коллекции ${collection}`);
+      throw new Error(format(t('Collection attribute %s not found'), collection));
 
 
     const dc = metaRepo.getMeta(p.meta.itemsClass,
@@ -580,7 +582,7 @@ function applyDetails(metaRepo, dataRepo, master, collection, details, changeLog
       master.getMetaClass().getNamespace());
 
     if (!dc)
-      throw new Error(`Не найден класс элементов коллекции ${collection}`);
+      throw new Error(format(t('Class of elements of collection %s not found.'), collection));
 
 
     const f = {[F.IN]: [`$${dc.getKeyProperties()[0]}`, prepareDetailIds(dc.getPropertyMeta(dc.getKeyProperties()[0]), details)]};
@@ -736,7 +738,7 @@ function saveItem(scope, req, updator, logger, noconvert) {
               .then(context => checker.apply(context))
               .then((result) => {
                 if (!result)
-                  throw new Error('Сохраняемый объект не удовлетворяет условиям отбора допустимых значений!');
+                  throw new Error(t('Saved object does not fit conditions of selection list!'));
 
                 return true;
               });
@@ -1001,7 +1003,7 @@ module.exports.concurencyState = function(itemId, user, timeout, checker, auth) 
         }
         auth.userProfile(state.user, (profile) => {
           if (!profile)
-            return reject(new Error('не найден владелец блокировки'));
+            return reject(new Error(t('Block owner not found.')));
 
           state.userName = profile.name();
           return resolve(state);
@@ -1064,8 +1066,8 @@ function vmEagerLoading(vm, cm) {
   const result = [];
   for (let i = 0; i < vm.tabs.length; i++) {
     const tab = vm.tabs[i];
-    tab.fullFields = tab.fullFields ? tab.fullFields : []; // Чтобы не валилось, при отсуттсвии табов в мете
-    tab.shortFields = tab.shortFields ? tab.shortFields : []; // Чтобы не валилось, при отсуттсвии табов в мете
+    tab.fullFields = tab.fullFields ? tab.fullFields : [];
+    tab.shortFields = tab.shortFields ? tab.shortFields : [];
     for (let j = 0; j < tab.fullFields.length; j++)
       fieldEagerLoading(tab.fullFields[j], cm, result);
 

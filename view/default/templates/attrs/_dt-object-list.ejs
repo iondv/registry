@@ -77,7 +77,7 @@
         if (field.options && field.options.inplaceInsertion) {
         %>
         <button type="button" class="create-inline command btn btn-success" data-id="CREATE-INLINE"
-                style="display:none;" title="Создать на месте">
+                style="display:none;" title="<%=t('Create inplace')%>">
           <span class="glyphicon glyphicon-console"></span>
         </button>
         <%
@@ -94,7 +94,7 @@
           case 'EDIT':
             icon = 'edit';
             if (attrPermissions && !attrPermissions.c_edit) {
-              title = 'Просмотр';
+              title = t('View');
             }
             if ((attrPermissions && !attrPermissions.c_view)) {
               return;
@@ -122,7 +122,7 @@
           <span class="glyphicon glyphicon-<%=icon%>"></span>
         </button>
         <%});%>
-        <button type="button" class="reload btn btn-default" title="Обновить"><span class="fa fa-refresh"></span></button>
+        <button type="button" class="reload btn btn-default" title="<%=t('Refresh')%>"><span class="fa fa-refresh"></span></button>
         <%if (options.dt.reorderable) {%>
         <%if (attrPermissions && attrPermissions.write && !(field.readonly || globalReadonly)) {%>
         <button type="button" class="sorting-up sorting btn btn-default" title="<%=__('templates.default.attrs.up')%>" style="display: none;">
@@ -158,9 +158,6 @@
       <div class="inline-form-control remove" title="<%=__('templates.default.attrs.remove')%>" style="display: none;">
         <span class="glyphicon glyphicon-remove"></span>
       </div>
-      <!--<div class="inline-form-control delete" title="Удалить" style="display: none;">
-        <span class="glyphicon glyphicon-trash"></span>
-      </div>-->
       <div class="inline-form-control workflow" style="display: none;">
       </div>
       <%if (options.dt.reorderable) {%>

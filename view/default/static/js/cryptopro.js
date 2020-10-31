@@ -1,23 +1,3 @@
-// в теле html-страницы должно быть:
-// <object id="cadesplugin" type="application/x-cades" class="hiddenObject"></object>
-// {
-//   var cp = new CryptoPro(..., ..., onSignFinished);
-//   // получение - GET с параметром id
-//   // идентификатор объекта и подпись будет передана в processUrl в POST-параметрах "id" и "sign"
-//   var certs = cp.getCerts(); // возвращает ключ сертификата => текстовое представление
-//   ... // [показываем, ] выбираем сертификат
-//   cp.makeSign(objId, certKey);
-// }
-// function onSignFinished(/*string*/ objId, /*string*/ errorMessage) {
-//   // errorMessage == null, если ошибок не было
-// }
-// возвращаемые статусы:
-// not ready - не готов (в процессе подписывания другого объекта)
-// receiving - получение объекта
-// signing   - подписывание
-// sending   - отправка
-// success
-// fail
 
 function onCadesLoaded(cb) {
   if (typeof cadesplugin === 'undefined') {
@@ -53,9 +33,9 @@ function CryptoPro() {
 	this.CAPICOM_CERTIFICATE_FIND_SHA1_HASH = 0;
 	this.CADES_BES = 1;
 	// CADESCOM_XML_SIGNATURE_TYPE
-	this.CADESCOM_XML_SIGNATURE_TYPE_ENVELOPED = 0; // Вложенная подпись
-	this.CADESCOM_XML_SIGNATURE_TYPE_ENVELOPING = 1; // Оборачивающая подпись
-	this.CADESCOM_XML_SIGNATURE_TYPE_TEMPLATE = 2; // Подпись по шаблону
+	this.CADESCOM_XML_SIGNATURE_TYPE_ENVELOPED = 0;
+	this.CADESCOM_XML_SIGNATURE_TYPE_ENVELOPING = 1;
+	this.CADESCOM_XML_SIGNATURE_TYPE_TEMPLATE = 2;
 
 	this.CAPICOM_CERTIFICATE_INCLUDE_WHOLE_CHAIN = 1;
 
@@ -264,7 +244,6 @@ CryptoPro.prototype.makeSign = function(params, onFail, onSuccess, onNeedCertSel
 		    type: "POST",
 		    url: params.dataUrl,
 		    data: {action: params.action},
-		    //dataType: "text", // преобразование в XML не нужно, cryptopro принимает XML как текст
 		    beforeSend: function(xhr) {
 			    xhr.setRequestHeader('x-requested-with', 'XMLHttpRequest');
 		    }
@@ -456,12 +435,8 @@ CryptoPro.prototype.makeCadesBesSign = function(dataToSign, certObject, cb) {
 /**
  *
  * @param {{content: String}} dataToSign
- *            Документ XML, который следует подписать. Документ должен
- *            быть в кодировке UTF-8. Если кодировка документа отличается от
- *            UTF-8, то его следует закодировать в BASE64
  * @param certObject
- *            Сертификат
- * @returns (String) Подписанный XML
+ * @returns (String)
  */
 CryptoPro.prototype.makeXMLSign = function(dataToSign, certObject, cb) {
   if (typeof cadesplugin.CreateObject === 'function') {

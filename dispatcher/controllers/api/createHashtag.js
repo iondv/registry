@@ -8,6 +8,7 @@ const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
 const locale = require('locale');
 const prepareJSON = require('../../../backend/items').prepareJSON;
+const {t} = require('core/i18n');
 
 module.exports = function (req, res) {
   respond(['metaRepo', 'securedDataRepo', 'logRecorder', 'auth', 'changelogFactory'],
@@ -41,7 +42,7 @@ module.exports = function (req, res) {
             }
             return res.send(result);
           } else {
-            res.status(500).send('Обьект не был создан.');
+            res.status(500).send(t('Object creation failed.', {lang}));
           }
         }).catch(function (err) {
           scope.logRecorder.stop();

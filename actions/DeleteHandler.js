@@ -5,6 +5,8 @@
 
 const ActionHandler = require('../backend/ActionHandler');
 const IonError = require('core/IonError');
+const {t} = require('core/i18n');
+const {format} = require('util');
 
 /**
  * @param {{}} options
@@ -39,18 +41,22 @@ function DeleteHandler() {
                 if (scope.sysLog) {
                   scope.sysLog.error(e);
                 }
-                results.errors.push(`Не удалось удалить обьект ${item.class}@${item.id}: ${(e instanceof IonError && e.cause) ? e.cause : e}`);
+                results.errors.push(format(
+                  t('Failed to delete object %s: %s'),
+                  `${item.class}@${item.id}`,
+                  (e instanceof IonError && e.cause) ? e.cause : e
+                );
               });
           });
 
           return p.then(() => {
             results.$message = req.body.items.length > results.deleted.length ?
-              'Некоторые объекты не были удалены.' :
-              'Удалены все указанные объекты.';
+              t('Some objects were not deleted.') :
+              t('All objects where deleted.');
             return results;
           });
         } else {
-          return Promise.resolve({deleted: [], $message: 'Нечего удалять!'});
+          return Promise.resolve({deleted: [], $message: t('Nothing to delete!')});
         }
       } else if (req.params.id) {
         return scope.securedDataRepo.deleteItem(
