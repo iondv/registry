@@ -16,6 +16,7 @@ const mkdirp = require('mkdirp');
 const base64 = require('base64-js');
 const crypto = require('crypto');
 const User = require('core/User');
+const {t} = require('core/i18n');
 
 /**
  * @param {{}} cOptions
@@ -227,7 +228,7 @@ function ExportManager(cOptions) {
     return p
       .then((item) => {
         if (!item) {
-          throw new Error('Не найдены данные для экспорта!');
+          throw new Error(t('Data for export not found!'));
         }
         let cm = options.item.getMetaClass();
         config = locateConfig(name, cm, 'item');
@@ -392,7 +393,7 @@ function ExportManager(cOptions) {
       () => new Promise((res, rej) => {
         cOptions.auth.userProfile(
           params.user,
-          u => u instanceof User ? res(u) : rej(new Error('Пользователь не найден.'))
+          u => u instanceof User ? res(u) : rej(new Error(t('User not found.')))
         );
       })
     ).then((u) => {
@@ -415,7 +416,7 @@ function ExportManager(cOptions) {
       };
       exporter = this.exporter(params.format, options);
       if (!exporter) {
-        throw new Error('Не найдена конфигурация экспорта.');
+        throw new Error(t('Export configuration not found.'));
       }
       return item ? exportItem(params.format, options) : exportList(params.format, options);
     }).then((buf) => {
@@ -491,7 +492,7 @@ function ExportManager(cOptions) {
                     if (storedFiles.length) {
                       return storedFiles[0].getContents();
                     } else {
-                      throw new Error('Файл не найден в удаленном хранилище.');
+                      throw new Error(t('File not found in remote storage.'));
                     }
                   })
                   .then((res) => {

@@ -22,21 +22,22 @@ const respond = require('../../backend/respond');
 const locale = require('locale');
 const PropertyTypes = require('core/PropertyTypes');
 const F = require('core/FunctionCodes');
+const {t} = require('core/i18n');
 
-const defaultCommands = [
+const defaultCommands = (lang) => [
   {
     id: 'CREATE',
-    caption: 'Создать'
+    caption: t('Create', {lang})
   },
   {
     id: 'EDIT',
     needSelectedItem: true,
-    caption: 'Изменить'
+    caption: t('Edit', {lang})
   },
   {
     id: 'DELETE',
     isBulk: true,
-    caption: 'Удалить'
+    caption: t('Delete', {lang})
   }
 ];
 
@@ -79,7 +80,7 @@ module.exports = function (req, res) {
                       req.params.collection,
                       node ? `${node.namespace}@${node.code}` : null);
                     if (!vm) {
-                      vm = buildListVm(ccm, vm);
+                      vm = buildListVm(ccm, vm, req.locals.lang);
                     }
                     collectionParams = {
                       classname: req.params.class,
@@ -185,7 +186,7 @@ module.exports = function (req, res) {
                 userFilters: userFilters,
                 inlineForm: scope.settings.get(moduleName + '.inlineForm'),
                 logo: scope.settings.get(moduleName + '.logo'),
-                commands: Array.isArray(vm.commands) ? vm.commands : defaultCommands,
+                commands: Array.isArray(vm.commands) ? vm.commands : defaultCommands(req.locals.lang),
                 columns: vm.columns,
                 condensedView: !!req.query.condensed,
                 nodeOptions: node && node.options,

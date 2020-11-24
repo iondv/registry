@@ -433,7 +433,7 @@
           result += this.createWorkflowButton(items[i]);
         }
         result += '<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">'
-          + 'Бизнес-процесс <span class="caret"></span></button><ul class="dropdown-menu pull-right">';
+          + 'Workflow <span class="caret"></span></button><ul class="dropdown-menu pull-right">';
         for (i = 1; i < items.length; ++i) {
           result += this.createWorkflowMenu(items[i]);
         }

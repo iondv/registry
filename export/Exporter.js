@@ -13,9 +13,9 @@ const path = require('path');
  */
 function Exporter(options) {
 
-  this.name = options.name; // Обратная совместимость с шаблонами в проектах
+  this.name = options.name;
 
-  this.caption = options.caption; // Обратная совместимость с шаблонами в проектах
+  this.caption = options.caption;
 
   /**
    * @returns {String}

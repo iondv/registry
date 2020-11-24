@@ -517,7 +517,6 @@ var lang = 'ru';
       && rule.second >= 0 && rule.second <= 59) {
       result = everyMinuteString(rule.second, skipped);
     } else {
-      //TODO Исключение
     }
     return result + (rule.duration ? ', ' + durationString(rule.duration) : '');
   }
@@ -585,11 +584,11 @@ var lang = 'ru';
     hour = hour || 0;
     minute = minute || 0;
     second = second || 0;
-    var prefix = 'Каждый';
+    var prefix = 'Each'; // TODO Translate
     if (weekday === 7) {
-      prefix = 'Каждое';
+      prefix = 'Each'; // TODO Translate
     } else if (weekday === 3 || weekday === 5 || weekday === 6) {
-      prefix = 'Каждую';
+      prefix = 'Each'; // TODO translate
     }
     return __('js.calendar.everyWeek', {
       s: skipped ? __('js.calendar.skipped', {s:prefix.toLowerCase()}) : prefix,

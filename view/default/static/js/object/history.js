@@ -28,7 +28,6 @@ function historyPage (panel, url, locale) {
       self.refresh();
     });
 
-    //Поведение контроллов навигации по периоду
     self.since.add(self.till).datetimepicker({
       locale: locale.lang,
       format: locale.dateTimeFormat
@@ -46,7 +45,6 @@ function historyPage (panel, url, locale) {
       showByInteval(ns, nt);
     });
 
-    //Поведение контроллов навигации по количеству
     self.firstIndex.add(self.lastIndex).on('change', function () {
       var start = parseInt(self.firstIndex.val());
       var end = parseInt(self.lastIndex.val());

@@ -446,7 +446,6 @@
             }
             p.resolve();
           }).fail(function (xhr, textStatus, errorThrown) {
-            //messageCallout.error('<b>Ошибка:</b><p>'+ xhr.responseText +'</p>');
             console.error(xhr);
             self.$loader.hide();
             p.resolve();
@@ -609,7 +608,7 @@
 
     close: function () {
       this.$form.trigger('formClosed');
-      if (parent.imodal && (!this.warnLeave || !this.changed || confirm('Закрыть без сохранения?'))) {
+      if (parent.imodal && (!this.warnLeave || !this.changed || confirm('Close without saving?'))) {
         parent.imodal.close();
       }
     },
@@ -1715,7 +1714,6 @@
         });
       };
 
-      //Сортируем для верности массив селекторов в соответствии с порядком в DOM
       selects = selects.sort(function (a, b) {
         return selects.index(a) - selects.index(b);
       });
@@ -1747,7 +1745,6 @@
           disableSelect($(e));
         });
 
-      //Определяем поведение кнопок закрытия и записи
       selectGroup.find('button.select-group-close').on('click', function (e) {
         closeSelectGroup(selectGroup, selects);
       });

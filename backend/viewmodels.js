@@ -14,6 +14,8 @@ const DigitalSignManager = require('core/interfaces/DigitalSignManager');
 const overrideEagerLoading = require('./items').overrideEagerLoading;
 const _ = require('lodash');
 const moduleName = require('../module-name');
+const {t} = require('core/i18n');
+const {format} = require('util');
 
 /* jshint maxcomplexity: 30, maxdepth: 15, maxstatements: 40, maxparams: 10 */
 function pt2ft(t) {
@@ -62,7 +64,7 @@ function ps2fs(size) {
  * @param {{}} origin
  * @returns {{allowSearch: *, pageSize: *, useEditModels: *, columns: *, commands: *}}
  */
-module.exports.buildListVm = function buildListVm(cm, origin) {
+module.exports.buildListVm = function buildListVm(cm, origin, lang) {
   var result = {
     allowSearch: origin ? origin.allowSearch : true,
     pageSize: origin ? origin.pageSize : 20,
@@ -74,7 +76,7 @@ module.exports.buildListVm = function buildListVm(cm, origin) {
   if (!origin) {
     result.commands.push({
       id: 'CREATE',
-      caption: 'Создать',
+      caption: t('Create', {lang}),
       needSelectedItem: false,
       isBulk: false,
       enableCondition: '',
@@ -86,7 +88,7 @@ module.exports.buildListVm = function buildListVm(cm, origin) {
   if (!origin) {
     result.commands.push({
       id: 'EDIT',
-      caption: 'Редактировать',
+      caption: t('Edit', {lang}),
       needSelectedItem: true,
       isBulk: false,
       enableCondition: '',
@@ -98,7 +100,7 @@ module.exports.buildListVm = function buildListVm(cm, origin) {
   if (!origin) {
     result.commands.push({
       id: 'DELETE',
-      caption: 'Удалить',
+      caption: t('Delete', {lang}),
       needSelectedItem: true,
       isBulk: true,
       enableCondition: '',
@@ -111,33 +113,33 @@ module.exports.buildListVm = function buildListVm(cm, origin) {
   var properties = cm.getPropertyMetas();
   for (var i = 0; i < properties.length; i++) {
     if (properties[i].name !== '__class' && properties[i].name !== '__classTitle') {
-      result.columns.push(fieldFromProperty(properties[i]));
+      result.columns.push(fieldFromProperty(properties[i], lang));
     }
   }
   result.columns.sort(function (a,b) {return a.orderNumber - b.orderNumber;});
   return result;
 };
 
-function getDefaultFieldCommands(fieldType) {
+function getDefaultFieldCommands(fieldType, lang) {
   switch (fieldType) {
     case FieldTypes.COLLECTION:
       return [
         {
           id: 'ADD',
-          caption: 'Добавить'
+          caption: t('Add', {lang})
         },
         {
           id: 'CREATE',
-          caption: 'Создать'
+          caption: t('Create', {lang})
         },
         {
           id: 'EDIT',
-          caption: 'Изменить',
+          caption: t('Edit', {lang}),
           needSelectedItem: true
         },
         {
           id: 'REMOVE',
-          caption: 'Убрать',
+          caption: t('Remove', {lang}),
           needSelectedItem: true
         }
       ];
@@ -145,20 +147,20 @@ function getDefaultFieldCommands(fieldType) {
       return [
         {
           id: 'SELECT',
-          caption: 'Выбрать'
+          caption: t('Select', {lang})
         },
         {
           id: 'CREATE',
-          caption: 'Создать'
+          caption: t('Create', {lang})
         },
         {
           id: 'EDIT',
-          caption: 'Править',
+          caption: t('Edit', {lang}),
           needSelectedItem: true
         },
         {
           id: 'REMOVE',
-          caption: 'Очистить',
+          caption: t('Clear', {lang}),
           isBulk: true
         }
       ];
@@ -168,7 +170,7 @@ function getDefaultFieldCommands(fieldType) {
 }
 module.exports.getDefaultFieldCommands = getDefaultFieldCommands;
 
-function fieldFromProperty(property) {
+function fieldFromProperty(property, lang) {
   return {
     caption: property.caption,
     type: pt2ft(property.type),
@@ -180,7 +182,7 @@ function fieldFromProperty(property) {
     fields: [],
     hierarchyAttributes: [],
     columns: [],
-    commands: getDefaultFieldCommands(pt2ft(property.type)),
+    commands: getDefaultFieldCommands(pt2ft(property.type), lang),
     orderNumber: property.orderNumber,
     required: (!property.nullable && (property.defaultValue == null)) || property.required,
     visibility: '',
@@ -198,26 +200,26 @@ function fieldFromProperty(property) {
   };
 }
 
-function buildFields(cm) {
+function buildFields(cm, lang) {
   const sysPm = ['__class', '__classTitle'];
   return cm.getPropertyMetas()
     .filter(pm => !sysPm.includes(pm.name))
-    .map(pm => fieldFromProperty(pm))
+    .map(pm => fieldFromProperty(pm, lang))
     .sort((a,b) => a.orderNumber - b.orderNumber);
 }
 
-function buildTab(cm) {
+function buildTab(cm, lang) {
   const tab = {
     caption: '',
     fullFields: [],
     shortFields: []
   };
-  const fields = buildFields(cm);
+  const fields = buildFields(cm, lang);
   tab.fullFields.push(...fields);
   return tab;
 }
 
-module.exports.buildEditFormVm = function (cm, origin) {
+module.exports.buildEditFormVm = function (cm, origin, lang) {
   var result = {
     type: 'item',
     tabs: [
@@ -235,7 +237,7 @@ module.exports.buildEditFormVm = function (cm, origin) {
   if (!origin) {
     result.commands.push({
       id: 'SAVE',
-      caption: 'Сохранить',
+      caption: t('Save', {lang}),
       needSelectedItem: false,
       isBulk: false,
       enableCondition: '',
@@ -243,23 +245,11 @@ module.exports.buildEditFormVm = function (cm, origin) {
       signAfter: false,
       signBefore: false
     });
-    /*
-    Result.commands.push({
-      id: "CANCEL",
-      caption: "Отменить",
-      needSelectedItem: false,
-      isBulk: false,
-      enableCondition: "",
-      visibilityCondition: "",
-      signAfter: false,
-      signBefore: false
-    });
-    */
   }
   return result;
 };
 
-module.exports.buildCreateFormVm = function (cm, origin) {
+module.exports.buildCreateFormVm = function (cm, origin, lang) {
   var result = {
     type: 'create',
     tabs: [
@@ -277,7 +267,7 @@ module.exports.buildCreateFormVm = function (cm, origin) {
   if (!origin) {
     result.commands.push({
       id: 'CREATE',
-      caption: 'Создать',
+      caption: t('Create', {lang}),
       needSelectedItem: false,
       isBulk: false,
       enableCondition: '',
@@ -285,18 +275,6 @@ module.exports.buildCreateFormVm = function (cm, origin) {
       signAfter: false,
       signBefore: false
     });
-    /*
-    Result.commands.push({
-      id: "CANCEL",
-      caption: "Отменить",
-      needSelectedItem: false,
-      isBulk: false,
-      enableCondition: "",
-      visibilityCondition: "",
-      signAfter: false,
-      signBefore: false
-    });
-    */
   }
   return result;
 };
@@ -410,7 +388,7 @@ module.exports.tableOptions = function (cm, vm, metaRepo, searchOptions, origSor
       }
       result.rowGroup = {dataSrc: pn};
     } else {
-      throw new Error('В классе "' + cm.getCaption() + '" не найден атрибут "' + pn + '" указанный в качестве группирующего для списка.');
+      throw new Error(format(t('List grouping attribute "%s" not found in class "%s".'), pn, cm.getCaption()));
     }
   }
 
@@ -524,11 +502,11 @@ module.exports.collectionTableOptions = function (scope, node) {
  * @param {ClassMeta} cm
  * @param {MetaRepository} metaRepo
  */
-function fillFields(fields, cm, metaRepo) {
+function fillFields(fields, cm, metaRepo, lang) {
   var pm, props, i, j, rcm;
   for (i = 0; i < fields.length; i++) {
     pm = cm.getPropertyMeta(fields[i].property);
-    fields[i].commands = Array.isArray(fields[i].commands) ? fields[i].commands : getDefaultFieldCommands(fields[i].type);
+    fields[i].commands = Array.isArray(fields[i].commands) ? fields[i].commands : getDefaultFieldCommands(fields[i].type, lang);
     if (fields[i].type === FieldTypes.GROUP) {
       if (pm) {
         if (fields[i].fields.length === 0) {
@@ -539,18 +517,18 @@ function fillFields(fields, cm, metaRepo) {
                 props[j].name.indexOf(pm.name) === 0 &&
                 props[j].name.replace(pm.name + '$', '').indexOf('$') < 0
               ) {
-                fields[i].fields.push(fieldFromProperty(props[j]));
+                fields[i].fields.push(fieldFromProperty(props[j], lang));
               }
             }
           } else if (pm.type === PropertyTypes.REFERENCE) {
             rcm = metaRepo.getMeta(pm.refClass, cm.getVersion(), cm.getNamespace());
             if (rcm) {
-              fields[i].fields.push(...buildFields(rcm));
+              fields[i].fields.push(...buildFields(rcm, lang));
             }
           }
         }
       }
-      fillFields(fields[i].fields, cm, metaRepo);
+      fillFields(fields[i].fields, cm, metaRepo, lang);
     } else if (fields[i].type === FieldTypes.COLLECTION) {
       if ((typeof fields[i].columns == 'undefined' || fields[i].columns.length === 0) &&
         (
@@ -562,7 +540,7 @@ function fillFields(fields, cm, metaRepo) {
         if (pm.type === PropertyTypes.COLLECTION) {
           rcm = metaRepo.getMeta(pm.itemsClass, cm.getVersion(), cm.getNamespace());
           if (rcm) {
-            fields[i].columns.push(...buildFields(rcm));
+            fields[i].columns.push(...buildFields(rcm, lang));
           }
         }
       }
@@ -593,10 +571,10 @@ function fillFields(fields, cm, metaRepo) {
  * @param {{}} vm
  * @param {MetaRepository} metaRepo
  */
-module.exports.adjustFields = function (cm, vm, metaRepo) {
+module.exports.adjustFields = function (cm, vm, metaRepo, lang) {
   for (let i = 0; i < vm.tabs.length; i++) {
-    fillFields(vm.tabs[i].fullFields || [], cm, metaRepo);
-    fillFields(vm.tabs[i].shortFields || [], cm, metaRepo); // || [] - багфикс, если не задана табс - валится ошибка
+    fillFields(vm.tabs[i].fullFields || [], cm, metaRepo, lang);
+    fillFields(vm.tabs[i].shortFields || [], cm, metaRepo, lang);
   }
 };
 

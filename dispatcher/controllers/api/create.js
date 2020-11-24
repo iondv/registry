@@ -6,6 +6,7 @@ const prepareJSON = require('../../../backend/items').prepareJSON;
 const applyCollections = require('../../../backend/items').applyCollections;
 const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
+const {t} = require('core/i18n');
 
 /* jshint maxstatements: 40, maxcomplexity: 20, maxdepth: 15 */
 
@@ -41,7 +42,7 @@ module.exports = function (req, res) {
               }
               return res.send(result);
             } else {
-              res.status(500).send('Обьект не был создан.');
+              res.status(500).send(t('Object creation failed.', {lang}));
             }
           }
         ).

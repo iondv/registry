@@ -8,23 +8,23 @@
   <div class="side-slider-head">
     <div class="side-slider-close" data-close="">&times;</div>
     <div class="side-slider-title">
-      Уведомления
+      <%=t('Notifications')%>
     </div>
   </div>
   <div class="side-slider-body">
     <div class="top-notification-action">
       <button type="button" class="btn-gray btn-sm btn btn-default" data-action="checkAll" style="display: none;">
-        Отметить все
+        <%=t('Check all')%>
       </button>
     </div>
     <div class="notification-empty notification-alert">
-      Нет новых уведомлений
+      <%=t('No new notifications')%>
     </div>
     <div class="notification-list">
     </div>
     <div class="notification-action">
       <button type="button" class="btn-gray btn-sm btn btn-default" data-action="more">
-        Загрузить прочитанные...
+        <%=t('Load marked as read')%>...
       </button>
     </div>
   </div>
@@ -35,7 +35,7 @@
         <div class="notification-title">
           {subject}
         </div>
-        <div class="notification-check" title="Пометить как прочитанное">
+        <div class="notification-check" title="<%=t('Mark as read')%>">
           <span class="glyphicon"></span>
         </div>
       </div>

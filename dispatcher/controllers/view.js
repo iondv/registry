@@ -130,10 +130,10 @@ module.exports = function (req, res) {
                   );
                 }
                 if (!vm/* || (vm.overrideMode === 1)*/) {
-                  vm = buildEditFormVm(found.getMetaClass(), vm);
+                  vm = buildEditFormVm(found.getMetaClass(), vm, req.locals.lang);
                 }
                 merge({tabs: [], commands: []}, vm);
-                adjustFields(found.getMetaClass(), vm, scope.metaRepo);
+                adjustFields(found.getMetaClass(), vm, scope.metaRepo, req.locals.lang);
                 let vmel = vmEagerLoading(vm, found.getMetaClass());
                 if (vmel.length) {
                   return scope.securedDataRepo.getItem(found, null, {

@@ -3,6 +3,8 @@
 const respond = require('../../../backend/respond');
 const onError = require('../../../backend/apiError');
 const processNavigation = require('../../../backend/menu').processNavigation;
+const {t} = require('core/i18n');
+const {format} = require('util');
 
 module.exports = function (req, res) {
   respond(['aclProvider', 'export', 'auth'],
@@ -13,12 +15,12 @@ module.exports = function (req, res) {
           .then((info) => {
             let cm = info.classMeta;
             if (!cm) {
-              throw new Error('Не удалось определить класс');
+              throw new Error(t('Failed to determine class', {lang: req.locals.lang}));
             }
 
             let exporter = scope.export.exporter(req.params.format, {class: cm, item: req.params.id});
             if (!exporter) {
-              throw new Error('Не удалось определить экспортер ' + req.params.format);
+              throw new Error(format(t('Failed to determine exporter by format %s'), req.params.format));
             }
             return scope.export
               .status(

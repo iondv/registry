@@ -6,6 +6,7 @@ const moduleName = require('../../module-name');
 const buildMenus = require('../../backend/menu').buildMenus;
 const onError = require('../../backend/error');
 const respond = require('../../backend/respond');
+const {t} = require('core/i18n');
 
 module.exports = function (req, res) {
   respond(['metaRepo', 'settings', 'aclProvider', 'auth'],
@@ -19,7 +20,7 @@ module.exports = function (req, res) {
         var tplData = {
           baseUrl: req.app.locals.baseUrl,
           module: moduleName,
-          title: 'Страница не найдена',
+          title: t('Page not found'),
           pageCode: '404',
           user: user
         };

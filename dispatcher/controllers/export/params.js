@@ -20,6 +20,8 @@ const ClassMeta = require('core/interfaces/MetaRepository').ClassMeta;
 const Item = require('core/interfaces/DataRepository').Item;
 const PropertyTypes = require('core/PropertyTypes');
 const path = require('path');
+const {t} = require('core/i18n');
+const {format} = require('util');
 
 
 // jshint maxstatements: 50, maxcomplexity: 20
@@ -50,7 +52,7 @@ module.exports = function (req, res) {
 
         let dummy = {
           name: 'ExportParams',
-          caption: 'Параметры экспорта',
+          caption: t('Export parameters', {lang}),
           properties: []
         };
 
@@ -137,9 +139,8 @@ module.exports = function (req, res) {
           }
         });
 
-        let vm = buildCreateFormVm(pcm);
-        adjustFields(pcm, vm, scope.metaRepo);
-        console.log(JSON.stringify(vm));
+        let vm = buildCreateFormVm(pcm, req.locals.lang);
+        adjustFields(pcm, vm, scope.metaRepo, req.locals.lang);
         slfetch
           .then(() => {
             let dummy = new Item(null, data, pcm);
@@ -156,7 +157,7 @@ module.exports = function (req, res) {
                   forceMaster: false,
                   master: null,
                   containerProperty: null,
-                  title: 'Параметры экспорта данных',
+                  title: t('Data export parameters', {lang}),
                   pageCode: 'export-params',
                   node: req.params.node,
                   filter: req.query.filter || req.body.filter,

@@ -5,6 +5,7 @@
 
 const Logger = require('core/interfaces/Logger');
 const IonError = require('core/IonError');
+const {t} = require('core/i18n');
 
 /**
  * @param {{}} scope
@@ -25,10 +26,10 @@ module.exports = function (scope, err, res, userMsg) {
   }
 
   let errData = {
-    msg: err instanceof Error ? err.message : err
+    msg: err instanceof Error ? err.getMessage(res.locals.lang) : err
   };
   if (typeof userMsg === 'boolean' && userMsg && !err.code) {
-    errData.msg = 'Внутренняя ошибка сервера.';
+    errData.msg = t('Internal server error.');
   } else if (err instanceof IonError) {
     errData.code = err.code;
     errData.params = err.params;

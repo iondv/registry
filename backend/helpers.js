@@ -82,7 +82,7 @@ module.exports = function (app, config) {
   };
 
   app.locals.getFieldCommands = function (field) {
-    return Array.isArray(field.commands) ? field.commands : getDefaultFieldCommands(field.type);
+    return Array.isArray(field.commands) ? field.commands : getDefaultFieldCommands(field.type, app.locals.lang);
   };
   
   app.locals.yandexGeoApiKey = config && config.yandexGeoApiKey;
