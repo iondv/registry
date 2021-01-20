@@ -50,14 +50,14 @@ module.exports = function (req, res) {
           return pnf(req, res);
         }
 
+        let locales = new locale.Locales(req.headers['accept-language']);
+        let lang = locales[0] ? locales[0].language : 'ru';
+        
         let dummy = {
           name: 'ExportParams',
           caption: t('Export parameters', {lang}),
           properties: []
         };
-
-        let locales = new locale.Locales(req.headers['accept-language']);
-        let lang = locales[0] ? locales[0].language : 'ru';
 
         let data = {};
         let attrPermissions = {};
