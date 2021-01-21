@@ -3,19 +3,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-21 05:37+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2021-01-21 06:08+0000\n"
+"PO-Revision-Date: 2021-01-21 06:07+0000\n"
+"Last-Translator: allys <allys@live.ru>\n"
+"Language-Team: Russian <http://weblate.iondv.com/projects/iondv-framework/"
+"registry/ru/>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 3.11.2\n"
 
 #: backend/ConcurencyChecker.js:15 backend/UserFilters.js:17
 msgid "Data source not specified"
@@ -1067,7 +1070,7 @@ msgstr ""
 
 #: strings/frontend-scripts.js:198
 msgid "Access denied!"
-msgstr ""
+msgstr "Доступ запрещен!"
 
 #: strings/frontend-scripts.js:199
 msgid "Data fetch error."
