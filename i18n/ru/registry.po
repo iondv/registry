@@ -1,0 +1,1578 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-21 02:08+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: actions/CreateHandler.js:48
+#, javascript-format
+msgid "New %s created."
+msgstr ""
+
+#: actions/DeleteHandler.js:45
+#, javascript-format
+msgid "Failed to delete object %s: %s"
+msgstr ""
+
+#: actions/DeleteHandler.js:54
+msgid "Some objects were not deleted."
+msgstr ""
+
+#: actions/DeleteHandler.js:55
+msgid "All objects where deleted."
+msgstr ""
+
+#: actions/DeleteHandler.js:59
+msgid "Nothing to delete!"
+msgstr ""
+
+#: actions/SaveHandler.js:26
+msgid "Object saved."
+msgstr ""
+
+#: backend/ConcurencyChecker.js:15 backend/UserFilters.js:17
+msgid "Data source not specified"
+msgstr ""
+
+#: backend/ExportManager.js:231
+msgid "Data for export not found!"
+msgstr ""
+
+#: backend/ExportManager.js:396
+msgid "User not found."
+msgstr ""
+
+#: backend/ExportManager.js:419
+msgid "Export configuration not found."
+msgstr ""
+
+#: backend/ExportManager.js:495
+msgid "File not found in remote storage."
+msgstr ""
+
+#: backend/UserFilters.js:33 backend/UserFilters.js:79
+#: backend/UserFilters.js:115 backend/UserFilters.js:165
+msgid "Not enough data"
+msgstr ""
+
+#: backend/apiError.js:32 backend/error.js:29
+msgid "Internal server error."
+msgstr ""
+
+#: backend/items.js:218
+#, javascript-format
+msgid "Invalid schedule value assigned to attribute %s"
+msgstr ""
+
+#: backend/items.js:577
+#, javascript-format
+msgid "Collection attribute %s not found"
+msgstr ""
+
+#: backend/items.js:585
+#, javascript-format
+msgid "Class of elements of collection %s not found."
+msgstr ""
+
+#: backend/items.js:741
+msgid "Saved object does not fit conditions of selection list!"
+msgstr ""
+
+#: backend/items.js:1006
+msgid "Block owner not found."
+msgstr ""
+
+#: backend/respond.js:15
+msgid "Module DI-container not found"
+msgstr ""
+
+#: backend/respond.js:21
+#, javascript-format
+msgid "Required component %s not found"
+msgstr ""
+
+#: backend/viewmodels.js:79 backend/viewmodels.js:133 backend/viewmodels.js:154
+#: backend/viewmodels.js:270 strings/templates-default.js:136
+#: strings/templates-default.js:184
+#: view/default/templates/view/collection.ejs:164
+msgid "Create"
+msgstr ""
+
+#: backend/viewmodels.js:91 backend/viewmodels.js:137 backend/viewmodels.js:158
+#: strings/frontend-scripts.js:96 strings/templates-default.js:23
+#: strings/templates-default.js:137 strings/templates-default.js:156
+#: strings/templates-default.js:188
+#: view/default/templates/view/collection.ejs:167
+msgid "Edit"
+msgstr ""
+
+#: backend/viewmodels.js:103 strings/templates-default.js:20
+#: strings/templates-default.js:138
+#: view/default/templates/view/collection.ejs:170
+msgid "Delete"
+msgstr ""
+
+#: backend/viewmodels.js:129 strings/templates-default.js:56
+#: strings/templates-default.js:135
+msgid "Add"
+msgstr ""
+
+#: backend/viewmodels.js:142 strings/templates-default.js:26
+msgid "Remove"
+msgstr ""
+
+#: backend/viewmodels.js:150 strings/templates-default.js:169
+#: strings/templates-default.js:186
+msgid "Select"
+msgstr ""
+
+#: backend/viewmodels.js:163
+msgid "Clear"
+msgstr ""
+
+#: backend/viewmodels.js:240 strings/templates-default.js:14
+#: strings/templates-default.js:24 strings/templates-default.js:82
+#: strings/templates-default.js:154 strings/templates-default.js:189
+#: strings/templates-default.js:200
+msgid "Save"
+msgstr ""
+
+#: backend/viewmodels.js:391
+#, javascript-format
+msgid "List grouping attribute \"%s\" not found in class \"%s\"."
+msgstr ""
+
+#: strings/frontend-scripts.js:4
+msgid "Recent objects"
+msgstr ""
+
+#: strings/frontend-scripts.js:5
+msgid "Found menu items"
+msgstr ""
+
+#: strings/frontend-scripts.js:6
+msgid "Recent menu items"
+msgstr ""
+
+#: strings/frontend-scripts.js:7
+msgid "CryptoPro plugin is not available."
+msgstr ""
+
+#: strings/frontend-scripts.js:8
+msgid "Failed to open certificates storage!"
+msgstr ""
+
+#: strings/frontend-scripts.js:9
+msgid "Failed to close certificates storage!"
+msgstr ""
+
+#: strings/frontend-scripts.js:10
+#, javascript-format
+msgid "Inapropriate data obtained for signing: '%contentType'"
+msgstr ""
+
+#: strings/frontend-scripts.js:11
+msgid "Digital sign plugin not loaded"
+msgstr ""
+
+#: strings/frontend-scripts.js:12
+msgid "Certificate not found!"
+msgstr ""
+
+#: strings/frontend-scripts.js:13
+msgid "No certificates for signing!"
+msgstr ""
+
+#: strings/frontend-scripts.js:14
+msgid "Failed to get data for signing!"
+msgstr ""
+
+#: strings/frontend-scripts.js:15
+msgid "Failed to sign data. Signing module is busy."
+msgstr ""
+
+#: strings/frontend-scripts.js:16
+#, javascript-format
+msgid "Signature sending failed, error code: '%status'"
+msgstr ""
+
+#: strings/frontend-scripts.js:17
+msgid "Signature sending failed: invalid response type '%type'"
+msgstr ""
+
+#: strings/frontend-scripts.js:18
+msgid "Signature sending failed: server responded '%message'"
+msgstr ""
+
+#: strings/frontend-scripts.js:19
+msgid "Failed to obtain certificate object!"
+msgstr ""
+
+#: strings/frontend-scripts.js:20
+msgid "Signing failed!"
+msgstr ""
+
+#: strings/frontend-scripts.js:21
+msgid "Failed to get certificate!"
+msgstr ""
+
+#: strings/frontend-scripts.js:22
+msgid "Mb"
+msgstr ""
+
+#: strings/frontend-scripts.js:23
+msgid "Kb"
+msgstr ""
+
+#: strings/frontend-scripts.js:24
+msgid "byte"
+msgstr ""
+
+#: strings/frontend-scripts.js:25
+msgid "Wait..."
+msgstr ""
+
+#: strings/frontend-scripts.js:26
+msgid "Search:"
+msgstr ""
+
+#: strings/frontend-scripts.js:27
+msgid "Show by _MENU_"
+msgstr ""
+
+#: strings/frontend-scripts.js:28
+msgid "Records from _START_ to _END_ of _TOTAL_ records"
+msgstr ""
+
+#: strings/frontend-scripts.js:29
+msgid "Records from 0 to 0 of 0 records"
+msgstr ""
+
+#: strings/frontend-scripts.js:30
+msgid "(total _MAX_)"
+msgstr ""
+
+#: strings/frontend-scripts.js:31
+msgid " "
+msgstr ""
+
+#: strings/frontend-scripts.js:32
+msgid "Loading..."
+msgstr ""
+
+#: strings/frontend-scripts.js:33
+msgid "No data."
+msgstr ""
+
+#: strings/frontend-scripts.js:34
+msgid "Table has no data"
+msgstr ""
+
+#: strings/frontend-scripts.js:35
+msgid "<<"
+msgstr ""
+
+#: strings/frontend-scripts.js:36
+msgid "<"
+msgstr ""
+
+#: strings/frontend-scripts.js:37
+msgid ">"
+msgstr ""
+
+#: strings/frontend-scripts.js:38
+msgid ">>"
+msgstr ""
+
+#: strings/frontend-scripts.js:39
+msgid ": activate for sorting by ascending order"
+msgstr ""
+
+#: strings/frontend-scripts.js:40
+msgid "Minimum file size - {limit}"
+msgstr ""
+
+#: strings/frontend-scripts.js:41
+msgid "Maximum file size - {limit}"
+msgstr ""
+
+#: strings/frontend-scripts.js:42
+msgid "Allowed only: {extensions}"
+msgstr ""
+
+#: strings/frontend-scripts.js:43
+msgid "Allowed only: {mimeTypes}"
+msgstr ""
+
+#: strings/frontend-scripts.js:44
+msgid "File is not an image."
+msgstr ""
+
+#: strings/frontend-scripts.js:45
+msgid "Max height - {limit} px."
+msgstr ""
+
+#: strings/frontend-scripts.js:46
+msgid "Max width - {limit} px."
+msgstr ""
+
+#: strings/frontend-scripts.js:47
+msgid "Min height - {limit} px."
+msgstr ""
+
+#: strings/frontend-scripts.js:48
+msgid "Min width - {limit} px."
+msgstr ""
+
+#: strings/frontend-scripts.js:49
+msgid "Too many files."
+msgstr ""
+
+#: strings/frontend-scripts.js:50
+msgid "This file is already uploaded."
+msgstr ""
+
+#: strings/frontend-scripts.js:51
+msgid "Sunday"
+msgstr ""
+
+#: strings/frontend-scripts.js:52
+msgid "Monday"
+msgstr ""
+
+#: strings/frontend-scripts.js:53
+msgid "Tuesday"
+msgstr ""
+
+#: strings/frontend-scripts.js:54
+msgid "Wednesday"
+msgstr ""
+
+#: strings/frontend-scripts.js:55
+msgid "Thursday"
+msgstr ""
+
+#: strings/frontend-scripts.js:56
+msgid "Friday"
+msgstr ""
+
+#: strings/frontend-scripts.js:57
+msgid "Saturday"
+msgstr ""
+
+#: strings/frontend-scripts.js:58
+msgid "Sun"
+msgstr ""
+
+#: strings/frontend-scripts.js:59
+msgid "Mon"
+msgstr ""
+
+#: strings/frontend-scripts.js:60
+msgid "Tue"
+msgstr ""
+
+#: strings/frontend-scripts.js:61
+msgid "Wed"
+msgstr ""
+
+#: strings/frontend-scripts.js:62
+msgid "Thu"
+msgstr ""
+
+#: strings/frontend-scripts.js:63
+msgid "Fri"
+msgstr ""
+
+#: strings/frontend-scripts.js:64
+msgid "Sat"
+msgstr ""
+
+#: strings/frontend-scripts.js:65 strings/templates-default.js:98
+msgid "Su"
+msgstr ""
+
+#: strings/frontend-scripts.js:66 strings/templates-default.js:92
+msgid "Mo"
+msgstr ""
+
+#: strings/frontend-scripts.js:67 strings/templates-default.js:93
+msgid "Tu"
+msgstr ""
+
+#: strings/frontend-scripts.js:68 strings/templates-default.js:94
+msgid "We"
+msgstr ""
+
+#: strings/frontend-scripts.js:69 strings/templates-default.js:95
+msgid "Th"
+msgstr ""
+
+#: strings/frontend-scripts.js:70 strings/templates-default.js:96
+msgid "Fr"
+msgstr ""
+
+#: strings/frontend-scripts.js:71 strings/templates-default.js:97
+msgid "Sa"
+msgstr ""
+
+#: strings/frontend-scripts.js:72 strings/templates-default.js:29
+msgid "January"
+msgstr ""
+
+#: strings/frontend-scripts.js:73
+msgid "Februray"
+msgstr ""
+
+#: strings/frontend-scripts.js:74 strings/templates-default.js:31
+msgid "March"
+msgstr ""
+
+#: strings/frontend-scripts.js:75 strings/templates-default.js:32
+msgid "April"
+msgstr ""
+
+#: strings/frontend-scripts.js:76 strings/frontend-scripts.js:88
+#: strings/templates-default.js:33
+msgid "May"
+msgstr ""
+
+#: strings/frontend-scripts.js:77 strings/templates-default.js:34
+msgid "June"
+msgstr ""
+
+#: strings/frontend-scripts.js:78 strings/templates-default.js:35
+msgid "July"
+msgstr ""
+
+#: strings/frontend-scripts.js:79 strings/templates-default.js:36
+msgid "August"
+msgstr ""
+
+#: strings/frontend-scripts.js:80 strings/templates-default.js:37
+msgid "September"
+msgstr ""
+
+#: strings/frontend-scripts.js:81 strings/templates-default.js:38
+msgid "October"
+msgstr ""
+
+#: strings/frontend-scripts.js:82 strings/templates-default.js:39
+msgid "November"
+msgstr ""
+
+#: strings/frontend-scripts.js:83 strings/templates-default.js:40
+msgid "December"
+msgstr ""
+
+#: strings/frontend-scripts.js:84
+msgid "Jan"
+msgstr ""
+
+#: strings/frontend-scripts.js:85
+msgid "Feb"
+msgstr ""
+
+#: strings/frontend-scripts.js:86
+msgid "Mar"
+msgstr ""
+
+#: strings/frontend-scripts.js:87
+msgid "Apr"
+msgstr ""
+
+#: strings/frontend-scripts.js:89
+msgid "Jun"
+msgstr ""
+
+#: strings/frontend-scripts.js:90
+msgid "Jul"
+msgstr ""
+
+#: strings/frontend-scripts.js:91
+msgid "Aug"
+msgstr ""
+
+#: strings/frontend-scripts.js:92
+msgid "Sen"
+msgstr ""
+
+#: strings/frontend-scripts.js:93
+msgid "Oct"
+msgstr ""
+
+#: strings/frontend-scripts.js:94
+msgid "Nov"
+msgstr ""
+
+#: strings/frontend-scripts.js:95
+msgid "Dec"
+msgstr ""
+
+#: strings/frontend-scripts.js:97
+msgid "Delete event"
+msgstr ""
+
+#: strings/frontend-scripts.js:98
+msgid "Delete schedule"
+msgstr ""
+
+#: strings/frontend-scripts.js:99
+msgid "Bad event setup"
+msgstr ""
+
+#: strings/frontend-scripts.js:100 strings/frontend-scripts.js:101
+#: strings/frontend-scripts.js:102
+msgid "Each"
+msgstr ""
+
+#: strings/frontend-scripts.js:103
+msgid "Eeach"
+msgstr ""
+
+#: strings/frontend-scripts.js:104 strings/frontend-scripts.js:105
+#: strings/frontend-scripts.js:106
+msgid "Excluding each"
+msgstr ""
+
+#: strings/frontend-scripts.js:107 strings/frontend-scripts.js:108
+msgid " year"
+msgstr ""
+
+#: strings/frontend-scripts.js:109
+msgid " years"
+msgstr ""
+
+#: strings/frontend-scripts.js:110
+msgid "%s %f, %m1 %w, in %m2"
+msgstr ""
+
+#: strings/frontend-scripts.js:111
+#, javascript-format
+msgid "Excluding %s"
+msgstr ""
+
+#: strings/frontend-scripts.js:112
+#, javascript-format
+msgid ", if %d"
+msgstr ""
+
+#: strings/frontend-scripts.js:113
+msgid "%s %m1, %d day of %w, in %m2"
+msgstr ""
+
+#: strings/frontend-scripts.js:114
+msgid "%s %d day of %w, in %m"
+msgstr ""
+
+#: strings/frontend-scripts.js:115
+msgid "%s %d, in %m"
+msgstr ""
+
+#: strings/frontend-scripts.js:116
+msgid "%s day, in %m"
+msgstr ""
+
+#: strings/frontend-scripts.js:117
+msgid "%s hour, on %min minute and %sec second"
+msgstr ""
+
+#: strings/frontend-scripts.js:118
+#, javascript-format
+msgid "%s minute on %sec second"
+msgstr ""
+
+#: strings/frontend-scripts.js:119
+msgid "during"
+msgstr ""
+
+#: strings/frontend-scripts.js:120
+msgid " h"
+msgstr ""
+
+#: strings/frontend-scripts.js:121
+msgid " m"
+msgstr ""
+
+#: strings/frontend-scripts.js:122
+msgid " s"
+msgstr ""
+
+#: strings/frontend-scripts.js:123
+msgid "Import geo-json to map?"
+msgstr ""
+
+#: strings/frontend-scripts.js:124
+msgid "Delete all"
+msgstr ""
+
+#: strings/frontend-scripts.js:125
+msgid "Delete all objects?"
+msgstr ""
+
+#: strings/frontend-scripts.js:126
+msgid "Center by objects"
+msgstr ""
+
+#: strings/frontend-scripts.js:127
+msgid "Invalid object JSON"
+msgstr ""
+
+#: strings/frontend-scripts.js:128
+msgid "Unknown geometry type"
+msgstr ""
+
+#: strings/frontend-scripts.js:129
+msgid "Invalid geo json"
+msgstr ""
+
+#: strings/frontend-scripts.js:130
+msgid "Mark"
+msgstr ""
+
+#: strings/frontend-scripts.js:131
+msgid "Line"
+msgstr ""
+
+#: strings/frontend-scripts.js:132
+msgid "Polygon"
+msgstr ""
+
+#: strings/frontend-scripts.js:133
+msgid "Circle"
+msgstr ""
+
+#: strings/frontend-scripts.js:134
+msgid "Coordinates&nbsp&nbsp"
+msgstr ""
+
+#: strings/frontend-scripts.js:135
+msgid "Set"
+msgstr ""
+
+#: strings/frontend-scripts.js:136
+msgid "Ymap: Invalid geo coords"
+msgstr ""
+
+#: strings/frontend-scripts.js:137
+msgid "Warning: Host protocol is secure. Geojson validation is not perfomed"
+msgstr ""
+
+#: strings/frontend-scripts.js:138
+msgid "created"
+msgstr ""
+
+#: strings/frontend-scripts.js:139
+msgid "edited"
+msgstr ""
+
+#: strings/frontend-scripts.js:140
+msgid "Attribute"
+msgstr ""
+
+#: strings/frontend-scripts.js:141
+msgid "New value"
+msgstr ""
+
+#: strings/frontend-scripts.js:142
+msgid "by user"
+msgstr ""
+
+#: strings/frontend-scripts.js:143
+msgid ""
+"Object was opened directly, there is no source list. Go to <a "
+"href='/'><b>default page</b></a>."
+msgstr ""
+
+#: strings/frontend-scripts.js:144
+msgid "Unsaved changes will be lost. Refresh?"
+msgstr ""
+
+#: strings/frontend-scripts.js:145
+msgid "%sub, issued on %issue, valid from %d1 to %d2"
+msgstr ""
+
+#: strings/frontend-scripts.js:146
+msgid "Failed to load signing plugin."
+msgstr ""
+
+#: strings/frontend-scripts.js:147
+msgid "Workflow"
+msgstr ""
+
+#: strings/frontend-scripts.js:148 strings/frontend-scripts.js:196
+msgid "Are you sure?"
+msgstr ""
+
+#: strings/frontend-scripts.js:149 strings/frontend-scripts.js:195
+msgid "Delete object?"
+msgstr ""
+
+#: strings/frontend-scripts.js:150
+msgid "Signing error"
+msgstr ""
+
+#: strings/frontend-scripts.js:151
+msgid "Action signed!"
+msgstr ""
+
+#: strings/frontend-scripts.js:152
+msgid "Crypto Pro failed to sign data. Check license please."
+msgstr ""
+
+#: strings/frontend-scripts.js:153
+msgid "Error"
+msgstr ""
+
+#: strings/frontend-scripts.js:154
+msgid "Done!"
+msgstr ""
+
+#: strings/frontend-scripts.js:155
+msgid "Object created"
+msgstr ""
+
+#: strings/frontend-scripts.js:156
+msgid "Field is required"
+msgstr ""
+
+#: strings/frontend-scripts.js:157
+msgid "Fix errors in form"
+msgstr ""
+
+#: strings/frontend-scripts.js:158
+msgid "<b>Object is used by user <i>%name</i>. Form is read only mode.</b><br>"
+msgstr ""
+
+#: strings/frontend-scripts.js:159
+msgid "Signed data was changed."
+msgstr ""
+
+#: strings/frontend-scripts.js:160
+msgid "Check sign"
+msgstr ""
+
+#: strings/frontend-scripts.js:161 strings/templates-default.js:170
+msgid "Subject"
+msgstr ""
+
+#: strings/frontend-scripts.js:162 strings/templates-default.js:171
+msgid "Provider"
+msgstr ""
+
+#: strings/frontend-scripts.js:163 strings/templates-default.js:172
+msgid "Valid from"
+msgstr ""
+
+#: strings/frontend-scripts.js:164 strings/templates-default.js:173
+msgid "Valid to"
+msgstr ""
+
+#: strings/frontend-scripts.js:165 strings/templates-default.js:174
+msgid "Serial"
+msgstr ""
+
+#: strings/frontend-scripts.js:166
+msgid "Signature is invalid!"
+msgstr ""
+
+#: strings/frontend-scripts.js:167
+msgid "Signature is valid"
+msgstr ""
+
+#: strings/frontend-scripts.js:168
+msgid "CryptoPRO plugin not installed"
+msgstr ""
+
+#: strings/frontend-scripts.js:169
+msgid "Inaproperiate value (does not match input mask)"
+msgstr ""
+
+#: strings/frontend-scripts.js:170
+msgid "Uploading to server..."
+msgstr ""
+
+#: strings/frontend-scripts.js:171
+msgid "Uploaded"
+msgstr ""
+
+#: strings/frontend-scripts.js:172
+msgid "File uploading error"
+msgstr ""
+
+#: strings/frontend-scripts.js:173
+msgid "Delete uploaded file?"
+msgstr ""
+
+#: strings/frontend-scripts.js:174
+msgid "Delete object from reference?"
+msgstr ""
+
+#: strings/frontend-scripts.js:175
+msgid "No data"
+msgstr ""
+
+#: strings/frontend-scripts.js:176
+msgid "No results found for current clarification conditions."
+msgstr ""
+
+#: strings/frontend-scripts.js:177
+msgid "RefShortView: Unknown attribute type: %type"
+msgstr ""
+
+#: strings/frontend-scripts.js:178
+msgid "Schedule not filled."
+msgstr ""
+
+#: strings/frontend-scripts.js:179
+msgid " (break %time)"
+msgstr ""
+
+#: strings/frontend-scripts.js:180
+msgid "Week schedule"
+msgstr ""
+
+#: strings/frontend-scripts.js:181
+msgid " from %h1:%m1 to %h2:%m2"
+msgstr ""
+
+#: strings/frontend-scripts.js:182 strings/templates-default.js:141
+#: strings/templates-default.js:197
+msgid "Select filter..."
+msgstr ""
+
+#: strings/frontend-scripts.js:183
+msgid "= equal"
+msgstr ""
+
+#: strings/frontend-scripts.js:184
+msgid "before"
+msgstr ""
+
+#: strings/frontend-scripts.js:185
+msgid "less"
+msgstr ""
+
+#: strings/frontend-scripts.js:186
+msgid "after"
+msgstr ""
+
+#: strings/frontend-scripts.js:187
+msgid "more"
+msgstr ""
+
+#: strings/frontend-scripts.js:188
+msgid " or equal"
+msgstr ""
+
+#: strings/frontend-scripts.js:189
+msgid "Filter"
+msgstr ""
+
+#: strings/frontend-scripts.js:190
+msgid "Required field"
+msgstr ""
+
+#: strings/frontend-scripts.js:191
+msgid "Value does not match input mask"
+msgstr ""
+
+#: strings/frontend-scripts.js:192
+msgid "Delete selected object from reference?"
+msgstr ""
+
+#: strings/frontend-scripts.js:193
+msgid "Remove object from collection?"
+msgstr ""
+
+#: strings/frontend-scripts.js:194
+msgid "Error when removing object."
+msgstr ""
+
+#: strings/frontend-scripts.js:197
+msgid "List initialization error."
+msgstr ""
+
+#: strings/frontend-scripts.js:198
+msgid "Access denied!"
+msgstr ""
+
+#: strings/frontend-scripts.js:199
+msgid "Data fetch error."
+msgstr ""
+
+#: strings/frontend-scripts.js:200
+msgid ""
+"<p>Object selected by reference '%cap' is linked to <a href='%href'>another "
+"object</a>.</p><p>Are you sure, you want to break this link?</p>"
+msgstr ""
+
+#: strings/frontend-scripts.js:201
+msgid ""
+"<p>Object selected by reference '%cap' is linked to <a href='%href'>%name</"
+"a>.</p><p>Are you sure, you want to break this link?</p>"
+msgstr ""
+
+#: strings/frontend-scripts.js:202
+msgid "Warning!"
+msgstr ""
+
+#: strings/frontend-scripts.js:203
+msgid "Yes"
+msgstr ""
+
+#: strings/frontend-scripts.js:204
+msgid "No"
+msgstr ""
+
+#: strings/frontend-scripts.js:205
+msgid "Error on object fetch"
+msgstr ""
+
+#: strings/frontend-scripts.js:206
+msgid "Error of object sorting"
+msgstr ""
+
+#: strings/frontend-scripts.js:207
+msgid "Error og object deletion"
+msgstr ""
+
+#: strings/frontend-scripts.js:208
+msgid "Remove selected objects from collection?"
+msgstr ""
+
+#: strings/frontend-scripts.js:209
+msgid "Delete selected objects?"
+msgstr ""
+
+#: strings/frontend-scripts.js:210
+#, javascript-format
+msgid "Collection initialization error: %cap"
+msgstr ""
+
+#: strings/templates-default.js:4 strings/templates-default.js:9
+msgid "Home"
+msgstr ""
+
+#: strings/templates-default.js:5
+msgid "Login"
+msgstr ""
+
+#: strings/templates-default.js:6
+msgid "Password"
+msgstr ""
+
+#: strings/templates-default.js:7
+msgid "Password repeat"
+msgstr ""
+
+#: strings/templates-default.js:8 strings/templates-default.js:12
+msgid "Sign in"
+msgstr ""
+
+#: strings/templates-default.js:10
+msgid "Signing in"
+msgstr ""
+
+#: strings/templates-default.js:11 strings/templates-default.js:17
+msgid "Sign up"
+msgstr ""
+
+#: strings/templates-default.js:13
+msgid "User %name profile"
+msgstr ""
+
+#: strings/templates-default.js:15
+msgid "Back to application"
+msgstr ""
+
+#: strings/templates-default.js:16
+msgid "Signing up"
+msgstr ""
+
+#: strings/templates-default.js:18
+msgid "Setting password for user %name"
+msgstr ""
+
+#: strings/templates-default.js:19 strings/templates-default.js:117
+msgid "Change password"
+msgstr ""
+
+#: strings/templates-default.js:21
+msgid "Up"
+msgstr ""
+
+#: strings/templates-default.js:22
+msgid "Down"
+msgstr ""
+
+#: strings/templates-default.js:25 strings/templates-default.js:57
+#: strings/templates-default.js:168 strings/templates-default.js:183
+#: strings/templates-default.js:190
+msgid "Cancel"
+msgstr ""
+
+#: strings/templates-default.js:27
+msgid "File uploaded"
+msgstr ""
+
+#: strings/templates-default.js:28
+msgid "Image uploaded"
+msgstr ""
+
+#: strings/templates-default.js:30
+msgid "February"
+msgstr ""
+
+#: strings/templates-default.js:41
+msgid "Year"
+msgstr ""
+
+#: strings/templates-default.js:42
+msgid "Schedule"
+msgstr ""
+
+#: strings/templates-default.js:43
+msgid "Description"
+msgstr ""
+
+#: strings/templates-default.js:44
+msgid "Event"
+msgstr ""
+
+#: strings/templates-default.js:45
+msgid "Events"
+msgstr ""
+
+#: strings/templates-default.js:46
+msgid "Type"
+msgstr ""
+
+#: strings/templates-default.js:47
+msgid "Exclusion"
+msgstr ""
+
+#: strings/templates-default.js:48
+msgid "Exclusions"
+msgstr ""
+
+#: strings/templates-default.js:49
+msgid "Exception"
+msgstr ""
+
+#: strings/templates-default.js:50
+msgid "Month"
+msgstr ""
+
+#: strings/templates-default.js:51
+msgid "Weekday"
+msgstr ""
+
+#: strings/templates-default.js:52
+msgid "Day"
+msgstr ""
+
+#: strings/templates-default.js:53
+msgid "Hour"
+msgstr ""
+
+#: strings/templates-default.js:54
+msgid "Minute"
+msgstr ""
+
+#: strings/templates-default.js:55
+msgid "Second"
+msgstr ""
+
+#: strings/templates-default.js:58
+msgid "Save event"
+msgstr ""
+
+#: strings/templates-default.js:59
+msgid "Save schedule"
+msgstr ""
+
+#: strings/templates-default.js:60 strings/templates-default.js:89
+msgid "Date"
+msgstr ""
+
+#: strings/templates-default.js:61
+msgid "Date and time"
+msgstr ""
+
+#: strings/templates-default.js:62
+msgid "Open"
+msgstr ""
+
+#: strings/templates-default.js:63 strings/templates-default.js:124
+#: view/default/templates/attrs/_file-uploader.ejs:26
+#: view/default/templates/attrs/_multifile.ejs:52
+msgid "Delete file"
+msgstr ""
+
+#: strings/templates-default.js:64
+msgid "Drag file here"
+msgstr ""
+
+#: strings/templates-default.js:65
+msgid "or find file in folder"
+msgstr ""
+
+#: strings/templates-default.js:66
+msgid "Too many files"
+msgstr ""
+
+#: strings/templates-default.js:67
+msgid "File"
+msgstr ""
+
+#: strings/templates-default.js:68
+msgid "Waiting for check..."
+msgstr ""
+
+#: strings/templates-default.js:69
+msgid "Create geo-objects"
+msgstr ""
+
+#: strings/templates-default.js:70
+msgid "Edit geo-objects"
+msgstr ""
+
+#: strings/templates-default.js:71
+msgid "Geo-objects constructor"
+msgstr ""
+
+#: strings/templates-default.js:72
+msgid "Finish"
+msgstr ""
+
+#: strings/templates-default.js:73 strings/templates-default.js:130
+#: strings/templates-default.js:161
+msgid "Export"
+msgstr ""
+
+#: strings/templates-default.js:74
+msgid "Map to text"
+msgstr ""
+
+#: strings/templates-default.js:75
+msgid "Import"
+msgstr ""
+
+#: strings/templates-default.js:76
+msgid "Text to map"
+msgstr ""
+
+#: strings/templates-default.js:77
+msgid "Data in GEO-JSON format"
+msgstr ""
+
+#: strings/templates-default.js:78 strings/templates-default.js:87
+msgid "Invalid data..."
+msgstr ""
+
+#: strings/templates-default.js:79
+msgid "Create coordinates"
+msgstr ""
+
+#: strings/templates-default.js:80
+msgid "Change coordinates"
+msgstr ""
+
+#: strings/templates-default.js:81
+msgid "Set coordinates"
+msgstr ""
+
+#: strings/templates-default.js:83
+msgid "Enter address..."
+msgstr ""
+
+#: strings/templates-default.js:84
+msgid "Cordinates not found"
+msgstr ""
+
+#: strings/templates-default.js:85
+msgid "Enter data in GEO-JSON format"
+msgstr ""
+
+#: strings/templates-default.js:86
+msgid "Check and display in GEO-JSON"
+msgstr ""
+
+#: strings/templates-default.js:88
+msgid "Drag files here"
+msgstr ""
+
+#: strings/templates-default.js:90
+msgid "Value inacessible"
+msgstr ""
+
+#: strings/templates-default.js:91
+msgid "Object will be linked automatically"
+msgstr ""
+
+#: strings/templates-default.js:99
+msgid "Five days"
+msgstr ""
+
+#: strings/templates-default.js:100
+msgid "Daily"
+msgstr ""
+
+#: strings/templates-default.js:101
+msgid "Work time"
+msgstr ""
+
+#: strings/templates-default.js:102
+msgid "Break"
+msgstr ""
+
+#: strings/templates-default.js:103
+msgid "Accept"
+msgstr ""
+
+#: strings/templates-default.js:104 strings/templates-default.js:129
+#: strings/templates-default.js:132 strings/templates-default.js:139
+#: strings/templates-default.js:162 strings/templates-default.js:175
+#: strings/templates-default.js:177 strings/templates-default.js:187
+#: strings/templates-default.js:193
+#: view/default/templates/view/collection.ejs:173
+#: view/default/templates/view/list.ejs:161
+#: view/default/templates/attrs/_calendar.ejs:42
+msgid "Close"
+msgstr ""
+
+#: strings/templates-default.js:105
+msgid "Access denied"
+msgstr ""
+
+#: strings/templates-default.js:106
+msgid "Sorry, but access to this resource is restricted."
+msgstr ""
+
+#: strings/templates-default.js:107
+msgid "Page not found"
+msgstr ""
+
+#: strings/templates-default.js:108
+msgid "We could not find the page you are looking for."
+msgstr ""
+
+#: strings/templates-default.js:109
+msgid "Server error"
+msgstr ""
+
+#: strings/templates-default.js:110
+msgid "Something went wrong"
+msgstr ""
+
+#: strings/templates-default.js:111
+msgid "We are working on fixing this issue right now."
+msgstr ""
+
+#: strings/templates-default.js:112 strings/templates-default.js:120
+msgid "Search..."
+msgstr ""
+
+#: strings/templates-default.js:113
+msgid "Version"
+msgstr ""
+
+#: strings/templates-default.js:114
+msgid "Copyright"
+msgstr ""
+
+#: strings/templates-default.js:115
+msgid "User avatar"
+msgstr ""
+
+#: strings/templates-default.js:116
+msgid "User profile"
+msgstr ""
+
+#: strings/templates-default.js:118
+msgid "Sign out"
+msgstr ""
+
+#: strings/templates-default.js:119
+msgid "Filters"
+msgstr ""
+
+#: strings/templates-default.js:121
+msgid "Clear search field"
+msgstr ""
+
+#: strings/templates-default.js:122
+msgid "More"
+msgstr ""
+
+#: strings/templates-default.js:123
+msgid "Drag image here"
+msgstr ""
+
+#: strings/templates-default.js:125
+msgid "Sharing"
+msgstr ""
+
+#: strings/templates-default.js:126
+msgid "Link"
+msgstr ""
+
+#: strings/templates-default.js:127
+#: view/default/templates/attrs/_file-uploader.ejs:48
+msgid "External link"
+msgstr ""
+
+#: strings/templates-default.js:128
+#: view/default/templates/attrs/_file-uploader.ejs:52
+msgid "Share link"
+msgstr ""
+
+#: strings/templates-default.js:131
+msgid "Object change log"
+msgstr ""
+
+#: strings/templates-default.js:133 strings/templates-default.js:140
+#: strings/templates-default.js:178 strings/templates-default.js:194
+#: view/default/templates/view/list.ejs:163
+#: view/default/templates/attrs/_dt-object-list.ejs:221
+msgid "Refresh"
+msgstr ""
+
+#: strings/templates-default.js:134
+msgid "Select one object for editiing."
+msgstr ""
+
+#: strings/templates-default.js:142 strings/templates-default.js:203
+msgid "Create filter"
+msgstr ""
+
+#: strings/templates-default.js:143 strings/templates-default.js:204
+msgid "Edit filter"
+msgstr ""
+
+#: strings/templates-default.js:144 strings/templates-default.js:205
+msgid "Reset filter"
+msgstr ""
+
+#: strings/templates-default.js:145
+msgid "Select field..."
+msgstr ""
+
+#: strings/templates-default.js:146
+msgid "Select date..."
+msgstr ""
+
+#: strings/templates-default.js:147
+msgid "Enter number..."
+msgstr ""
+
+#: strings/templates-default.js:148
+msgid "Enter value..."
+msgstr ""
+
+#: strings/templates-default.js:149
+msgid "Add condition"
+msgstr ""
+
+#: strings/templates-default.js:150 strings/templates-default.js:198
+msgid "Apply filter"
+msgstr ""
+
+#: strings/templates-default.js:151
+msgid "To all classes"
+msgstr ""
+
+#: strings/templates-default.js:152
+msgid "Add filter name..."
+msgstr ""
+
+#: strings/templates-default.js:153
+msgid "Save filter"
+msgstr ""
+
+#: strings/templates-default.js:155 strings/templates-default.js:199
+msgid "Delete filter"
+msgstr ""
+
+#: strings/templates-default.js:157
+msgid "max"
+msgstr ""
+
+#: strings/templates-default.js:158
+msgid "min"
+msgstr ""
+
+#: strings/templates-default.js:159
+msgid "equal"
+msgstr ""
+
+#: strings/templates-default.js:160
+msgid "contains"
+msgstr ""
+
+#: strings/templates-default.js:163
+msgid "Failed to start export!"
+msgstr ""
+
+#: strings/templates-default.js:164
+msgid "Creation of object for reference '%prop' of object '%item'"
+msgstr ""
+
+#: strings/templates-default.js:165
+msgid "Creation of object in collection '%prop' of object '%item'"
+msgstr ""
+
+#: strings/templates-default.js:166
+msgid "Select certificate for signing"
+msgstr ""
+
+#: strings/templates-default.js:167
+msgid "View certificate info"
+msgstr ""
+
+#: strings/templates-default.js:176
+msgid "Create more"
+msgstr ""
+
+#: strings/templates-default.js:179
+msgid "Changelog"
+msgstr ""
+
+#: strings/templates-default.js:180
+msgid "Sign status"
+msgstr ""
+
+#: strings/templates-default.js:181
+msgid "Confirm your actions"
+msgstr ""
+
+#: strings/templates-default.js:182
+msgid "Continue"
+msgstr ""
+
+#: strings/templates-default.js:185
+msgid "Submit"
+msgstr ""
+
+#: strings/templates-default.js:191
+msgid "Attribute '%prop' of object '%item' value selection"
+msgstr ""
+
+#: strings/templates-default.js:192
+#: view/default/templates/attrs/_dt-object-list.ejs:193
+#: view/default/templates/attrs/_reference_footer.ejs:65
+msgid "View"
+msgstr ""
+
+#: strings/templates-default.js:195
+msgid "Query syntax"
+msgstr ""
+
+#: strings/templates-default.js:196
+msgid "List filter"
+msgstr ""
+
+#: strings/templates-default.js:201
+msgid "For all classes"
+msgstr ""
+
+#: strings/templates-default.js:202
+msgid "Enter filter name..."
+msgstr ""
+
+#: strings/templates-default.js:206
+msgid ""
+"Create filter by entering query string as follows:<br>`Name` = 'Ivan', where "
+"`Name` is attribute name (selected from dropdown list) and 'Ivan' is a "
+"string value<br>To specify reference value, you can use dereference as "
+"follows `Person`.`Name` = 'Ivan'<br>Several values can be specified with "
+"logical operators<br><li><ul>and - match all values</ul><ul>or - match any "
+"value</ul></li>"
+msgstr ""
+
+#: view/default/templates/changePwd.ejs:35
+msgid "password"
+msgstr ""
+
+#: view/default/templates/changePwd.ejs:42
+msgid "repeat password"
+msgstr ""
+
+#: view/default/templates/changePwd.ejs:76
+msgid "Min password length "
+msgstr ""
+
+#: view/default/templates/changePwd.ejs:76
+#: view/default/templates/register.ejs:144
+msgid "symbols"
+msgstr ""
+
+#: view/default/templates/changePwd.ejs:81
+#: view/default/templates/register.ejs:149
+msgid "Invalid password repeat"
+msgstr ""
+
+#: view/default/templates/register.ejs:138
+msgid "Login field is required"
+msgstr ""
+
+#: view/default/templates/register.ejs:144
+msgid "Min password length is "
+msgstr ""
+
+#: view/default/templates/register.ejs:157
+#: view/default/templates/profile.ejs:167
+msgid "Field "
+msgstr ""
+
+#: view/default/templates/register.ejs:158
+#: view/default/templates/profile.ejs:168
+msgid "is required"
+msgstr ""
+
+#: view/default/templates/view/dashboard-tools.ejs:4
+msgid "Module"
+msgstr ""
+
+#: view/default/templates/attrs/_dt-object-list.ejs:141
+msgid "Create inplace"
+msgstr ""
+
+#: view/default/templates/attrs/_file-uploader.ejs:41
+msgid "Refrence"
+msgstr ""
+
+#: view/default/templates/layout/header.ejs:10
+#: view/default/templates/layout/notifications.ejs:11
+msgid "Notifications"
+msgstr ""
+
+#: view/default/templates/layout/notifications.ejs:17
+msgid "Check all"
+msgstr ""
+
+#: view/default/templates/layout/notifications.ejs:21
+msgid "No new notifications"
+msgstr ""
+
+#: view/default/templates/layout/notifications.ejs:27
+msgid "Load marked as read"
+msgstr ""
+
+#: view/default/templates/layout/notifications.ejs:38
+msgid "Mark as read"
+msgstr ""
