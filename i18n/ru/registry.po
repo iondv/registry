@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-21 04:30+0000\n"
+"POT-Creation-Date: 2021-01-21 05:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,59 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: actions/CreateHandler.js:48
-#, javascript-format
-msgid "New %s created."
-msgstr ""
-
-#: actions/DeleteHandler.js:45
-#, javascript-format
-msgid "Failed to delete object %s: %s"
-msgstr ""
-
-#: actions/DeleteHandler.js:54
-msgid "Some objects were not deleted."
-msgstr ""
-
-#: actions/DeleteHandler.js:55
-msgid "All objects where deleted."
-msgstr ""
-
-#: actions/DeleteHandler.js:59
-msgid "Nothing to delete!"
-msgstr ""
-
-#: actions/SaveHandler.js:26
-msgid "Object saved."
-msgstr ""
-
 #: backend/ConcurencyChecker.js:15 backend/UserFilters.js:17
 msgid "Data source not specified"
-msgstr ""
-
-#: backend/ExportManager.js:231
-msgid "Data for export not found!"
-msgstr ""
-
-#: backend/ExportManager.js:396
-msgid "User not found."
-msgstr ""
-
-#: backend/ExportManager.js:419
-msgid "Export configuration not found."
-msgstr ""
-
-#: backend/ExportManager.js:495
-msgid "File not found in remote storage."
-msgstr ""
-
-#: backend/UserFilters.js:33 backend/UserFilters.js:79
-#: backend/UserFilters.js:115 backend/UserFilters.js:165
-msgid "Not enough data"
-msgstr ""
-
-#: backend/apiError.js:32 backend/error.js:29
-msgid "Internal server error."
 msgstr ""
 
 #: backend/items.js:218
@@ -95,32 +44,43 @@ msgstr ""
 msgid "Block owner not found."
 msgstr ""
 
-#: backend/respond.js:15
-msgid "Module DI-container not found"
+#: backend/ExportManager.js:231
+msgid "Data for export not found!"
 msgstr ""
 
-#: backend/respond.js:21
-#, javascript-format
-msgid "Required component %s not found"
+#: backend/ExportManager.js:396
+msgid "User not found."
+msgstr ""
+
+#: backend/ExportManager.js:419
+msgid "Export configuration not found."
+msgstr ""
+
+#: backend/ExportManager.js:495
+msgid "File not found in remote storage."
+msgstr ""
+
+#: backend/apiError.js:32 backend/error.js:29
+msgid "Internal server error."
 msgstr ""
 
 #: backend/viewmodels.js:79 backend/viewmodels.js:133 backend/viewmodels.js:154
-#: backend/viewmodels.js:270 strings/templates-default.js:136
-#: strings/templates-default.js:184
+#: backend/viewmodels.js:270 dispatcher/controllers/list.js:30
+#: strings/templates-default.js:136 strings/templates-default.js:184
 #: view/default/templates/view/collection.ejs:164
 msgid "Create"
 msgstr ""
 
 #: backend/viewmodels.js:91 backend/viewmodels.js:137 backend/viewmodels.js:158
-#: strings/frontend-scripts.js:96 strings/templates-default.js:23
-#: strings/templates-default.js:137 strings/templates-default.js:156
-#: strings/templates-default.js:188
+#: dispatcher/controllers/list.js:35 strings/frontend-scripts.js:96
+#: strings/templates-default.js:23 strings/templates-default.js:137
+#: strings/templates-default.js:156 strings/templates-default.js:188
 #: view/default/templates/view/collection.ejs:167
 msgid "Edit"
 msgstr ""
 
-#: backend/viewmodels.js:103 strings/templates-default.js:20
-#: strings/templates-default.js:138
+#: backend/viewmodels.js:103 dispatcher/controllers/list.js:40
+#: strings/templates-default.js:20 strings/templates-default.js:138
 #: view/default/templates/view/collection.ejs:170
 msgid "Delete"
 msgstr ""
@@ -153,6 +113,205 @@ msgstr ""
 #: backend/viewmodels.js:391
 #, javascript-format
 msgid "List grouping attribute \"%s\" not found in class \"%s\"."
+msgstr ""
+
+#: backend/UserFilters.js:33 backend/UserFilters.js:79
+#: backend/UserFilters.js:115 backend/UserFilters.js:165
+msgid "Not enough data"
+msgstr ""
+
+#: backend/respond.js:15
+msgid "Module DI-container not found"
+msgstr ""
+
+#: backend/respond.js:21
+#, javascript-format
+msgid "Required component %s not found"
+msgstr ""
+
+#: actions/SaveHandler.js:26
+msgid "Object saved."
+msgstr ""
+
+#: actions/DeleteHandler.js:45
+#, javascript-format
+msgid "Failed to delete object %s: %s"
+msgstr ""
+
+#: actions/DeleteHandler.js:54
+msgid "Some objects were not deleted."
+msgstr ""
+
+#: actions/DeleteHandler.js:55
+msgid "All objects where deleted."
+msgstr ""
+
+#: actions/DeleteHandler.js:59
+msgid "Nothing to delete!"
+msgstr ""
+
+#: actions/CreateHandler.js:48
+#, javascript-format
+msgid "New %s created."
+msgstr ""
+
+#: dispatcher/controllers/export/item.js:88
+#: dispatcher/controllers/export/list.js:93
+msgid "Background job was not started."
+msgstr ""
+
+#: dispatcher/controllers/export/params.js:58
+msgid "Export parameters"
+msgstr ""
+
+#: dispatcher/controllers/export/params.js:160
+msgid "Data export parameters"
+msgstr ""
+
+#: dispatcher/controllers/export/check.js:18
+#: dispatcher/controllers/export/download.js:20
+msgid "Failed to determine class"
+msgstr ""
+
+#: dispatcher/controllers/export/check.js:23
+#: dispatcher/controllers/export/download.js:25
+#, javascript-format
+msgid "Failed to determine exporter by format %s"
+msgstr ""
+
+#: dispatcher/controllers/digisign/processSign.js:30
+#: dispatcher/controllers/digisign/signStatus.js:30
+#: dispatcher/controllers/digisign/getData.js:31
+msgid "Signed data object not found."
+msgstr ""
+
+#: dispatcher/controllers/403.js:23 strings/templates-default.js:105
+msgid "Access denied"
+msgstr ""
+
+#: dispatcher/controllers/api/get.js:50
+#: dispatcher/controllers/api/workflow.js:36
+msgid "Object not found"
+msgstr ""
+
+#: dispatcher/controllers/api/update.js:42
+msgid "Error on object saving"
+msgstr ""
+
+#: dispatcher/controllers/api/filterEditor.js:21
+#: dispatcher/controllers/api/filterEditor.js:50
+#: dispatcher/controllers/api/filterEditor.js:71
+#: dispatcher/controllers/api/filterEditor.js:95
+msgid "Invalid input data"
+msgstr ""
+
+#: dispatcher/controllers/api/createHashtag.js:45
+#: dispatcher/controllers/api/create.js:45
+msgid "Object creation failed."
+msgstr ""
+
+#: dispatcher/controllers/api/collection.js:32
+#: dispatcher/controllers/api/collection.js:90
+#: dispatcher/controllers/api/collection.js:136
+#: dispatcher/controllers/api/collection.js:191
+#: dispatcher/controllers/api/collection.js:284
+msgid "Collection container not found."
+msgstr ""
+
+#: dispatcher/controllers/api/collection.js:102
+msgid "Object to add to collection not found."
+msgstr ""
+
+#: dispatcher/controllers/api/collection.js:107
+#: dispatcher/controllers/api/collection.js:165
+msgid "Done."
+msgstr ""
+
+#: dispatcher/controllers/api/collection.js:130
+msgid "Inaproperiate data for deletion."
+msgstr ""
+
+#: dispatcher/controllers/api/collection.js:155
+msgid "Collection elements not found."
+msgstr ""
+
+#: dispatcher/controllers/api/collection.js:179
+msgid "Invalid request."
+msgstr ""
+
+#: dispatcher/controllers/api/collection.js:197
+#: dispatcher/controllers/api/collection.js:289
+msgid "Collection attribute not found."
+msgstr ""
+
+#: dispatcher/controllers/api/collection.js:201
+#: dispatcher/controllers/api/collection.js:292
+msgid "Sorting options are not defined."
+msgstr ""
+
+#: dispatcher/controllers/api/collection.js:236
+msgid "Collection element not found"
+msgstr ""
+
+#: dispatcher/controllers/api/collection.js:306
+msgid "Collection element specified as first not found."
+msgstr ""
+
+#: dispatcher/controllers/api/collection.js:317
+msgid "Collection element specified as second not found."
+msgstr ""
+
+#: dispatcher/controllers/api/history.js:22
+msgid "Object not found!"
+msgstr ""
+
+#: dispatcher/controllers/api/handle.js:85
+msgid "% action handler not found"
+msgstr ""
+
+#: dispatcher/controllers/api/handle.js:88
+msgid "Action not specified"
+msgstr ""
+
+#: dispatcher/controllers/api/upload.js:99
+#: dispatcher/controllers/api/upload.js:106
+msgid "Failed to accept file."
+msgstr ""
+
+#: dispatcher/controllers/api/upload.js:157
+#: dispatcher/controllers/api/upload.js:195
+#: dispatcher/controllers/api/upload.js:198
+msgid "Failed to accept files."
+msgstr ""
+
+#: dispatcher/controllers/new.js:71
+#, javascript-format
+msgid "Attribute %s not found in class \"%s\"."
+msgstr ""
+
+#: dispatcher/controllers/404.js:23 strings/templates-default.js:107
+msgid "Page not found"
+msgstr ""
+
+#: dispatcher/controllers/dashboard.js:24
+msgid "Dashboard"
+msgstr ""
+
+#: dispatcher/controllers/handle.js:42
+msgid "Action not specified."
+msgstr ""
+
+#: dispatcher/controllers/handle.js:81
+#, javascript-format
+msgid "Handler not found fot action %s"
+msgstr ""
+
+#: dispatcher/controllers/handle.js:86
+msgid "Resource not found"
+msgstr ""
+
+#: dispatcher/controllers/handle.js:89
+msgid "Access denied."
 msgstr ""
 
 #: strings/frontend-scripts.js:4
@@ -1255,16 +1414,8 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: strings/templates-default.js:105
-msgid "Access denied"
-msgstr ""
-
 #: strings/templates-default.js:106
 msgid "Sorry, but access to this resource is restricted."
-msgstr ""
-
-#: strings/templates-default.js:107
-msgid "Page not found"
 msgstr ""
 
 #: strings/templates-default.js:108
@@ -1502,6 +1653,19 @@ msgid ""
 "follows `Person`.`Name` = 'Ivan'<br>Several values can be specified with "
 "logical operators<br><li><ul>and - match all values</ul><ul>or - match any "
 "value</ul></li>"
+msgstr ""
+
+#: strings/errors/web-errors.js:10
+msgid ""
+"Failed to save object. Another %class with the same value of %attr attribute "
+"exists. Use searching or contact the administrator."
+msgstr ""
+
+#: strings/errors/web-errors.js:11
+#, javascript-format
+msgid ""
+"Failed to save object. Another %class with the same value of specified "
+"attributes exists. Use searching or contact the administrator."
 msgstr ""
 
 #: view/default/templates/changePwd.ejs:35
