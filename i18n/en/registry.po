@@ -2,23 +2,20 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-08 08:02+0000\n"
-"PO-Revision-Date: 2021-01-21 06:07+0000\n"
-"Last-Translator: allys <allys@live.ru>\n"
-"Language-Team: Russian <http://weblate.iondv.com/projects/iondv-framework/"
-"registry/ru/>\n"
-"Language: ru\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.11.2\n"
 
 #: backend/ConcurencyChecker.js:15 backend/UserFilters.js:17
 msgid "Data source not specified"
@@ -70,7 +67,7 @@ msgstr ""
 #: backend/viewmodels.js:79 backend/viewmodels.js:133 backend/viewmodels.js:154
 #: backend/viewmodels.js:270 dispatcher/controllers/list.js:30
 #: strings/templates-default.js:136 strings/templates-default.js:184
-#: view/default/templates/view/collection.ejs:164
+#: ./view/default/templates/view/collection.ejs:164
 msgid "Create"
 msgstr ""
 
@@ -78,13 +75,13 @@ msgstr ""
 #: dispatcher/controllers/list.js:35 strings/frontend-scripts.js:96
 #: strings/templates-default.js:23 strings/templates-default.js:137
 #: strings/templates-default.js:156 strings/templates-default.js:188
-#: view/default/templates/view/collection.ejs:167
+#: ./view/default/templates/view/collection.ejs:167
 msgid "Edit"
 msgstr ""
 
 #: backend/viewmodels.js:103 dispatcher/controllers/list.js:40
 #: strings/templates-default.js:20 strings/templates-default.js:138
-#: view/default/templates/view/collection.ejs:170
+#: ./view/default/templates/view/collection.ejs:170
 msgid "Delete"
 msgstr ""
 
@@ -1070,7 +1067,7 @@ msgstr ""
 
 #: strings/frontend-scripts.js:198
 msgid "Access denied!"
-msgstr "Доступ запрещен!"
+msgstr ""
 
 #: strings/frontend-scripts.js:199
 msgid "Data fetch error."
@@ -1084,8 +1081,8 @@ msgstr ""
 
 #: strings/frontend-scripts.js:201
 msgid ""
-"<p>Object selected by reference '%cap' is linked to <a href='%href'>%name</"
-"a>.</p><p>Are you sure, you want to break this link?</p>"
+"<p>Object selected by reference '%cap' is linked to <a "
+"href='%href'>%name</a>.</p><p>Are you sure, you want to break this link?</p>"
 msgstr ""
 
 #: strings/frontend-scripts.js:202
@@ -1280,8 +1277,8 @@ msgid "Open"
 msgstr ""
 
 #: strings/templates-default.js:63 strings/templates-default.js:124
-#: view/default/templates/attrs/_file-uploader.ejs:26
-#: view/default/templates/attrs/_multifile.ejs:52
+#: ./view/default/templates/attrs/_file-uploader.ejs:26
+#: ./view/default/templates/attrs/_multifile.ejs:52
 msgid "Delete file"
 msgstr ""
 
@@ -1411,9 +1408,9 @@ msgstr ""
 #: strings/templates-default.js:162 strings/templates-default.js:175
 #: strings/templates-default.js:177 strings/templates-default.js:187
 #: strings/templates-default.js:193
-#: view/default/templates/view/collection.ejs:173
-#: view/default/templates/view/list.ejs:161
-#: view/default/templates/attrs/_calendar.ejs:42
+#: ./view/default/templates/view/collection.ejs:173
+#: ./view/default/templates/view/list.ejs:161
+#: ./view/default/templates/attrs/_calendar.ejs:42
 msgid "Close"
 msgstr ""
 
@@ -1486,12 +1483,12 @@ msgid "Link"
 msgstr ""
 
 #: strings/templates-default.js:127
-#: view/default/templates/attrs/_file-uploader.ejs:48
+#: ./view/default/templates/attrs/_file-uploader.ejs:48
 msgid "External link"
 msgstr ""
 
 #: strings/templates-default.js:128
-#: view/default/templates/attrs/_file-uploader.ejs:52
+#: ./view/default/templates/attrs/_file-uploader.ejs:52
 msgid "Share link"
 msgstr ""
 
@@ -1501,8 +1498,8 @@ msgstr ""
 
 #: strings/templates-default.js:133 strings/templates-default.js:140
 #: strings/templates-default.js:178 strings/templates-default.js:194
-#: view/default/templates/view/list.ejs:163
-#: view/default/templates/attrs/_dt-object-list.ejs:221
+#: ./view/default/templates/view/list.ejs:163
+#: ./view/default/templates/attrs/_dt-object-list.ejs:221
 msgid "Refresh"
 msgstr ""
 
@@ -1627,8 +1624,8 @@ msgid "Attribute '%prop' of object '%item' value selection"
 msgstr ""
 
 #: strings/templates-default.js:192
-#: view/default/templates/attrs/_dt-object-list.ejs:193
-#: view/default/templates/attrs/_reference_footer.ejs:65
+#: ./view/default/templates/attrs/_dt-object-list.ejs:193
+#: ./view/default/templates/attrs/_reference_footer.ejs:65
 msgid "View"
 msgstr ""
 
@@ -1650,9 +1647,9 @@ msgstr ""
 
 #: strings/templates-default.js:206
 msgid ""
-"Create filter by entering query string as follows:<br>`Name` = 'Ivan', where "
-"`Name` is attribute name (selected from dropdown list) and 'Ivan' is a "
-"string value<br>To specify reference value, you can use dereference as "
+"Create filter by entering query string as follows:<br>`Name` = 'Ivan', "
+"where `Name` is attribute name (selected from dropdown list) and 'Ivan' is "
+"a string value<br>To specify reference value, you can use dereference as "
 "follows `Person`.`Name` = 'Ivan'<br>Several values can be specified with "
 "logical operators<br><li><ul>and - match all values</ul><ul>or - match any "
 "value</ul></li>"
@@ -1660,8 +1657,8 @@ msgstr ""
 
 #: strings/errors/web-errors.js:10
 msgid ""
-"Failed to save object. Another %class with the same value of %attr attribute "
-"exists. Use searching or contact the administrator."
+"Failed to save object. Another %class with the same value of %attr "
+"attribute exists. Use searching or contact the administrator."
 msgstr ""
 
 #: strings/errors/web-errors.js:11
@@ -1671,75 +1668,75 @@ msgid ""
 "attributes exists. Use searching or contact the administrator."
 msgstr ""
 
-#: view/default/templates/changePwd.ejs:35
+#: ./view/default/templates/changePwd.ejs:35
 msgid "password"
 msgstr ""
 
-#: view/default/templates/changePwd.ejs:42
+#: ./view/default/templates/changePwd.ejs:42
 msgid "repeat password"
 msgstr ""
 
-#: view/default/templates/changePwd.ejs:76
+#: ./view/default/templates/changePwd.ejs:76
 msgid "Min password length "
 msgstr ""
 
-#: view/default/templates/changePwd.ejs:76
-#: view/default/templates/register.ejs:144
+#: ./view/default/templates/changePwd.ejs:76
+#: ./view/default/templates/register.ejs:144
 msgid "symbols"
 msgstr ""
 
-#: view/default/templates/changePwd.ejs:81
-#: view/default/templates/register.ejs:149
+#: ./view/default/templates/changePwd.ejs:81
+#: ./view/default/templates/register.ejs:149
 msgid "Invalid password repeat"
 msgstr ""
 
-#: view/default/templates/register.ejs:138
+#: ./view/default/templates/register.ejs:138
 msgid "Login field is required"
 msgstr ""
 
-#: view/default/templates/register.ejs:144
+#: ./view/default/templates/register.ejs:144
 msgid "Min password length is "
 msgstr ""
 
-#: view/default/templates/register.ejs:157
-#: view/default/templates/profile.ejs:167
+#: ./view/default/templates/register.ejs:157
+#: ./view/default/templates/profile.ejs:167
 msgid "Field "
 msgstr ""
 
-#: view/default/templates/register.ejs:158
-#: view/default/templates/profile.ejs:168
+#: ./view/default/templates/register.ejs:158
+#: ./view/default/templates/profile.ejs:168
 msgid "is required"
 msgstr ""
 
-#: view/default/templates/view/dashboard-tools.ejs:4
+#: ./view/default/templates/view/dashboard-tools.ejs:4
 msgid "Module"
 msgstr ""
 
-#: view/default/templates/attrs/_dt-object-list.ejs:141
+#: ./view/default/templates/attrs/_dt-object-list.ejs:141
 msgid "Create inplace"
 msgstr ""
 
-#: view/default/templates/attrs/_file-uploader.ejs:41
+#: ./view/default/templates/attrs/_file-uploader.ejs:41
 msgid "Refrence"
 msgstr ""
 
-#: view/default/templates/layout/header.ejs:10
-#: view/default/templates/layout/notifications.ejs:11
+#: ./view/default/templates/layout/header.ejs:10
+#: ./view/default/templates/layout/notifications.ejs:11
 msgid "Notifications"
 msgstr ""
 
-#: view/default/templates/layout/notifications.ejs:17
+#: ./view/default/templates/layout/notifications.ejs:17
 msgid "Check all"
 msgstr ""
 
-#: view/default/templates/layout/notifications.ejs:21
+#: ./view/default/templates/layout/notifications.ejs:21
 msgid "No new notifications"
 msgstr ""
 
-#: view/default/templates/layout/notifications.ejs:27
+#: ./view/default/templates/layout/notifications.ejs:27
 msgid "Load marked as read"
 msgstr ""
 
-#: view/default/templates/layout/notifications.ejs:38
+#: ./view/default/templates/layout/notifications.ejs:38
 msgid "Mark as read"
 msgstr ""
