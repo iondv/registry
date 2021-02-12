@@ -8,6 +8,7 @@ const respond = require('../../../backend/respond');
 const adjustSignOptions = require('../../../backend/viewmodels').adjustWfSignOptions;
 const locale = require('locale');
 const itemEagerLoading = require('../../../backend/items').itemEagerLoading;
+const {t} = require('core/i18n');
 
 module.exports = function (req, res) {
   respond(['metaRepo', 'securedDataRepo', 'workflows', 'auth'],
@@ -32,7 +33,7 @@ module.exports = function (req, res) {
             item = found;
             return scope.workflows.getStatus(found, {user, lang});
           } else {
-            throw new Error('Объект не найден');
+            throw new Error(t('Object not found', {lang}));
           }
         }).
         then(function (status) {

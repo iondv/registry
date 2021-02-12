@@ -251,8 +251,6 @@
 
   UFile.prototype.validate = function () {
     var self = this;
-    // пытаемся загрузить файл как изображение, и по результату начинаем валидацию
-    // загрузка изображения происходит по событиям, а не последовательно
     this.image = new Image;
     this.image.onload = function () {
       self.startValidate();
@@ -306,7 +304,6 @@
     var files = this.uploader.files;
     for (var i = 0; i < files.length; ++i) {
       if (files[i].removed) continue;
-      // проверять на совпадение только с предыдущими файлами
       if (files[i] === this) return false;
       if (files[i].file.size == this.file.size && files[i].file.name == this.file.name) return true;
     }
@@ -344,7 +341,6 @@
     this.xhr.onreadystatechange = function (event) {
       self.changeReadyState(event);
     };
-    // создать данные формы для выгрузки на сервер
     var data = new FormData;
     var attr = this.uploader.fileAttrName || 'file';
     data.append(attr, this.file.name);

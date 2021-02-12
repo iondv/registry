@@ -11,6 +11,7 @@ const overrideEagerLoading = require('../../../backend/items').overrideEagerLoad
 const moduleName = require('../../../module-name');
 const moment = require('moment-timezone');
 const processNavigation = require('../../../backend/menu').processNavigation;
+const {t} = require('core/i18n');
 
 // jshint maxstatements: 50, maxcomplexity: 30
 module.exports = function (req, res) {
@@ -59,6 +60,12 @@ module.exports = function (req, res) {
                 if (param_meta[pn].type === 'date') {
                   v = moment(v, moment.localeData(lang).longDateFormat('L')).tz(user.timeZone()).toDate();
                 }
+                if (user.timeZone()) {
+                  v = v.tz(user.timeZone());
+                }                
+                if (param_meta[pn].margin) {
+                  v.add(param_meta[pn].margin);
+                }                
                 params[pn] = v;
               }
             }
@@ -78,7 +85,7 @@ module.exports = function (req, res) {
             .then((data) => {
               if (exporter.isBackground()) {
                 if (!data) {
-                  throw new Error('Фоновый процесс не был запущен.');
+                  throw new Error(t('Background job was not started.', {lang}));
                 }
                 res.status(200).send(data);
               } else {

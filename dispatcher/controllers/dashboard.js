@@ -7,6 +7,7 @@ const buildMenus = require('../../backend/menu').buildMenus;
 const moduleName = require('../../module-name');
 const onError = require('../../backend/error');
 const respond = require('../../backend/respond');
+const {t} = require('core/i18n');
 
 // jshint maxstatements: 50, maxcomplexity: 20
 module.exports = function (req, res) {
@@ -20,7 +21,7 @@ module.exports = function (req, res) {
       var params = {
         baseUrl: req.app.locals.baseUrl,
         module: moduleName,
-        title: 'Контрольная панель',
+        title: t('Dashboard'),
         node: null,
         pageCode: 'dashboard',
         user,

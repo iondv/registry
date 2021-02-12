@@ -4,6 +4,7 @@
 'use strict';
 
 const Logger = require('core/interfaces/Logger');
+const {t} = require('core/i18n');
 
 /**
  * @param {{}} scope
@@ -25,9 +26,9 @@ module.exports = function (scope, err, res, userMsg) {
 
   let msg;
   if (typeof userMsg === 'boolean' && userMsg) {
-    msg = 'Внутренняя ошибка сервера.';
+    msg = t('Internal server error.');
   } else {
-    msg = userMsg || (err instanceof Error ? err.message : err);
+    msg = userMsg || (err instanceof Error ? err.getMessage(res.locals.lang) : err);
   }
 
   if (res) {

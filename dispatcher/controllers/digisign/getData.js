@@ -7,6 +7,7 @@ const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
 const base64 = require('base64-js');
 const itemEagerLoading = require('../../../backend/items').itemEagerLoading;
+const {t} = require('core/i18n');
 
 // jshint maxcomplexity: 30
 module.exports = function (req, res) {
@@ -27,7 +28,7 @@ module.exports = function (req, res) {
            */
           function (item) {
             if (!item) {
-              return res.status(404).send('Не найден подписываемый объект данных.');
+              return res.status(404).send(t('Signed data object not found.', {lang: req.locals.lang}));
             }
 
             scope.signManager.getDataForSigning(

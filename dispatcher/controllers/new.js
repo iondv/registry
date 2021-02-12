@@ -32,6 +32,8 @@ const slTriggers = require('../../backend/items').selectionListTriggers;
 const overrideTpl = require('../../backend/viewmodels').overrideTpl;
 const Errors = require('core/errors/front-end');
 const IonError = require('core/IonError');
+const {t} = require('core/i18n');
+const {format} = require('util');
 
 // jshint maxstatements: 40, maxcomplexity: 20
 
@@ -66,7 +68,7 @@ module.exports = function (req, res) {
               let mpn = req.query.masterProperty || container.property;
               mpm = mcm.getPropertyMeta(mpn);
               if (!mpm) {
-                throw new Error(`Атрибут ${mpn} не найден в классе "${mcm.getCaption()}".`);
+                throw new Error(format(t('Attribute %s not found in class "%s".'), mpn, mcm.getCaption()));
               }
             }
             let master = {
@@ -79,10 +81,10 @@ module.exports = function (req, res) {
             let vm = scope.metaRepo.getCreationViewModel(cm.getCanonicalName(), node && `${node.namespace}@${node.code}`);
 
             if (!vm/* || (vm.overrideMode === 1)*/) {
-              vm = buildCreateFormVm(cm, vm);
+              vm = buildCreateFormVm(cm, vm, req.locals.lang);
             }
             merge({tabs: [], commands: []}, vm);
-            adjustFields(cm, vm, scope.metaRepo);
+            adjustFields(cm, vm, scope.metaRepo, req.locals.lang);
             if (scope.actions instanceof ActionProvider) {
               adjustSignOptions(vm, scope.actions);
             }

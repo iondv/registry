@@ -1,5 +1,6 @@
 'use strict';
 const F = require('core/FunctionCodes');
+const {t} = require('core/i18n');
 
 /**
  *
@@ -11,7 +12,7 @@ const F = require('core/FunctionCodes');
 function ConcurencyChecker(options) {
 
   if (!options.ds) {
-    throw new Error('не указан ds (DataSource)');
+    throw new Error(t('Data source not specified'));
   }
 
   const tn = options.tableName || 'ion_concurency';

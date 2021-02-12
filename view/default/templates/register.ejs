@@ -135,18 +135,18 @@
       var messages = [];
       var field;
       if (!username) {
-        messages.push('Поле логина обязательно для заполнения');
+        messages.push('<%=t('Login field is required')%>');
       }
       if (pwd && pwd2 && pwd === pwd2) {
         if (options.pwdMinLength) {
           if (pwd.length < options.pwdMinLength) {
             valid = false;
-            messages.push('Минимальная длина пароля ' + options.pwdMinLength + ' символов');
+            messages.push('<%=t('Min password length is ')%>' + options.pwdMinLength + ' <%=t('symbols')%>');
           }
         }
       } else {
         valid = false;
-        messages.push('Неверный повтор пароля');
+        messages.push('<%=t('Invalid password repeat')%>');
       }
       for (fieldName in fields) {
         if (fields.hasOwnProperty(fieldName)) {
@@ -154,8 +154,8 @@
             field = $regForm.find('[name=' + fieldName + ']');
             if (!field.val()) {
               valid = false;
-              messages.push('Поле ' + (fields[fieldName].caption ? fields[fieldName].caption : fieldName )
-                + ' обязательно для заполнения');
+              messages.push('<%=t('Field ')%>' + (fields[fieldName].caption ? fields[fieldName].caption : fieldName )
+                + ' <%=t('is required')%>');
             }
           }
         }

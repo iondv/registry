@@ -20,6 +20,8 @@ const ClassMeta = require('core/interfaces/MetaRepository').ClassMeta;
 const Item = require('core/interfaces/DataRepository').Item;
 const PropertyTypes = require('core/PropertyTypes');
 const path = require('path');
+const {t} = require('core/i18n');
+const {format} = require('util');
 
 
 // jshint maxstatements: 50, maxcomplexity: 20
@@ -48,14 +50,14 @@ module.exports = function (req, res) {
           return pnf(req, res);
         }
 
-        let dummy = {
-          name: 'ExportParams',
-          caption: 'Параметры экспорта',
-          properties: []
-        };
-
         let locales = new locale.Locales(req.headers['accept-language']);
         let lang = locales[0] ? locales[0].language : 'ru';
+        
+        let dummy = {
+          name: 'ExportParams',
+          caption: t('Export parameters', {lang}),
+          properties: []
+        };
 
         let data = {};
         let attrPermissions = {};
@@ -78,7 +80,7 @@ module.exports = function (req, res) {
               decimals: 2,
               allowedFileTypes: null,
               maxFileCount: 0,
-              nullable: true,
+              nullable: params_meta[nm].required ? false : true,
               readonly: false,
               indexed: false,
               unique: false,
@@ -137,8 +139,8 @@ module.exports = function (req, res) {
           }
         });
 
-        let vm = buildCreateFormVm(pcm);
-        adjustFields(pcm, vm, scope.metaRepo);
+        let vm = buildCreateFormVm(pcm, req.locals.lang);
+        adjustFields(pcm, vm, scope.metaRepo, req.locals.lang);
         slfetch
           .then(() => {
             let dummy = new Item(null, data, pcm);
@@ -155,7 +157,7 @@ module.exports = function (req, res) {
                   forceMaster: false,
                   master: null,
                   containerProperty: null,
-                  title: 'Параметры экспорта данных',
+                  title: t('Data export parameters', {lang}),
                   pageCode: 'export-params',
                   node: req.params.node,
                   filter: req.query.filter || req.body.filter,

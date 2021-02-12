@@ -28,11 +28,6 @@
   <script src="<%= module %>/js/preload.js"></script>
   <script src="i18n/handler.js"></script>
 </head>
-<script>
-  window.__ = function(id, params) {
-    return window.s('<%= module %>', id, params);
-  }
-</script>
 <body id="imodal" class="imodal" data-page="<%=pageCode%>">
   <script>
     <%

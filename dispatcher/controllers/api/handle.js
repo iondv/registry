@@ -10,6 +10,8 @@ const Item = require('core/interfaces/DataRepository').Item;
 const prepareJSON = require('../../../backend/items').prepareJSON;
 const locale = require('locale');
 const edit = require('../../../backend/items').saveItem;
+const {t} = require('core/i18n');
+const {format} = require('util');
 
 /* jshint maxstatements: 40, maxcomplexity: 20, maxdepth: 15 */
 
@@ -80,10 +82,10 @@ module.exports = function (req, res) {
                 );
               return;
             }
-            res.status(404).send('Не найден обработчик действия ' + req.body.$action);
+            res.status(404).send(format(t('% action handler not found', {lang}), req.body.$action));
           }
         } else {
-          res.status(400).send('Не указано действие ');
+          res.status(400).send(t('Action not specified', {lang}));
         }
       } catch (err) {
         onApiError(scope, wrapError(err), res, true);

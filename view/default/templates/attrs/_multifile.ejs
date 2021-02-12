@@ -30,7 +30,7 @@ var opts = Object.assign(
       %>
       <p  data-fileid="<%=files[i].id%>" class="form-control-static file-frame">
         <a href="<%= files[i].link %>" target="_blank" class="file-frame-title"><%=files[i].name%></a>
-        <span class="remove-file-btn glyphicon glyphicon-remove text-danger ml10" title="Удалить файл"></span>
+        <span class="remove-file-btn glyphicon glyphicon-remove text-danger ml10" title="<%=t('Delete file')%>"></span>
       </p>
       <% } %>
       <% } %>

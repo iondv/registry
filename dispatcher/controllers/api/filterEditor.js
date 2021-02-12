@@ -3,6 +3,7 @@
  */
 'use strict';
 const respond = require('../../../backend/respond');
+const {t} = require('core/i18n');
 
 module.exports.list = function (req, res) {
   respond(['userFilters','metaRepo','auth'],
@@ -17,7 +18,7 @@ module.exports.list = function (req, res) {
       let user = scope.auth.getUser(req);
       let cm = scope.metaRepo.getMeta(req.params.class);
       if (!cm) {
-        return res.send({err: 'Неправильные данные'});
+        return res.send({err: t('Invalid input data', {lang: req.locals.lang})});
       }
       while (cm) {
         classes.push(cm.getCanonicalName());
@@ -27,8 +28,8 @@ module.exports.list = function (req, res) {
       then(function (filters) {
         return res.send({filters: filters});
       }).
-      catch(function () {
-        return res.send({err: 'Ошибка загрузки списка фильтров'});
+      catch(function (err) {
+        return res.send({err: err.getMessage(req.locals.lang)});
       });
     }
   );
@@ -46,11 +47,11 @@ module.exports.add = function (req, res) {
       let user = scope.auth.getUser(req);
       let cm = scope.metaRepo.getMeta(req.params.class);
       if (!cm || !req.body) {
-        return res.send({err: 'Неправильные данные'});
+        return res.send({err: t('Invalid input data', {lang: req.locals.lang})});
       }
       scope.userFilters.add(user.id(), cm.getCanonicalName(), req.body)
         .then(filter => res.send({filter: filter}))
-        .catch(() => res.send({err: 'Ошибка сохранения фильтра'}));
+        .catch(err => res.send({err: err.getMessage(req.locals.lang)}));
     }
   );
 };
@@ -67,14 +68,14 @@ module.exports.edit = function (req, res) {
       var user = scope.auth.getUser(req);
       var cm = scope.metaRepo.getMeta(req.params.class);
       if (!cm || !req.body || !req.body.id) {
-        return res.send({err: 'Неправильные данные'});
+        return res.send({err: t('Invalid input data', {lang: req.locals.lang})});
       }
       scope.userFilters.edit(user.id(), cm.getCanonicalName(), req.body.id, req.body).
       then(function (filter) {
         return res.send({filter: filter});
       }).
-      catch(function () {
-        return res.send({err: 'Ошибка редактирования объекта'});
+      catch(function (err) {
+        return res.send({err: err.getMessage(req.locals.lang)});
       });
     }
   );
@@ -91,7 +92,7 @@ module.exports.remove = function (req, res) {
     function (scope) {
       let user = scope.auth.getUser(req);
       if (!req.body || !req.body.filterId) {
-        return res.send({err: 'Неправильные данные'});
+        return res.send({err: t('Invalid input data', {lang: req.locals.lang})});
       }
       scope.userFilters.remove(user.id(), req.body.filterId).
       then(function (result) {

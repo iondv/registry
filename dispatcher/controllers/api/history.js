@@ -2,6 +2,7 @@
 
 const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
+const {t} = require('core/i18n');
 
 module.exports = function (req, res) {
   respond(['logRecorder', 'auth', 'changelogFactory', 'aclProvider'],
@@ -18,7 +19,7 @@ module.exports = function (req, res) {
         scope.securedDataRepo.getItem(req.params.class, req.params.id, {user: user})
         .then(function (item) {
           if (!item) {
-            return Promise.reject(new Error('Объект не найден!'));
+            return Promise.reject(new Error(t('Object not found!', {lang: req.locals.lang})));
           }
           return logger.getChanges({className: req.params.class, id: req.params.id});
         }).then(function (result) {

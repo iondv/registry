@@ -150,8 +150,8 @@
               field = $regForm.find('[name='+fieldName+']');
               if (!field.val()) {
                 valid = false;
-                messages.push('Поле ' + (fields[fieldName].caption ? fields[fieldName].caption : fieldName )
-                  + ' обязательно для заполнения');
+                messages.push('<%=t('Field ')%>' + (fields[fieldName].caption ? fields[fieldName].caption : fieldName )
+                  + ' <%=t('is required')%>');
               }
             }
           }

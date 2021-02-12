@@ -6,6 +6,7 @@ const applyCollections = require('../../../backend/items').applyCollections;
 const prepareJSON = require('../../../backend/items').prepareJSON;
 const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
+const {t} = require('core/i18n');
 
 /* jshint maxstatements: 40, maxcomplexity: 20, maxdepth: 15 */
 
@@ -38,7 +39,7 @@ module.exports = function (req, res) {
             }
             return res.send(result);
           }
-          res.status(500).send('Ошибка при сохранении объекта');
+          res.status(500).send(t('Error on object saving', {lang}));
         }).
         catch(
           function (err) {

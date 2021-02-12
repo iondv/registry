@@ -15,6 +15,7 @@ const {
   getEnrichedItem,
   getStorageDir
 } = require('lib/util/storageDirectoryParser');
+const {t} = require('core/i18n');
 
 /* jshint maxstatements: 40, maxcomplexity: 20 */
 function fieldType(fieldname, cm) {
@@ -95,14 +96,14 @@ module.exports = function(req, res) {
           const cpm = cm.getPropertyMeta(collectionProperty);
           if (!cpm) {
             bus.destroy();
-            return onError(scope, new Error('ClassMeta not found'), res, 'Не удалось принять файл.');
+            return onError(scope, new Error('ClassMeta not found'), res, t('Failed to accept file.', {lang: req.locals.lang}));
           }
           className = cpm.itemsClass;
           cm = scope.metaRepo.getMeta(cpm.itemsClass);
         }
         if (!cm) {
           bus.destroy();
-          return onError(scope, new Error('ClassMeta not found'), res, 'Не удалось принять файл.');
+          return onError(scope, new Error('ClassMeta not found'), res, t('Failed to accept file.', {lang: req.locals.lang}));
         }
       }
       const itemCn = containerCm && containerCm.getCanonicalName();
@@ -153,7 +154,7 @@ module.exports = function(req, res) {
         filePromises
           .then(() => {
             if (filesCount && filesCount === errorsCount)
-              return onError(scope, new Error('Не удалось принять файлы'), res);
+              return onError(scope, new Error(t('Failed to accept files.', {lang: req.locals.lang})), res);
 
             if (cm && req.params.class && req.params.id) {
               const updates = {};
@@ -191,10 +192,10 @@ module.exports = function(req, res) {
             }
             res.send(result);
           })
-          .catch(err => onError(scope, err, res, 'Не удалось принять файлы.'));
+          .catch(err => onError(scope, err, res, t('Failed to accept files.', {lang: req.locals.lang})));
       });
 
-      bus.on('error', err => onError(scope, err, res, 'Не удалось принять файлы.'));
+      bus.on('error', err => onError(scope, err, res, t('Failed to accept files.', {lang: req.locals.lang})));
       req.pipe(bus);
     },
     res);

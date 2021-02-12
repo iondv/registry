@@ -5,6 +5,7 @@
 
 const ActionHandler = require('../backend/ActionHandler');
 const edit = require('../backend/items').saveItem;
+const {t} = require('core/i18n');
 
 /**
  * @param {{}} options
@@ -22,7 +23,7 @@ function SaveHandler() {
     if (scope.changelogFactory)
       logger = scope.changelogFactory.logger(() => scope.auth.getUser(req));
     return edit(scope, req, null, logger).then((data) => {
-      data.$message = 'Объект сохранен.';
+      data.$message = t('Object saved.');
       return data;
     });
   };
