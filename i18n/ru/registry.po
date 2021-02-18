@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-12 20:16+0000\n"
-"PO-Revision-Date: 2021-01-21 06:07+0000\n"
-"Last-Translator: allys <allys@live.ru>\n"
-"Language-Team: Russian <http://weblate.iondv.com/projects/iondv-framework/"
+"POT-Creation-Date: 2021-02-18 02:22+0000\n"
+"PO-Revision-Date: 2021-02-17 08:10+0000\n"
+"Last-Translator: Alena Kremenetskaya <alena.kremenetskaya@mail.ru>\n"
+"Language-Team: Russian <http://weblate.iondv.ru/projects/iondv-framework/"
 "registry/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -18,61 +18,61 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.11.2\n"
+"X-Generator: Weblate 4.4.2\n"
 
 #: backend/ConcurencyChecker.js:15 backend/UserFilters.js:17
 msgid "Data source not specified"
-msgstr ""
+msgstr "Источник данных не указан"
 
 #: backend/items.js:218
 #, javascript-format
 msgid "Invalid schedule value assigned to attribute %s"
-msgstr ""
+msgstr "Атрибуту %s присвоено недопустимое значение расписания"
 
 #: backend/items.js:577
 #, javascript-format
 msgid "Collection attribute %s not found"
-msgstr ""
+msgstr "Атрибут коллекции %s не найден"
 
 #: backend/items.js:585
 #, javascript-format
 msgid "Class of elements of collection %s not found."
-msgstr ""
+msgstr "Класс элементов коллекции %s не найден."
 
 #: backend/items.js:741
 msgid "Saved object does not fit conditions of selection list!"
-msgstr ""
+msgstr "Сохраненный объект не соответствует условиям списка выбора!"
 
 #: backend/items.js:1006
 msgid "Block owner not found."
-msgstr ""
+msgstr "Владелец блока не найден."
 
 #: backend/ExportManager.js:231
 msgid "Data for export not found!"
-msgstr ""
+msgstr "Данные для экспорта не найдены!"
 
 #: backend/ExportManager.js:396
 msgid "User not found."
-msgstr ""
+msgstr "Пользователь не найден."
 
 #: backend/ExportManager.js:419
 msgid "Export configuration not found."
-msgstr ""
+msgstr "Конфигурация экспорта не найдена."
 
 #: backend/ExportManager.js:495
 msgid "File not found in remote storage."
-msgstr ""
+msgstr "Файл не найден в удаленном хранилище."
 
 #: backend/apiError.js:32 backend/error.js:29
 msgid "Internal server error."
-msgstr ""
+msgstr "Внутренняя ошибка сервера."
 
 #: backend/viewmodels.js:79 backend/viewmodels.js:133 backend/viewmodels.js:154
 #: backend/viewmodels.js:270 dispatcher/controllers/list.js:30
 #: strings/templates-default.js:136 strings/templates-default.js:184
 #: view/default/templates/view/collection.ejs:164
 msgid "Create"
-msgstr ""
+msgstr "Создать"
 
 #: backend/viewmodels.js:91 backend/viewmodels.js:137 backend/viewmodels.js:158
 #: dispatcher/controllers/list.js:35 strings/frontend-scripts.js:96
@@ -80,38 +80,38 @@ msgstr ""
 #: strings/templates-default.js:156 strings/templates-default.js:188
 #: view/default/templates/view/collection.ejs:167
 msgid "Edit"
-msgstr ""
+msgstr "Редактировать"
 
 #: backend/viewmodels.js:103 dispatcher/controllers/list.js:40
 #: strings/templates-default.js:20 strings/templates-default.js:138
 #: view/default/templates/view/collection.ejs:170
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
 #: backend/viewmodels.js:129 strings/templates-default.js:56
 #: strings/templates-default.js:135
 msgid "Add"
-msgstr ""
+msgstr "Добавить"
 
 #: backend/viewmodels.js:142 strings/templates-default.js:26
 msgid "Remove"
-msgstr ""
+msgstr "Убрать"
 
 #: backend/viewmodels.js:150 strings/templates-default.js:169
 #: strings/templates-default.js:186
 msgid "Select"
-msgstr ""
+msgstr "Выбрать"
 
 #: backend/viewmodels.js:163
 msgid "Clear"
-msgstr ""
+msgstr "Очистить"
 
 #: backend/viewmodels.js:240 strings/templates-default.js:14
 #: strings/templates-default.js:24 strings/templates-default.js:82
 #: strings/templates-default.js:154 strings/templates-default.js:189
 #: strings/templates-default.js:200
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: backend/viewmodels.js:391
 #, javascript-format
@@ -190,7 +190,7 @@ msgstr ""
 
 #: dispatcher/controllers/403.js:23 strings/templates-default.js:105
 msgid "Access denied"
-msgstr ""
+msgstr "В доступе отказано"
 
 #: dispatcher/controllers/api/get.js:50
 #: dispatcher/controllers/api/workflow.js:36
@@ -266,7 +266,7 @@ msgstr ""
 
 #: dispatcher/controllers/api/history.js:22
 msgid "Object not found!"
-msgstr ""
+msgstr "Объект не найден!"
 
 #: dispatcher/controllers/api/handle.js:85
 msgid "% action handler not found"
@@ -294,7 +294,7 @@ msgstr ""
 
 #: dispatcher/controllers/404.js:23 strings/templates-default.js:107
 msgid "Page not found"
-msgstr ""
+msgstr "Страница не найдена"
 
 #: dispatcher/controllers/dashboard.js:24
 msgid "Dashboard"
@@ -1127,15 +1127,15 @@ msgstr ""
 
 #: strings/templates-default.js:4 strings/templates-default.js:9
 msgid "Home"
-msgstr ""
+msgstr "Главная страница"
 
 #: strings/templates-default.js:5
 msgid "Login"
-msgstr ""
+msgstr "Логин"
 
 #: strings/templates-default.js:6
 msgid "Password"
-msgstr ""
+msgstr "Пароль"
 
 #: strings/templates-default.js:7
 msgid "Password repeat"
@@ -1143,7 +1143,7 @@ msgstr ""
 
 #: strings/templates-default.js:8 strings/templates-default.js:12
 msgid "Sign in"
-msgstr ""
+msgstr "Войти"
 
 #: strings/templates-default.js:10
 msgid "Signing in"
@@ -1151,19 +1151,19 @@ msgstr ""
 
 #: strings/templates-default.js:11 strings/templates-default.js:17
 msgid "Sign up"
-msgstr ""
+msgstr "Зарегистрироваться"
 
 #: strings/templates-default.js:13
 msgid "User %name profile"
-msgstr ""
+msgstr "Профиль пользователя %name"
 
 #: strings/templates-default.js:15
 msgid "Back to application"
-msgstr ""
+msgstr "Вернуться к приложению"
 
 #: strings/templates-default.js:16
 msgid "Signing up"
-msgstr ""
+msgstr "Регистрация"
 
 #: strings/templates-default.js:18
 msgid "Setting password for user %name"
@@ -1171,7 +1171,7 @@ msgstr ""
 
 #: strings/templates-default.js:19 strings/templates-default.js:117
 msgid "Change password"
-msgstr ""
+msgstr "Смените пароль"
 
 #: strings/templates-default.js:21
 msgid "Up"
