@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-18 02:22+0000\n"
-"PO-Revision-Date: 2021-02-17 08:10+0000\n"
+"POT-Creation-Date: 2021-02-19 20:16+0000\n"
+"PO-Revision-Date: 2021-02-18 02:23+0000\n"
 "Last-Translator: Alena Kremenetskaya <alena.kremenetskaya@mail.ru>\n"
 "Language-Team: Russian <http://weblate.iondv.ru/projects/iondv-framework/"
 "registry/ru/>\n"
@@ -116,77 +116,77 @@ msgstr "Сохранить"
 #: backend/viewmodels.js:391
 #, javascript-format
 msgid "List grouping attribute \"%s\" not found in class \"%s\"."
-msgstr ""
+msgstr "Атрибут группировки списка \"%s\" не найден в классе \"%s\"."
 
 #: backend/UserFilters.js:33 backend/UserFilters.js:79
 #: backend/UserFilters.js:115 backend/UserFilters.js:165
 msgid "Not enough data"
-msgstr ""
+msgstr "Недостаточно данных"
 
 #: backend/respond.js:15
 msgid "Module DI-container not found"
-msgstr ""
+msgstr "Модуль DI-контейнер не найден"
 
 #: backend/respond.js:21
 #, javascript-format
 msgid "Required component %s not found"
-msgstr ""
+msgstr "Требуемый компонент %s не найден"
 
 #: actions/SaveHandler.js:26
 msgid "Object saved."
-msgstr ""
+msgstr "Объект сохранен."
 
 #: actions/DeleteHandler.js:45
 #, javascript-format
 msgid "Failed to delete object %s: %s"
-msgstr ""
+msgstr "Не удалось удалить объект %s: %s"
 
 #: actions/DeleteHandler.js:54
 msgid "Some objects were not deleted."
-msgstr ""
+msgstr "Некоторые объекты не удалены."
 
 #: actions/DeleteHandler.js:55
 msgid "All objects where deleted."
-msgstr ""
+msgstr "Все объекты удалены."
 
 #: actions/DeleteHandler.js:59
 msgid "Nothing to delete!"
-msgstr ""
+msgstr "Удалять нечего!"
 
 #: actions/CreateHandler.js:48
 #, javascript-format
 msgid "New %s created."
-msgstr ""
+msgstr "Новый %s создан."
 
 #: dispatcher/controllers/export/item.js:88
 #: dispatcher/controllers/export/list.js:93
 msgid "Background job was not started."
-msgstr ""
+msgstr "Фоновое задание не было запущено."
 
 #: dispatcher/controllers/export/params.js:58
 msgid "Export parameters"
-msgstr ""
+msgstr "Параметры экспорта"
 
 #: dispatcher/controllers/export/params.js:160
 msgid "Data export parameters"
-msgstr ""
+msgstr "Параметры экспорта данных"
 
 #: dispatcher/controllers/export/check.js:18
 #: dispatcher/controllers/export/download.js:20
 msgid "Failed to determine class"
-msgstr ""
+msgstr "Не удалось определить класс"
 
 #: dispatcher/controllers/export/check.js:23
 #: dispatcher/controllers/export/download.js:25
 #, javascript-format
 msgid "Failed to determine exporter by format %s"
-msgstr ""
+msgstr "Не удалось определить экспортер по формату %s"
 
 #: dispatcher/controllers/digisign/processSign.js:30
 #: dispatcher/controllers/digisign/signStatus.js:30
 #: dispatcher/controllers/digisign/getData.js:31
 msgid "Signed data object not found."
-msgstr ""
+msgstr "Подписанный объект данных не найден."
 
 #: dispatcher/controllers/403.js:23 strings/templates-default.js:105
 msgid "Access denied"
@@ -195,23 +195,23 @@ msgstr "В доступе отказано"
 #: dispatcher/controllers/api/get.js:50
 #: dispatcher/controllers/api/workflow.js:36
 msgid "Object not found"
-msgstr ""
+msgstr "Объект не найден"
 
 #: dispatcher/controllers/api/update.js:42
 msgid "Error on object saving"
-msgstr ""
+msgstr "Ошибка при сохранении объекта"
 
 #: dispatcher/controllers/api/filterEditor.js:21
 #: dispatcher/controllers/api/filterEditor.js:50
 #: dispatcher/controllers/api/filterEditor.js:71
 #: dispatcher/controllers/api/filterEditor.js:95
 msgid "Invalid input data"
-msgstr ""
+msgstr "Недопустимые входные данные"
 
 #: dispatcher/controllers/api/createHashtag.js:45
 #: dispatcher/controllers/api/create.js:45
 msgid "Object creation failed."
-msgstr ""
+msgstr "Не удалось создать объект."
 
 #: dispatcher/controllers/api/collection.js:32
 #: dispatcher/controllers/api/collection.js:90
@@ -219,50 +219,50 @@ msgstr ""
 #: dispatcher/controllers/api/collection.js:191
 #: dispatcher/controllers/api/collection.js:284
 msgid "Collection container not found."
-msgstr ""
+msgstr "Контейнер коллекции не найден."
 
 #: dispatcher/controllers/api/collection.js:102
 msgid "Object to add to collection not found."
-msgstr ""
+msgstr "Объект для добавления в коллекцию не найден."
 
 #: dispatcher/controllers/api/collection.js:107
 #: dispatcher/controllers/api/collection.js:165
 msgid "Done."
-msgstr ""
+msgstr "Выполнено."
 
 #: dispatcher/controllers/api/collection.js:130
 msgid "Inaproperiate data for deletion."
-msgstr ""
+msgstr "Неподходящие данные для удаления."
 
 #: dispatcher/controllers/api/collection.js:155
 msgid "Collection elements not found."
-msgstr ""
+msgstr "Элементы коллекции не найдены."
 
 #: dispatcher/controllers/api/collection.js:179
 msgid "Invalid request."
-msgstr ""
+msgstr "Неверный запрос."
 
 #: dispatcher/controllers/api/collection.js:197
 #: dispatcher/controllers/api/collection.js:289
 msgid "Collection attribute not found."
-msgstr ""
+msgstr "Атрибут коллекции не найден."
 
 #: dispatcher/controllers/api/collection.js:201
 #: dispatcher/controllers/api/collection.js:292
 msgid "Sorting options are not defined."
-msgstr ""
+msgstr "Параметры сортировки не определены."
 
 #: dispatcher/controllers/api/collection.js:236
 msgid "Collection element not found"
-msgstr ""
+msgstr "Элемент коллекции не найден"
 
 #: dispatcher/controllers/api/collection.js:306
 msgid "Collection element specified as first not found."
-msgstr ""
+msgstr "Элемент коллекции, указанный как первый, не найден."
 
 #: dispatcher/controllers/api/collection.js:317
 msgid "Collection element specified as second not found."
-msgstr ""
+msgstr "Элемент коллекции, указанный как второй, не найден."
 
 #: dispatcher/controllers/api/history.js:22
 msgid "Object not found!"
@@ -270,27 +270,27 @@ msgstr "Объект не найден!"
 
 #: dispatcher/controllers/api/handle.js:85
 msgid "% action handler not found"
-msgstr ""
+msgstr "% обработчик действий не найден"
 
 #: dispatcher/controllers/api/handle.js:88
 msgid "Action not specified"
-msgstr ""
+msgstr "Действие не указано"
 
 #: dispatcher/controllers/api/upload.js:99
 #: dispatcher/controllers/api/upload.js:106
 msgid "Failed to accept file."
-msgstr ""
+msgstr "Не удалось принять файл."
 
 #: dispatcher/controllers/api/upload.js:157
 #: dispatcher/controllers/api/upload.js:195
 #: dispatcher/controllers/api/upload.js:198
 msgid "Failed to accept files."
-msgstr ""
+msgstr "Не удалось принять файлы."
 
 #: dispatcher/controllers/new.js:71
 #, javascript-format
 msgid "Attribute %s not found in class \"%s\"."
-msgstr ""
+msgstr "Атрибут %s не найден в классе \"%s\"."
 
 #: dispatcher/controllers/404.js:23 strings/templates-default.js:107
 msgid "Page not found"
@@ -298,94 +298,94 @@ msgstr "Страница не найдена"
 
 #: dispatcher/controllers/dashboard.js:24
 msgid "Dashboard"
-msgstr ""
+msgstr "Дашборд"
 
 #: dispatcher/controllers/handle.js:42
 msgid "Action not specified."
-msgstr ""
+msgstr "Действие не указано."
 
 #: dispatcher/controllers/handle.js:81
 #, javascript-format
 msgid "Handler not found fot action %s"
-msgstr ""
+msgstr "Не найден обработчик для действия %s"
 
 #: dispatcher/controllers/handle.js:86
 msgid "Resource not found"
-msgstr ""
+msgstr "Ресурс не найден"
 
 #: dispatcher/controllers/handle.js:89
 msgid "Access denied."
-msgstr ""
+msgstr "В доступе отказано."
 
 #: strings/frontend-scripts.js:4
 msgid "Recent objects"
-msgstr ""
+msgstr "Недавние объекты"
 
 #: strings/frontend-scripts.js:5
 msgid "Found menu items"
-msgstr ""
+msgstr "Найдены пункты меню"
 
 #: strings/frontend-scripts.js:6
 msgid "Recent menu items"
-msgstr ""
+msgstr "Недавние пункты меню"
 
 #: strings/frontend-scripts.js:7
 msgid "CryptoPro plugin is not available."
-msgstr ""
+msgstr "Плагин CryptoPro недоступен."
 
 #: strings/frontend-scripts.js:8
 msgid "Failed to open certificates storage!"
-msgstr ""
+msgstr "Не удалось открыть хранилище сертификатов!"
 
 #: strings/frontend-scripts.js:9
 msgid "Failed to close certificates storage!"
-msgstr ""
+msgstr "Не удалось закрыть хранилище сертификатов!"
 
 #: strings/frontend-scripts.js:10
 #, javascript-format
 msgid "Inapropriate data obtained for signing: '%contentType'"
-msgstr ""
+msgstr "Получены недопустимые данные для подписи: '%contentType'"
 
 #: strings/frontend-scripts.js:11
 msgid "Digital sign plugin not loaded"
-msgstr ""
+msgstr "Плагин цифровой подписи не загружен"
 
 #: strings/frontend-scripts.js:12
 msgid "Certificate not found!"
-msgstr ""
+msgstr "Сертификат не найден!"
 
 #: strings/frontend-scripts.js:13
 msgid "No certificates for signing!"
-msgstr ""
+msgstr "Сертификатов на подпись нет!"
 
 #: strings/frontend-scripts.js:14
 msgid "Failed to get data for signing!"
-msgstr ""
+msgstr "Не удалось получить данные для подписи!"
 
 #: strings/frontend-scripts.js:15
 msgid "Failed to sign data. Signing module is busy."
-msgstr ""
+msgstr "Не удалось подписать данные. Модуль подписи занят."
 
 #: strings/frontend-scripts.js:16
 #, javascript-format
 msgid "Signature sending failed, error code: '%status'"
-msgstr ""
+msgstr "Ошибка отправки подписи, код ошибки: '%status'"
 
 #: strings/frontend-scripts.js:17
 msgid "Signature sending failed: invalid response type '%type'"
-msgstr ""
+msgstr "Ошибка отправки подписи: недопустимый тип ответа '%type'"
 
 #: strings/frontend-scripts.js:18
 msgid "Signature sending failed: server responded '%message'"
-msgstr ""
+msgstr "Ошибка отправки подписи: ответ сервера '%message'"
 
 #: strings/frontend-scripts.js:19
 msgid "Failed to obtain certificate object!"
-msgstr ""
+msgstr "Не удалось получить объект сертификата!"
 
 #: strings/frontend-scripts.js:20
 msgid "Signing failed!"
-msgstr ""
+msgstr "Не удалось подписать!"
 
 #: strings/frontend-scripts.js:21
 msgid "Failed to get certificate!"
