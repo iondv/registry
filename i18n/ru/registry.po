@@ -3,22 +3,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-msgid ""
-msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-19 20:16+0000\n"
-"PO-Revision-Date: 2021-02-18 02:23+0000\n"
-"Last-Translator: Alena Kremenetskaya <alena.kremenetskaya@mail.ru>\n"
-"Language-Team: Russian <http://weblate.iondv.ru/projects/iondv-framework/"
-"registry/ru/>\n"
-"Language: ru\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.4.2\n"
+#msgid ""
+#msgstr ""
+#"Project-Id-Version: PACKAGE VERSION\n"
+#"Report-Msgid-Bugs-To: \n"
+#"POT-Creation-Date: 2021-02-12 20:16+0000\n"
+#"PO-Revision-Date: 2021-02-19 20:17+0000\n"
+#"Last-Translator: Alena Kremenetskaya <alena.kremenetskaya@mail.ru>\n"
+#"Language-Team: Russian <http://weblate.iondv.ru/projects/iondv-framework/"
+#"registry/ru/>\n"
+#"Language: ru\n"
+#"MIME-Version: 1.0\n"
+#"Content-Type: text/plain; charset=UTF-8\n"
+#"Content-Transfer-Encoding: 8bit\n"
+#"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+#"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+#"X-Generator: Weblate 4.4.2\n"
 
 #: backend/ConcurencyChecker.js:15 backend/UserFilters.js:17
 msgid "Data source not specified"
@@ -389,684 +389,688 @@ msgstr "Не удалось подписать!"
 
 #: strings/frontend-scripts.js:21
 msgid "Failed to get certificate!"
-msgstr ""
+msgstr "Не удалось получить сертификат!"
 
 #: strings/frontend-scripts.js:22
 msgid "Mb"
-msgstr ""
+msgstr "Мб"
 
 #: strings/frontend-scripts.js:23
 msgid "Kb"
-msgstr ""
+msgstr "Кб"
 
 #: strings/frontend-scripts.js:24
 msgid "byte"
-msgstr ""
+msgstr "байт"
 
 #: strings/frontend-scripts.js:25
 msgid "Wait..."
-msgstr ""
+msgstr "Подождите..."
 
 #: strings/frontend-scripts.js:26
 msgid "Search:"
-msgstr ""
+msgstr "Поиск:"
 
 #: strings/frontend-scripts.js:27
 msgid "Show by _MENU_"
-msgstr ""
+msgstr "Показать по _MENU_"
 
 #: strings/frontend-scripts.js:28
 msgid "Records from _START_ to _END_ of _TOTAL_ records"
-msgstr ""
+msgstr "Записи с _START_ по _END_ из _TOTAL_ записей"
 
 #: strings/frontend-scripts.js:29
 msgid "Records from 0 to 0 of 0 records"
-msgstr ""
+msgstr "Записи с 0 по 0 из 0 записей"
 
 #: strings/frontend-scripts.js:30
 msgid "(total _MAX_)"
-msgstr ""
+msgstr "(всего _MAX_)"
 
 #: strings/frontend-scripts.js:31
 msgid " "
-msgstr ""
+msgstr " "
 
 #: strings/frontend-scripts.js:32
 msgid "Loading..."
-msgstr ""
+msgstr "Загружается..."
 
 #: strings/frontend-scripts.js:33
 msgid "No data."
-msgstr ""
+msgstr "Нет данных."
 
 #: strings/frontend-scripts.js:34
 msgid "Table has no data"
-msgstr ""
+msgstr "Таблица не содержит данных"
 
 #: strings/frontend-scripts.js:35
 msgid "<<"
-msgstr ""
+msgstr "<<"
 
 #: strings/frontend-scripts.js:36
 msgid "<"
-msgstr ""
+msgstr "<"
 
 #: strings/frontend-scripts.js:37
 msgid ">"
-msgstr ""
+msgstr ">"
 
 #: strings/frontend-scripts.js:38
 msgid ">>"
-msgstr ""
+msgstr ">>"
 
 #: strings/frontend-scripts.js:39
 msgid ": activate for sorting by ascending order"
-msgstr ""
+msgstr ": активация для сортировки по возрастанию"
 
 #: strings/frontend-scripts.js:40
 msgid "Minimum file size - {limit}"
-msgstr ""
+msgstr "Минимальный размер файла - {limit}"
 
 #: strings/frontend-scripts.js:41
 msgid "Maximum file size - {limit}"
-msgstr ""
+msgstr "Максимальный размер файла - {limit}"
 
 #: strings/frontend-scripts.js:42
 msgid "Allowed only: {extensions}"
-msgstr ""
+msgstr "Разрешено только: {extensions}"
 
 #: strings/frontend-scripts.js:43
 msgid "Allowed only: {mimeTypes}"
-msgstr ""
+msgstr "Разрешено только: {mimeTypes}"
 
 #: strings/frontend-scripts.js:44
 msgid "File is not an image."
-msgstr ""
+msgstr "Файл не является изображением."
 
 #: strings/frontend-scripts.js:45
 msgid "Max height - {limit} px."
-msgstr ""
+msgstr "Максимальная высота - {limit} px."
 
 #: strings/frontend-scripts.js:46
 msgid "Max width - {limit} px."
-msgstr ""
+msgstr "Максимальная ширина - {limit} px."
 
 #: strings/frontend-scripts.js:47
 msgid "Min height - {limit} px."
-msgstr ""
+msgstr "Минимальная высота - {limit} px."
 
 #: strings/frontend-scripts.js:48
 msgid "Min width - {limit} px."
-msgstr ""
+msgstr "Минимальная ширина - {limit} px."
 
 #: strings/frontend-scripts.js:49
 msgid "Too many files."
-msgstr ""
+msgstr "Слишком много файлов."
 
 #: strings/frontend-scripts.js:50
 msgid "This file is already uploaded."
-msgstr ""
+msgstr "Этот файл уже загружен."
 
 #: strings/frontend-scripts.js:51
 msgid "Sunday"
-msgstr ""
+msgstr "Воскресенье"
 
 #: strings/frontend-scripts.js:52
 msgid "Monday"
-msgstr ""
+msgstr "Понедельник"
 
 #: strings/frontend-scripts.js:53
 msgid "Tuesday"
-msgstr ""
+msgstr "Вторник"
 
 #: strings/frontend-scripts.js:54
 msgid "Wednesday"
-msgstr ""
+msgstr "Среда"
 
 #: strings/frontend-scripts.js:55
 msgid "Thursday"
-msgstr ""
+msgstr "Четверг"
 
 #: strings/frontend-scripts.js:56
 msgid "Friday"
-msgstr ""
+msgstr "Пятница"
 
 #: strings/frontend-scripts.js:57
 msgid "Saturday"
-msgstr ""
+msgstr "Суббота"
 
 #: strings/frontend-scripts.js:58
 msgid "Sun"
-msgstr ""
+msgstr "Вск"
 
 #: strings/frontend-scripts.js:59
 msgid "Mon"
-msgstr ""
+msgstr "Пнд"
 
 #: strings/frontend-scripts.js:60
 msgid "Tue"
-msgstr ""
+msgstr "Втр"
 
 #: strings/frontend-scripts.js:61
 msgid "Wed"
-msgstr ""
+msgstr "Срд"
 
 #: strings/frontend-scripts.js:62
 msgid "Thu"
-msgstr ""
+msgstr "Чтв"
 
 #: strings/frontend-scripts.js:63
 msgid "Fri"
-msgstr ""
+msgstr "Птн"
 
 #: strings/frontend-scripts.js:64
 msgid "Sat"
-msgstr ""
+msgstr "Сбт"
 
 #: strings/frontend-scripts.js:65 strings/templates-default.js:98
 msgid "Su"
-msgstr ""
+msgstr "Вс"
 
 #: strings/frontend-scripts.js:66 strings/templates-default.js:92
 msgid "Mo"
-msgstr ""
+msgstr "Пн"
 
 #: strings/frontend-scripts.js:67 strings/templates-default.js:93
 msgid "Tu"
-msgstr ""
+msgstr "Вт"
 
 #: strings/frontend-scripts.js:68 strings/templates-default.js:94
 msgid "We"
-msgstr ""
+msgstr "Ср"
 
 #: strings/frontend-scripts.js:69 strings/templates-default.js:95
 msgid "Th"
-msgstr ""
+msgstr "Чт"
 
 #: strings/frontend-scripts.js:70 strings/templates-default.js:96
 msgid "Fr"
-msgstr ""
+msgstr "Пт"
 
 #: strings/frontend-scripts.js:71 strings/templates-default.js:97
 msgid "Sa"
-msgstr ""
+msgstr "Сб"
 
 #: strings/frontend-scripts.js:72 strings/templates-default.js:29
 msgid "January"
-msgstr ""
+msgstr "Январь"
 
 #: strings/frontend-scripts.js:73
 msgid "Februray"
-msgstr ""
+msgstr "Февраль"
 
 #: strings/frontend-scripts.js:74 strings/templates-default.js:31
 msgid "March"
-msgstr ""
+msgstr "Март"
 
 #: strings/frontend-scripts.js:75 strings/templates-default.js:32
 msgid "April"
-msgstr ""
+msgstr "Апрель"
 
 #: strings/frontend-scripts.js:76 strings/frontend-scripts.js:88
 #: strings/templates-default.js:33
 msgid "May"
-msgstr ""
+msgstr "Май"
 
 #: strings/frontend-scripts.js:77 strings/templates-default.js:34
 msgid "June"
-msgstr ""
+msgstr "Июнь"
 
 #: strings/frontend-scripts.js:78 strings/templates-default.js:35
 msgid "July"
-msgstr ""
+msgstr "Июль"
 
 #: strings/frontend-scripts.js:79 strings/templates-default.js:36
 msgid "August"
-msgstr ""
+msgstr "Август"
 
 #: strings/frontend-scripts.js:80 strings/templates-default.js:37
 msgid "September"
-msgstr ""
+msgstr "Сентябрь"
 
 #: strings/frontend-scripts.js:81 strings/templates-default.js:38
 msgid "October"
-msgstr ""
+msgstr "Октябрь"
 
 #: strings/frontend-scripts.js:82 strings/templates-default.js:39
 msgid "November"
-msgstr ""
+msgstr "Ноябрь"
 
 #: strings/frontend-scripts.js:83 strings/templates-default.js:40
 msgid "December"
-msgstr ""
+msgstr "Декабрь"
 
 #: strings/frontend-scripts.js:84
 msgid "Jan"
-msgstr ""
+msgstr "Янв"
 
 #: strings/frontend-scripts.js:85
 msgid "Feb"
-msgstr ""
+msgstr "Февр"
 
 #: strings/frontend-scripts.js:86
 msgid "Mar"
-msgstr ""
+msgstr "Март"
 
 #: strings/frontend-scripts.js:87
 msgid "Apr"
-msgstr ""
+msgstr "Апр"
 
 #: strings/frontend-scripts.js:89
 msgid "Jun"
-msgstr ""
+msgstr "Июнь"
 
 #: strings/frontend-scripts.js:90
 msgid "Jul"
-msgstr ""
+msgstr "Июль"
 
 #: strings/frontend-scripts.js:91
 msgid "Aug"
-msgstr ""
+msgstr "Авг"
 
 #: strings/frontend-scripts.js:92
 msgid "Sen"
-msgstr ""
+msgstr "Сен"
 
 #: strings/frontend-scripts.js:93
 msgid "Oct"
-msgstr ""
+msgstr "Окт"
 
 #: strings/frontend-scripts.js:94
 msgid "Nov"
-msgstr ""
+msgstr "Нояб"
 
 #: strings/frontend-scripts.js:95
 msgid "Dec"
-msgstr ""
+msgstr "Дек"
 
 #: strings/frontend-scripts.js:97
 msgid "Delete event"
-msgstr ""
+msgstr "Удалить событие"
 
 #: strings/frontend-scripts.js:98
 msgid "Delete schedule"
-msgstr ""
+msgstr "Удалить расписание"
 
 #: strings/frontend-scripts.js:99
 msgid "Bad event setup"
-msgstr ""
+msgstr "Плохая настройка события"
 
 #: strings/frontend-scripts.js:100 strings/frontend-scripts.js:101
 #: strings/frontend-scripts.js:102
 msgid "Each"
-msgstr ""
+msgstr "Каждый"
 
 #: strings/frontend-scripts.js:103
 msgid "Eeach"
-msgstr ""
+msgstr "Каждый"
 
 #: strings/frontend-scripts.js:104 strings/frontend-scripts.js:105
 #: strings/frontend-scripts.js:106
 msgid "Excluding each"
-msgstr ""
+msgstr "Исключение каждого"
 
 #: strings/frontend-scripts.js:107 strings/frontend-scripts.js:108
 msgid " year"
-msgstr ""
+msgstr " год"
 
 #: strings/frontend-scripts.js:109
 msgid " years"
-msgstr ""
+msgstr " годы"
 
 #: strings/frontend-scripts.js:110
 msgid "%s %f, %m1 %w, in %m2"
-msgstr ""
+msgstr "%s %f, %m1 %w, in %m2"
 
 #: strings/frontend-scripts.js:111
 #, javascript-format
 msgid "Excluding %s"
-msgstr ""
+msgstr "Исключая %s"
 
 #: strings/frontend-scripts.js:112
 #, javascript-format
 msgid ", if %d"
-msgstr ""
+msgstr ", если %d"
 
 #: strings/frontend-scripts.js:113
 msgid "%s %m1, %d day of %w, in %m2"
-msgstr ""
+msgstr "%s %m1, %d день %w, в %m2"
 
 #: strings/frontend-scripts.js:114
 msgid "%s %d day of %w, in %m"
-msgstr ""
+msgstr "%s %d день %w, в %m"
 
 #: strings/frontend-scripts.js:115
 msgid "%s %d, in %m"
-msgstr ""
+msgstr "%s %d, в %m"
 
 #: strings/frontend-scripts.js:116
 msgid "%s day, in %m"
-msgstr ""
+msgstr "%s день, в %m"
 
 #: strings/frontend-scripts.js:117
 msgid "%s hour, on %min minute and %sec second"
-msgstr ""
+msgstr "%s час, %min минут и %sec секунд"
 
 #: strings/frontend-scripts.js:118
 #, javascript-format
 msgid "%s minute on %sec second"
-msgstr ""
+msgstr "%s минут на %sec секунд"
 
 #: strings/frontend-scripts.js:119
 msgid "during"
-msgstr ""
+msgstr "в течение"
 
 #: strings/frontend-scripts.js:120
 msgid " h"
-msgstr ""
+msgstr " ч"
 
 #: strings/frontend-scripts.js:121
 msgid " m"
-msgstr ""
+msgstr " м"
 
 #: strings/frontend-scripts.js:122
 msgid " s"
-msgstr ""
+msgstr " с"
 
 #: strings/frontend-scripts.js:123
 msgid "Import geo-json to map?"
-msgstr ""
+msgstr "Импортировать geo-json на карту?"
 
 #: strings/frontend-scripts.js:124
 msgid "Delete all"
-msgstr ""
+msgstr "Удалить все"
 
 #: strings/frontend-scripts.js:125
 msgid "Delete all objects?"
-msgstr ""
+msgstr "Удалить все объекты?"
 
 #: strings/frontend-scripts.js:126
 msgid "Center by objects"
-msgstr ""
+msgstr "Центрировать по объектам"
 
 #: strings/frontend-scripts.js:127
 msgid "Invalid object JSON"
-msgstr ""
+msgstr "Недействительный объект JSON"
 
 #: strings/frontend-scripts.js:128
 msgid "Unknown geometry type"
-msgstr ""
+msgstr "Неизвестный тип geometry"
 
 #: strings/frontend-scripts.js:129
 msgid "Invalid geo json"
-msgstr ""
+msgstr "Недействительный geo json"
 
 #: strings/frontend-scripts.js:130
 msgid "Mark"
-msgstr ""
+msgstr "Отметка"
 
 #: strings/frontend-scripts.js:131
 msgid "Line"
-msgstr ""
+msgstr "Линия"
 
 #: strings/frontend-scripts.js:132
 msgid "Polygon"
-msgstr ""
+msgstr "Многоугольник"
 
 #: strings/frontend-scripts.js:133
 msgid "Circle"
-msgstr ""
+msgstr "Круг"
 
 #: strings/frontend-scripts.js:134
 msgid "Coordinates&nbsp&nbsp"
-msgstr ""
+msgstr "Координаты&nbsp&nbsp"
 
 #: strings/frontend-scripts.js:135
 msgid "Set"
-msgstr ""
+msgstr "Установить"
 
 #: strings/frontend-scripts.js:136
 msgid "Ymap: Invalid geo coords"
-msgstr ""
+msgstr "Ymap: Недопустимые гео координаты"
 
 #: strings/frontend-scripts.js:137
 msgid "Warning: Host protocol is secure. Geojson validation is not perfomed"
-msgstr ""
+msgstr "Warning: Протокол хоста безопасен. Проверка geojson не выполняется"
 
 #: strings/frontend-scripts.js:138
 msgid "created"
-msgstr ""
+msgstr "создано"
 
 #: strings/frontend-scripts.js:139
 msgid "edited"
-msgstr ""
+msgstr "редактировано"
 
 #: strings/frontend-scripts.js:140
 msgid "Attribute"
-msgstr ""
+msgstr "Атрибут"
 
 #: strings/frontend-scripts.js:141
 msgid "New value"
-msgstr ""
+msgstr "Новое значение"
 
 #: strings/frontend-scripts.js:142
 msgid "by user"
-msgstr ""
+msgstr "пользователем"
 
 #: strings/frontend-scripts.js:143
 msgid ""
 "Object was opened directly, there is no source list. Go to <a "
 "href='/'><b>default page</b></a>."
 msgstr ""
+"Объект был открыт напрямую, списка источников нет. Перейдите на <a href='/"
+"'><b>страницу по умолчанию</b></a>."
 
 #: strings/frontend-scripts.js:144
 msgid "Unsaved changes will be lost. Refresh?"
-msgstr ""
+msgstr "Несохраненные изменения будут потеряны. Обновить?"
 
 #: strings/frontend-scripts.js:145
 msgid "%sub, issued on %issue, valid from %d1 to %d2"
-msgstr ""
+msgstr "%sub, выданный %issue, действителен с %d1 по %d2"
 
 #: strings/frontend-scripts.js:146
 msgid "Failed to load signing plugin."
-msgstr ""
+msgstr "Не удалось загрузить плагин подписи."
 
 #: strings/frontend-scripts.js:147
 msgid "Workflow"
-msgstr ""
+msgstr "Бизнес-процесс"
 
 #: strings/frontend-scripts.js:148 strings/frontend-scripts.js:196
 msgid "Are you sure?"
-msgstr ""
+msgstr "Вы уверены?"
 
 #: strings/frontend-scripts.js:149 strings/frontend-scripts.js:195
 msgid "Delete object?"
-msgstr ""
+msgstr "Удалить объект?"
 
 #: strings/frontend-scripts.js:150
 msgid "Signing error"
-msgstr ""
+msgstr "Ошибка подписи"
 
 #: strings/frontend-scripts.js:151
 msgid "Action signed!"
-msgstr ""
+msgstr "Действие подписано!"
 
 #: strings/frontend-scripts.js:152
 msgid "Crypto Pro failed to sign data. Check license please."
-msgstr ""
+msgstr "Crypto Pro не удалось подписать данные. Пожалуйста, проверьте лицензию."
 
 #: strings/frontend-scripts.js:153
 msgid "Error"
-msgstr ""
+msgstr "Ошибка"
 
 #: strings/frontend-scripts.js:154
 msgid "Done!"
-msgstr ""
+msgstr "Выполнено!"
 
 #: strings/frontend-scripts.js:155
 msgid "Object created"
-msgstr ""
+msgstr "Объект создан"
 
 #: strings/frontend-scripts.js:156
 msgid "Field is required"
-msgstr ""
+msgstr "Поле, обязательное для заполнения"
 
 #: strings/frontend-scripts.js:157
 msgid "Fix errors in form"
-msgstr ""
+msgstr "Исправить ошибки в форме"
 
 #: strings/frontend-scripts.js:158
 msgid "<b>Object is used by user <i>%name</i>. Form is read only mode.</b><br>"
 msgstr ""
+"<b>Объект используется пользователем <i>%name</i>. Форма доступна только для "
+"чтения.</b><br>"
 
 #: strings/frontend-scripts.js:159
 msgid "Signed data was changed."
-msgstr ""
+msgstr "Подписанные данные были изменены."
 
 #: strings/frontend-scripts.js:160
 msgid "Check sign"
-msgstr ""
+msgstr "Проверить подпись"
 
 #: strings/frontend-scripts.js:161 strings/templates-default.js:170
 msgid "Subject"
-msgstr ""
+msgstr "Объект"
 
 #: strings/frontend-scripts.js:162 strings/templates-default.js:171
 msgid "Provider"
-msgstr ""
+msgstr "Поставщик"
 
 #: strings/frontend-scripts.js:163 strings/templates-default.js:172
 msgid "Valid from"
-msgstr ""
+msgstr "Действует с"
 
 #: strings/frontend-scripts.js:164 strings/templates-default.js:173
 msgid "Valid to"
-msgstr ""
+msgstr "Действителен до"
 
 #: strings/frontend-scripts.js:165 strings/templates-default.js:174
 msgid "Serial"
-msgstr ""
+msgstr "Серийный"
 
 #: strings/frontend-scripts.js:166
 msgid "Signature is invalid!"
-msgstr ""
+msgstr "Подпись недействительна!"
 
 #: strings/frontend-scripts.js:167
 msgid "Signature is valid"
-msgstr ""
+msgstr "Подпись действительна"
 
 #: strings/frontend-scripts.js:168
 msgid "CryptoPRO plugin not installed"
-msgstr ""
+msgstr "Плагин CryptoPRO не установлен"
 
 #: strings/frontend-scripts.js:169
 msgid "Inaproperiate value (does not match input mask)"
-msgstr ""
+msgstr "Несоответствующее значение (не соответствует маске ввода)"
 
 #: strings/frontend-scripts.js:170
 msgid "Uploading to server..."
-msgstr ""
+msgstr "Загрузка на сервер..."
 
 #: strings/frontend-scripts.js:171
 msgid "Uploaded"
-msgstr ""
+msgstr "Загружено"
 
 #: strings/frontend-scripts.js:172
 msgid "File uploading error"
-msgstr ""
+msgstr "Ошибка загрузки файла"
 
 #: strings/frontend-scripts.js:173
 msgid "Delete uploaded file?"
-msgstr ""
+msgstr "Удалить загруженный файл?"
 
 #: strings/frontend-scripts.js:174
 msgid "Delete object from reference?"
-msgstr ""
+msgstr "Удалить объект из ссылки?"
 
 #: strings/frontend-scripts.js:175
 msgid "No data"
-msgstr ""
+msgstr "Нет данных"
 
 #: strings/frontend-scripts.js:176
 msgid "No results found for current clarification conditions."
-msgstr ""
+msgstr "Для текущих условий прояснения результатов не найдено."
 
 #: strings/frontend-scripts.js:177
 msgid "RefShortView: Unknown attribute type: %type"
-msgstr ""
+msgstr "RefShortView: Неизвестный тип атрибута: %type"
 
 #: strings/frontend-scripts.js:178
 msgid "Schedule not filled."
-msgstr ""
+msgstr "Расписание не заполнено."
 
 #: strings/frontend-scripts.js:179
 msgid " (break %time)"
-msgstr ""
+msgstr " (прервать в %time)"
 
 #: strings/frontend-scripts.js:180
 msgid "Week schedule"
-msgstr ""
+msgstr "Расписание на неделю"
 
 #: strings/frontend-scripts.js:181
 msgid " from %h1:%m1 to %h2:%m2"
-msgstr ""
+msgstr " с %h1:%m1 до %h2:%m2"
 
 #: strings/frontend-scripts.js:182 strings/templates-default.js:141
 #: strings/templates-default.js:197
 msgid "Select filter..."
-msgstr ""
+msgstr "Выберите фильтр..."
 
 #: strings/frontend-scripts.js:183
 msgid "= equal"
-msgstr ""
+msgstr "= равно"
 
 #: strings/frontend-scripts.js:184
 msgid "before"
-msgstr ""
+msgstr "до"
 
 #: strings/frontend-scripts.js:185
 msgid "less"
-msgstr ""
+msgstr "меньше"
 
 #: strings/frontend-scripts.js:186
 msgid "after"
-msgstr ""
+msgstr "после"
 
 #: strings/frontend-scripts.js:187
 msgid "more"
-msgstr ""
+msgstr "больше"
 
 #: strings/frontend-scripts.js:188
 msgid " or equal"
-msgstr ""
+msgstr " или равно"
 
 #: strings/frontend-scripts.js:189
 msgid "Filter"
-msgstr ""
+msgstr "Фильтр"
 
 #: strings/frontend-scripts.js:190
 msgid "Required field"
-msgstr ""
+msgstr "Обязательное поле"
 
 #: strings/frontend-scripts.js:191
 msgid "Value does not match input mask"
-msgstr ""
+msgstr "Значение не соответствует маске ввода"
 
 #: strings/frontend-scripts.js:192
 msgid "Delete selected object from reference?"
-msgstr ""
+msgstr "Удалить выбранный объект из ссылки?"
 
 #: strings/frontend-scripts.js:193
 msgid "Remove object from collection?"
-msgstr ""
+msgstr "Удалить объект из коллекции?"
 
 #: strings/frontend-scripts.js:194
 msgid "Error when removing object."
-msgstr ""
+msgstr "Ошибка при удалении объекта."
 
 #: strings/frontend-scripts.js:197
 msgid "List initialization error."
-msgstr ""
+msgstr "Ошибка инициализации списка."
 
 #: strings/frontend-scripts.js:198
 msgid "Access denied!"
@@ -1074,56 +1078,60 @@ msgstr "Доступ запрещен!"
 
 #: strings/frontend-scripts.js:199
 msgid "Data fetch error."
-msgstr ""
+msgstr "Ошибка получения данных."
 
 #: strings/frontend-scripts.js:200
 msgid ""
 "<p>Object selected by reference '%cap' is linked to <a href='%href'>another "
 "object</a>.</p><p>Are you sure, you want to break this link?</p>"
 msgstr ""
+"<p>Объект, выбранный по ссылке '%cap' связан с <a href='%href'>другим "
+"объектом</a>.</p><p>Вы уверены, что хотите разорвать связь?</p>"
 
 #: strings/frontend-scripts.js:201
 msgid ""
 "<p>Object selected by reference '%cap' is linked to <a href='%href'>%name</"
 "a>.</p><p>Are you sure, you want to break this link?</p>"
 msgstr ""
+"<p>Объект, выбранный по ссылке '%cap' связан с <a href='%href'>%name</a>.</"
+"p><p>Вы уверены, что хотите разорвать связь?</p>"
 
 #: strings/frontend-scripts.js:202
 msgid "Warning!"
-msgstr ""
+msgstr "Предупреждение!"
 
 #: strings/frontend-scripts.js:203
 msgid "Yes"
-msgstr ""
+msgstr "Да"
 
 #: strings/frontend-scripts.js:204
 msgid "No"
-msgstr ""
+msgstr "Нет"
 
 #: strings/frontend-scripts.js:205
 msgid "Error on object fetch"
-msgstr ""
+msgstr "Ошибка при получении объекта"
 
 #: strings/frontend-scripts.js:206
 msgid "Error of object sorting"
-msgstr ""
+msgstr "Ошибка сортировки объекта"
 
 #: strings/frontend-scripts.js:207
 msgid "Error og object deletion"
-msgstr ""
+msgstr "Ошибка удаления объекта"
 
 #: strings/frontend-scripts.js:208
 msgid "Remove selected objects from collection?"
-msgstr ""
+msgstr "Убрать выбранные объекты из коллекции?"
 
 #: strings/frontend-scripts.js:209
 msgid "Delete selected objects?"
-msgstr ""
+msgstr "Удалить выбранные объекты?"
 
 #: strings/frontend-scripts.js:210
 #, javascript-format
 msgid "Collection initialization error: %cap"
-msgstr ""
+msgstr "Ошибка инициализации коллекции: %cap"
 
 #: strings/templates-default.js:4 strings/templates-default.js:9
 msgid "Home"
@@ -1139,7 +1147,7 @@ msgstr "Пароль"
 
 #: strings/templates-default.js:7
 msgid "Password repeat"
-msgstr ""
+msgstr "Повтор пароля"
 
 #: strings/templates-default.js:8 strings/templates-default.js:12
 msgid "Sign in"
@@ -1147,7 +1155,7 @@ msgstr "Войти"
 
 #: strings/templates-default.js:10
 msgid "Signing in"
-msgstr ""
+msgstr "Вход в систему"
 
 #: strings/templates-default.js:11 strings/templates-default.js:17
 msgid "Sign up"
@@ -1167,7 +1175,7 @@ msgstr "Регистрация"
 
 #: strings/templates-default.js:18
 msgid "Setting password for user %name"
-msgstr ""
+msgstr "Установка пароля для пользователя %name"
 
 #: strings/templates-default.js:19 strings/templates-default.js:117
 msgid "Change password"
@@ -1175,236 +1183,236 @@ msgstr "Смените пароль"
 
 #: strings/templates-default.js:21
 msgid "Up"
-msgstr ""
+msgstr "Вверх"
 
 #: strings/templates-default.js:22
 msgid "Down"
-msgstr ""
+msgstr "Вниз"
 
 #: strings/templates-default.js:25 strings/templates-default.js:57
 #: strings/templates-default.js:168 strings/templates-default.js:183
 #: strings/templates-default.js:190
 msgid "Cancel"
-msgstr ""
+msgstr "Отмена"
 
 #: strings/templates-default.js:27
 msgid "File uploaded"
-msgstr ""
+msgstr "Файл загружен"
 
 #: strings/templates-default.js:28
 msgid "Image uploaded"
-msgstr ""
+msgstr "Изображение загружено"
 
 #: strings/templates-default.js:30
 msgid "February"
-msgstr ""
+msgstr "Февраль"
 
 #: strings/templates-default.js:41
 msgid "Year"
-msgstr ""
+msgstr "Год"
 
 #: strings/templates-default.js:42
 msgid "Schedule"
-msgstr ""
+msgstr "Расписание"
 
 #: strings/templates-default.js:43
 msgid "Description"
-msgstr ""
+msgstr "Описание"
 
 #: strings/templates-default.js:44
 msgid "Event"
-msgstr ""
+msgstr "Событие"
 
 #: strings/templates-default.js:45
 msgid "Events"
-msgstr ""
+msgstr "События"
 
 #: strings/templates-default.js:46
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 #: strings/templates-default.js:47
 msgid "Exclusion"
-msgstr ""
+msgstr "Исключение"
 
 #: strings/templates-default.js:48
 msgid "Exclusions"
-msgstr ""
+msgstr "Исключения"
 
 #: strings/templates-default.js:49
 msgid "Exception"
-msgstr ""
+msgstr "Исключение"
 
 #: strings/templates-default.js:50
 msgid "Month"
-msgstr ""
+msgstr "Месяц"
 
 #: strings/templates-default.js:51
 msgid "Weekday"
-msgstr ""
+msgstr "Будний день"
 
 #: strings/templates-default.js:52
 msgid "Day"
-msgstr ""
+msgstr "День"
 
 #: strings/templates-default.js:53
 msgid "Hour"
-msgstr ""
+msgstr "Час"
 
 #: strings/templates-default.js:54
 msgid "Minute"
-msgstr ""
+msgstr "Минута"
 
 #: strings/templates-default.js:55
 msgid "Second"
-msgstr ""
+msgstr "Секунда"
 
 #: strings/templates-default.js:58
 msgid "Save event"
-msgstr ""
+msgstr "Сохранить событие"
 
 #: strings/templates-default.js:59
 msgid "Save schedule"
-msgstr ""
+msgstr "Сохранить расписание"
 
 #: strings/templates-default.js:60 strings/templates-default.js:89
 msgid "Date"
-msgstr ""
+msgstr "Дата"
 
 #: strings/templates-default.js:61
 msgid "Date and time"
-msgstr ""
+msgstr "Дата и время"
 
 #: strings/templates-default.js:62
 msgid "Open"
-msgstr ""
+msgstr "Открыть"
 
 #: strings/templates-default.js:63 strings/templates-default.js:124
 #: view/default/templates/attrs/_file-uploader.ejs:26
 #: view/default/templates/attrs/_multifile.ejs:52
 msgid "Delete file"
-msgstr ""
+msgstr "Удалить файл"
 
 #: strings/templates-default.js:64
 msgid "Drag file here"
-msgstr ""
+msgstr "Перетащите файл сюда"
 
 #: strings/templates-default.js:65
 msgid "or find file in folder"
-msgstr ""
+msgstr "или найдите файл в папке"
 
 #: strings/templates-default.js:66
 msgid "Too many files"
-msgstr ""
+msgstr "Слишком много файлов"
 
 #: strings/templates-default.js:67
 msgid "File"
-msgstr ""
+msgstr "Файл"
 
 #: strings/templates-default.js:68
 msgid "Waiting for check..."
-msgstr ""
+msgstr "Ожидание проверки..."
 
 #: strings/templates-default.js:69
 msgid "Create geo-objects"
-msgstr ""
+msgstr "Создание гео-объектов"
 
 #: strings/templates-default.js:70
 msgid "Edit geo-objects"
-msgstr ""
+msgstr "Редактирование гео-объектов"
 
 #: strings/templates-default.js:71
 msgid "Geo-objects constructor"
-msgstr ""
+msgstr "Конструктор гео-объектов"
 
 #: strings/templates-default.js:72
 msgid "Finish"
-msgstr ""
+msgstr "Закончить"
 
 #: strings/templates-default.js:73 strings/templates-default.js:130
 #: strings/templates-default.js:161
 msgid "Export"
-msgstr ""
+msgstr "Экспортировать"
 
 #: strings/templates-default.js:74
 msgid "Map to text"
-msgstr ""
+msgstr "Карта к тексту"
 
 #: strings/templates-default.js:75
 msgid "Import"
-msgstr ""
+msgstr "Импортировать"
 
 #: strings/templates-default.js:76
 msgid "Text to map"
-msgstr ""
+msgstr "Текст к карте"
 
 #: strings/templates-default.js:77
 msgid "Data in GEO-JSON format"
-msgstr ""
+msgstr "Данные в формате GEO-JSON"
 
 #: strings/templates-default.js:78 strings/templates-default.js:87
 msgid "Invalid data..."
-msgstr ""
+msgstr "Неверные данные..."
 
 #: strings/templates-default.js:79
 msgid "Create coordinates"
-msgstr ""
+msgstr "Создать координаты"
 
 #: strings/templates-default.js:80
 msgid "Change coordinates"
-msgstr ""
+msgstr "Изменить координаты"
 
 #: strings/templates-default.js:81
 msgid "Set coordinates"
-msgstr ""
+msgstr "Установить координаты"
 
 #: strings/templates-default.js:83
 msgid "Enter address..."
-msgstr ""
+msgstr "Ввести адрес..."
 
 #: strings/templates-default.js:84
 msgid "Cordinates not found"
-msgstr ""
+msgstr "Координаты не найдены"
 
 #: strings/templates-default.js:85
 msgid "Enter data in GEO-JSON format"
-msgstr ""
+msgstr "Введите данные в формате GEO-JSON"
 
 #: strings/templates-default.js:86
 msgid "Check and display in GEO-JSON"
-msgstr ""
+msgstr "Проверка и отображение в GEO-JSON"
 
 #: strings/templates-default.js:88
 msgid "Drag files here"
-msgstr ""
+msgstr "Перетащите файлы сюда"
 
 #: strings/templates-default.js:90
 msgid "Value inacessible"
-msgstr ""
+msgstr "Значение недоступно"
 
 #: strings/templates-default.js:91
 msgid "Object will be linked automatically"
-msgstr ""
+msgstr "Объект будет привязан автоматически"
 
 #: strings/templates-default.js:99
 msgid "Five days"
-msgstr ""
+msgstr "Пять дней"
 
 #: strings/templates-default.js:100
 msgid "Daily"
-msgstr ""
+msgstr "Ежедневно"
 
 #: strings/templates-default.js:101
 msgid "Work time"
-msgstr ""
+msgstr "Рабочее время"
 
 #: strings/templates-default.js:102
 msgid "Break"
-msgstr ""
+msgstr "Перерыв"
 
 #: strings/templates-default.js:103
 msgid "Accept"
-msgstr ""
+msgstr "Принять"
 
 #: strings/templates-default.js:104 strings/templates-default.js:129
 #: strings/templates-default.js:132 strings/templates-default.js:139
@@ -1415,238 +1423,238 @@ msgstr ""
 #: view/default/templates/view/list.ejs:161
 #: view/default/templates/attrs/_calendar.ejs:42
 msgid "Close"
-msgstr ""
+msgstr "Закрыть"
 
 #: strings/templates-default.js:106
 msgid "Sorry, but access to this resource is restricted."
-msgstr ""
+msgstr "Извините, но доступ к этому ресурсу ограничен."
 
 #: strings/templates-default.js:108
 msgid "We could not find the page you are looking for."
-msgstr ""
+msgstr "Мы не смогли найти страницу, которую вы ищете."
 
 #: strings/templates-default.js:109
 msgid "Server error"
-msgstr ""
+msgstr "Ошибка сервера"
 
 #: strings/templates-default.js:110
 msgid "Something went wrong"
-msgstr ""
+msgstr "Что-то пошло не так"
 
 #: strings/templates-default.js:111
 msgid "We are working on fixing this issue right now."
-msgstr ""
+msgstr "Мы работаем над устранением проблемы прямо сейчас."
 
 #: strings/templates-default.js:112 strings/templates-default.js:120
 msgid "Search..."
-msgstr ""
+msgstr "Поиск..."
 
 #: strings/templates-default.js:113
 msgid "Version"
-msgstr ""
+msgstr "Версия"
 
 #: strings/templates-default.js:114
 msgid "Copyright"
-msgstr ""
+msgstr "Авторские права"
 
 #: strings/templates-default.js:115
 msgid "User avatar"
-msgstr ""
+msgstr "Аватар пользователя"
 
 #: strings/templates-default.js:116
 msgid "User profile"
-msgstr ""
+msgstr "Профиль пользователя"
 
 #: strings/templates-default.js:118
 msgid "Sign out"
-msgstr ""
+msgstr "Выход"
 
 #: strings/templates-default.js:119
 msgid "Filters"
-msgstr ""
+msgstr "Фильтры"
 
 #: strings/templates-default.js:121
 msgid "Clear search field"
-msgstr ""
+msgstr "Очистить поле поиска"
 
 #: strings/templates-default.js:122
 msgid "More"
-msgstr ""
+msgstr "Больше"
 
 #: strings/templates-default.js:123
 msgid "Drag image here"
-msgstr ""
+msgstr "Перетащите изображение сюда"
 
 #: strings/templates-default.js:125
 msgid "Sharing"
-msgstr ""
+msgstr "Поделиться"
 
 #: strings/templates-default.js:126
 msgid "Link"
-msgstr ""
+msgstr "Ссылка"
 
 #: strings/templates-default.js:127
 #: view/default/templates/attrs/_file-uploader.ejs:48
 msgid "External link"
-msgstr ""
+msgstr "Внешняя ссылка"
 
 #: strings/templates-default.js:128
 #: view/default/templates/attrs/_file-uploader.ejs:52
 msgid "Share link"
-msgstr ""
+msgstr "Поделиться ссылкой"
 
 #: strings/templates-default.js:131
 msgid "Object change log"
-msgstr ""
+msgstr "Журнал изменений объекта"
 
 #: strings/templates-default.js:133 strings/templates-default.js:140
 #: strings/templates-default.js:178 strings/templates-default.js:194
 #: view/default/templates/view/list.ejs:163
 #: view/default/templates/attrs/_dt-object-list.ejs:221
 msgid "Refresh"
-msgstr ""
+msgstr "Обновить"
 
 #: strings/templates-default.js:134
 msgid "Select one object for editiing."
-msgstr ""
+msgstr "Выберите один объект для редактирования."
 
 #: strings/templates-default.js:142 strings/templates-default.js:203
 msgid "Create filter"
-msgstr ""
+msgstr "Создать фильтр"
 
 #: strings/templates-default.js:143 strings/templates-default.js:204
 msgid "Edit filter"
-msgstr ""
+msgstr "Изменить фильтр"
 
 #: strings/templates-default.js:144 strings/templates-default.js:205
 msgid "Reset filter"
-msgstr ""
+msgstr "Сбросить фильтр"
 
 #: strings/templates-default.js:145
 msgid "Select field..."
-msgstr ""
+msgstr "Выберите поле..."
 
 #: strings/templates-default.js:146
 msgid "Select date..."
-msgstr ""
+msgstr "Выберите дату..."
 
 #: strings/templates-default.js:147
 msgid "Enter number..."
-msgstr ""
+msgstr "Введите номер..."
 
 #: strings/templates-default.js:148
 msgid "Enter value..."
-msgstr ""
+msgstr "Введите значение..."
 
 #: strings/templates-default.js:149
 msgid "Add condition"
-msgstr ""
+msgstr "Добавить условие"
 
 #: strings/templates-default.js:150 strings/templates-default.js:198
 msgid "Apply filter"
-msgstr ""
+msgstr "Применить фильтр"
 
 #: strings/templates-default.js:151
 msgid "To all classes"
-msgstr ""
+msgstr "Для всех классов"
 
 #: strings/templates-default.js:152
 msgid "Add filter name..."
-msgstr ""
+msgstr "Добавить имя фильтра..."
 
 #: strings/templates-default.js:153
 msgid "Save filter"
-msgstr ""
+msgstr "Сохранить фильтр"
 
 #: strings/templates-default.js:155 strings/templates-default.js:199
 msgid "Delete filter"
-msgstr ""
+msgstr "Удалить фильтр"
 
 #: strings/templates-default.js:157
 msgid "max"
-msgstr ""
+msgstr "макс"
 
 #: strings/templates-default.js:158
 msgid "min"
-msgstr ""
+msgstr "мин"
 
 #: strings/templates-default.js:159
 msgid "equal"
-msgstr ""
+msgstr "равно"
 
 #: strings/templates-default.js:160
 msgid "contains"
-msgstr ""
+msgstr "содержит"
 
 #: strings/templates-default.js:163
 msgid "Failed to start export!"
-msgstr ""
+msgstr "Не удалось начать экспорт!"
 
 #: strings/templates-default.js:164
 msgid "Creation of object for reference '%prop' of object '%item'"
-msgstr ""
+msgstr "Создание объекта для ссылки '%prop' объекта '%item'"
 
 #: strings/templates-default.js:165
 msgid "Creation of object in collection '%prop' of object '%item'"
-msgstr ""
+msgstr "Создание объекта в коллекции '%prop' объекта '%item'"
 
 #: strings/templates-default.js:166
 msgid "Select certificate for signing"
-msgstr ""
+msgstr "Выберите сертификат для подписи"
 
 #: strings/templates-default.js:167
 msgid "View certificate info"
-msgstr ""
+msgstr "Посмотреть информацию о сертификате"
 
 #: strings/templates-default.js:176
 msgid "Create more"
-msgstr ""
+msgstr "Создать больше"
 
 #: strings/templates-default.js:179
 msgid "Changelog"
-msgstr ""
+msgstr "Журнал изменений"
 
 #: strings/templates-default.js:180
 msgid "Sign status"
-msgstr ""
+msgstr "Статус подписи"
 
 #: strings/templates-default.js:181
 msgid "Confirm your actions"
-msgstr ""
+msgstr "Подтвердите свои действия"
 
 #: strings/templates-default.js:182
 msgid "Continue"
-msgstr ""
+msgstr "Продолжить"
 
 #: strings/templates-default.js:185
 msgid "Submit"
-msgstr ""
+msgstr "Отправить"
 
 #: strings/templates-default.js:191
 msgid "Attribute '%prop' of object '%item' value selection"
-msgstr ""
+msgstr "Атрибут '%prop' выбор значения объекта '%item'"
 
 #: strings/templates-default.js:192
 #: view/default/templates/attrs/_dt-object-list.ejs:193
 #: view/default/templates/attrs/_reference_footer.ejs:65
 msgid "View"
-msgstr ""
+msgstr "Просмотр"
 
 #: strings/templates-default.js:195
 msgid "Query syntax"
-msgstr ""
+msgstr "Синтаксис запроса"
 
 #: strings/templates-default.js:196
 msgid "List filter"
-msgstr ""
+msgstr "Фильтр списка"
 
 #: strings/templates-default.js:201
 msgid "For all classes"
-msgstr ""
+msgstr "Для всех классов"
 
 #: strings/templates-default.js:202
 msgid "Enter filter name..."
-msgstr ""
+msgstr "Введите имя фильтра..."
 
 #: strings/templates-default.js:206
 msgid ""
@@ -1657,12 +1665,21 @@ msgid ""
 "logical operators<br><li><ul>and - match all values</ul><ul>or - match any "
 "value</ul></li>"
 msgstr ""
+"Создайте фильтр, введя строку запроса следующим образом:<br>`Name` = 'Ivan', "
+"где`Name` имя атрибута (выбирается из раскрывающегося списка) и 'Ivan' "
+"значение строки<br>Чтобы указать ссылочное значение, можно использовать "
+"разыменование следующим образом `Person`.`Name` = 'Ivan'<br>Несколько "
+"значений можно указать с помощью логических операторов<br><li><ul>и - "
+"соответствие всем значениям</ul><ul>или - соответствие какому-либо "
+"значению</ul></li>"
 
 #: strings/errors/web-errors.js:10
 msgid ""
 "Failed to save object. Another %class with the same value of %attr attribute "
 "exists. Use searching or contact the administrator."
 msgstr ""
+"Не удалось сохранить объект. Существует еще один %class с таким же значением "
+"%attr атрибута. Воспользуйтесь поиском или обратитесь к администратору."
 
 #: strings/errors/web-errors.js:11
 #, javascript-format
@@ -1670,76 +1687,78 @@ msgid ""
 "Failed to save object. Another %class with the same value of specified "
 "attributes exists. Use searching or contact the administrator."
 msgstr ""
+"Не удалось сохранить объект. Существует еще один %class с таким же значением "
+"атрибутов. Воспользуйтесь поиском или обратитесь к администратору."
 
 #: view/default/templates/changePwd.ejs:35
 msgid "password"
-msgstr ""
+msgstr "пароль"
 
 #: view/default/templates/changePwd.ejs:42
 msgid "repeat password"
-msgstr ""
+msgstr "повторите пароль"
 
 #: view/default/templates/changePwd.ejs:76
 msgid "Min password length "
-msgstr ""
+msgstr "Минимальная длина пароля "
 
 #: view/default/templates/changePwd.ejs:76
 #: view/default/templates/register.ejs:144
 msgid "symbols"
-msgstr ""
+msgstr "символы"
 
 #: view/default/templates/changePwd.ejs:81
 #: view/default/templates/register.ejs:149
 msgid "Invalid password repeat"
-msgstr ""
+msgstr "Неверный повтор пароля"
 
 #: view/default/templates/register.ejs:138
 msgid "Login field is required"
-msgstr ""
+msgstr "Поле Логин обязательно для заполнения"
 
 #: view/default/templates/register.ejs:144
 msgid "Min password length is "
-msgstr ""
+msgstr "Минимальная длина пароля "
 
 #: view/default/templates/register.ejs:157
 #: view/default/templates/profile.ejs:167
 msgid "Field "
-msgstr ""
+msgstr "Поле "
 
 #: view/default/templates/register.ejs:158
 #: view/default/templates/profile.ejs:168
 msgid "is required"
-msgstr ""
+msgstr "обязательно"
 
 #: view/default/templates/view/dashboard-tools.ejs:4
 msgid "Module"
-msgstr ""
+msgstr "Модуль"
 
 #: view/default/templates/attrs/_dt-object-list.ejs:141
 msgid "Create inplace"
-msgstr ""
+msgstr "Создать замену"
 
 #: view/default/templates/attrs/_file-uploader.ejs:41
 msgid "Refrence"
-msgstr ""
+msgstr "Ссылка"
 
 #: view/default/templates/layout/header.ejs:10
 #: view/default/templates/layout/notifications.ejs:11
 msgid "Notifications"
-msgstr ""
+msgstr "Уведомления"
 
 #: view/default/templates/layout/notifications.ejs:17
 msgid "Check all"
-msgstr ""
+msgstr "Отметить все"
 
 #: view/default/templates/layout/notifications.ejs:21
 msgid "No new notifications"
-msgstr ""
+msgstr "Нет новых уведомлений"
 
 #: view/default/templates/layout/notifications.ejs:27
 msgid "Load marked as read"
-msgstr ""
+msgstr "Загрузка помечена как прочитанная"
 
 #: view/default/templates/layout/notifications.ejs:38
 msgid "Mark as read"
-msgstr ""
+msgstr "Пометить как прочитанное"
