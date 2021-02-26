@@ -1179,7 +1179,7 @@ msgstr "Установка пароля для пользователя %name"
 
 #: strings/templates-default.js:19 strings/templates-default.js:117
 msgid "Change password"
-msgstr "Смените пароль"
+msgstr "Смена пароля"
 
 #: strings/templates-default.js:21
 msgid "Up"
