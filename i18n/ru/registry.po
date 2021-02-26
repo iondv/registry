@@ -3,22 +3,22 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#msgid ""
-#msgstr ""
-#"Project-Id-Version: PACKAGE VERSION\n"
-#"Report-Msgid-Bugs-To: \n"
-#"POT-Creation-Date: 2021-02-12 20:16+0000\n"
-#"PO-Revision-Date: 2021-02-19 20:17+0000\n"
-#"Last-Translator: Alena Kremenetskaya <alena.kremenetskaya@mail.ru>\n"
-#"Language-Team: Russian <http://weblate.iondv.ru/projects/iondv-framework/"
-#"registry/ru/>\n"
-#"Language: ru\n"
-#"MIME-Version: 1.0\n"
-#"Content-Type: text/plain; charset=UTF-8\n"
-#"Content-Transfer-Encoding: 8bit\n"
-#"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-#"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-#"X-Generator: Weblate 4.4.2\n"
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-26 20:17+0000\n"
+"PO-Revision-Date: 2021-02-19 20:17+0000\n"
+"Last-Translator: Alena Kremenetskaya <alena.kremenetskaya@mail.ru>\n"
+"Language-Team: Russian <http://weblate.iondv.ru/projects/iondv-framework/"
+"registry/ru/>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.4.2\n"
 
 #: backend/ConcurencyChecker.js:15 backend/UserFilters.js:17
 msgid "Data source not specified"
@@ -858,8 +858,8 @@ msgid ""
 "Object was opened directly, there is no source list. Go to <a "
 "href='/'><b>default page</b></a>."
 msgstr ""
-"Объект был открыт напрямую, списка источников нет. Перейдите на <a href='/"
-"'><b>страницу по умолчанию</b></a>."
+"Объект был открыт напрямую, списка источников нет. Перейдите на <a "
+"href='/'><b>страницу по умолчанию</b></a>."
 
 #: strings/frontend-scripts.js:144
 msgid "Unsaved changes will be lost. Refresh?"
@@ -895,7 +895,8 @@ msgstr "Действие подписано!"
 
 #: strings/frontend-scripts.js:152
 msgid "Crypto Pro failed to sign data. Check license please."
-msgstr "Crypto Pro не удалось подписать данные. Пожалуйста, проверьте лицензию."
+msgstr ""
+"Crypto Pro не удалось подписать данные. Пожалуйста, проверьте лицензию."
 
 #: strings/frontend-scripts.js:153
 msgid "Error"
@@ -1179,7 +1180,7 @@ msgstr "Установка пароля для пользователя %name"
 
 #: strings/templates-default.js:19 strings/templates-default.js:117
 msgid "Change password"
-msgstr "Смена пароля"
+msgstr "Смените пароль"
 
 #: strings/templates-default.js:21
 msgid "Up"
@@ -1479,7 +1480,7 @@ msgstr "Очистить поле поиска"
 
 #: strings/templates-default.js:122
 msgid "More"
-msgstr "Ещё"
+msgstr "Больше"
 
 #: strings/templates-default.js:123
 msgid "Drag image here"
@@ -1670,8 +1671,8 @@ msgstr ""
 "значение строки<br>Чтобы указать ссылочное значение, можно использовать "
 "разыменование следующим образом `Person`.`Name` = 'Ivan'<br>Несколько "
 "значений можно указать с помощью логических операторов<br><li><ul>и - "
-"соответствие всем значениям</ul><ul>или - соответствие какому-либо "
-"значению</ul></li>"
+"соответствие всем значениям</ul><ul>или - соответствие какому-либо значению</"
+"ul></li>"
 
 #: strings/errors/web-errors.js:10
 msgid ""
