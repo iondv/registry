@@ -1479,7 +1479,7 @@ msgstr "Очистить поле поиска"
 
 #: strings/templates-default.js:122
 msgid "More"
-msgstr "Больше"
+msgstr "Ещё"
 
 #: strings/templates-default.js:123
 msgid "Drag image here"
