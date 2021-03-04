@@ -67,7 +67,7 @@ function ps2fs(size) {
 module.exports.buildListVm = function buildListVm(cm, origin, lang) {
   var result = {
     allowSearch: origin ? origin.allowSearch : true,
-    pageSize: origin ? origin.pageSize : 20,
+    pageSize: origin ? origin.pageSize : 10,
     useEditModels: origin ? origin.useEditModels : true,
     columns: origin ? origin.columns : [],
     commands: origin ? origin.commands : []
