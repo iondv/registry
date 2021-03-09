@@ -1020,6 +1020,10 @@ msgstr " с %h1:%m1 до %h2:%m2"
 msgid "Select filter..."
 msgstr "Выберите фильтр..."
 
+#: view/default/static/js/object/manager.js:611
+msgid "Close without saving?"
+msgstr "Закрыть без сохранения?"
+
 #: strings/frontend-scripts.js:183
 msgid "= equal"
 msgstr "= равно"
