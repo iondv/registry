@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-05 07:42+0000\n"
+"POT-Creation-Date: 2021-03-14 23:28+0000\n"
 "PO-Revision-Date: 2021-02-19 20:17+0000\n"
 "Last-Translator: Alena Kremenetskaya <alena.kremenetskaya@mail.ru>\n"
 "Language-Team: Russian <http://weblate.iondv.ru/projects/iondv-framework/"
@@ -1020,10 +1020,6 @@ msgstr " с %h1:%m1 до %h2:%m2"
 #: strings/templates-default.js:197
 msgid "Select filter..."
 msgstr "Выберите фильтр..."
-
-#: view/default/static/js/object/manager.js:611
-msgid "Close without saving?"
-msgstr "Закрыть без сохранения?"
 
 #: strings/frontend-scripts.js:183
 msgid "= equal"
