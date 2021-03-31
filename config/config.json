@@ -17,7 +17,7 @@
       }
     },
     "saveActionHandler": {
-      "module": "./actions/SaveHandler"
+      "module": "@iondv/registry/actions/SaveHandler"
     },
     "actions": {
       "module": "@iondv/registry/backend/ActionProvider",
@@ -27,7 +27,7 @@
             "code": "CREATE",
             "handler": {
               "name": "createActionHandler",
-              "module": "./actions/CreateHandler"
+              "module": "@iondv/registry/actions/CreateHandler"
             }
           },
           {
@@ -42,7 +42,7 @@
             "code": "DELETE",
             "handler": {
               "name": "deleteActionHandler",
-              "module": "./actions/DeleteHandler"
+              "module": "@iondv/registry/actions/DeleteHandler"
             }
           }
         ]
