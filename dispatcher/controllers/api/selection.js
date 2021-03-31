@@ -9,7 +9,6 @@ const locale = require('locale');
 const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
 const mergeConditions = require('../../../backend/items').mergeConditions;
-const moduleName = require('../../../module-name');
 const prepareSaveData = require('../../../backend/items').prepareSaveData;
 const overrideSearchOptions = require('../../../backend/items').overrideSearchOptions;
 
@@ -51,14 +50,14 @@ module.exports = function (req, res) {
             }
 
             req.body.searchOptions = overrideSearchOptions(
-              moduleName,
+              req.moduleName,
               {},
               '*',
               pm._refClass.getCanonicalName(),
               scope.settings);
 
 
-            return formListOptions(moduleName, scope, req, locales, pm._refClass)
+            return formListOptions(req.moduleName, scope, req, locales, pm._refClass)
               .then((lo) => {
                 lo.user = user;
                 return scope.securedDataRepo.getList(pm._refClass.getCanonicalName(), lo);

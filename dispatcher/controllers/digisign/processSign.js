@@ -6,7 +6,7 @@
 const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
 const itemEagerLoading = require('../../../backend/items').itemEagerLoading;
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 
 // jshint maxstatements: 30, maxcomplexity: 30
 module.exports = function (req, res) {

@@ -7,10 +7,9 @@
 const respond = require('../../../backend/respond');
 const onError = require('../../../backend/error');
 const locale = require('locale');
-const PropertyTypes = require('core/PropertyTypes');
+const { PropertyTypes } = require('@iondv/meta-model-contracts');
 const formListOptions = require('../../../backend/items').formListOptions;
-const moduleName = require('../../../module-name');
-const F = require('core/FunctionCodes');
+const { FunctionCodes: F } = require('@iondv/meta-model-contracts');
 
 /**
  * @param {Object} req
@@ -37,7 +36,7 @@ module.exports = function (req, res) {
             res.send(values);
           });
         } else {
-          formListOptions(moduleName, scope, req, locales, cm)
+          formListOptions(req.moduleName, scope, req, locales, cm)
             .then((options)=> {
               options.filter = {[F.LIKE]: ['$' + pm.name, '^' + req.body.search]};
               options.fields = {};

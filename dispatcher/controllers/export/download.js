@@ -5,7 +5,7 @@ const onError = require('../../../backend/error');
 const pnf = require('../404.js');
 const forbidden = require('../403.js');
 const processNavigation = require('../../../backend/menu').processNavigation;
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 const {format} = require('util');
 
 module.exports = function (req, res) {

@@ -2,10 +2,10 @@
  * Created by Vasiliy Ermilov (ermilov.work@yandex.ru) on 11/7/16.
  */
 'use strict';
-const ListPreprocessor = require('core/interfaces/ListPreprocessor');
-const Logger = require('core/interfaces/Logger');
-const resolvePath = require('core/resolvePath');
-const normalize = require('core/util/normalize');
+const { ListPreprocessor } = require('@iondv/meta-model-contracts');
+const { Logger } = require('@iondv/commons-contracts');
+const resolvePath = require('@iondv/core').utils.system.toAbsolute;
+const { util: { normalize } } = require('@iondv/meta-model-contracts');
 const prepareDate = require('../backend/items').prepareDate;
 const Docxtemplater = require('docxtemplater');
 const angularExpressions = require('./angular-parser');

@@ -2,18 +2,18 @@
  * Created by Vasiliy Ermilov (ermilov.work@yandex.ru) on 11/7/16.
  */
 'use strict';
-const Preprocessor = require('core/interfaces/Preprocessor');
-const resolvePath = require('core/resolvePath');
-const normalize = require('core/util/normalize');
+const { Preprocessor } = require('@iondv/meta-model-contracts');
+const resolvePath = require('@iondv/core').utils.system.toAbsolute;
+const { util: { normalize } } = require('@iondv/meta-model-contracts');
 const prepareDate = require('../backend/items').prepareDate;
 const Docxtemplater = require('docxtemplater');
 const angularExpressions = require('./angular-parser');
-const Logger = require('core/interfaces/Logger');
+const { Logger } = require('@iondv/commons-contracts');
 const path = require('path');
 const fs = require('fs');
 const JSZip = require('jszip');
 const inject = require('./inject');
-const conditionParser = require('core/ConditionParser');
+const { meta: { parseConditions: conditionParser } } = require('@iondv/meta-model');
 
 function expParserFunc(parser) {
   return function (tag) {

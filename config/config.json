@@ -4,13 +4,13 @@
   "yandexGeoApiKey": "[[registry.yandexGeoApiKey]]",
   "di" : {
     "changelogFactory": {
-      "module": "core/impl/changelogger/DsChangelogFactory",
+      "module": "@iondv/commons/lib/changelogger/DsChangelogFactory",
       "options": {
         "dataSource": "ion://Db"
       }
     },
     "signManager": {
-      "module": "core/impl/DigitalSignManager",
+      "module": "@iondv/commons/lib/DigitalSignManager",
       "options": {
         "dataSource": "ion://Db",
         "defaultResult": "[[sign.defaultResult]]"
@@ -20,7 +20,7 @@
       "module": "./actions/SaveHandler"
     },
     "actions": {
-      "module": "./backend/ActionProvider",
+      "module": "@iondv/registry/backend/ActionProvider",
       "options": {
         "actions": [
           {
@@ -49,27 +49,27 @@
       }
     },
     "userFilters": {
-      "module": "./backend/UserFilters",
+      "module": "@iondv/registry/backend/UserFilters",
       "initMethod": "init",
       "options": {
         "ds":"ion://Db"
       }
     },
     "concurencyChecker": {
-      "module": "./backend/ConcurencyChecker",
+      "module": "@iondv/registry/backend/ConcurencyChecker",
       "options": {
         "ds":"ion://Db"
       }
     },
     "logRecorder": {
-      "module": "core/impl/log/LogRecorder",
+      "module": "@iondv/commons/lib/log/LogRecorder",
       "options": {
         "target": "ion://sysLog",
         "messageTypes": ["info", "warn"]
       }
     },
     "export": {
-      "module": "./backend/ExportManager",
+      "module": "@iondv/registry/backend/ExportManager",
       "initMethod": "init",
       "initLevel": 2,
       "options": {

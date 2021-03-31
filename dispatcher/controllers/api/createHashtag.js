@@ -8,7 +8,7 @@ const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
 const locale = require('locale');
 const prepareJSON = require('../../../backend/items').prepareJSON;
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 
 module.exports = function (req, res) {
   respond(['metaRepo', 'securedDataRepo', 'logRecorder', 'auth', 'changelogFactory'],

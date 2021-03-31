@@ -4,8 +4,12 @@
  */
 const HtmlEntities = require('html-entities').AllHtmlEntities;
 const html_entities = new HtmlEntities();
-const viewPathResolver = require('lib/util/viewResolver');
-const Item = require('core/interfaces/DataRepository').Item;
+const {
+  util: {
+    viewResolver: viewPathResolver
+  }
+} = require('@iondv/web');
+const{ data: { Item } } = require('@iondv/meta-model-contracts');
 const {getDefaultFieldCommands} = require('./viewmodels');
 
 module.exports = function (app, config) {

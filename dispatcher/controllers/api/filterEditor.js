@@ -3,7 +3,7 @@
  */
 'use strict';
 const respond = require('../../../backend/respond');
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 
 module.exports.list = function (req, res) {
   respond(['userFilters','metaRepo','auth'],

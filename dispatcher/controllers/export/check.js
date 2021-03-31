@@ -3,7 +3,7 @@
 const respond = require('../../../backend/respond');
 const onError = require('../../../backend/apiError');
 const processNavigation = require('../../../backend/menu').processNavigation;
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 const {format} = require('util');
 
 module.exports = function (req, res) {

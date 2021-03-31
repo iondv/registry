@@ -6,8 +6,7 @@
 
 const pnf = require('./404.js');
 const forbidden = require('./403.js');
-const PropertyTypes = require('core/PropertyTypes');
-const moduleName = require('../../module-name');
+const { PropertyTypes } = require('@iondv/meta-model-contracts');
 const onError = require('../../backend/error');
 const respond = require('../../backend/respond');
 const processNavigation = require('../../backend/menu').processNavigation;
@@ -28,7 +27,7 @@ module.exports = function (req, res) {
               if (pm.type === PropertyTypes.REFERENCE && pm.refClass) {
                 var rcm = scope.metaRepo.getMeta(pm.refClass, null, cm.getNamespace());
                 if (rcm) {
-                  res.redirect('/' + moduleName + '/' + req.params.node + '/' + rcm.getCanonicalName() + '?modal=1');
+                  res.redirect('/' + req.moduleName + '/' + req.params.node + '/' + rcm.getCanonicalName() + '?modal=1');
                   return;
                 }
               }

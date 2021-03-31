@@ -3,9 +3,9 @@
  */
 'use strict';
 const moduleName = require('../module-name');
-const Permissions = require('core/Permissions');
-const IonError = require('core/IonError');
-const Errors = require('core/errors/front-end');
+const { Permissions } = require('@iondv/acl-contracts');
+const { IonError } = require('@iondv/core');
+const Errors = require('@iondv/web/lib/errors/front-end');
 
 const menuTypes = {
   TREE: 'tree',

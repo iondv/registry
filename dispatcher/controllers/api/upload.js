@@ -3,19 +3,15 @@
  */
 
 const Busboy = require('busboy');
-const PropertyTypes = require('core/PropertyTypes');
+const { PropertyTypes } = require('@iondv/meta-model-contracts');
 const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
 const moduleName = require('../../../module-name');
 const {
-  parseDirName,
-  mapDirProperties
-} = require('core/util/dirName');
-const {
   getEnrichedItem,
   getStorageDir
-} = require('lib/util/storageDirectoryParser');
-const {t} = require('core/i18n');
+} = require('@iondv/commons/lib/storageDirectoryParser');
+const {t} = require('@iondv/i18n');
 
 /* jshint maxstatements: 40, maxcomplexity: 20 */
 function fieldType(fieldname, cm) {
@@ -65,7 +61,7 @@ module.exports = function(req, res) {
      */
     (scope) => {
       const bus = new Busboy({headers: req.headers});
-      const storageSettings = scope.settings.get(`${moduleName}.storage`) || {};
+      const storageSettings = scope.settings.get(`${req.moduleName}.storage`) || {};
       const opts = {
         metaRepo: scope.metaRepo,
         dataRepo: scope.securedDataRepo,
@@ -138,7 +134,7 @@ module.exports = function(req, res) {
           .then(() => getStorageDir(itemCn, req.params.id, fieldname, opts, item))
           .then((dir) => {
             const directory = dir ||
-              scope.settings.get(moduleName + ((type === 'image') ? '.defaultImageDir' : 'defaultFileDir'));
+              scope.settings.get(req.moduleName + ((type === 'image') ? '.defaultImageDir' : 'defaultFileDir'));
             const acceptorCb = (f) => {result[fieldname] = f;};
             return acceptor(scope, type, data, directory, cm, acceptorCb);
           })

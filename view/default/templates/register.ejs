@@ -5,19 +5,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
   <base id="baseUrl" href="<%= baseUrl %>">
-  <link href="<%=module%>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-  <link href="<%=module%>/node_modules/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" type="text/css">
-  <link href="<%=module%>/node_modules/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css">
-  <link href="<%=module%>/node_modules/datatables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
-  <link href="<%=module%>/node_modules/bootstrap3-wysihtml5-bower/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css">
-  <link href="<%=module%>/node_modules/icheck/skins/flat/grey.css" rel="stylesheet" type="text/css">
+  <link href="<%=module%>/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="<%=module%>/vendor/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" type="text/css">
+  <link href="<%=module%>/vendor/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css">
+  <link href="<%=module%>/vendor/datatables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="<%=module%>/vendor/bootstrap3-wysihtml5-bower/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css">
+  <link href="<%=module%>/vendor/icheck/skins/flat/grey.css" rel="stylesheet" type="text/css">
   <link href="<%=module%>/js/plugins/styleswitcher/styleswitcher.css" rel="stylesheet" type="text/css">
   <link href="<%=module%>/css/essentials.css" rel="stylesheet" type="text/css">
   <link href="<%=module%>/css/layout.css" rel="stylesheet" type="text/css">
   <link href="<%=module%>/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme">
   <link href="<%=module%>/css/common.css" rel="stylesheet" type="text/css">
   <link href="<%-module%>/fonts/fontawesome-webfont.woff2?v=4.4.0" rel="preload" as="font" type="font/woff2" crossorigin>
-  <link href="<%-module%>/node_modules/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2" rel="preload" as="font" type="font/woff2" crossorigin>
+  <link href="<%-module%>/vendor/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2" rel="preload" as="font" type="font/woff2" crossorigin>
 </head>
 <body>
 <style>
@@ -100,13 +100,13 @@
   </div>
 </div>
 
-<script src="<%=module%>/node_modules/jquery/dist/jquery.min.js"></script>
-<script src="<%=module%>/node_modules/jquery-ui/jquery-ui.min.js"></script>
+<script src="<%=module%>/vendor/jquery/dist/jquery.min.js"></script>
+<script src="<%=module%>/vendor/jquery-ui/jquery-ui.min.js"></script>
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
-<script src="<%=module%>/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="<%=module%>/node_modules/icheck/icheck.min.js"></script>
+<script src="<%=module%>/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<%=module%>/vendor/icheck/icheck.min.js"></script>
 <script>
   var plugin_path = '<%=baseUrl%><%=module%>/js/plugins/';
 </script>

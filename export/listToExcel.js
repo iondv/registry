@@ -3,13 +3,13 @@
  */
 'use strict';
 
-const ListPreprocessor = require('core/interfaces/ListPreprocessor');
-const Logger = require('core/interfaces/Logger');
-const resolvePath = require('core/resolvePath');
+const { ListPreprocessor } = require('@iondv/meta-model-contracts');
+const { Logger } = require('@iondv/commons-contracts');
+const resolvePath = require('@iondv/core').utils.system.toAbsolute;
 const Engine = require('./xlsx');
 const path = require('path');
 const fs = require('fs');
-const normalize = require('core/util/normalize');
+const { util: { normalize } } = require('@iondv/meta-model-contracts');
 const prepareDate = require('../backend/items').prepareDate;
 const inject = require('./inject');
 

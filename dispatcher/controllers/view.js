@@ -19,20 +19,19 @@ const vmEagerLoading = require('../../backend/items').vmEagerLoading;
 const itemTplData = require('../../backend/items').itemTplData;
 const prepareJSON = require('../../backend/items').prepareJSON;
 const prepareDate = require('../../backend/items').prepareDate;
-const moduleName = require('../../module-name');
 const onError = require('../../backend/error');
 const respond = require('../../backend/respond');
 const geoFieldSearchVal = require('../../backend/viewmodels').geoFieldSearchVal;
-const Permissions = require('core/Permissions');
+const { Permissions } = require('@iondv/acl-contracts');
 const formFilter = require('../../backend/items').formFilter;
 const merge = require('merge');
-const IonError = require('core/IonError');
-const Errors = require('core/errors/front-end');
-const DrErrors = require('core/errors/data-repo');
+const { IonError } = require('@iondv/core');
+const Errors = require('@iondv/web/lib/errors/front-end');
+const { errors: { DataRepoErrors: DrErrors } } = require('@iondv/meta-model');
 const slTriggers = require('../../backend/items').selectionListTriggers;
 const concurencyState = require('../../backend/items').concurencyState;
 const checkSignState = require('../../backend/items').checkSignState;
-const PropertyTypes = require('core/PropertyTypes');
+const { PropertyTypes } = require('@iondv/meta-model-contracts');
 const processNavigation = require('../../backend/menu').processNavigation;
 
 // jshint maxstatements: 30, maxcomplexity: 20
@@ -67,7 +66,7 @@ module.exports = function (req, res) {
             return concurencyState(
               `${req.params.class}@${req.params.id}`,
               user,
-              parseInt(scope.settings.get(moduleName + '.concurencyCheck')) || 0,
+              parseInt(scope.settings.get(req.moduleName + '.concurencyCheck')) || 0,
               scope.concurencyChecker,
               scope.auth
             );
@@ -75,7 +74,7 @@ module.exports = function (req, res) {
           .then((concurencyState) => {
             state = concurencyState;
             let dopts = merge(false, true, opts, {nestingDepth: 0, linksByRef: true, lang});
-            dopts.filter = formFilter(moduleName, scope, req, cm);
+            dopts.filter = formFilter(req.moduleName, scope, req, cm);
             let eagerLoading = [];
             if (node && node.eagerLoading) {
               if (node.eagerLoading.item && Array.isArray(node.eagerLoading.item[cm.getName()])) {
@@ -163,7 +162,7 @@ module.exports = function (req, res) {
             let refShortView = req.query.refshort;
             let shortView = req.query.short;
             let refShortViewFields = [];
-            let refShortViewDelay = shortView ? 0 : scope.settings.get(`${moduleName}.refShortViewDelay`);
+            let refShortViewDelay = shortView ? 0 : scope.settings.get(`${req.moduleName}.refShortViewDelay`);
             if (refShortViewDelay) {
               for (let prop of cm.getPropertyMetas()) {
                 if (prop.type === PropertyTypes.COLLECTION || prop.type === PropertyTypes.REFERENCE) {
@@ -179,9 +178,9 @@ module.exports = function (req, res) {
               {
                 baseUrl: req.app.locals.baseUrl,
                 modal: req.query.modal || false,
-                module: moduleName,
+                module: req.moduleName,
                 windowLink: found.getItemId() ?
-                  `${moduleName}/${req.params.node}?open=${moduleName}/${req.params.node}/view/${found.getClassName()}/${found.getItemId()}` :
+                  `${req.moduleName}/${req.params.node}?open=${req.moduleName}/${req.params.node}/view/${found.getClassName()}/${found.getItemId()}` :
                   null,
                 title: found.toString(null, dateCallback),
                 pageCode: node && node.code,
@@ -210,23 +209,23 @@ module.exports = function (req, res) {
                 concurencyState: {
                   userName: state ? state.userName : null,
                   isBlocked: state ? state.user !== user.id() : false,
-                  timeout: parseInt(scope.settings.get(moduleName + '.concurencyCheck')) || 0
+                  timeout: parseInt(scope.settings.get(req.moduleName + '.concurencyCheck')) || 0
                 },
                 refShortViewDelay,
                 refShortViewFields,
                 hideModalHeader: !!refShortView,
-                inlineForm: scope.settings.get(moduleName + '.inlineForm'),
+                inlineForm: scope.settings.get(req.moduleName + '.inlineForm'),
                 checkSignState: checkSignState(scope, cm.getCanonicalName()),
-                maxTabWidth: scope.settings.get(moduleName + '.maxTabWidth')
+                maxTabWidth: scope.settings.get(req.moduleName + '.maxTabWidth')
               }, lang);
             return buildMenus(
               tplData, req.query && req.query.modal, scope.settings, scope.metaRepo,
-              scope.aclProvider, user, moduleName
+              scope.aclProvider, user, req.moduleName
             ).then((tplData) => {return {found, tplData};});
           })
           .then(({found, tplData}) => {
             res.render(overrideTpl(
-              moduleName,
+              req.moduleName,
               'view/item',
               found.getItemId() ? 'item' : 'create',
               req.params.node,

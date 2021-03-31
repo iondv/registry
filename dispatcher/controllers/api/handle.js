@@ -6,11 +6,11 @@
 const onApiError = require('../../../backend/apiError');
 const wrapError = require('../../../backend/wrapError');
 const respond = require('../../../backend/respond');
-const Item = require('core/interfaces/DataRepository').Item;
+const{ data: { Item } } = require('@iondv/meta-model-contracts');
 const prepareJSON = require('../../../backend/items').prepareJSON;
 const locale = require('locale');
 const edit = require('../../../backend/items').saveItem;
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 const {format} = require('util');
 
 /* jshint maxstatements: 40, maxcomplexity: 20, maxdepth: 15 */

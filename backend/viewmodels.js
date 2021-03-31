@@ -4,17 +4,13 @@
  */
 'use strict';
 
-const PropertyTypes = require('core/PropertyTypes');
-const FieldTypes = require('core/FieldTypes');
-const FieldSizes = require('core/FieldSizes');
-const FieldModes = require('core/FieldModes');
-const SortingModes = require('core/SortingModes');
+const { PropertyTypes, FieldTypes, FieldSizes, FieldModes, SortingModes } = require('@iondv/meta-model-contracts');
 const ActionProvider = require('./ActionProvider');
-const DigitalSignManager = require('core/interfaces/DigitalSignManager');
+const { DigitalSignManager } = require('@iondv/commons-contracts');
 const overrideEagerLoading = require('./items').overrideEagerLoading;
 const _ = require('lodash');
 const moduleName = require('../module-name');
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 const {format} = require('util');
 
 /* jshint maxcomplexity: 30, maxdepth: 15, maxstatements: 40, maxparams: 10 */

@@ -6,12 +6,11 @@ const respond = require('../../backend/respond');
 const onError = require('../../backend/error');
 const pnf = require('./404.js');
 const forbidden = require('./403.js');
-const moduleName = require('../../module-name');
 const itemTplData = require('../../backend/items').itemTplData;
 const prepareJSON = require('../../backend/items').prepareJSON;
 const prepareDate = require('../../backend/items').prepareDate;
 const overrideTpl = require('../../backend/viewmodels').overrideTpl;
-const PropertyTypes = require('core/PropertyTypes');
+const { PropertyTypes } = require('@iondv/meta-model-contracts');
 const processNavigation = require('../../backend/menu').processNavigation;
 
 // jshint maxstatements: 30
@@ -59,8 +58,8 @@ module.exports = function (req, res) {
                 }
               }
               const newUrl = req.params.container ?
-                `/${moduleName}/${req.params.node}/new/${req.params.container}/${req.params.property}/${cm.getCanonicalName()}?force_class=1${q}` :
-                `/${moduleName}/${req.params.node}/new/${cm.getCanonicalName()}?force_class=1${q}`;
+                `/${req.moduleName}/${req.params.node}/new/${req.params.container}/${req.params.property}/${cm.getCanonicalName()}?force_class=1${q}` :
+                `/${req.moduleName}/${req.params.node}/new/${cm.getCanonicalName()}?force_class=1${q}`;
               res.redirect(newUrl);
               return null;
             }
@@ -97,7 +96,7 @@ module.exports = function (req, res) {
 
             res.render(
               overrideTpl(
-                moduleName,
+                req.moduleName,
                 'view/selectClass',
                 'selectClass',
                 req.params.node,
@@ -107,7 +106,7 @@ module.exports = function (req, res) {
               itemTplData(
                 {
                   baseUrl: req.app.locals.baseUrl,
-                  module: moduleName,
+                  module: req.moduleName,
                   classId: cm.getCanonicalName(),
                   master: master,
                   title: (node ? node.caption : cm.getCaption()) + (cm !== basicCm ? ': ' + cm.getCaption() : ''),

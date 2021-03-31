@@ -1,7 +1,7 @@
 'use strict';
 const angular = require('bluerider');
 const moment = require('moment');
-const number2words = require('core/util/number2words');
+const { utils: { number2words } } = require('@iondv/commons');
 
 angular.filters.lower = function (input) {
   return String(input || '').toLowerCase();

@@ -5,13 +5,12 @@
  * Created by kras on 26.06.16.
  */
 'use strict';
-const moduleName = require('../../module-name');
 const multipart = require('../../backend/items').parseMultipart;
 const processNavigation = require('../../backend/menu').processNavigation;
 const onError = require('../../backend/error');
 const respond = require('../../backend/respond');
 const edit = require('../../backend/items').saveItem;
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 const {format} = require('util');
 
 /* jshint maxstatements: 40, maxcomplexity: 20, maxdepth: 15 */
@@ -72,7 +71,7 @@ module.exports = function (req, res) {
                   if (p) {
                     return p.then(
                       function (result) {
-                        res.redirect('/' + moduleName + '/' + req.params.node +
+                        res.redirect('/' + req.moduleName + '/' + req.params.node +
                           '/view/' + req.params.class + '/' + (result && result._id ? result._id : req.params.id));
                       }
                     );

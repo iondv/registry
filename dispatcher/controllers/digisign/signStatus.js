@@ -1,7 +1,7 @@
 const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
 const base64 = require('base64-js');
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 
 function checkDataStatus(data, signData) {
   try {

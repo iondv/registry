@@ -4,29 +4,38 @@
  */
 
 const merge = require('merge');
-const PropertyTypes = require('core/PropertyTypes');
-const FieldTypes = require('core/FieldTypes');
-const FieldModes = require('core/FieldModes');
-const {Item} = require('core/interfaces/DataRepository');
+const {
+  PropertyTypes,
+  FieldTypes,
+  FieldModes,
+  FunctionCodes: F,
+  util: {
+    parseSorting: sortingParser,
+    formula: { parametrize }
+  }
+} = require('@iondv/meta-model-contracts');
+const {
+  data: {
+    Item, utils: { textSearchFilter: searchFilter }
+    },
+  meta: {
+    dirNameGenerator: { produceDirName },
+    parseConditions: conditionParser
+  },
+  errors: {
+    ValidationErrors: Errors
+  }
+} = require('@iondv/meta-model');
 const moment = require('moment-timezone');
-const strToDate = require('core/strToDate');
+const { utils: { strToDate, schedule: { isSchedule } } } = require('@iondv/commons');
 const Busboy = require('busboy');
 const locale = require('locale');
-const buf = require('core/buffer');
-const conditionParser = require('core/ConditionParser');
-const sortingParser = require('core/SortingParser');
+const buf = (data, enc) => Buffer.from(data, enc);
 const clone = require('clone');
-const isEmpty = require('core/empty');
-const searchFilter = require('core/interfaces/DataRepository/lib/util').textSearchFilter;
-const IonError = require('core/IonError');
-const Errors = require('core/errors/validation');
-const {isSchedule} = require('core/util/schedule');
+const { IonError, utils: { empty: isEmpty } } = require('@iondv/core');
 const moduleName = require('../module-name');
-const F = require('core/FunctionCodes');
 const {canonicNode} = require('./menu');
-const {parametrize} = require('core/util/formula');
-const {produceDirName} = require('core/util/dirName');
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 const {format} = require('util');
 
 const prepareDate = module.exports.prepareDate = (date, lang, tz, trimTime) => {

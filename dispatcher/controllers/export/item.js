@@ -8,10 +8,9 @@ const forbidden = require('../403.js');
 const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
 const overrideEagerLoading = require('../../../backend/items').overrideEagerLoading;
-const moduleName = require('../../../module-name');
 const moment = require('moment-timezone');
 const processNavigation = require('../../../backend/menu').processNavigation;
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 
 // jshint maxstatements: 50, maxcomplexity: 30
 module.exports = function (req, res) {
@@ -38,7 +37,7 @@ module.exports = function (req, res) {
           }
 
           eagerLoading = overrideEagerLoading(
-            moduleName,
+            req.moduleName,
             eagerLoading,
             node ? node.namespace + '@' + node.code : '',
             cm.getCanonicalName(),

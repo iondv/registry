@@ -7,10 +7,9 @@ const formListOptions = require('../../../backend/items').formListOptions;
 const locale = require('locale');
 const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
-const moduleName = require('../../../module-name');
 const calculateStyles = require('../../../backend/viewmodels').calculateStyles;
-const F = require('core/FunctionCodes');
-const {t} = require('core/i18n');
+const { FunctionCodes: F } = require('@iondv/meta-model-contracts');
+const {t} = require('@iondv/i18n');
 
 // jshint maxstatements: 40
 module.exports.list = function (req, res) {
@@ -33,7 +32,7 @@ module.exports.list = function (req, res) {
             }
             item = found;
             prop = item.properties[req.params.collection];
-            return formListOptions(moduleName, scope, req, locales, prop ? prop.meta._refClass : null)
+            return formListOptions(req.moduleName, scope, req, locales, prop ? prop.meta._refClass : null)
               .then((lo) => {
                 lo.user = user;
                 return scope.securedDataRepo.getAssociationsList(found, req.params.collection, lo);

@@ -12,7 +12,6 @@ const forbidden = require('./403.js');
 const onError = require('../../backend/error');
 const respond = require('../../backend/respond');
 const itemTplData = require('../../backend/items').itemTplData;
-const moduleName = require('../../module-name');
 const buildMenus = require('../../backend/menu').buildMenus;
 const tableOptions = require('../../backend/viewmodels').tableOptions;
 const buildListVm = require('../../backend/viewmodels').buildListVm;
@@ -67,7 +66,7 @@ function returnSelection(node, pm, rcm, vm, scope, req, lang, user) {
       searchOptions = node.searchOptions[rcm.getName()];
     }
     searchOptions = overrideSearchOptions(
-      moduleName,
+      req.moduleName,
       searchOptions,
       node ? node.namespace + '@' + node.code : null,
       rcm.getCanonicalName(),
@@ -82,7 +81,7 @@ function returnSelection(node, pm, rcm, vm, scope, req, lang, user) {
     }
     tableOps.sDom = "<'row'<'col-xs-12 dt-filter-col'f>r>t<'row'<'col-md-12 text-right'ipl>>";
     tableOps.eagerLoading = overrideEagerLoading(
-      moduleName,
+      req.moduleName,
       eagerLoading,
       node ? node.namespace + '@' + node.code : null,
       rcm.getCanonicalName(),
@@ -92,7 +91,7 @@ function returnSelection(node, pm, rcm, vm, scope, req, lang, user) {
     return scope.securedDataRepo.getItem(item, null, {user: user})
       .then((item) => {
         let tplData = {
-          module: moduleName,
+          module: req.moduleName,
           className: rcm.getCanonicalName(),
           title: rcm.getCaption(),
           containerItem: item,
@@ -132,7 +131,7 @@ function returnSelection(node, pm, rcm, vm, scope, req, lang, user) {
         return buildMenus(
           tplData, req.query && req.query.modal,
           scope.settings, scope.metaRepo, scope.aclProvider,
-          user, moduleName
+          user, req.moduleName
         );
       });
   };
@@ -181,7 +180,7 @@ module.exports = function (req, res) {
                 tplData.baseUrl = req.app.locals.baseUrl;
                 res.render(
                   overrideTpl(
-                    moduleName,
+                    req.moduleName,
                     'view/list',
                     'selection',
                     req.params.node,

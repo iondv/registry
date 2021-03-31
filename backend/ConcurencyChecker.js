@@ -1,6 +1,6 @@
 'use strict';
-const F = require('core/FunctionCodes');
-const {t} = require('core/i18n');
+const { FunctionCodes: F } = require('@iondv/meta-model-contracts');
+const {t} = require('@iondv/i18n');
 
 /**
  *

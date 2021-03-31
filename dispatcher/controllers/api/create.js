@@ -6,7 +6,7 @@ const prepareJSON = require('../../../backend/items').prepareJSON;
 const applyCollections = require('../../../backend/items').applyCollections;
 const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 
 /* jshint maxstatements: 40, maxcomplexity: 20, maxdepth: 15 */
 

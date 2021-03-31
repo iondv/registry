@@ -5,7 +5,7 @@
 
 const ActionHandler = require('../backend/ActionHandler');
 const edit = require('../backend/items').saveItem;
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 
 /**
  * @param {{}} options

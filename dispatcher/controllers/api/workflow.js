@@ -8,7 +8,7 @@ const respond = require('../../../backend/respond');
 const adjustSignOptions = require('../../../backend/viewmodels').adjustWfSignOptions;
 const locale = require('locale');
 const itemEagerLoading = require('../../../backend/items').itemEagerLoading;
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 
 module.exports = function (req, res) {
   respond(['metaRepo', 'securedDataRepo', 'workflows', 'auth'],

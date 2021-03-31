@@ -4,9 +4,9 @@
 'use strict';
 
 const moduleName = require('../module-name');
-const di = require('core/di');
+const { di } = require('@iondv/core');
 const onError = require('./error');
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 const {format} = require('util');
 
 module.exports = function (required, worker, res) {

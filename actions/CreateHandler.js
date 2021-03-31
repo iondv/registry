@@ -8,7 +8,7 @@ const locale = require('locale');
 const prepareSaveData = require('../backend/items').prepareSaveData;
 const prepareJSON = require('../backend/items').prepareJSON;
 const applyCollections = require('../backend/items').applyCollections;
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 const {format} = require('util');
 
 /**

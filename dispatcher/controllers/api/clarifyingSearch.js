@@ -5,11 +5,10 @@ const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
 const locale = require('locale');
 const formListOptions = require('../../../backend/items').formListOptions;
-const ConditionTypes = require('core/ConditionTypes');
-const PropertyTypes = require('core/PropertyTypes');
+const { ConditionTypes } = require('@iondv/meta-model-contracts');
+const { PropertyTypes } = require('@iondv/meta-model-contracts');
 const mergeConditions = require('../../../backend/items').mergeConditions;
-const filterByItemIds = require('core/interfaces/DataRepository/lib/util').filterByItemIds;
-const moduleName = require('../../../module-name');
+const { data: { utils: { filterByItemIds } } } = require('@iondv/meta-model');
 
 /**
  * @param {Object} req
@@ -52,7 +51,7 @@ module.exports = function (req, res) {
         }
 
         req.body.filter = filter;
-        formListOptions(moduleName, scope, req, locales, pm._refClass)
+        formListOptions(req.moduleName, scope, req, locales, pm._refClass)
           .then((options) => {
             let dataPromise = null;
             if (selectionAttribute) {

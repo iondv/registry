@@ -3,7 +3,7 @@
  */
 'use strict';
 
-const Preprocessor = require('core/interfaces/Preprocessor');
+const { Preprocessor } = require('@iondv/meta-model-contracts');
 // const velocity = require('velocity');
 
 function VelocityPreprocessor(options) {

@@ -9,10 +9,9 @@ const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
 const locale = require('locale');
 const resolvePropertyValues = require('../../../backend/items').resolvePropertyValues;
-const ConditionTypes = require('core/ConditionTypes');
+const { ConditionTypes } = require('@iondv/meta-model-contracts');
 const formListOptions = require('../../../backend/items').formListOptions;
 const clone = require('clone');
-const moduleName = require('../../../module-name');
 
 function getContainerProperty(metaClass) {
   return metaClass.getPropertyMeta(metaClass.getContainerReference());
@@ -52,7 +51,7 @@ function getVariants(searchedIndex, transit, values, classes, filters, req, loca
     });
   }
   req.body.filter = filter;
-  return formListOptions(moduleName, scope, {body: {filter: filter}}, locales, classes[searchedIndex])
+  return formListOptions(req.moduleName, scope, {body: {filter: filter}}, locales, classes[searchedIndex])
     .then(options => scope.dataRepo.getList(classes[searchedIndex].getCanonicalName(), options))
     .then((results) => {
       let result = {total: results.total};

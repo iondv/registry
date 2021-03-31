@@ -3,10 +3,12 @@
   "license": "Apache License 2.0",
   "version": "4.1.0",
   "engines": {
-    "node": ">=8.11.0",
     "ion": "4.1.0"
   },
   "homepage": "https://github.com/iondv/registry",
+  "scripts": {
+    "install": "cd view/default/static && npm install"
+  },
   "repository": {
     "url": "https://github.com/iondv/registry.git",
     "type": "git"
@@ -24,6 +26,21 @@
     "gulp": "^4.0.2",
     "html-entities": "^1.2.1",
     "multer": "^1.3.0",
-    "node-zip": "^1.1.1"
+    "node-zip": "^1.1.1",
+    "@iondv/acl-contracts": "iondv/acl-contracts#main",
+    "@iondv/auth-contracts": "iondv/auth-contracts#main",
+    "@iondv/commons": "iondv/commons#main",
+    "@iondv/commons-contracts": "iondv/commons-contracts#main",
+    "@iondv/core": "iondv/core#main",
+    "@iondv/i18n": "iondv/i18n#main",
+    "@iondv/meta-model": "iondv/meta-model#main",
+    "@iondv/meta-model-contracts": "iondv/meta-model-contracts#main",
+    "@iondv/web": "iondv/web#main",
+    "@iondv/web-rte": "iondv/web-rte#main",
+    "base64-js": "^1.5.1",
+    "clone": "^2.1.2",
+    "locale": "^0.1.0",
+    "mkdirp": "^1.0.4",
+    "moment": "^2.29.1"
   }
 }

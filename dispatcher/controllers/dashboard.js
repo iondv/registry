@@ -4,10 +4,9 @@
 'use strict';
 
 const buildMenus = require('../../backend/menu').buildMenus;
-const moduleName = require('../../module-name');
 const onError = require('../../backend/error');
 const respond = require('../../backend/respond');
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 
 // jshint maxstatements: 50, maxcomplexity: 20
 module.exports = function (req, res) {
@@ -20,20 +19,20 @@ module.exports = function (req, res) {
       var user = scope.auth.getUser(req);
       var params = {
         baseUrl: req.app.locals.baseUrl,
-        module: moduleName,
+        module: req.moduleName,
         title: t('Dashboard'),
         node: null,
         pageCode: 'dashboard',
         user,
         modules: [],
         dashboardContent: '',
-        logo: scope.settings.get(moduleName + '.logo')
+        logo: scope.settings.get(req.moduleName + '.logo')
       };
-      buildMenus(params, req.query && req.query.modal, scope.settings, scope.metaRepo, scope.aclProvider, user, moduleName)
+      buildMenus(params, req.query && req.query.modal, scope.settings, scope.metaRepo, scope.aclProvider, user, req.moduleName)
         .then(function (params) {
           try {
             params.currentModule = req.cookies ? req.cookies['dashboard-module'] : '';
-            let apps = scope.settings.get(`${moduleName}.dashboard`);
+            let apps = scope.settings.get(`${req.moduleName}.dashboard`);
             if (apps) {
               let selModule = null;
               let selModuleData;

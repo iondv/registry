@@ -10,7 +10,7 @@ const itemEagerLoading = require('../../../backend/items').itemEagerLoading;
 const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
 const moduleName = require('../../../module-name');
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 
 module.exports = function (req, res) {
   respond(['metaRepo', 'securedDataRepo', 'logRecorder', 'auth'],
@@ -28,7 +28,7 @@ module.exports = function (req, res) {
           req.params.id,
           {
             user: user,
-            filter: formFilter(moduleName, scope, req),
+            filter: formFilter(req.moduleName, scope, req),
             forceEnrichment: itemEagerLoading(scope.metaRepo.getMeta(req.params.class), null, scope, []),
             lang: lang
           }

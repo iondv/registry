@@ -7,7 +7,6 @@ const pnf = require('../404.js');
 const locale = require('locale');
 const buildCreateFormVm = require('../../../backend/viewmodels').buildCreateFormVm;
 const itemTplData = require('../../../backend/items').itemTplData;
-const moduleName = require('../../../module-name');
 const collectionTableOptions = require('../../../backend/viewmodels').collectionTableOptions;
 const adjustFields = require('../../../backend/viewmodels').adjustFields;
 const prepareJSON = require('../../../backend/items').prepareJSON;
@@ -16,11 +15,11 @@ const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
 const canonicNode = require('../../../backend/menu').canonicNode;
 const geoFieldSearchVal = require('../../../backend/viewmodels').geoFieldSearchVal;
-const ClassMeta = require('core/interfaces/MetaRepository').ClassMeta;
-const Item = require('core/interfaces/DataRepository').Item;
-const PropertyTypes = require('core/PropertyTypes');
+const { meta: { ClassMeta } } = require('@iondv/meta-model');
+const{ data: { Item } } = require('@iondv/meta-model-contracts');
+const { PropertyTypes } = require('@iondv/meta-model-contracts');
 const path = require('path');
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 const {format} = require('util');
 
 
@@ -151,8 +150,8 @@ module.exports = function (req, res) {
               itemTplData(
                 {
                   baseUrl: req.app.locals.baseUrl,
-                  module: moduleName,
-                  exportUrl: req.app.locals.baseUrl + moduleName + path.normalize(path.join(req.path, '..')),
+                  module: req.moduleName,
+                  exportUrl: req.app.locals.baseUrl + req.moduleName + path.normalize(path.join(req.path, '..')),
                   classId: cm.getCanonicalName(),
                   forceMaster: false,
                   master: null,

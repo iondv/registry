@@ -5,8 +5,7 @@
 'use strict';
 
 const pnf = require('./404.js');
-const PropertyTypes = require('core/PropertyTypes');
-const moduleName = require('../../module-name');
+const { PropertyTypes } = require('@iondv/meta-model-contracts');
 const onError = require('../../backend/error');
 const respond = require('../../backend/respond');
 
@@ -24,7 +23,7 @@ module.exports = function (req, res) {
           if (pm.type === PropertyTypes.REFERENCE && pm.refClass) {
             var rcm = scope.metaRepo.getMeta(pm.refClass, null, cm.getNamespace());
             if (rcm) {
-              res.redirect('/' + moduleName + '/' + req.params.node + '/new/' + rcm.getCanonicalName());
+              res.redirect('/' + req.moduleName + '/' + req.params.node + '/new/' + rcm.getCanonicalName());
               return;
             }
           }

@@ -1,8 +1,8 @@
 /**
  * Created by Vasiliy Ermilov (ermilov.work@yandex.ru) on 11/14/16.
  */
-const PropertyTypes = require('core/PropertyTypes');
-const Permissions = require('core/Permissions');
+const { PropertyTypes } = require('@iondv/meta-model-contracts');
+const { Permissions } = require('@iondv/acl-contracts');
 
 module.exports.checkNodeAccess = function (node, user, permission, checker) {
   return new Promise(function (resolve, reject) {

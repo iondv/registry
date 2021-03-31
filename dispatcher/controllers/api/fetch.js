@@ -8,7 +8,6 @@ const formListOptions = require('../../../backend/items').formListOptions;
 const locale = require('locale');
 const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
-const moduleName = require('../../../module-name');
 
 // jshint maxstatements: 40, maxcomplexity: 20, maxdepth: 20, loopfunc: true
 
@@ -38,7 +37,7 @@ module.exports = function (req, res) {
           vm = scope.metaRepo.getListViewModel(cm.getCanonicalName());
         }
 
-        formListOptions(moduleName, scope, req, locales)
+        formListOptions(req.moduleName, scope, req, locales)
           .then((lo) => {
             lo.user = user;
             return scope.securedDataRepo.getList(req.params.class, lo);

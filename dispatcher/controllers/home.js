@@ -5,7 +5,6 @@
 
 // jshint maxstatements:20, maxcomplexity: 11
 
-const moduleName = require('../../module-name');
 const respond = require('../../backend/respond');
 
 module.exports = function (req, res) {
@@ -14,8 +13,8 @@ module.exports = function (req, res) {
      * @param {{settings: SettingsRepository}} scope
      */
     function (scope) {
-      var defaultPath = scope.settings.get(moduleName + '.defaultPath') || 'dashboard';
-      res.redirect('/' + moduleName + '/' + defaultPath);
+      var defaultPath = scope.settings.get(req.moduleName + '.defaultPath') || 'dashboard';
+      res.redirect('/' + req.moduleName + '/' + defaultPath);
     },
     res
   );

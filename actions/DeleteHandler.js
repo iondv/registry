@@ -4,8 +4,8 @@
 'use strict';
 
 const ActionHandler = require('../backend/ActionHandler');
-const IonError = require('core/IonError');
-const {t} = require('core/i18n');
+const { IonError } = require('@iondv/core');
+const {t} = require('@iondv/i18n');
 const {format} = require('util');
 
 /**

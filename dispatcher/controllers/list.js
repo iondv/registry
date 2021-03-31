@@ -12,7 +12,6 @@ const buildListVm = require('../../backend/viewmodels').buildListVm;
 const tableOptions = require('../../backend/viewmodels').tableOptions;
 const userFiltersOptions = require('../../backend/viewmodels').userFiltersOptions;
 const overrideTpl = require('../../backend/viewmodels').overrideTpl;
-const moduleName = require('../../module-name');
 const itemTplData = require('../../backend/items').itemTplData;
 const overrideEagerLoading = require('../../backend/items').overrideEagerLoading;
 const overrideSearchOptions = require('../../backend/items').overrideSearchOptions;
@@ -20,9 +19,9 @@ const overrideSearchMinLength = require('../../backend/items').overrideSearchMin
 const onError = require('../../backend/error');
 const respond = require('../../backend/respond');
 const locale = require('locale');
-const PropertyTypes = require('core/PropertyTypes');
-const F = require('core/FunctionCodes');
-const {t} = require('core/i18n');
+const { PropertyTypes } = require('@iondv/meta-model-contracts');
+const { FunctionCodes: F } = require('@iondv/meta-model-contracts');
+const {t} = require('@iondv/i18n');
 
 const defaultCommands = (lang) => [
   {
@@ -130,7 +129,7 @@ module.exports = function (req, res) {
               }
 
               searchOptions = overrideSearchOptions(
-                moduleName,
+                req.moduleName,
                 searchOptions,
                 node && `${node.namespace}@${node.code}`,
                 classMeta.getCanonicalName(),
@@ -139,14 +138,14 @@ module.exports = function (req, res) {
               tableOps = tableOptions(classMeta, vm, scope.metaRepo, searchOptions, node && node.sorting);
 
               tableOps.eagerLoading = overrideEagerLoading(
-                moduleName,
+                req.moduleName,
                 eagerLoading,
                 node && `${node.namespace}@${node.code}`,
                 classMeta.getCanonicalName(),
                 'list',
                 scope.settings);
 
-              tableOps.searchMinLength = overrideSearchMinLength(moduleName, scope.settings, searchOptions);
+              tableOps.searchMinLength = overrideSearchMinLength(req.moduleName, scope.settings, searchOptions);
 
               userFilters = userFiltersOptions(vm, classMeta, scope.metaRepo);
 
@@ -154,14 +153,14 @@ module.exports = function (req, res) {
             })
           .then(
             (exporters) => {
-              let searchDelay = scope.settings.get(moduleName + '.listSearchDelay');
+              let searchDelay = scope.settings.get(req.moduleName + '.listSearchDelay');
               if (searchDelay !== null) {
                 tableOps.searchDelay = searchDelay;
               }
               tableOps.node = req.params.node;
               let tplData = {
                 baseUrl: req.app.locals.baseUrl,
-                module: moduleName,
+                module: req.moduleName,
                 className: classMeta.getCanonicalName(),
                 title: (node && (node.title || node.caption) || classMeta.getCaption()) +
                 (classMeta !== basicCm ? ': ' + classMeta.getCaption() : ''),
@@ -184,8 +183,8 @@ module.exports = function (req, res) {
                 exporters: exporters,
                 filter: node && node.conditions,
                 userFilters: userFilters,
-                inlineForm: scope.settings.get(moduleName + '.inlineForm'),
-                logo: scope.settings.get(moduleName + '.logo'),
+                inlineForm: scope.settings.get(req.moduleName + '.inlineForm'),
+                logo: scope.settings.get(req.moduleName + '.logo'),
                 commands: Array.isArray(vm.commands) ? vm.commands : defaultCommands(req.locals.lang),
                 columns: vm.columns,
                 condensedView: !!req.query.condensed,
@@ -225,7 +224,7 @@ module.exports = function (req, res) {
               }
               return buildMenus(
                 tplData, req.query && req.query.modal, scope.settings, scope.metaRepo,
-                scope.aclProvider, user, moduleName
+                scope.aclProvider, user, req.moduleName
               );
             })
           .then(
@@ -236,7 +235,7 @@ module.exports = function (req, res) {
               tplData.baseUrl = req.app.locals.baseUrl;
               res.render(
                 overrideTpl(
-                  moduleName,
+                  req.moduleName,
                   'view/' + template,
                   template,
                   req.params.node,

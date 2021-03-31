@@ -15,26 +15,23 @@ const compression = require('compression');
 
 const ejsLocals = require('ejs-locals');
 
-const di = require('core/di');
+const { di, utils: { strings } } = require('@iondv/core');
 const config = require('./config');
-const rootConfig = require('../../config');
-const moduleName = require('./module-name');
 const dispatcher = require('./dispatcher');
-const extendDi = require('core/extendModuleDi');
-const theme = require('lib/util/theme');
-const staticRouter = require('lib/util/staticRouter');
-const extViews = require('lib/util/extViews');
-const {load} = require('core/i18n');
-const errorSetup = require('core/error-setup');
-const alias = require('core/scope-alias');
-const sysMenuCheck = require('lib/util/sysMenuCheck');
-const lastVisit = require('lib/last-visit');
+const { utils: { extendDi } } = require('@iondv/commons');
+const {
+  util: {
+    staticRouter, extViews, theme, lastVisit
+  }
+} = require('@iondv/web');
+const {load} = require('@iondv/i18n');
+const alias = di.alias;
+const sysMenuCheck = require('@iondv/web-rte/util/sysMenuCheck');
 const helpers = require('./backend/helpers');
-const strings = require('core/strings');
 const isProduction = process.env.NODE_ENV === 'production';
 const isDevelop = process.env.NODE_ENV === 'development';
+// const moduleName = require('./module-name');
 
-errorSetup(path.join(__dirname, 'strings'));
 strings.registerBase('frontend', require('./strings/frontend-scripts'));
 strings.registerBase('tpl', require('./strings/templates-default'));
 
@@ -159,18 +156,18 @@ router.get('*', dispatcher.error404);
 
 var app = express();
 module.exports = app;
-var cookieParser = require('cookie-parser');
+// var cookieParser = require('cookie-parser');
 
 app.locals.sysTitle = config.sysTitle;
 app.locals.staticsSuffix = process.env.ION_ENV === 'production' ? '.min' : '';
 
-app.use('/' + moduleName, cookieParser());
+// app.use('/' + moduleName, cookieParser());
 app.engine('ejs', ejsLocals);
 app.set('view engine', 'ejs');
 helpers(app, config);
 
-app._init = function () {
-  return load(path.join(__dirname, 'i18n'))
+app._init = function (moduleName) {
+  return load(path.join(process.cwd(), 'i18n'))
     .then(
       () => di(
         moduleName,
@@ -178,9 +175,7 @@ app._init = function () {
         {
           module: app
         },
-        'app',
-        [],
-        'modules/' + moduleName
+        'app'
       )
     )
     .then(scope => alias(scope, scope.settings.get(moduleName + '.di-alias')))
@@ -194,7 +189,7 @@ app._init = function () {
       const themePath = scope.settings.get(moduleName + '.theme') || config.theme || 'default'
       theme(
         app,
-        moduleName,
+        null,
         __dirname,
         themePath,
         scope.sysLog,
@@ -203,16 +198,16 @@ app._init = function () {
       extViews(app, scope.settings.get(moduleName + '.templates'));
       var statics = staticRouter(scope.settings.get(`${moduleName}.statics`), staticOptions);
       if (statics) {
-        app.use('/' + moduleName, statics);
+        app.use('/', statics);
       }
-      app.use('/' + moduleName, compression(scope.settings.get(moduleName + '.compression') || {level: 9}));
+      app.use('/', compression(scope.settings.get(moduleName + '.compression') || {level: 9}));
 
       scope.auth.bindAuth(app, moduleName);
-      app.post('/' + moduleName + '/chpwd', scope.auth.changePwdHandler(moduleName));
-      app.post('/' + moduleName + '/profile', scope.auth.profileHandler(moduleName));
-      app.use('/' + moduleName, api);
-      app.use('/' + moduleName, sysMenuCheck(scope, app, moduleName));
-      app.use('/' + moduleName, router);
+      app.post('/chpwd', scope.auth.changePwdHandler(moduleName));
+      app.post('/profile', scope.auth.profileHandler(moduleName));
+      app.use('/', api);
+      app.use('/', sysMenuCheck(scope, app, moduleName));
+      app.use('/', router);
     }
   );
 };

@@ -2,8 +2,8 @@
  * Created by Vasiliy Ermilov (ermilov.work@yandex.ru) on 1/23/17.
  */
 'use strict';
-const F = require('core/FunctionCodes');
-const {t} = require('core/i18n');
+const { FunctionCodes: F } = require('@iondv/meta-model-contracts');
+const {t} = require('@iondv/i18n');
 
 /**
  *

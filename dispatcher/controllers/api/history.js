@@ -2,7 +2,7 @@
 
 const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 
 module.exports = function (req, res) {
   respond(['logRecorder', 'auth', 'changelogFactory', 'aclProvider'],

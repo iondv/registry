@@ -3,9 +3,9 @@
  */
 'use strict';
 
-const Logger = require('core/interfaces/Logger');
-const IonError = require('core/IonError');
-const {t} = require('core/i18n');
+const { Logger } = require('@iondv/commons-contracts');
+const { IonError } = require('@iondv/core');
+const {t} = require('@iondv/i18n');
 
 /**
  * @param {{}} scope

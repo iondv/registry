@@ -10,7 +10,6 @@ const locale = require('locale');
 const buildCreateFormVm = require('../../backend/viewmodels').buildCreateFormVm;
 const itemTplData = require('../../backend/items').itemTplData;
 const processNavigation = require('../../backend/menu').processNavigation;
-const moduleName = require('../../module-name');
 const collectionTableOptions = require('../../backend/viewmodels').collectionTableOptions;
 const adjustFields = require('../../backend/viewmodels').adjustFields;
 const adjustSignOptions = require('../../backend/viewmodels').adjustSignOptions;
@@ -22,17 +21,14 @@ const ActionProvider = require('../../backend/ActionProvider');
 const geoFieldSearchVal = require('../../backend/viewmodels').geoFieldSearchVal;
 const itemEagerLoading = require('../../backend/items').itemEagerLoading;
 const vmEagerLoading = require('../../backend/items').vmEagerLoading;
-const FieldTypes = require('core/FieldTypes');
-const conditionParser = require('core/ConditionParser');
-const PropertyTypes = require('core/PropertyTypes');
-const ConditionTypes = require('core/ConditionTypes');
+const { FieldTypes, PropertyTypes, ConditionTypes, OperationTypes } = require('@iondv/meta-model-contracts');
+const { meta: { parseConditions: conditionParser } } = require('@iondv/meta-model');
 const mergeConditions = require('../../backend/items').mergeConditions;
-const OperationTypes = require('core/OperationTypes');
 const slTriggers = require('../../backend/items').selectionListTriggers;
 const overrideTpl = require('../../backend/viewmodels').overrideTpl;
-const Errors = require('core/errors/front-end');
-const IonError = require('core/IonError');
-const {t} = require('core/i18n');
+const Errors = require('@iondv/web/lib/errors/front-end');
+const { IonError } = require('@iondv/core');
+const {t} = require('@iondv/i18n');
 const {format} = require('util');
 
 // jshint maxstatements: 40, maxcomplexity: 20
@@ -100,8 +96,8 @@ module.exports = function (req, res) {
 
             if (!req.query.force_class && cm.getDescendants().length) {
               let url = req.params.container ?
-                `/${moduleName}/${req.params.node}/new/${req.params.container}/${req.params.property}/${cm.getCanonicalName()}/sub?modal=1` :
-                `/${moduleName}/${req.params.node}/new/${cm.getCanonicalName()}/sub?modal=1`;
+                `/${req.moduleName}/${req.params.node}/new/${req.params.container}/${req.params.property}/${cm.getCanonicalName()}/sub?modal=1` :
+                `/${req.moduleName}/${req.params.node}/new/${cm.getCanonicalName()}/sub?modal=1`;
               for (let pn in req.query) {
                 if (req.query.hasOwnProperty(pn)) {
                   url = url + '&' + pn + '=' + encodeURIComponent(req.query[pn]);
@@ -147,7 +143,7 @@ module.exports = function (req, res) {
                 dummy.set(master.backRef, master.item);
               }
               res.render(overrideTpl(
-                moduleName,
+                req.moduleName,
                 'view/item',
                 'create',
                 req.params.node,
@@ -155,7 +151,7 @@ module.exports = function (req, res) {
                 scope.settings), itemTplData(
                 {
                   baseUrl: req.app.locals.baseUrl,
-                  module: moduleName,
+                  module: req.moduleName,
                   classId: cm.getCanonicalName(),
                   master: master,
                   containerProperty: master.item ?
@@ -182,10 +178,10 @@ module.exports = function (req, res) {
                     null,
                   permissions: {write: true, read: true},
                   concurencyState: null,
-                  inlineForm: scope.settings.get(moduleName + '.inlineForm'),
+                  inlineForm: scope.settings.get(req.moduleName + '.inlineForm'),
                   checkSignState: false,
-                  createByCopy: canCreateByCopy(cm.getCanonicalName(), scope.settings.get(moduleName + '.createByCopy')),
-                  maxTabWidth: scope.settings.get(moduleName + '.maxTabWidth')
+                  createByCopy: canCreateByCopy(cm.getCanonicalName(), scope.settings.get(req.moduleName + '.createByCopy')),
+                  maxTabWidth: scope.settings.get(req.moduleName + '.maxTabWidth')
                 },
                 lang
                 )

@@ -6,7 +6,6 @@
 const pnf = require('./404.js');
 const forbidden = require('./403.js');
 const buildMenus = require('../../backend/menu').buildMenus;
-const moduleName = require('../../module-name');
 const onError = require('../../backend/error');
 const respond = require('../../backend/respond');
 
@@ -23,12 +22,12 @@ module.exports = function (req, res) {
         var tplData = {
           pageCode: 'changePassword',
           user: user,
-          module: moduleName,
+          module: req.moduleName,
           options: { pwdMinLength: scope.auth.authOptions().passwordMinLength},
           errors: req.flash('error')
         };
 
-        buildMenus(tplData, req.query && req.query.modal, scope.settings, scope.metaRepo, scope.aclProvider, user, moduleName)
+        buildMenus(tplData, req.query && req.query.modal, scope.settings, scope.metaRepo, scope.aclProvider, user, req.moduleName)
           .then(function (tplData) {
             tplData.baseUrl = req.app.locals.baseUrl;
             res.render('changePwd', tplData);

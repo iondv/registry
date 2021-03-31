@@ -3,8 +3,8 @@
  */
 'use strict';
 
-const IonError = require('core/IonError');
-const DrErrors = require('core/errors/data-repo');
+const { IonError } = require('@iondv/core');
+const { errors: { DataRepoErrors: DrErrors } } = require('@iondv/meta-model');
 const WebErrors = require('../errors/web-errors');
 
 module.exports = function (err) {

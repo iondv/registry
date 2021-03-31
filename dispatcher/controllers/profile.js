@@ -9,7 +9,7 @@ const buildMenus = require('../../backend/menu').buildMenus;
 const moduleName = require('../../module-name');
 const onError = require('../../backend/error');
 const respond = require('../../backend/respond');
-const FieldTypes = require('core/FieldTypes');
+const { FieldTypes } = require('@iondv/meta-model-contracts');
 const prepareDate = require('../../backend/items').prepareDate;
 const locale = require('locale');
 const moment = require('moment-timezone');
@@ -30,7 +30,7 @@ module.exports = function (req, res) {
           pageCode: 'profile',
           FieldTypes: FieldTypes,
           user: user,
-          module: moduleName,
+          module: req.moduleName,
           options: { pwdMinLength: scope.auth.authOptions().passwordMinLength},
           errors: req.flash('error'),
           baseUrl: req.app.locals.baseUrl,
@@ -49,7 +49,7 @@ module.exports = function (req, res) {
               tplData.fields = pf;
               return buildMenus(
                 tplData, req.query && req.query.modal, scope.settings,
-                scope.metaRepo, scope.aclProvider, user, moduleName
+                scope.metaRepo, scope.aclProvider, user, req.moduleName
               );
             })
           .then(

@@ -9,10 +9,9 @@ const formListOptions = require('../../../backend/items').formListOptions;
 const onError = require('../../../backend/error');
 const respond = require('../../../backend/respond');
 const overrideEagerLoading = require('../../../backend/items').overrideEagerLoading;
-const moduleName = require('../../../module-name');
 const moment = require('moment');
 const processNavigation = require('../../../backend/menu').processNavigation;
-const {t} = require('core/i18n');
+const {t} = require('@iondv/i18n');
 
 // jshint maxstatements: 50, maxcomplexity: 30
 module.exports = function (req, res) {
@@ -36,7 +35,7 @@ module.exports = function (req, res) {
                 if (exporter) {
                   let locales = new locale.Locales(req.headers['accept-language']);
                   lang = locales[0] ? locales[0].language : 'ru';
-                  return formListOptions(moduleName, scope, req, locales)
+                  return formListOptions(req.moduleName, scope, req, locales)
                     .then((lopts) => {
                       let eagerLoading = [];
                       if (node && node.eagerLoading) {
@@ -46,7 +45,7 @@ module.exports = function (req, res) {
                       }
 
                       eagerLoading = overrideEagerLoading(
-                        moduleName,
+                        req.moduleName,
                         [],
                         node ? node.namespace + '@' + node.code : '',
                         req.params.class,

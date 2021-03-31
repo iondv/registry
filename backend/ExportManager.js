@@ -3,20 +3,17 @@
  */
 'use strict';
 
-const Preprocessor = require('core/interfaces/Preprocessor');
-const ListPreprocessor = require('core/interfaces/ListPreprocessor');
-const Item = require('core/interfaces/DataRepository').Item;
+const { Preprocessor, ListPreprocessor, data: { Item }, FunctionCodes: F } = require('@iondv/meta-model-contracts');
 const Exporter = require('../export/Exporter');
-const F = require('core/FunctionCodes');
-const Background = require('core/impl/Background');
-const toAbsolutePath = require('core/system').toAbsolute;
+const Background = require('@iondv/commons/lib/Background');
+const { utils: { system: { toAbsolute: toAbsolutePath } } } = require('@iondv/core');
 const path = require('path');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 const base64 = require('base64-js');
 const crypto = require('crypto');
-const User = require('core/User');
-const {t} = require('core/i18n');
+const { User } = require('@iondv/auth-contracts');
+const {t} = require('@iondv/i18n');
 
 /**
  * @param {{}} cOptions

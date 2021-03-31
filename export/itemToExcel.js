@@ -3,16 +3,16 @@
  */
 'use strict';
 
-const Preprocessor = require('core/interfaces/Preprocessor');
-const resolvePath = require('core/resolvePath');
-const Logger = require('core/interfaces/Logger');
+const { Preprocessor } = require('@iondv/meta-model-contracts');
+const resolvePath = require('@iondv/core').utils.system.toAbsolute;
+const { Logger } = require('@iondv/commons-contracts');
 const Engine = require('./xlsx');
 const path = require('path');
 const fs = require('fs');
-const normalize = require('core/util/normalize');
+const { util: { normalize } } = require('@iondv/meta-model-contracts');
 const prepareDate = require('../backend/items').prepareDate;
 const inject = require('./inject');
-const conditionParser = require('core/ConditionParser');
+const { meta: { parseConditions: conditionParser } } = require('@iondv/meta-model');
 
 /**
  * @param {{injectors: Array}} cOptions
