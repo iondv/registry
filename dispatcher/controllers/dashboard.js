@@ -53,7 +53,7 @@ module.exports = function (req, res) {
                 }
               }
               if (selModule) {
-                const module = require(`modules/${selModule}`);
+                const module = require(`@iondv/${selModule}/Manager`);
                 module.render(Object.assign({
                   currentApp: selApp,
                   req,
