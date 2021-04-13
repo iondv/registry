@@ -608,7 +608,7 @@
 
     close: function () {
       this.$form.trigger('formClosed');
-      if (parent.imodal && (!this.warnLeave || !this.changed || confirm('Close without saving?'))) {
+      if (parent.imodal && (!this.warnLeave || !this.changed || confirm(__('js.manager.closeWithoutSaving')))) {
         parent.imodal.close();
       }
     },
