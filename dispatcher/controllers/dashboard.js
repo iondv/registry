@@ -21,7 +21,7 @@ module.exports = function (req, res) {
       var params = {
         baseUrl: req.app.locals.baseUrl,
         module: moduleName,
-        title: t('Dashboard'),
+        title: 'templates.default.view.dashboard.title',
         node: null,
         pageCode: 'dashboard',
         user,

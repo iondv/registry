@@ -161,6 +161,7 @@ module.exports = {
   'templates.default.view.collection.exportParams.export': t('Export'),
   'templates.default.view.collection.exportParams.close': t('Close'),
   'templates.default.view.collection.exportParams.error': t('Failed to start export!'),
+  'templates.default.view.dashboard.title': t('Dashboard'),
   'templates.default.view.item.createByRef': t('Creation of object for reference \'%prop\' of object \'%item\''),
   'templates.default.view.item.createByCol': t('Creation of object in collection \'%prop\' of object \'%item\''),
   'templates.default.view.item.crypto.choose': t('Select certificate for signing'),
