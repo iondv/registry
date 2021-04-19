@@ -30,7 +30,7 @@ const moment = require('moment-timezone');
 const { utils: { strToDate, schedule: { isSchedule } } } = require('@iondv/commons');
 const Busboy = require('busboy');
 const locale = require('locale');
-const buf = (data, enc) => Buffer.from(data, enc);
+const buf = Buffer.from;
 const clone = require('clone');
 const { IonError, utils: { empty: isEmpty } } = require('@iondv/core');
 const moduleName = require('../module-name');
