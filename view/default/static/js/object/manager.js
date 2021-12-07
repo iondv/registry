@@ -504,7 +504,7 @@
     },
 
     createWfMenuCommand: function (cmd) {
-      return '<li><a href="#" data-id="'+ cmd.wf +'.'+ cmd.t +'" '+
+      return '<li><a href="javascript:void(0)" data-id="'+ cmd.wf +'.'+ cmd.t +'" '+
         'data-sign-before="' + cmd.d.signBefore + '" ' +
         'data-sign-after="' + cmd.d.signAfter + '" ' +
         (cmd.d.confirmMessage || cmd.d.confirm
