@@ -75,7 +75,7 @@
     "bootstrap-year-calendar": "1.1.1",
     "bootstrap3-wysihtml5-bower": "0.3.3",
     "ionicons": "2.0.1",
-    "jquery": "2.2.4",
+    "jquery": "3.5.0",
     "jquery-ui": "git+https://git.iondv.com/node-modules/jquery-ui.git",
     "randomcolor": "^0.5.4"
   }
